@@ -1,0 +1,24 @@
+---
+# users:
+# roles:
+schema:
+  dbo:
+    # enums:
+    tables:
+      people:
+        comment: "A table of people"
+        columns:
+          firstname:
+            type: "VARCHAR(64)"
+            default: "Bob"
+            comment: "Should not be abbreviated"
+            nullable: True
+          lastname:
+            type: "VARCHAR(64)"
+            default: "McGobb"
+          age:
+            type: "uint8"
+            default: 18
+    # views:
+    # functions:
+    # indexes:

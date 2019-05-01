@@ -1,0 +1,28 @@
+{
+  "name": "preql",
+  "version": "0.1.0",
+  "description": "A program for transpiling PreQL to chosen SQL dialects",
+  "main": "./dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sql",
+    "ddl"
+  ],
+  "author": "Jonathan M. Wilbur <jonathan@wilbur.space>",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^6.10.0",
+    "js-yaml": "^3.13.1"
+  },
+  "devDependencies": {
+    "@types/ajv": "^1.0.0",
+    "@types/aws-lambda": "^8.10.24",
+    "@types/js-yaml": "^3.12.1",
+    "serverless-plugin-typescript": "github:EugeneDraitsev/serverless-plugin-typescript#build"
+  }
+}

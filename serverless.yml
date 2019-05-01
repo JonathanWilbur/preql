@@ -1,0 +1,16 @@
+service: preql
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  timeout: 10
+
+functions:
+  transpile-mysql:
+    handler: source/ExportPlugins/mysql/index.handler
+    timeout: 30
+    memorySize: 128

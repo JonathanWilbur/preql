@@ -172,20 +172,21 @@ function transpileSchema (path : [ string ], spec : any) : string {
     return ret;
 };
 
-function transpile (spec : any, callback : Callback<string>) : void {
-    let ret : string = "";
+function transpile (spec : any, callback : Callback<object>) : void {
+    const result = {
+        value: ""
+    };
     if ("schema" in spec) {
         Object.keys(spec["schema"]).forEach((schemaName : string) : void => {
-            ret += transpileSchema([ schemaName ], spec["schema"][schemaName]);
+            result.value += transpileSchema([ schemaName ], spec["schema"][schemaName]);
         });
     }
-    callback(null, ret);
+    callback(null, result);
 };
 
 // TODO: Add log level selection
 // TODO: Add more logging
-// TODO: Return an object
-const handler : Handler<any, string> = (event : any, context : Context, callback : Callback<string>) : void => {
+const handler : Handler<any, object> = (event : any, context : Context, callback : Callback<object>) : void => {
     if (!(typeof event === "object")) callback("Event was not of an object type.");
     transpile(event, callback);
 };

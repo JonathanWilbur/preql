@@ -2,9 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ConsoleLogger_1 = require("../../Loggers/ConsoleLogger");
 const logger = new ConsoleLogger_1.ConsoleLogger();
-// xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-// S-1-5-80-859482183-879914841-863379149-1145462774-2388618682
-// TODO: Append warnings in comments
 function convertPreqlTypeToNativeType(path, spec) {
     const type = spec["type"];
     const length = (("length" in spec) ? spec.length : 1);
@@ -201,18 +198,19 @@ function transpileSchema(path, spec) {
 }
 ;
 function transpile(spec, callback) {
-    let ret = "";
+    const result = {
+        value: ""
+    };
     if ("schema" in spec) {
         Object.keys(spec["schema"]).forEach((schemaName) => {
-            ret += transpileSchema([schemaName], spec["schema"][schemaName]);
+            result.value += transpileSchema([schemaName], spec["schema"][schemaName]);
         });
     }
-    callback(null, ret);
+    callback(null, result);
 }
 ;
 // TODO: Add log level selection
 // TODO: Add more logging
-// TODO: Return an object
 const handler = (event, context, callback) => {
     if (!(typeof event === "object"))
         callback("Event was not of an object type.");

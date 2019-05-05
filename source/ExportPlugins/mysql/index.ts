@@ -140,6 +140,7 @@ function transpileColumn (path : [ string, string, string ], spec : any) : strin
     if ("comment" in spec && spec["comment"] !== "")
         columnString += `\r\nCOMMENT '${spec["comment"]}'`;
     columnString += ";";
+    logger.debug(path, "Transpiled.");
     return columnString;
 }
 
@@ -155,6 +156,7 @@ function transpileTable (path : [ string, string ], spec : any) : string {
             columnStrings.push(columnString);
         });
     }
+    logger.info(path, "Transpiled.");
     return (
         `CREATE TABLE IF NOT EXISTS ${tableName} (__placeholder__ BOOLEAN);\r\n\r\n` +
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
@@ -163,13 +165,14 @@ function transpileTable (path : [ string, string ], spec : any) : string {
 };
 
 function transpileSchema (path : [ string ], spec : any) : string {
-    let ret : string = "";
+    let result : string = "";
     if ("tables" in spec) {
         Object.keys(spec["tables"]).forEach((tableName : string) : void => {
-            ret += transpileTable([ path[0], tableName ], spec["tables"][tableName]);
+            result += transpileTable([ path[0], tableName ], spec["tables"][tableName]);
         });
     }
-    return ret;
+    logger.info(path, "Transpiled.");
+    return result;
 };
 
 function transpile (spec : any, callback : Callback<object>) : void {
@@ -184,8 +187,6 @@ function transpile (spec : any, callback : Callback<object>) : void {
     callback(null, result);
 };
 
-// TODO: Add log level selection
-// TODO: Add more logging
 const handler : Handler<any, object> = (event : any, context : Context, callback : Callback<object>) : void => {
     if (!(typeof event === "object")) callback("Event was not of an object type.");
     transpile(event, callback);

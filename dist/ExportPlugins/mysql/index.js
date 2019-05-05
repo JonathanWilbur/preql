@@ -168,6 +168,7 @@ function transpileColumn(path, spec) {
     if ("comment" in spec && spec["comment"] !== "")
         columnString += `\r\nCOMMENT '${spec["comment"]}'`;
     columnString += ";";
+    logger.debug(path, "Transpiled.");
     return columnString;
 }
 function transpileTable(path, spec) {
@@ -182,19 +183,21 @@ function transpileTable(path, spec) {
             columnStrings.push(columnString);
         });
     }
+    logger.info(path, "Transpiled.");
     return (`CREATE TABLE IF NOT EXISTS ${tableName} (__placeholder__ BOOLEAN);\r\n\r\n` +
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
         `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n`);
 }
 ;
 function transpileSchema(path, spec) {
-    let ret = "";
+    let result = "";
     if ("tables" in spec) {
         Object.keys(spec["tables"]).forEach((tableName) => {
-            ret += transpileTable([path[0], tableName], spec["tables"][tableName]);
+            result += transpileTable([path[0], tableName], spec["tables"][tableName]);
         });
     }
-    return ret;
+    logger.info(path, "Transpiled.");
+    return result;
 }
 ;
 function transpile(spec, callback) {
@@ -209,7 +212,6 @@ function transpile(spec, callback) {
     callback(null, result);
 }
 ;
-// TODO: Add log level selection
 // TODO: Add more logging
 const handler = (event, context, callback) => {
     if (!(typeof event === "object"))

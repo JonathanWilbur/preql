@@ -1,4 +1,3 @@
----
 # users:
 # roles:
 schema:
@@ -9,15 +8,18 @@ schema:
         comment: "A table of people"
         columns:
           firstname:
-            type: "VARCHAR(64)"
+            type: "VARCHAR"
+            length: 64
             default: "Bob"
             comment: "Should not be abbreviated"
             nullable: True
           lastname:
-            type: "VARCHAR(64)"
+            type: "VARCHAR"
+            length: 64
             default: "McGobb"
           age:
-            type: "uint8"
+            type: "uint"
+            length: 8
             default: 18
     # views:
     # functions:

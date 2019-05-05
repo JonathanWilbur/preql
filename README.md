@@ -36,3 +36,4 @@ In development.
 - [ ] Features
   - [ ] Interfaces
   - [ ] Nested tables
+  - [ ] Allow length to be specified in bits, bytes, or characters.

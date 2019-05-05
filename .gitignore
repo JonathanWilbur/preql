@@ -38,11 +38,7 @@ typings/
 
 # Serverless directories
 .serverless
-
-
-
-
-
+.build
 
 # Windows Ignores
 Thumbs.db

@@ -16,6 +16,9 @@ const ColumnSchema = {
         },
         type: {
             type: "string" // TODO: Add data type validation.
+        },
+        length: {
+            type: "integer"
         }
     },
     required: [

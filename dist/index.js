@@ -15,7 +15,6 @@ const validate = ajv.compile(index_1.rootSchema);
 class PreQLTranspiler {
     async transpile(dialect, rawYaml) {
         const doc = yaml.safeLoad(rawYaml);
-        // console.log(doc);
         const valid = await validate(doc);
         if (!valid)
             return "No gusta";

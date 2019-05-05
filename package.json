@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serverless-local": "serverless invoke local -f transpile-mysql -p ./test/data/1.yaml | grep \"CREATE TABLE\" | fx this"
   },
   "keywords": [
     "sql",

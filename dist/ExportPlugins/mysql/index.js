@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ConsoleLogger_1 = require("../../Loggers/ConsoleLogger");
 const logger = new ConsoleLogger_1.ConsoleLogger();
-const TARGET_DIALECT = "MySQL";
 // xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 // S-1-5-80-859482183-879914841-863379149-1145462774-2388618682
 // TODO: Append warnings in comments
-function convertPreqlTypeToNativeType(path, type, length = 1) {
+function convertPreqlTypeToNativeType(path, spec) {
+    const type = spec["type"];
+    const length = (("length" in spec) ? spec.length : 1);
     if (isNaN(length))
         throw new Error("Non-numeric length received.");
     if (length < 0)
@@ -158,15 +159,15 @@ function convertPreqlTypeToNativeType(path, type, length = 1) {
 function transpileColumn(path, spec) {
     const tableName = path[1];
     const columnName = path[2];
-    let columnString = `ALTER TABLE ${tableName}\r\nADD COLUMN ${columnName} `;
-    columnString += convertPreqlTypeToNativeType(path, spec["type"]);
+    let columnString = `ALTER TABLE ${tableName}\r\nADD COLUMN IF NOT EXISTS ${columnName} `;
+    columnString += convertPreqlTypeToNativeType(path, spec);
     if (spec["nullable"])
         columnString += " NULL";
     else
         columnString += " NOT NULL";
-    // TODO: Check that "DEFAULT" type matches data type.
+    // Simply quoting the default value is fine, because MySQL will cast it.
     if (spec["default"])
-        columnString += ` DEFAULT ${spec["default"]}`;
+        columnString += ` DEFAULT '${spec["default"]}'`;
     if ("comment" in spec && spec["comment"] !== "")
         columnString += `\r\nCOMMENT '${spec["comment"]}'`;
     columnString += ";";
@@ -209,6 +210,8 @@ function transpile(spec, callback) {
     callback(null, ret);
 }
 ;
+// TODO: Add log level selection
+// TODO: Add more logging
 // TODO: Return an object
 const handler = (event, context, callback) => {
     if (!(typeof event === "object"))

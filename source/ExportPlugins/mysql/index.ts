@@ -2,10 +2,6 @@ import { Handler, Context, Callback } from "aws-lambda";
 import { ConsoleLogger } from "../../Loggers/ConsoleLogger";
 const logger : ConsoleLogger = new ConsoleLogger();
 
-// xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-// S-1-5-80-859482183-879914841-863379149-1145462774-2388618682
-// TODO: Append warnings in comments
-
 function convertPreqlTypeToNativeType (path : [ string, string, string ], spec : any) : string {
     const type : string = spec["type"];
     const length : number = (("length" in spec) ? spec.length : 1);
@@ -139,8 +135,8 @@ function transpileColumn (path : [ string, string, string ], spec : any) : strin
     columnString += convertPreqlTypeToNativeType(path, spec);
     if (spec["nullable"]) columnString += " NULL";
     else columnString += " NOT NULL";
-    // TODO: Check that "DEFAULT" type matches data type.
-    if (spec["default"]) columnString += ` DEFAULT ${spec["default"]}`;
+    // Simply quoting the default value is fine, because MySQL will cast it.
+    if (spec["default"]) columnString += ` DEFAULT '${spec["default"]}'`;
     if ("comment" in spec && spec["comment"] !== "")
         columnString += `\r\nCOMMENT '${spec["comment"]}'`;
     columnString += ";";

@@ -37,3 +37,4 @@ In development.
   - [ ] Interfaces
   - [ ] Nested tables
   - [ ] Allow length to be specified in bits, bytes, or characters.
+- [ ] Append warnings in comments?

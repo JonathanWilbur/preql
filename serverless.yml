@@ -11,6 +11,6 @@ provider:
 
 functions:
   transpile-mysql:
-    handler: source/ExportPlugins/mysql/index.handler
+    handler: source/ExportPlugins/mariadb/index.handler
     timeout: 30
     memorySize: 128

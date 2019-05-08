@@ -21,6 +21,8 @@ schema:
             type: "uint"
             length: 8
             default: 18
+          ip:
+            type: "inet"
     # views:
     # functions:
     # indexes:

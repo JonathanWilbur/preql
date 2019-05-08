@@ -26,13 +26,14 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
         case ("polygon"): return "POLYGON";
         case ("json"): return "JSON";
         case ("xml"): return "LONGTEXT";
-        case ("yaml"): return "LONGTEXT"; // TODO: Check
-        case ("toml"): return "LONGTEXT"; // TODO: Check
-        case ("uuid"): return "CHAR(36)"; // TODO: Check for xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        case ("oid"): return "VARCHAR(256)"; // TODO: check
-        case ("sid"): return "VARCHAR(128)"; // TODO: Check and find actual specification.
-        case ("uri"): return "MEDIUMTEXT"; // TODO: Check
-        case ("urn"): return "TINYTEXT"; // TODO: Check
+        case ("yaml"): return "LONGTEXT";
+        case ("toml"): return "LONGTEXT";
+        case ("uuid"): return "CHAR(36)";
+        case ("oid"): return "VARCHAR(256)";
+        case ("sid"): return "VARCHAR(128)";
+        case ("uri"): return "MEDIUMTEXT";
+        case ("iri"): return "MEDIUMTEXT";
+        case ("irn"): return "TINYTEXT"; // TODO: Check
         case ("email"): return "TINYTEXT"; // TODO: Check
         case ("dnslabel"): return "VARCHAR(63)"; // TODO: Check
         case ("fqdn"): return "TINYTEXT"; // TODO: Check
@@ -128,6 +129,90 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
     }
 }
 
+// TODO: URC Uniform Resource Citation
+// TODO: Data URI https://en.wikipedia.org/wiki/Data_URI_scheme
+// TODO: UNC
+// TODO: ipv4
+// TODO: ipv6
+// TODO: ip
+function transpileCheckExpressions (path : [ string, string, string ], spec : any) : string[] {
+    const schemaName : string = path[0];
+    const tableName : string = path[1];
+    const columnName : string = path[2];
+    const type : string = spec["type"];
+    const length : number = (("length" in spec) ? spec.length : 1);
+    if (isNaN(length)) throw new Error("Non-numeric length received.");
+    if (length < 0) throw new Error("Negative length received.");
+    if (length === 0) throw new Error("Zero-length received.");
+    switch (type.toLowerCase()) {
+        case ("percent"): return [`${columnName} <= 100.00000000` ];
+        case ("month"): return [`${columnName} < 12`];
+        case ("day"): return [`${columnName} < 31`];
+        case ("uuid"): return [`${columnName} RLIKE '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'`];
+        case ("oid"): return [`${columnName} RLIKE '^\d+(?:\.\d+)*$'`];
+        case ("sid"): return [`${columnName} RLIKE '^S-\d-\d+(?:-\d+)*$'`];
+        case ("iri"): return [`${columnName} RLIKE '^[A-Za-z][A-Za-z0-9\+\.\-]+:\W+$'`];
+        case ("irn"): return [`${columnName} RLIKE '^urn:[A-Za-z0-9][A-Za-z0-9\-]{0,30}[A-Za-z0-9]:[^\w\u0000-\u001F"#<>]+$'`];
+        case ("email"): return [`${columnName} RLIKE '^\\X{1,64}@[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\-_\.]{0,251}[\\p{L}\\p{N}])?$' OR ${columnName} RLIKE '^\\X{1,64}@\[(?:(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)\]$' OR ${columnName} RLIKE '^^\\X{1,64}@\[IPv6:(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]$'`];
+        case ("dnslabel"): return [
+            `${columnName} RLIKE '^[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\-_]{0,61}[\\p{L}\\p{N}])?$'`,
+            `LENGTH(${columnName}) <= 63`
+        ];
+        case ("fqdn"): return [
+            `${columnName} RLIKE '^[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\-_\.]{0,251}[\\p{L}\\p{N}])?$'`,
+            `LENGTH(${columnName}) <= 253`
+        ];
+        case ("dn"): return [`${columnName} RLIKE '^\\X=\\X(?:(\\,|;)\\X=\\X)*$'`];
+        case ("inet"): return [`${columnName} RLIKE '^(?:(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)(?:/(3[0-2]|[12]\d|[1-9]|0))?$' OR ${columnName} RLIKE '^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))(?:/(3[0-2]|[12]\d|[1-9]|0))?$'`];
+        case ("cidr"): return [`${columnName} RLIKE '^(?:(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)/(3[0-2]|[12]\d|[1-9]|0)$' OR ${columnName} RLIKE '^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))/(3[0-2]|[12]\d|[1-9]|0)$'`];
+        case ("macaddr"): return [`${columnName} RLIKE '^(?:[0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$' OR ${columnName} RLIKE '^(?:[0-9a-fA-F]{2}\-){5}[0-9a-fA-F]{2}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{6}:[0-9a-fA-F]{6}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{6}\-[0-9a-fA-F]{6}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{12}$'`];
+        case ("sint"): {
+            if (length in [ 8, 16, 32, 64 ]) return [];
+            const max : number = (Math.pow(2, (length - 1)) - 1);
+            const min : number = -(Math.pow(2, (length - 1)));
+            return [ `${columnName} <= ${max} AND ${columnName} >= ${min}` ];
+        }
+        case ("uint"): {
+            if (length in [ 8, 16, 32, 64 ]) return [];
+            const max : number = Math.pow(2, length);
+            return [ `${columnName} <= ${max}` ];
+        }
+        case ("sreal"): return [];
+        case ("ureal"): return [];
+        case ("fixchar"): return [];
+        case ("varchar"): return [];
+        case ("text"): {
+            if (length in [ 8, 16, 24, 32 ]) return [];
+            const numberOfCharacters : number = Math.pow(2, length);
+            return [`${columnName} <= ${numberOfCharacters}`];
+        }
+        case ("blob"): {
+            if (length in [ 8, 16, 24, 32 ]) return [];
+            const numberOfBytes : number = Math.pow(2, length);
+            return [`${columnName} <= ${numberOfBytes}`];
+        }
+        default: return [];
+    }
+}
+
+function transpileCheckConstraints (path : [ string, string, string ], spec : any) : string {
+    const tableName : string = path[1];
+    const columnName : string = path[2];
+    // TODO: Review constraint name size limits
+    const constraintName : string = `check_${columnName}_is_valid_${spec.type}`;
+    const constraintExpressions : string[] = transpileCheckExpressions(path, spec);
+    if (constraintExpressions.length === 0) return "";
+    return (
+        `ALTER TABLE ${tableName}\r\n` +
+        `DROP CONSTRAINT IF EXISTS ${constraintName};\r\n` +
+        `ALTER TABLE ${tableName}\r\n` +
+        `ADD CONSTRAINT IF NOT EXISTS ${constraintName}\r\n` +
+        "CHECK (\r\n\t" + constraintExpressions.join(" AND\r\n\t") + "\r\n);"
+    );
+}
+
+// transpileTriggers
+
 function transpileColumn (path : [ string, string, string ], spec : any) : string {
     const tableName : string = path[1];
     const columnName : string = path[2];
@@ -148,19 +233,26 @@ function transpileTable (path : [ string, string ], spec : any) : string {
     const schemaName : string = path[0];
     const tableName : string = path[1];
     let columnStrings : string[] = [];
+    let checkConstraintStrings : string[] = [];
     if ("columns" in spec) {
         Object.keys(spec["columns"]).forEach((columnName : string) : void => {
             const columnSpec : any = spec["columns"][columnName];
             const columnPath : [ string, string, string ] = [ schemaName, tableName, columnName ];
             const columnString : string = transpileColumn(columnPath, columnSpec);
             columnStrings.push(columnString);
+            checkConstraintStrings = checkConstraintStrings.concat(
+                transpileCheckConstraints(columnPath, columnSpec)
+            );
         });
     }
     logger.info(path, "Transpiled.");
     return (
         `CREATE TABLE IF NOT EXISTS ${tableName} (__placeholder__ BOOLEAN);\r\n\r\n` +
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
-        `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n`
+        `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n` +
+        checkConstraintStrings.filter((constraint : string) : boolean => {
+            return (constraint !== "");
+        }).join("\r\n\r\n")
     );
 };
 

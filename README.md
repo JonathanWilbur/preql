@@ -39,3 +39,10 @@ In development.
   - [ ] Allow length to be specified in bits, bytes, or characters.
 - [ ] Append warnings in comments?
 - [ ] Escape strings and test strings with escape characters.
+- [ ] Data Types
+  - [ ] URC Uniform Resource Citation
+  - [ ] Data URI https://en.wikipedia.org/wiki/Data_URI_scheme
+  - [ ] UNC
+  - [ ] ipv4
+  - [ ] ipv6
+  - [ ] ip

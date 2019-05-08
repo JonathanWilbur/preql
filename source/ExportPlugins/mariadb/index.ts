@@ -10,7 +10,7 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
     if (length === 0) throw new Error("Zero-length received.");
     switch (type.toLowerCase()) {
         case ("boolean"): return "BOOLEAN";
-        case ("percent"): return "DOUBLE UNSIGNED"; // TODO: Check
+        case ("percent"): return "DOUBLE UNSIGNED";
         case ("serial"): return "SERIAL";
         case ("date"): return "DATE";
         case ("year"): return "YEAR";
@@ -19,7 +19,7 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
         case ("time"): return "TIME";
         case ("datetime"): return "DATETIME";
         case ("timestamp"): return "TIMESTAMP";
-        case ("money"): return "DECIMAL(21,2)"; // TODO: Check
+        case ("money"): return "DECIMAL(21,2)";
         case ("geometry"): return "GEOMETRY";
         case ("point"): return "POINT";
         case ("line"): return "LINE";
@@ -33,14 +33,14 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
         case ("sid"): return "VARCHAR(128)";
         case ("uri"): return "MEDIUMTEXT";
         case ("iri"): return "MEDIUMTEXT";
-        case ("irn"): return "TINYTEXT"; // TODO: Check
-        case ("email"): return "TINYTEXT"; // TODO: Check
-        case ("dnslabel"): return "VARCHAR(63)"; // TODO: Check
-        case ("fqdn"): return "TINYTEXT"; // TODO: Check
-        case ("dn"): return "MEDIUMTEXT"; // TODO: Check
-        case ("inet"): return "VARCHAR(19)"; // TODO: Check
-        case ("cidr"): return "VARCHAR(19)"; // TODO: Check
-        case ("macaddr"): return "BINARY(6)"; // TODO: Check
+        case ("irn"): return "TINYTEXT";
+        case ("email"): return "TINYTEXT";
+        case ("dnslabel"): return "VARCHAR(63)";
+        case ("fqdn"): return "TINYTEXT";
+        case ("dn"): return "MEDIUMTEXT";
+        case ("inet"): return "VARCHAR(19)";
+        case ("cidr"): return "VARCHAR(19)";
+        case ("macaddr"): return "BINARY(6)";
         case ("sint"): {
             if (length === 1) {
                 logger.warn(path, "sint with a length of 1 has been transpiled to a BOOLEAN.");
@@ -129,12 +129,6 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
     }
 }
 
-// TODO: URC Uniform Resource Citation
-// TODO: Data URI https://en.wikipedia.org/wiki/Data_URI_scheme
-// TODO: UNC
-// TODO: ipv4
-// TODO: ipv6
-// TODO: ip
 function transpileCheckExpressions (path : [ string, string, string ], spec : any) : string[] {
     const schemaName : string = path[0];
     const tableName : string = path[1];
@@ -167,13 +161,13 @@ function transpileCheckExpressions (path : [ string, string, string ], spec : an
         case ("cidr"): return [`${columnName} RLIKE '^(?:(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d?|0)/(3[0-2]|[12]\d|[1-9]|0)$' OR ${columnName} RLIKE '^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))/(3[0-2]|[12]\d|[1-9]|0)$'`];
         case ("macaddr"): return [`${columnName} RLIKE '^(?:[0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$' OR ${columnName} RLIKE '^(?:[0-9a-fA-F]{2}\-){5}[0-9a-fA-F]{2}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{6}:[0-9a-fA-F]{6}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{6}\-[0-9a-fA-F]{6}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}$' OR ${columnName} RLIKE '^[0-9a-fA-F]{12}$'`];
         case ("sint"): {
-            if (length in [ 8, 16, 32, 64 ]) return [];
+            if ([ 8, 16, 32, 64 ].includes(length)) return [];
             const max : number = (Math.pow(2, (length - 1)) - 1);
             const min : number = -(Math.pow(2, (length - 1)));
             return [ `${columnName} <= ${max} AND ${columnName} >= ${min}` ];
         }
         case ("uint"): {
-            if (length in [ 8, 16, 32, 64 ]) return [];
+            if ([ 8, 16, 32, 64 ].includes(length)) return [];
             const max : number = Math.pow(2, length);
             return [ `${columnName} <= ${max}` ];
         }
@@ -182,16 +176,16 @@ function transpileCheckExpressions (path : [ string, string, string ], spec : an
         case ("fixchar"): return [];
         case ("varchar"): return [];
         case ("text"): {
-            if (length in [ 8, 16, 24, 32 ]) return [];
+            if ([ 8, 16, 24, 32 ].includes(length)) return [];
             const numberOfCharacters : number = Math.pow(2, length);
             return [`${columnName} <= ${numberOfCharacters}`];
         }
         case ("blob"): {
-            if (length in [ 8, 16, 24, 32 ]) return [];
+            if ([ 8, 16, 24, 32 ].includes(length)) return [];
             const numberOfBytes : number = Math.pow(2, length);
             return [`${columnName} <= ${numberOfBytes}`];
         }
-        default: return [];
+        default: return []; // TODO: Base## types.
     }
 }
 

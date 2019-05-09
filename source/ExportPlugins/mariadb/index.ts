@@ -11,7 +11,6 @@ const validate = ajv.compile(rootSchema);
 function convertPreqlTypeToNativeType (path : [ string, string, string ], spec : any) : string {
     const type : string = spec["type"].toLowerCase();
     if (type in dataTypes) {
-        // TODO: try/catch
         return dataTypes[type].mariadb.equivalentNativeType(path, spec, logger);
     } else throw new Error(`${path}: Unrecognized type: ${type}`);
 }
@@ -19,7 +18,6 @@ function convertPreqlTypeToNativeType (path : [ string, string, string ], spec :
 function transpileCheckExpressions (path : [ string, string, string ], spec : any) : string[] {
     const type : string = spec["type"].toLowerCase();
     if (type in dataTypes) {
-        // TODO: try/catch
         return dataTypes[type].mariadb.checkConstraints(path, spec, logger);
     } else throw new Error(`${path}: Unrecognized type: ${type}`);
 }
@@ -100,14 +98,18 @@ function transpile (spec : any, callback : Callback<object>) : void {
     };
     if ("schema" in spec) {
         Object.keys(spec["schema"]).forEach((schemaName : string) : void => {
-            result.value += transpileSchema([ schemaName ], spec["schema"][schemaName]);
+            try {
+                result.value += transpileSchema([ schemaName ], spec["schema"][schemaName]);
+            } catch (e) {
+                logger.error([ schemaName ], (<Error>e).message);
+            }
         });
     }
     callback(null, result);
 };
 
 const handler : Handler<any, object> = (event : any, context : Context, callback : Callback<object>) => {
-    // TODO: Handle JSON and YAML strings, too.
+    // REVIEW: Handle JSON and YAML strings, too?
     if (!(typeof event === "object")) callback(new Error("Event was not of an object type."));
     const valid : boolean = <boolean>validate(event);
     if (!valid) callback(new Error("Input PreQL was invalid."));

@@ -10,7 +10,6 @@ const validate = ajv.compile(index_2.rootSchema);
 function convertPreqlTypeToNativeType(path, spec) {
     const type = spec["type"].toLowerCase();
     if (type in index_1.dataTypes) {
-        // TODO: try/catch
         return index_1.dataTypes[type].mariadb.equivalentNativeType(path, spec, logger);
     }
     else
@@ -19,7 +18,6 @@ function convertPreqlTypeToNativeType(path, spec) {
 function transpileCheckExpressions(path, spec) {
     const type = spec["type"].toLowerCase();
     if (type in index_1.dataTypes) {
-        // TODO: try/catch
         return index_1.dataTypes[type].mariadb.checkConstraints(path, spec, logger);
     }
     else
@@ -96,14 +94,19 @@ function transpile(spec, callback) {
     };
     if ("schema" in spec) {
         Object.keys(spec["schema"]).forEach((schemaName) => {
-            result.value += transpileSchema([schemaName], spec["schema"][schemaName]);
+            try {
+                result.value += transpileSchema([schemaName], spec["schema"][schemaName]);
+            }
+            catch (e) {
+                logger.error([schemaName], e.message);
+            }
         });
     }
     callback(null, result);
 }
 ;
 const handler = (event, context, callback) => {
-    // TODO: Handle JSON and YAML strings, too.
+    // REVIEW: Handle JSON and YAML strings, too?
     if (!(typeof event === "object"))
         callback(new Error("Event was not of an object type."));
     const valid = validate(event);

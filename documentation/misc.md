@@ -22,3 +22,13 @@ DELIMITER ;
 ```
 
 [Constraints should be used, where possible](https://www.sqlshack.com/are-sql-server-database-triggers-evil/)
+
+In Azure MariaDB, I had to set `log_bin_trust_function_creators` to `ON` to be
+able to create triggers. This is a global variable, which means you need
+escalated privileges to modify it.
+
+If this were done directly in SQL, it would be done with this query:
+
+```sql
+set global log_bin_trust_function_creators = 1;
+```

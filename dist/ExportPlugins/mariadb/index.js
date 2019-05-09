@@ -37,7 +37,25 @@ function transpileCheckConstraints(path, spec) {
         `ADD CONSTRAINT IF NOT EXISTS ${constraintName}\r\n` +
         "CHECK (\r\n\t" + constraintExpressions.join(" AND\r\n\t") + "\r\n);");
 }
-// transpileTriggers
+function transpileTriggers(path, spec) {
+    const type = spec["type"].toLowerCase();
+    if (type in index_1.dataTypes) {
+        let ret = [];
+        const getters = index_1.dataTypes[type].mariadb.getters(path, spec, logger);
+        Object.keys(getters)
+            .forEach((key) => {
+            const triggerBaseName = `${path[0]}.${path[1]}_${path[2]}_${key}`;
+            let triggerString = ["INSERT", "UPDATE"].map((event) => `DROP TRIGGER IF EXISTS ${triggerBaseName}_${event.toLowerCase()};\r\n` +
+                `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_${event.toLowerCase()}\r\n` +
+                `BEFORE ${event} ON ${path[0]}.${path[1]} FOR EACH ROW\r\n` +
+                `SET NEW.${path[2]} = ${getters[key]};`).join("\r\n\r\n");
+            ret.push(triggerString);
+        });
+        return ret;
+    }
+    else
+        throw new Error(`${path}: Unrecognized type: ${type}`);
+}
 function transpileColumn(path, spec) {
     const tableName = path[1];
     const columnName = path[2];
@@ -61,6 +79,7 @@ function transpileTable(path, spec) {
     const tableName = path[1];
     let columnStrings = [];
     let checkConstraintStrings = [];
+    let triggerStrings = [];
     if ("columns" in spec) {
         Object.keys(spec["columns"]).forEach((columnName) => {
             const columnSpec = spec["columns"][columnName];
@@ -70,13 +89,15 @@ function transpileTable(path, spec) {
             const checkConstraint = transpileCheckConstraints(columnPath, columnSpec);
             if (checkConstraint.length !== 0)
                 checkConstraintStrings.push(checkConstraint);
+            triggerStrings = triggerStrings.concat(transpileTriggers(columnPath, spec));
         });
     }
     logger.info(path, "Transpiled.");
     return (`CREATE TABLE IF NOT EXISTS ${tableName} (__placeholder__ BOOLEAN);\r\n\r\n` +
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
         `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n` +
-        checkConstraintStrings.join("\r\n\r\n"));
+        checkConstraintStrings.join("\r\n\r\n") +
+        triggerStrings.join("\r\n\r\n"));
 }
 ;
 function transpileSchema(path, spec) {

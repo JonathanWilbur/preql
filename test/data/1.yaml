@@ -1,7 +1,7 @@
 # users:
 # roles:
 schema:
-  dbo:
+  testeroni:
     # enums:
     tables:
       people:

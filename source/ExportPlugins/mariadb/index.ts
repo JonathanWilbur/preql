@@ -38,12 +38,25 @@ function transpileCheckConstraints (path : [ string, string, string ], spec : an
     );
 }
 
-// function transpileTriggers (path : [ string, string, string ], spec : any) : string[] {
-//     const type : string = spec["type"].toLowerCase();
-//     if (type in dataTypes) {
-//         return dataTypes[type].mariadb.getters(path, spec, logger);
-//     } else throw new Error(`${path}: Unrecognized type: ${type}`);
-// }
+function transpileTriggers (path : [ string, string, string ], spec : any) : string[] {
+    const type : string = spec["type"].toLowerCase();
+    if (type in dataTypes) {
+        let ret : string[] = [];
+        const setters : { [ name : string ] : string } = dataTypes[type].mariadb.setters(path, spec, logger);
+        Object.keys(setters)
+        .forEach((key : string) : void => {
+            const triggerBaseName : string = `${path[0]}.${path[1]}_${path[2]}_${key}`;
+            let triggerString : string = [ "INSERT", "UPDATE" ].map((event : string) : string =>
+                `DROP TRIGGER IF EXISTS ${triggerBaseName}_${event.toLowerCase()};\r\n` +
+                `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_${event.toLowerCase()}\r\n` +
+                `BEFORE ${event} ON ${path[0]}.${path[1]} FOR EACH ROW\r\n` +
+                `SET NEW.${path[2]} = ${setters[key]};`
+            ).join("\r\n\r\n");
+            ret.push(triggerString);
+        });
+        return ret;
+    } else throw new Error(`${path}: Unrecognized type: ${type}`);
+}
 
 function transpileColumn (path : [ string, string, string ], spec : any) : string {
     const tableName : string = path[1];
@@ -66,6 +79,7 @@ function transpileTable (path : [ string, string ], spec : any) : string {
     const tableName : string = path[1];
     let columnStrings : string[] = [];
     let checkConstraintStrings : string[] = [];
+    let triggerStrings : string[] = [];
     if ("columns" in spec) {
         Object.keys(spec["columns"]).forEach((columnName : string) : void => {
             const columnSpec : any = spec["columns"][columnName];
@@ -74,6 +88,7 @@ function transpileTable (path : [ string, string ], spec : any) : string {
             columnStrings.push(columnString);
             const checkConstraint : string = transpileCheckConstraints(columnPath, columnSpec)
             if (checkConstraint.length !== 0) checkConstraintStrings.push(checkConstraint);
+            triggerStrings = triggerStrings.concat(transpileTriggers(columnPath, columnSpec));
         });
     }
     logger.info(path, "Transpiled.");
@@ -81,7 +96,8 @@ function transpileTable (path : [ string, string ], spec : any) : string {
         `CREATE TABLE IF NOT EXISTS ${tableName} (__placeholder__ BOOLEAN);\r\n\r\n` +
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
         `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n` +
-        checkConstraintStrings.join("\r\n\r\n")
+        checkConstraintStrings.join("\r\n\r\n") + "\r\n\r\n" +
+        triggerStrings.join("\r\n\r\n")
     );
 };
 

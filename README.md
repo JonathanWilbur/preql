@@ -37,8 +37,11 @@ In development.
   - [ ] Interfaces
   - [ ] Nested tables
   - [ ] Unique Constraints
+  - [ ] Composite keys
 - [ ] Append warnings in comments?
 - [ ] Escape strings and test strings with escape characters.
+- [ ] PreQL Log (In-database log of errors, warnings, etc.)
+- [ ] Use fully-qualified names everywhere possible.
 - [ ] Data Types
   - [ ] URC (Uniform Resource Citation)
   - [ ] [Data URI](https://en.wikipedia.org/wiki/Data_URI_scheme)

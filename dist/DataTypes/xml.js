@@ -7,6 +7,12 @@ exports.xml = {
         },
         checkConstraints: (path, spec, logger) => {
             return []; // TODO: Add some more checks.
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

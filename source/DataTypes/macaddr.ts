@@ -10,6 +10,14 @@ const macaddr : DataType = {
         checkConstraints: (path : [ string, string, string ], spec : any, logger : Logger) : string[] => {
             return [
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {
+                "uppercase": `UPPER(${path[2]})`
+            };
         }
     }
 };

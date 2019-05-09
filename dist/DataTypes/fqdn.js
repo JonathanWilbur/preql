@@ -10,6 +10,12 @@ exports.fqdn = {
                 `${path[2]} RLIKE '^[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\-_\.]{0,251}[\\p{L}\\p{N}])?$'`,
                 `LENGTH(${path[2]}) <= 253`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

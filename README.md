@@ -36,7 +36,7 @@ In development.
 - [ ] Features
   - [ ] Interfaces
   - [ ] Nested tables
-  - [ ] Allow length to be specified in bits, bytes, or characters.
+  - [ ] Unique Constraints
 - [ ] Append warnings in comments?
 - [ ] Escape strings and test strings with escape characters.
 - [ ] Data Types
@@ -71,6 +71,8 @@ In development.
   - [ ] ean
   - [ ] upc
   - [ ] gtin
+  - [ ] unixperm
+  - [ ] sddl
 - [ ] Tools
   - [ ] Tool that generates a table of data type support per database.
 - [ ] Add `lengthUnits` field to each type.

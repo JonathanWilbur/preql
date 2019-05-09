@@ -11,6 +11,12 @@ const json : DataType = {
             return [
                 `JSON_VALID(${path[2]})`
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

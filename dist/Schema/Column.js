@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ColumnSchema = {
-    title: "PreQL Root Schema",
+    title: "PreQL Column Schema",
     type: "object",
     additionalProperties: true,
     properties: {
@@ -20,6 +20,14 @@ exports.ColumnSchema = {
         },
         length: {
             type: "integer"
+        },
+        casing: {
+            type: "string",
+            enum: [
+                "upper",
+                "lower",
+                "title"
+            ]
         }
     },
     required: [

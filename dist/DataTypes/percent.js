@@ -9,6 +9,12 @@ exports.percent = {
             return [
                 `${path[0]} <= 100.00000000`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

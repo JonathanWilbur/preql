@@ -11,6 +11,14 @@ const uuid : DataType = {
             return [
                 `${path[2]} RLIKE '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'`
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {
+                "uppercase": `UPPER(${path[2]})`
+            };
         }
     }
 };

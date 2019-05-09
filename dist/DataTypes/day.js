@@ -9,6 +9,12 @@ exports.day = {
             return [
                 `${path[2]} > 0 AND ${path[2]} <= 31`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

@@ -9,6 +9,12 @@ exports.month = {
             return [
                 `${path[2]} > 0 AND ${path[2]} <= 12`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

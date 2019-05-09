@@ -29,6 +29,12 @@ exports.text = {
             return [
                 `CHAR_LENGTH(${path[2]}) < ${length}`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

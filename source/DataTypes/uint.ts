@@ -28,6 +28,12 @@ const uint : DataType = {
             if ([ 1, 8, 16, 32, 64 ].includes(length)) return [];
             const max : number = Math.pow(2, length);
             return [ `${path[2]} <= ${max}` ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

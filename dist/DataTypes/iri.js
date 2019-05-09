@@ -9,6 +9,12 @@ exports.iri = {
             return [
                 `${path[2]} RLIKE '^[A-Za-z][A-Za-z0-9\+\.\-]+:\W+$'`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

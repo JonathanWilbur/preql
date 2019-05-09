@@ -9,6 +9,12 @@ exports.sid = {
             return [
                 `${path[2]} RLIKE '^S-\d-\d+(?:-\d+)*$'`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

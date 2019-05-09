@@ -39,6 +39,12 @@ exports.sint = {
             const max = (Math.pow(2, (length - 1)) - 1);
             const min = -(Math.pow(2, (length - 1)));
             return [`${columnName} <= ${max} AND ${columnName} >= ${min}`];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

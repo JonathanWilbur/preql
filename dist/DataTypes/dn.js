@@ -10,6 +10,12 @@ exports.dn = {
             return [
                 `${path[2]} RLIKE '^\\X=\\X(?:(\\,|;)\\X=\\X)*$'`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

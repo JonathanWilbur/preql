@@ -38,7 +38,12 @@ function transpileCheckConstraints (path : [ string, string, string ], spec : an
     );
 }
 
-// transpileTriggers
+// function transpileTriggers (path : [ string, string, string ], spec : any) : string[] {
+//     const type : string = spec["type"].toLowerCase();
+//     if (type in dataTypes) {
+//         return dataTypes[type].mariadb.getters(path, spec, logger);
+//     } else throw new Error(`${path}: Unrecognized type: ${type}`);
+// }
 
 function transpileColumn (path : [ string, string, string ], spec : any) : string {
     const tableName : string = path[1];

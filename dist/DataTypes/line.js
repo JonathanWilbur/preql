@@ -7,6 +7,12 @@ exports.line = {
         },
         checkConstraints: (path, spec, logger) => {
             return [];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

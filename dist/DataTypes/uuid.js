@@ -9,6 +9,14 @@ exports.uuid = {
             return [
                 `${path[2]} RLIKE '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {
+                "uppercase": `UPPER(${path[2]})`
+            };
         }
     }
 };

@@ -25,6 +25,12 @@ const text : DataType = {
             return [
                 `CHAR_LENGTH(${path[2]}) < ${length}`
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

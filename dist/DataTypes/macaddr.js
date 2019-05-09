@@ -7,6 +7,14 @@ exports.macaddr = {
         },
         checkConstraints: (path, spec, logger) => {
             return [];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {
+                "uppercase": `UPPER(${path[2]})`
+            };
         }
     }
 };

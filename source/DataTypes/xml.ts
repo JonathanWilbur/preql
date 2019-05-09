@@ -9,6 +9,12 @@ const xml : DataType = {
         },
         checkConstraints: (path : [ string, string, string ], spec : any, logger : Logger) : string[] => {
             return []; // TODO: Add some more checks.
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

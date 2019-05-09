@@ -11,6 +11,12 @@ const oid : DataType = {
             return [
                 `${path[2]} RLIKE '^\d+(?:\.\d+)*$'`
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

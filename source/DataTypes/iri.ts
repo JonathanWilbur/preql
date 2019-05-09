@@ -11,6 +11,12 @@ const iri : DataType = {
             return [
                 `${path[2]} RLIKE '^[A-Za-z][A-Za-z0-9\+\.\-]+:\W+$'`
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

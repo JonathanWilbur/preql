@@ -9,6 +9,12 @@ exports.json = {
             return [
                 `JSON_VALID(${path[2]})`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

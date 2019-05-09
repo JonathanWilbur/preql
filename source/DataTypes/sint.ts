@@ -30,6 +30,12 @@ const sint : DataType = {
             const max : number = (Math.pow(2, (length - 1)) - 1);
             const min : number = -(Math.pow(2, (length - 1)));
             return [ `${columnName} <= ${max} AND ${columnName} >= ${min}` ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

@@ -9,6 +9,12 @@ exports.oid = {
             return [
                 `${path[2]} RLIKE '^\d+(?:\.\d+)*$'`
             ];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

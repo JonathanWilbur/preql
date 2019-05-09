@@ -37,6 +37,12 @@ exports.uint = {
                 return [];
             const max = Math.pow(2, length);
             return [`${path[2]} <= ${max}`];
+        },
+        getters: (path, spec, logger) => {
+            return {};
+        },
+        setters: (path, spec, logger) => {
+            return {};
         }
     }
 };

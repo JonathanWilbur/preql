@@ -11,6 +11,12 @@ const day : DataType = {
             return [
                 `${path[2]} > 0 AND ${path[2]} <= 31`
             ];
+        },
+        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
+        },
+        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+            return {};
         }
     }
 };

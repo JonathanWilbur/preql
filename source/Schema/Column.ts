@@ -1,6 +1,6 @@
 export
 const ColumnSchema = {
-    title: "PreQL Root Schema",
+    title: "PreQL Column Schema",
     type: "object",
     additionalProperties: true,
     properties: {
@@ -19,6 +19,14 @@ const ColumnSchema = {
         },
         length: {
             type: "integer"
+        },
+        casing: {
+            type: "string",
+            enum: [
+                "upper",
+                "lower",
+                "title"
+            ]
         }
     },
     required: [

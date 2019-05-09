@@ -67,7 +67,9 @@ function transpileTable(path, spec) {
             const columnPath = [schemaName, tableName, columnName];
             const columnString = transpileColumn(columnPath, columnSpec);
             columnStrings.push(columnString);
-            checkConstraintStrings = checkConstraintStrings.concat(transpileCheckConstraints(columnPath, columnSpec));
+            const checkConstraint = transpileCheckConstraints(columnPath, columnSpec);
+            if (checkConstraint.length !== 0)
+                checkConstraintStrings.push(checkConstraint);
         });
     }
     logger.info(path, "Transpiled.");

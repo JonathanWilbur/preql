@@ -6,6 +6,9 @@ exports.IndexSchema = {
     type: "object",
     additionalProperties: true,
     properties: {
+        comment: {
+            type: "string"
+        },
         keys: {
             type: "array",
             items: IndexKeySchema_1.IndexKeySchema
@@ -13,8 +16,8 @@ exports.IndexSchema = {
         type: {
             type: "string",
             enum: [
+                "plain",
                 "primary",
-                "foreign",
                 "unique",
                 "text",
                 "spatial"

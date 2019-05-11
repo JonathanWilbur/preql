@@ -80,3 +80,5 @@ In development.
 - [ ] Tools
   - [ ] Tool that generates a table of data type support per database.
 - [ ] Add `lengthUnits` field to each type.
+- [ ] Quality
+  - [ ] Check that everything is lower-cased.

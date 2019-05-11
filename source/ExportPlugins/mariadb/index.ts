@@ -74,6 +74,98 @@ function transpileColumn (path : [ string, string, string ], spec : any) : strin
     return columnString;
 }
 
+function transpileIndexes (path : [ string, string ], spec : any) : string[] {
+    if (!spec) {
+        logger.error(path, `${transpileIndexes.constructor.name}() received a falsy spec. This is a bug.`);
+        return [];
+    }
+    return Object.keys(spec)
+        .map((indexName : string) : string => {
+            const storedProcedureName : string = ("create_index_" + indexName);
+            const indexType : string = spec[indexName].type.toLowerCase();
+            const columnString : string = spec[indexName].keys.map((key : any) : string => {
+                return `${key.column} ${(key.ascending ? "ASC" : "DESC")}`;
+            }).join(", ");
+            switch (indexType) {
+                case ("plain"): {
+                    return (
+                        `ALTER TABLE ${path[0]}.${path[1]}\r\n` +
+                        `ADD INDEX IF NOT EXISTS ${indexName}\r\n` +
+                        `PRIMARY KEY (${columnString});`
+                    );
+                }
+                case ("primary"): {
+                    const duplicateErrorCode : number = 1068;
+                    return (
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n` +
+                        "DELIMITER $$\r\n" +
+                        `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n` +
+                        `BEGIN\r\n` +
+                        `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n` +
+                        `\tALTER TABLE ${path[0]}.${path[1]}\r\n` +
+                        `\tADD CONSTRAINT ${indexName} PRIMARY KEY (${columnString});\r\n` +
+                        `END $$\r\n` +
+                        `DELIMITER ;\r\n` +
+                        `CALL ${storedProcedureName};\r\n` +
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+                    );
+                }
+                case ("unique"): {
+                    const duplicateErrorCode : number = 1061;
+                    return (
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n` +
+                        "DELIMITER $$\r\n" +
+                        `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n` +
+                        `BEGIN\r\n` +
+                        `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n` +
+                        `\tALTER TABLE ${path[0]}.${path[1]}\r\n` +
+                        `\tADD CONSTRAINT ${indexName} UNIQUE KEY (${columnString});\r\n` +
+                        `END $$\r\n` +
+                        `DELIMITER ;\r\n` +
+                        `CALL ${storedProcedureName};\r\n` +
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+                    );
+                }
+                case ("text"): {
+                    const duplicateErrorCode : number = 1061;
+                    return (
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n` +
+                        "DELIMITER $$\r\n" +
+                        `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n` +
+                        `BEGIN\r\n` +
+                        `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n` +
+                        `\tALTER TABLE ${path[0]}.${path[1]}\r\n` +
+                        `\tADD FULLTEXT INDEX (${columnString});\r\n` +
+                        `END $$\r\n` +
+                        `DELIMITER ;\r\n` +
+                        `CALL ${storedProcedureName};\r\n` +
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+                    );
+                }
+                case ("spatial"):{
+                    const duplicateErrorCode : number = 1061;
+                    return (
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n` +
+                        "DELIMITER $$\r\n" +
+                        `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n` +
+                        `BEGIN\r\n` +
+                        `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n` +
+                        `\tALTER TABLE ${path[0]}.${path[1]}\r\n` +
+                        `\tADD SPATIAL INDEX (${columnString});\r\n` +
+                        `END $$\r\n` +
+                        `DELIMITER ;\r\n` +
+                        `CALL ${storedProcedureName};\r\n` +
+                        `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+                    );
+                }
+                default: {
+                    logger.error(path, `Index ${indexName} had unrecognized type '${indexType}'. This error should never have appeared, because index types should have been validated by schema validation.`);
+                    return "";
+                }
+            }
+        });
+}
+
 function transpileTable (path : [ string, string ], spec : any) : string {
     const schemaName : string = path[0];
     const tableName : string = path[1];
@@ -97,7 +189,8 @@ function transpileTable (path : [ string, string ], spec : any) : string {
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
         `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n` +
         checkConstraintStrings.join("\r\n\r\n") + "\r\n\r\n" +
-        triggerStrings.join("\r\n\r\n")
+        triggerStrings.join("\r\n\r\n") + "\r\n\r\n" +
+        transpileIndexes(path, spec["indexes"]).join("\r\n\r\n")
     );
 };
 

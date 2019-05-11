@@ -24,7 +24,7 @@ schema:
           ip:
             type: "inet"
         indexes:
-          primary:
+          blorpy:
             keys:
               - column: "lastname"
             type: "primary"

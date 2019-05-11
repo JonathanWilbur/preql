@@ -6,6 +6,9 @@ const IndexSchema = {
     type: "object",
     additionalProperties: true,
     properties: {
+        comment: {
+            type: "string"
+        },
         keys: {
             type: "array",
             items: IndexKeySchema
@@ -13,8 +16,8 @@ const IndexSchema = {
         type: {
             type: "string",
             enum: [
+                "plain",
                 "primary",
-                "foreign",
                 "unique",
                 "text",
                 "spatial"

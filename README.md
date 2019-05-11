@@ -19,20 +19,21 @@ In development.
 ## To Do
 
 - [ ] Databases
-  - [ ] MySQL
-  - [ ] MariaDB
-  - [ ] Transact-SQL
-  - [ ] PostgreSQL
-  - [ ] Oracle PL/SQL
-  - [ ] LDAP
-  - [ ] MongoDB?
-  - [ ] Microsoft Access
-  - [ ] SQLite
-  - [ ] H2
-  - [ ] IBM DB2
-  - [ ] NuoDB
-  - [ ] Cassandra
-  - [ ] Progress
+  - [ ] Must have for 1.0.0
+    - [ ] MySQL
+    - [ ] MariaDB
+    - [ ] Transact-SQL
+    - [ ] PostgreSQL
+    - [ ] Oracle PL/SQL
+    - [ ] LDAP
+    - [ ] MongoDB?
+  - [ ] Can wait
+    - [ ] Microsoft Access
+    - [ ] SQLite
+    - [ ] H2
+    - [ ] IBM DB2
+    - [ ] NuoDB
+    - [ ] Cassandra
 - [ ] Features
   - [ ] Interfaces
   - [ ] Nested tables

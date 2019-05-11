@@ -1,7 +1,7 @@
-import { TableSchema } from "./Table";
-
-export
-const SchemaSchema = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const TableSchema_1 = require("./TableSchema");
+exports.SchemaSchema = {
     title: "PreQL Schema Schema",
     type: "object",
     properties: {
@@ -9,7 +9,7 @@ const SchemaSchema = {
         // indexes: IndexSchema
         tables: {
             type: "object",
-            additionalProperties: TableSchema
+            additionalProperties: TableSchema_1.TableSchema
         }
         // views:
     },

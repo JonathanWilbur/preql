@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Schema_1 = require("./Schema");
+const SchemaSchema_1 = require("./SchemaSchema");
 exports.rootSchema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     title: "PreQL Root Schema",
@@ -10,7 +10,7 @@ exports.rootSchema = {
         // roles: RoleSchema
         schema: {
             type: "object",
-            additionalProperties: Schema_1.SchemaSchema
+            additionalProperties: SchemaSchema_1.SchemaSchema
         }
         // users: UserSchema
     },

@@ -26,7 +26,8 @@ exports.ColumnSchema = {
             enum: [
                 "upper",
                 "lower",
-                "title"
+                "title",
+                "sentence"
             ]
         }
     },

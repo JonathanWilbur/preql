@@ -1,4 +1,5 @@
-import { ColumnSchema } from "./Column";
+import { ColumnSchema } from "./ColumnSchema";
+import { IndexSchema } from "./IndexSchema";
 
 export
 const TableSchema = {
@@ -12,6 +13,10 @@ const TableSchema = {
         },
         comment: {
             type: "string"
+        },
+        indexes: {
+            type: "object",
+            additionalProperties: IndexSchema
         }
     },
     required: []

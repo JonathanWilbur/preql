@@ -25,7 +25,8 @@ const ColumnSchema = {
             enum: [
                 "upper",
                 "lower",
-                "title"
+                "title",
+                "sentence"
             ]
         }
     },

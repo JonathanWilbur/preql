@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Column_1 = require("./Column");
+const ColumnSchema_1 = require("./ColumnSchema");
+const IndexSchema_1 = require("./IndexSchema");
 exports.TableSchema = {
     title: "PreQL Table Schema",
     type: "object",
@@ -8,10 +9,14 @@ exports.TableSchema = {
     properties: {
         columns: {
             type: "object",
-            additionalProperties: Column_1.ColumnSchema
+            additionalProperties: ColumnSchema_1.ColumnSchema
         },
         comment: {
             type: "string"
+        },
+        indexes: {
+            type: "object",
+            additionalProperties: IndexSchema_1.IndexSchema
         }
     },
     required: []

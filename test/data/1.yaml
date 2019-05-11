@@ -23,6 +23,10 @@ schema:
             default: 18
           ip:
             type: "inet"
+        indexes:
+          primary:
+            keys:
+              - column: "lastname"
+            type: "primary"
     # views:
     # functions:
-    # indexes:

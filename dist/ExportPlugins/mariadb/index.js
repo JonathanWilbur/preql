@@ -41,14 +41,14 @@ function transpileTriggers(path, spec) {
     const type = spec["type"].toLowerCase();
     if (type in index_1.dataTypes) {
         let ret = [];
-        const getters = index_1.dataTypes[type].mariadb.getters(path, spec, logger);
-        Object.keys(getters)
+        const setters = index_1.dataTypes[type].mariadb.setters(path, spec, logger);
+        Object.keys(setters)
             .forEach((key) => {
             const triggerBaseName = `${path[0]}.${path[1]}_${path[2]}_${key}`;
             let triggerString = ["INSERT", "UPDATE"].map((event) => `DROP TRIGGER IF EXISTS ${triggerBaseName}_${event.toLowerCase()};\r\n` +
                 `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_${event.toLowerCase()}\r\n` +
                 `BEFORE ${event} ON ${path[0]}.${path[1]} FOR EACH ROW\r\n` +
-                `SET NEW.${path[2]} = ${getters[key]};`).join("\r\n\r\n");
+                `SET NEW.${path[2]} = ${setters[key]};`).join("\r\n\r\n");
             ret.push(triggerString);
         });
         return ret;
@@ -89,14 +89,14 @@ function transpileTable(path, spec) {
             const checkConstraint = transpileCheckConstraints(columnPath, columnSpec);
             if (checkConstraint.length !== 0)
                 checkConstraintStrings.push(checkConstraint);
-            triggerStrings = triggerStrings.concat(transpileTriggers(columnPath, spec));
+            triggerStrings = triggerStrings.concat(transpileTriggers(columnPath, columnSpec));
         });
     }
     logger.info(path, "Transpiled.");
     return (`CREATE TABLE IF NOT EXISTS ${tableName} (__placeholder__ BOOLEAN);\r\n\r\n` +
         columnStrings.join("\r\n\r\n") + "\r\n\r\n" +
         `ALTER TABLE ${tableName} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n` +
-        checkConstraintStrings.join("\r\n\r\n") +
+        checkConstraintStrings.join("\r\n\r\n") + "\r\n\r\n" +
         triggerStrings.join("\r\n\r\n"));
 }
 ;

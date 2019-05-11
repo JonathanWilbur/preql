@@ -1,4 +1,4 @@
-import { SchemaSchema } from "./Schema";
+import { SchemaSchema } from "./SchemaSchema";
 
 export
 const rootSchema = {

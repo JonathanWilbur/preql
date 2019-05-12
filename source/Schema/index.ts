@@ -1,4 +1,5 @@
 import { SchemaSchema } from "./SchemaSchema";
+import { ColumnSchema } from "./ColumnSchema";
 
 export
 const rootSchema = {
@@ -7,6 +8,13 @@ const rootSchema = {
     type: "object",
     additionalProperties: true,
     properties: {
+        interfaces: {
+            type: "object",
+            additionalProperties: {
+                type: "array",
+                items: ColumnSchema
+            }
+        },
         // roles: RoleSchema
         schema: {
             type: "object",

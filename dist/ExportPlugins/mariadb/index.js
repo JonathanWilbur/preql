@@ -5,7 +5,9 @@ const logger = new ConsoleLogger_1.ConsoleLogger();
 const index_1 = require("../../DataTypes/index");
 const Ajv = require("ajv");
 const index_2 = require("../../Schema/index");
-const ajv = new Ajv();
+const ajv = new Ajv({
+    useDefaults: true
+});
 const validate = ajv.compile(index_2.rootSchema);
 function convertPreqlTypeToNativeType(path, spec) {
     const type = spec["type"].toLowerCase();
@@ -75,10 +77,8 @@ function transpileColumn(path, spec) {
     return columnString;
 }
 function transpileIndexes(path, spec) {
-    if (!spec) {
-        logger.error(path, `${transpileIndexes.constructor.name}() received a falsy spec. This is a bug.`);
-        return [];
-    }
+    if (!spec)
+        throw new Error(`${transpileIndexes.constructor.name}() received a falsy spec. This is a bug.`);
     return Object.keys(spec)
         .map((indexName) => {
         const storedProcedureName = ("create_index_" + indexName);
@@ -148,10 +148,8 @@ function transpileIndexes(path, spec) {
                     `CALL ${storedProcedureName};\r\n` +
                     `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`);
             }
-            default: {
-                logger.error(path, `Index ${indexName} had unrecognized type '${indexType}'. This error should never have appeared, because index types should have been validated by schema validation.`);
-                return "";
-            }
+            default:
+                throw new Error(`${path.join(".")}: Index ${indexName} had unrecognized type '${indexType}'. This error should never have appeared, because index types should have been validated by schema validation.`);
         }
     });
 }
@@ -193,7 +191,7 @@ function transpileSchema(path, spec) {
     return result;
 }
 ;
-function transpile(spec, callback) {
+function main(spec, callback) {
     const result = {
         value: ""
     };
@@ -210,6 +208,74 @@ function transpile(spec, callback) {
     callback(null, result);
 }
 ;
+// TODO: Refactor this elsewhere.
+// Interfaces must error on mismatching types, nullability, or length.
+// Comment and default shall not cause an error.
+// Casing is TBD.
+function implementInterfaces(spec) {
+    // If there are no interfaces, there is nothing to implement.
+    // FIXME: Actually, you should still check that tables do not implement interfaces.
+    if (!("interfaces" in spec))
+        return;
+    // If there is no schema, there are no tables to implement.
+    if (!("schema" in spec))
+        return;
+    for (const schemaName of spec.schema) {
+        // If there are no tables, no interfaces can be implemented.
+        if (!("tables" in spec.schema[schemaName]))
+            return;
+        for (const [tableName, tableSpec] of Object.entries(spec.schema[schemaName].tables)) {
+            // If there are no implementations, skip ahead to the next table.
+            if (!("implements" in tableSpec))
+                continue;
+            for (const implementationName of tableSpec.implements) {
+                if (!(implementationName in spec.interfaces))
+                    throw new Error(`Interface '${implementationName}' not found.`);
+                if (!("columns" in tableSpec))
+                    tableSpec["columns"] = {};
+                for (let [interfaceColumnName, interfaceColumnSpec] of Object.entries(spec.interfaces[implementationName])) {
+                    if (interfaceColumnName in tableSpec.columns) { // Conflicting column.
+                        const implementationColumnSpec = tableSpec.columns[interfaceColumnName];
+                        if (implementationColumnSpec.type !== interfaceColumnSpec.type)
+                            throw new Error(`Type of column '${interfaceColumnName}' conflicts with column type in implemented interface '${implementationName}'.`);
+                        if (implementationColumnSpec.nullable !== interfaceColumnSpec.nullable)
+                            throw new Error(`Nullability of column '${interfaceColumnName}' conflicts with column nullability in implemented interface '${implementationName}'.`);
+                        if (("length" in implementationColumnSpec) && interfaceColumnSpec.length !== interfaceColumnSpec.length)
+                            throw new Error(`Length of column '${interfaceColumnName}' conflicts with column length in implemented interface '${implementationName}'.`);
+                    }
+                    else { // The column was not implemented at all.
+                        tableSpec.columns[interfaceColumnName] = {};
+                    }
+                    // Setting the values
+                    const implementationColumnSpec = tableSpec.columns[interfaceColumnName];
+                    implementationColumnSpec.nullable = implementationColumnSpec.nullable;
+                    if (!("comment" in implementationColumnSpec) && ("comment" in interfaceColumnSpec))
+                        implementationColumnSpec.length = implementationColumnSpec.length;
+                    if (!("comment" in implementationColumnSpec) && ("comment" in interfaceColumnSpec))
+                        implementationColumnSpec.comment = interfaceColumnSpec.comment;
+                }
+                // Check for conflicting columns.
+                for (let [columnName, columnSpec] of Object.entries(tableSpec.columns)) {
+                    const implementationColumnSpec = spec.interfaces[implementationName][columnName];
+                    if (columnName in spec["interfaces"][implementationName]) { // Conflicting column.
+                        if (columnSpec.type !== implementationColumnSpec.type)
+                            throw new Error(`Type of column '${columnName}' conflicts with column type in implemented interface '${implementationName}'.`);
+                        if (columnSpec.nullable !== implementationColumnSpec.nullable)
+                            throw new Error(`Nullability of column '${columnName}' conflicts with column nullability in implemented interface '${implementationName}'.`);
+                        if (("length" in columnSpec) && columnSpec.length !== implementationColumnSpec.length)
+                            throw new Error(`Length of column '${columnName}' conflicts with column length in implemented interface '${implementationName}'.`);
+                    }
+                    else { // The column was not implemented at all.
+                    }
+                    // Setting the values
+                    columnSpec["nullable"] = implementationColumnSpec.nullable;
+                    columnSpec["length"] = implementationColumnSpec.length;
+                }
+                logger.info([schemaName, tableName], `Implemented interface ${implementationName}.`);
+            }
+        }
+    }
+}
 const handler = (event, context, callback) => {
     // REVIEW: Handle JSON and YAML strings, too?
     if (!(typeof event === "object"))
@@ -217,6 +283,6 @@ const handler = (event, context, callback) => {
     const valid = validate(event);
     if (!valid)
         callback(new Error("Input PreQL was invalid."));
-    transpile(event, callback);
+    main(event, callback);
 };
 exports.handler = handler;

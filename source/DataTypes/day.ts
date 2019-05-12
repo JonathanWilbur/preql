@@ -2,20 +2,20 @@ import { DataType } from "../DataType";
 import { Logger } from "../Logger";
 
 export
-const day : DataType = {
+const day: DataType = {
     mariadb: {
-        equivalentNativeType: (path : [ string, string, string ], spec : any, logger : Logger) : string => {
+        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
             return "TINYINT UNSIGNED";
         },
-        checkConstraints: (path : [ string, string, string ], spec : any, logger : Logger) : string[] => {
+        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
             return [
                 `${path[2]} > 0 AND ${path[2]} <= 31`
             ];
         },
-        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         },
-        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         }
     }

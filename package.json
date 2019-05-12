@@ -24,6 +24,9 @@
     "@types/ajv": "^1.0.0",
     "@types/aws-lambda": "^8.10.24",
     "@types/js-yaml": "^3.12.1",
+    "@typescript-eslint/eslint-plugin": "^1.8.0",
+    "@typescript-eslint/parser": "^1.8.0",
+    "eslint": "^5.16.0",
     "serverless-plugin-typescript": "github:EugeneDraitsev/serverless-plugin-typescript#build"
   }
 }

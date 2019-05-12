@@ -1,3 +1,15 @@
+interfaces:
+  person:
+    firstname:
+      type: "VARCHAR"
+      length: 64
+      default: "Bob"
+      comment: "Should not be abbreviated"
+      nullable: True
+    lastname:
+      type: "VARCHAR"
+      length: 64
+      default: "McGobb"
 # users:
 # roles:
 schema:

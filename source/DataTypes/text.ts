@@ -2,10 +2,10 @@ import { DataType } from "../DataType";
 import { Logger } from "../Logger";
 
 export
-const text : DataType = {
+const text: DataType = {
     mariadb: {
-        equivalentNativeType: (path : [ string, string, string ], spec : any, logger : Logger) : string => {
-            const length : number = (("length" in spec) ? spec.length : 65535);
+        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
+            const length: number = (("length" in spec) ? spec.length: 65535);
             if (isNaN(length)) throw new Error("Non-numeric length received.");
             if (length < 0) throw new Error("Negative length received.");
             if (length === 0) throw new Error("Zero-length received.");
@@ -17,8 +17,8 @@ const text : DataType = {
             }
             return `TEXT(${length})`;
         },
-        checkConstraints: (path : [ string, string, string ], spec : any, logger : Logger) : string[] => {
-            const length : number = (("length" in spec) ? spec.length : 65535);
+        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
+            const length: number = (("length" in spec) ? spec.length: 65535);
             if (isNaN(length)) throw new Error("Non-numeric length received.");
             if (length < 0) throw new Error("Negative length received.");
             if (length === 0) throw new Error("Zero-length received.");
@@ -26,10 +26,10 @@ const text : DataType = {
                 `CHAR_LENGTH(${path[2]}) < ${length}`
             ];
         },
-        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         },
-        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         }
     }

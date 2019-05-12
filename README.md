@@ -36,9 +36,15 @@ In development.
     - [ ] Cassandra
 - [ ] Features
   - [ ] Interfaces
-  - [ ] Nested tables
-  - [ ] Unique Constraints
-  - [ ] Composite keys
+  - [ ] Nested tables (Warning: the schema could cause infinite recursion!)
+  - [ ] Support index comments.
+  - [ ] Explanatory comments
+  - [ ] Preamble?
+  - [ ] Ensure the schema exists!
+  - [ ] Roles
+  - [ ] Users
+  - [x] Unique Constraints
+  - [x] Composite keys
 - [ ] Append warnings in comments?
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
@@ -82,3 +88,7 @@ In development.
 - [ ] Add `lengthUnits` field to each type.
 - [ ] Quality
   - [ ] Check that everything is lower-cased.
+  - [ ] Make a new error type that includes the path.
+  - [ ] Use `Object.freeze()`
+  - [ ] Configure ESLint
+  - [ ] Strict Null Checks

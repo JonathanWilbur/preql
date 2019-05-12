@@ -39,7 +39,7 @@ import { varchar } from "./varchar";
 import { fixchar } from "./fixchar";
 
 export
-const dataTypes : { [ name : string ] : DataType } = {
+const dataTypes: { [ name: string ]: DataType } = {
     "blob": blob,
     "boolean": boolean,
     "cidr": cidr,

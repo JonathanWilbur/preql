@@ -2,20 +2,20 @@ import { DataType } from "../DataType";
 import { Logger } from "../Logger";
 
 export
-const uuid : DataType = {
+const uuid: DataType = {
     mariadb: {
-        equivalentNativeType: (path : [ string, string, string ], spec : any, logger : Logger) : string => {
+        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
             return "CHAR(36)";
         },
-        checkConstraints: (path : [ string, string, string ], spec : any, logger : Logger) : string[] => {
+        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
             return [
                 `${path[2]} RLIKE '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'`
             ];
         },
-        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         },
-        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {
                 "uppercase": `UPPER(${path[2]})`
             };

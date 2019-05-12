@@ -2,10 +2,10 @@ import { DataType } from "../DataType";
 import { Logger } from "../Logger";
 
 export
-const uint : DataType = {
+const uint: DataType = {
     mariadb: {
-        equivalentNativeType: (path : [ string, string, string ], spec : any, logger : Logger) : string => {
-            const length : number = (("length" in spec) ? spec.length : 1);
+        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
+            const length: number = (("length" in spec) ? spec.length: 1);
             if (isNaN(length)) throw new Error("Non-numeric length received.");
             if (length < 0) throw new Error("Negative length received.");
             if (length === 0) throw new Error("Zero-length received.");
@@ -20,19 +20,19 @@ const uint : DataType = {
             logger.warn(path, `No native unsigned integral type can support ${length} bits. Defaulting to BIGINT UNSIGNED.`);
             return "BIGINT UNSIGNED";
         },
-        checkConstraints: (path : [ string, string, string ], spec : any, logger : Logger) : string[] => {
-            const length : number = (("length" in spec) ? spec.length : 1);
+        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
+            const length: number = (("length" in spec) ? spec.length: 1);
             if (isNaN(length)) throw new Error("Non-numeric length received.");
             if (length < 0) throw new Error("Negative length received.");
             if (length === 0) throw new Error("Zero-length received.");
             if ([ 1, 8, 16, 32, 64 ].includes(length)) return [];
-            const max : number = Math.pow(2, length);
+            const max: number = Math.pow(2, length);
             return [ `${path[2]} <= ${max}` ];
         },
-        getters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         },
-        setters: (path : [ string, string, string ], spec : any, logger : Logger) : { [ name : string ] : string } => {
+        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
             return {};
         }
     }

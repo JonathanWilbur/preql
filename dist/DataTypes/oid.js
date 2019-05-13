@@ -1,20 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.oid = {
+const oid = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "VARCHAR(256)";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [
-                `${path[2]} RLIKE '^\d+(?:\.\d+)*$'`
-            ];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        equivalentNativeType: () => 'VARCHAR(256)',
+        checkConstraints: (path) => [
+            `${path[2]} RLIKE '^\\d+(?:\\.\\d+)*$'`,
+        ],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = oid;

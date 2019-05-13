@@ -1,24 +1,16 @@
-import { DataType } from "../DataType";
-import { Logger } from "../Logger";
+import DataType from '../DataType';
 
-export
 const uuid: DataType = {
-    mariadb: {
-        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
-            return "CHAR(36)";
-        },
-        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
-            return [
-                `${path[2]} RLIKE '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'`
-            ];
-        },
-        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        },
-        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {
-                "uppercase": `UPPER(${path[2]})`
-            };
-        }
-    }
+  mariadb: {
+    equivalentNativeType: (): string => 'CHAR(36)',
+    checkConstraints: (path: [ string, string, string ]): string[] => [
+      `${path[2]} RLIKE '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'`,
+    ],
+    getters: (): { [ name: string ]: string } => ({}),
+    setters: (path: [ string, string, string ]): { [ name: string ]: string } => ({
+      uppercase: `UPPER(${path[2]})`,
+    }),
+  },
 };
+
+export default uuid;

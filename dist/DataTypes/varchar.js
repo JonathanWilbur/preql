@@ -1,19 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.varchar = {
+const varchar = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            // TODO: Check for spec.length.
-            return `VARCHAR(${spec.length})`;
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        // TODO: Check for spec.length.
+        equivalentNativeType: (path, spec) => `VARCHAR(${spec.length})`,
+        checkConstraints: () => [],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = varchar;

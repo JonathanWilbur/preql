@@ -1,20 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.irn = {
+const irn = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "TEXT";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [
-                `${path[2]} RLIKE '^urn:[A-Za-z0-9][A-Za-z0-9\-]{0,30}[A-Za-z0-9]:[^\w\u0000-\u001F"#<>]+$'`
-            ];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        equivalentNativeType: () => 'TEXT',
+        checkConstraints: (path) => [
+            `${path[2]} RLIKE '^urn:[A-Za-z0-9][A-Za-z0-9\\-]{0,30}[A-Za-z0-9]:[^\\w\\u0000-\\u001F"#<>]+$'`,
+        ],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = irn;

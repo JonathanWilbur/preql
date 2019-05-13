@@ -1,18 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toml = {
+const toml = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "LONGTEXT";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        equivalentNativeType: () => 'LONGTEXT',
+        checkConstraints: () => [],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = toml;

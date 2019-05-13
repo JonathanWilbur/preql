@@ -1,18 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.datetime = {
+const datetime = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "DATETIME";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        equivalentNativeType: () => 'DATETIME',
+        checkConstraints: () => [],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = datetime;

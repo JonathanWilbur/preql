@@ -1,20 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.macaddr = {
+// FIXME: BINARY(6), yet UPPER()? Wuuut?
+const macaddr = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "BINARY(6)";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {
-                "uppercase": `UPPER(${path[2]})`
-            };
-        }
-    }
+        equivalentNativeType: () => 'BINARY(6)',
+        checkConstraints: () => [],
+        getters: () => ({}),
+        setters: (path) => ({
+            uppercase: `UPPER(${path[2]})`,
+        }),
+    },
 };
+exports.default = macaddr;

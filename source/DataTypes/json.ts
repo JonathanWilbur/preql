@@ -1,22 +1,14 @@
-import { DataType } from "../DataType";
-import { Logger } from "../Logger";
+import DataType from '../DataType';
 
-export
 const json: DataType = {
-    mariadb: {
-        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
-            return "LONGTEXT";
-        },
-        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
-            return [
-                `JSON_VALID(${path[2]})`
-            ];
-        },
-        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        },
-        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        }
-    }
+  mariadb: {
+    equivalentNativeType: (): string => 'LONGTEXT',
+    checkConstraints: (path: [ string, string, string ]): string[] => [
+      `JSON_VALID(${path[2]})`,
+    ],
+    getters: (): { [ name: string ]: string } => ({}),
+    setters: (): { [ name: string ]: string } => ({}),
+  },
 };
+
+export default json;

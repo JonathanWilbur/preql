@@ -1,21 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fqdn = {
+const fqdn = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "VARCHAR(253)";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [
-                `${path[2]} RLIKE '^[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\-_\.]{0,251}[\\p{L}\\p{N}])?$'`,
-                `LENGTH(${path[2]}) <= 253`
-            ];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        equivalentNativeType: () => 'VARCHAR(253)',
+        checkConstraints: (path) => [
+            `${path[2]} RLIKE '^[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\\-_\\.]{0,251}[\\p{L}\\p{N}])?$'`,
+            `LENGTH(${path[2]}) <= 253`,
+        ],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = fqdn;

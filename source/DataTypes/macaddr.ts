@@ -1,23 +1,15 @@
-import { DataType } from "../DataType";
-import { Logger } from "../Logger";
+import DataType from '../DataType';
 
-export
+// FIXME: BINARY(6), yet UPPER()? Wuuut?
 const macaddr: DataType = {
-    mariadb: {
-        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
-            return "BINARY(6)";
-        },
-        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
-            return [
-            ];
-        },
-        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        },
-        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {
-                "uppercase": `UPPER(${path[2]})`
-            };
-        }
-    }
+  mariadb: {
+    equivalentNativeType: (): string => 'BINARY(6)',
+    checkConstraints: (): string[] => [],
+    getters: (): { [ name: string ]: string } => ({}),
+    setters: (path: [ string, string, string ]): { [ name: string ]: string } => ({
+      uppercase: `UPPER(${path[2]})`,
+    }),
+  },
 };
+
+export default macaddr;

@@ -1,20 +1,12 @@
-import { DataType } from "../DataType";
-import { Logger } from "../Logger";
+import DataType from '../DataType';
 
-export
 const polygon: DataType = {
-    mariadb: {
-        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
-            return "POLYGON";
-        },
-        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
-            return [];
-        },
-        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        },
-        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        }
-    }
+  mariadb: {
+    equivalentNativeType: (): string => 'POLYGON',
+    checkConstraints: (): string[] => [],
+    getters: (): { [ name: string ]: string } => ({}),
+    setters: (): { [ name: string ]: string } => ({}),
+  },
 };
+
+export default polygon;

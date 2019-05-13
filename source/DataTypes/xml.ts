@@ -1,20 +1,12 @@
-import { DataType } from "../DataType";
-import { Logger } from "../Logger";
+import DataType from '../DataType';
 
-export
 const xml: DataType = {
-    mariadb: {
-        equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
-            return "LONGTEXT";
-        },
-        checkConstraints: (path: [ string, string, string ], spec: any, logger: Logger): string[] => {
-            return []; // TODO: Add some more checks.
-        },
-        getters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        },
-        setters: (path: [ string, string, string ], spec: any, logger: Logger): { [ name: string ]: string } => {
-            return {};
-        }
-    }
+  mariadb: {
+    equivalentNativeType: (): string => 'LONGTEXT',
+    checkConstraints: (): string[] => [], // TODO: Add some more checks.
+    getters: (): { [ name: string ]: string } => ({}),
+    setters: (): { [ name: string ]: string } => ({}),
+  },
 };
+
+export default xml;

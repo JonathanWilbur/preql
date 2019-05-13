@@ -1,25 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class ConsoleLogger {
+    constructor() {
+        this.DEBUG_ICON = '(?) DEBUG';
+        this.INFO_ICON = '(i) INFO';
+        this.WARN_ICON = '<!> WARN';
+        this.ERROR_ICON = '[X] ERROR';
+    }
     debug(path, event) {
+        // eslint-disable-next-line no-console
         if (console)
-            console.debug(`${ConsoleLogger.DEBUG_ICON} ${path.join(".")}: ${event}`);
+            console.debug(`${this.DEBUG_ICON} ${path.join('.')}: ${event}`);
     }
     info(path, event) {
+        // eslint-disable-next-line no-console
         if (console)
-            console.info(`${ConsoleLogger.INFO_ICON} ${path.join(".")}: ${event}`);
+            console.info(`${this.INFO_ICON} ${path.join('.')}: ${event}`);
     }
     warn(path, event) {
+        // eslint-disable-next-line no-console
         if (console)
-            console.warn(`${ConsoleLogger.WARN_ICON} ${path.join(".")}: ${event}`);
+            console.warn(`${this.WARN_ICON} ${path.join('.')}: ${event}`);
     }
     error(path, event) {
+        // eslint-disable-next-line no-console
         if (console)
-            console.error(`${ConsoleLogger.ERROR_ICON} ${path.join(".")}: ${event}`);
+            console.error(`${this.ERROR_ICON} ${path.join('.')}: ${event}`);
     }
 }
-ConsoleLogger.DEBUG_ICON = "(?) DEBUG";
-ConsoleLogger.INFO_ICON = "(i) INFO";
-ConsoleLogger.WARN_ICON = "<!> WARN";
-ConsoleLogger.ERROR_ICON = "[X] ERROR";
-exports.ConsoleLogger = ConsoleLogger;
+exports.default = ConsoleLogger;

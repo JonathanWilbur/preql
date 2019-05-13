@@ -1,6 +1,6 @@
-import { NativeTypeProperties } from "./NativeTypeProperties";
+import NativeTypeProperties from './NativeTypeProperties';
 
-export
+export default
 interface DataType {
-    mariadb: NativeTypeProperties;
+  mariadb: NativeTypeProperties;
 }

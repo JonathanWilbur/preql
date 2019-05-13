@@ -90,5 +90,6 @@ In development.
   - [ ] Check that everything is lower-cased.
   - [ ] Make a new error type that includes the path.
   - [ ] Use `Object.freeze()`
-  - [ ] Configure ESLint
+  - [x] Configure ESLint
+  - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
   - [ ] Strict Null Checks

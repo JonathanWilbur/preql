@@ -11,6 +11,6 @@ provider:
 
 functions:
   transpile-mariadb:
-    handler: source/ExportPlugins/mariadb/index.handler
+    handler: source/ExportPlugins/mariadb/index.default
     timeout: 30
     memorySize: 128

@@ -1,18 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.year = {
+const year = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            return "YEAR";
-        },
-        checkConstraints: (path, spec, logger) => {
-            return [];
-        },
-        getters: (path, spec, logger) => {
-            return {};
-        },
-        setters: (path, spec, logger) => {
-            return {};
-        }
-    }
+        equivalentNativeType: () => 'YEAR',
+        checkConstraints: () => [],
+        getters: () => ({}),
+        setters: () => ({}),
+    },
 };
+exports.default = year;

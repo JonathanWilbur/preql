@@ -50,10 +50,14 @@ function transpileTriggers(path: [ string, string, string ], spec: any): string[
       .forEach((key: string): void => {
         const triggerBaseName = `${path[0]}.${path[1]}_${path[2]}_${key}`;
         const triggerString: string = ['INSERT', 'UPDATE']
-          .map((event: string): string => `DROP TRIGGER IF EXISTS ${triggerBaseName}_${event.toLowerCase()};\r\n`
-            + `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_${event.toLowerCase()}\r\n`
+          .map((event: string): string => {
+            const triggerName = `${triggerBaseName}_${event.toLowerCase()}`;
+            return `DROP TRIGGER IF EXISTS ${triggerName};\r\n`
+            + `CREATE TRIGGER IF NOT EXISTS ${triggerName}\r\n`
             + `BEFORE ${event} ON ${path[0]}.${path[1]} FOR EACH ROW\r\n`
-            + `SET NEW.${path[2]} = ${setters[key]};`).join('\r\n\r\n');
+            + `SET NEW.${path[2]} = ${setters[key]};`
+          })
+          .join('\r\n\r\n');
         ret.push(triggerString);
       });
     return ret;
@@ -88,56 +92,56 @@ function transpileIndexes(path: [ string, string ], spec: any): string[] {
         case ('plain'): {
           return (
             `ALTER TABLE ${path[0]}.${path[1]}\r\n`
-                        + `ADD INDEX IF NOT EXISTS ${indexName}\r\n`
-                        + `PRIMARY KEY (${columnString});`
+            + `ADD INDEX IF NOT EXISTS ${indexName}\r\n`
+            + `PRIMARY KEY (${columnString});`
           );
         }
         case ('primary'): {
           const duplicateErrorCode = 1068;
           return (
             `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
-                        + 'DELIMITER $$\r\n'
-                        + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
-                        + 'BEGIN\r\n'
-                        + `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n`
-                        + `\tALTER TABLE ${path[0]}.${path[1]}\r\n`
-                        + `\tADD CONSTRAINT ${indexName} PRIMARY KEY (${columnString});\r\n`
-                        + 'END $$\r\n'
-                        + 'DELIMITER ;\r\n'
-                        + `CALL ${storedProcedureName};\r\n`
-                        + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+            + 'DELIMITER $$\r\n'
+            + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
+            + 'BEGIN\r\n'
+            + `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n`
+            + `\tALTER TABLE ${path[0]}.${path[1]}\r\n`
+            + `\tADD CONSTRAINT ${indexName} PRIMARY KEY (${columnString});\r\n`
+            + 'END $$\r\n'
+            + 'DELIMITER ;\r\n'
+            + `CALL ${storedProcedureName};\r\n`
+            + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
           );
         }
         case ('unique'): {
           const duplicateErrorCode = 1061;
           return (
             `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
-                        + 'DELIMITER $$\r\n'
-                        + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
-                        + 'BEGIN\r\n'
-                        + `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n`
-                        + `\tALTER TABLE ${path[0]}.${path[1]}\r\n`
-                        + `\tADD CONSTRAINT ${indexName} UNIQUE KEY (${columnString});\r\n`
-                        + 'END $$\r\n'
-                        + 'DELIMITER ;\r\n'
-                        + `CALL ${storedProcedureName};\r\n`
-                        + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+            + 'DELIMITER $$\r\n'
+            + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
+            + 'BEGIN\r\n'
+            + `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n`
+            + `\tALTER TABLE ${path[0]}.${path[1]}\r\n`
+            + `\tADD CONSTRAINT ${indexName} UNIQUE KEY (${columnString});\r\n`
+            + 'END $$\r\n'
+            + 'DELIMITER ;\r\n'
+            + `CALL ${storedProcedureName};\r\n`
+            + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
           );
         }
         case ('text'): {
           const duplicateErrorCode = 1061;
           return (
             `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
-                        + 'DELIMITER $$\r\n'
-                        + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
-                        + 'BEGIN\r\n'
-                        + `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n`
-                        + `\tALTER TABLE ${path[0]}.${path[1]}\r\n`
-                        + `\tADD FULLTEXT INDEX (${columnString});\r\n`
-                        + 'END $$\r\n'
-                        + 'DELIMITER ;\r\n'
-                        + `CALL ${storedProcedureName};\r\n`
-                        + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+            + 'DELIMITER $$\r\n'
+            + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
+            + 'BEGIN\r\n'
+            + `\tDECLARE EXIT HANDLER FOR ${duplicateErrorCode} DO 0;\r\n`
+            + `\tALTER TABLE ${path[0]}.${path[1]}\r\n`
+            + `\tADD FULLTEXT INDEX (${columnString});\r\n`
+            + 'END $$\r\n'
+            + 'DELIMITER ;\r\n'
+            + `CALL ${storedProcedureName};\r\n`
+            + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
           );
         }
         case ('spatial'): {

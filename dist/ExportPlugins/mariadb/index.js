@@ -49,10 +49,14 @@ function transpileTriggers(path, spec) {
             .forEach((key) => {
             const triggerBaseName = `${path[0]}.${path[1]}_${path[2]}_${key}`;
             const triggerString = ['INSERT', 'UPDATE']
-                .map((event) => `DROP TRIGGER IF EXISTS ${triggerBaseName}_${event.toLowerCase()};\r\n`
-                + `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_${event.toLowerCase()}\r\n`
-                + `BEFORE ${event} ON ${path[0]}.${path[1]} FOR EACH ROW\r\n`
-                + `SET NEW.${path[2]} = ${setters[key]};`).join('\r\n\r\n');
+                .map((event) => {
+                const triggerName = `${triggerBaseName}_${event.toLowerCase()}`;
+                return `DROP TRIGGER IF EXISTS ${triggerName};\r\n`
+                    + `CREATE TRIGGER IF NOT EXISTS ${triggerName}\r\n`
+                    + `BEFORE ${event} ON ${path[0]}.${path[1]} FOR EACH ROW\r\n`
+                    + `SET NEW.${path[2]} = ${setters[key]};`;
+            })
+                .join('\r\n\r\n');
             ret.push(triggerString);
         });
         return ret;
@@ -210,8 +214,10 @@ const handler = (event, context, callback) => {
     if (!(typeof event === 'object'))
         callback(new Error('Event was not of an object type.'));
     const valid = validate(event);
-    if (!valid)
+    if (!valid) {
         callback(new Error('Input PreQL was invalid.'));
+        return;
+    }
     main(event, callback);
 };
 exports.default = handler;

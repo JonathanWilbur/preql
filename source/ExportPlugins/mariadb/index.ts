@@ -232,8 +232,11 @@ function main(spec: PreqlSchema, callback: Callback<object>): void {
   const result = {
     value: '',
   };
-  if ('schema' in spec) {
+  if (spec.schema) {
     Object.keys(spec.schema).forEach((schemaName: string): void => {
+      if (!spec.schema) {
+        throw new Error('spec.schema was falsy.');
+      }
       try {
         result.value += transpileSchema([schemaName], spec.schema[schemaName]);
       } catch (e) {

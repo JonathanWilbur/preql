@@ -210,8 +210,11 @@ function main(spec, callback) {
     const result = {
         value: '',
     };
-    if ('schema' in spec) {
+    if (spec.schema) {
         Object.keys(spec.schema).forEach((schemaName) => {
+            if (!spec.schema) {
+                throw new Error('spec.schema was falsy.');
+            }
             try {
                 result.value += transpileSchema([schemaName], spec.schema[schemaName]);
             }

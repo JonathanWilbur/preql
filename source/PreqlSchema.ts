@@ -2,5 +2,5 @@ import Schema from './Schema';
 
 export default
 interface PreqlSchema {
-  schema: { [ name: string ]: Schema };
+  schema?: { [ name: string ]: Schema };
 };

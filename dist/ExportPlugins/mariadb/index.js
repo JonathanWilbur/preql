@@ -225,7 +225,6 @@ function main(spec, callback) {
                     if (tableSpec.implements.length === 0)
                         return;
                     tableSpec.implements.forEach((implementation) => {
-                        logger.debug([schemaName, tableName], `Validating implementation of interface '${implementation}'.`);
                         if (!spec.interfaces)
                             return;
                         if (!(implementation in spec.interfaces)) {
@@ -234,13 +233,17 @@ function main(spec, callback) {
                         Object.entries(spec.interfaces[implementation])
                             .forEach((implementationColumn) => {
                             const [columnName, columnSpec] = implementationColumn;
+                            const path = [schemaName, tableName, columnName];
                             if (columnName in tableSpec.columns) { // Merge conflict
-                                mergeColumnInterfaceAndImplementation_1.default(implementation, [schemaName, tableName, columnName], columnSpec, tableSpec.columns[columnName]);
+                                logger.debug(path, `Merging column '${columnName}' for the implementation of interface '${implementation}'.`);
+                                mergeColumnInterfaceAndImplementation_1.default(implementation, path, columnSpec, tableSpec.columns[columnName]);
                             }
                             else { // No merge conflict
+                                logger.debug(path, `Creating column '${columnName}' for the implementation of interface '${implementation}'.`);
                                 tableSpec.columns[columnName] = columnSpec;
                             }
                         });
+                        logger.info([schemaName, tableName], `Interface '${implementation}' successfully implemented on table '${schemaName}'.'${tableName}'.`);
                     });
                 });
             }

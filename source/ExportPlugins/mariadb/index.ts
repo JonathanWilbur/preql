@@ -248,7 +248,6 @@ function main(spec: PreqlSchema, callback: Callback<object>): void {
           if (!(tableSpec.implements)) return;
           if (tableSpec.implements.length === 0) return;
           tableSpec.implements.forEach((implementation: string): void => {
-            logger.debug([schemaName, tableName], `Validating implementation of interface '${implementation}'.`);
             if (!spec.interfaces) return;
             if (!(implementation in spec.interfaces)) {
               throw new Error(`Interface '${implementation}' not recognized.`);
@@ -256,17 +255,24 @@ function main(spec: PreqlSchema, callback: Callback<object>): void {
             Object.entries(spec.interfaces[implementation])
               .forEach((implementationColumn: [ string, Column ]): void => {
                 const [columnName, columnSpec] = implementationColumn;
+                const path : [ string, string, string ] = [schemaName, tableName, columnName];
                 if (columnName in tableSpec.columns) { // Merge conflict
+                  logger.debug(path,
+                    `Merging column '${columnName}' for the implementation of interface '${implementation}'.`);
                   mergeColumnInterfaceAndImplementation(
                     implementation,
-                    [schemaName, tableName, columnName],
+                    path,
                     columnSpec,
                     tableSpec.columns[columnName],
                   );
                 } else { // No merge conflict
+                  logger.debug(path,
+                    `Creating column '${columnName}' for the implementation of interface '${implementation}'.`);
                   tableSpec.columns[columnName] = columnSpec;
                 }
               });
+            logger.info([schemaName, tableName],
+              `Interface '${implementation}' successfully implemented on table '${schemaName}'.'${tableName}'.`);
           });
         });
       }

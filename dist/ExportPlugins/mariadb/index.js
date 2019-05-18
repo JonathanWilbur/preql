@@ -194,7 +194,6 @@ function transpileTable(path, spec) {
 }
 function transpileSchema(path, spec) {
     let result = '';
-    Object.freeze(spec);
     if (spec.tables) {
         Object.keys(spec.tables).forEach((tableName) => {
             if (!spec.tables) {
@@ -211,12 +210,69 @@ function main(spec, callback) {
         value: '',
     };
     if (spec.schema) {
-        Object.keys(spec.schema).forEach((schemaName) => {
-            if (!spec.schema) {
-                throw new Error('spec.schema was falsy.');
+        Object.entries(spec.schema).forEach((schema) => {
+            const [schemaName, schemaSpec] = schema;
+            // Joining the interfaces to schema.
+            if (schemaSpec.tables
+                && spec.interfaces
+                && Object.keys(schemaSpec.tables).length > 0
+                && Object.keys(spec.interfaces).length > 0) {
+                Object.entries(schemaSpec.tables).forEach((table) => {
+                    const [tableName, tableSpec] = table;
+                    if (!(tableSpec.implements))
+                        return;
+                    if (tableSpec.implements.length === 0)
+                        return;
+                    tableSpec.implements.forEach((implementation) => {
+                        logger.debug([schemaName, tableName], `Validating implementation of interface '${implementation}'.`);
+                        if (!spec.interfaces)
+                            return;
+                        if (!(implementation in spec.interfaces)) {
+                            throw new Error(`Interface '${implementation}' not recognized.`);
+                        }
+                        Object.entries(spec.interfaces[implementation])
+                            .forEach((implementationColumn) => {
+                            const [columnName, columnSpec] = implementationColumn;
+                            if (implementationColumn[0] in table[1].columns) { // Merge conflict
+                                if (tableSpec.columns[columnName].type !== columnSpec.type) {
+                                    throw new Error(`Type does not match between interface '${implementation}' `
+                                        + `implementation of column '${columnName}' and the existing `
+                                        + 'column by the same name in the specification for table '
+                                        + `'${tableName}'. Actual type was `
+                                        + `'${tableSpec.columns[columnName].type}', but type `
+                                        + `'${columnSpec.type}' was expected.`);
+                                }
+                                if (tableSpec.columns[columnName].length
+                                    && columnSpec.length
+                                    && tableSpec.columns[columnName].length !== columnSpec.length) {
+                                    throw new Error(`Length does not match between interface '${implementation}' `
+                                        + `implementation of column '${columnName}' and the existing `
+                                        + 'column by the same name in the specification for table '
+                                        + `'${tableName}'. Actual length was `
+                                        + `${tableSpec.columns[columnName].length}, but length of `
+                                        + `${columnSpec.length} was expected.`);
+                                }
+                                if (!(columnSpec.nullable) && tableSpec.columns[columnName].nullable) {
+                                    throw new Error(`Interface '${implementation}' says that column `
+                                        + `'${columnName}' must not be nullable, yet its `
+                                        + `conflicting implementation in table '${tableName}'`
+                                        + 'says that it may be nullable.');
+                                }
+                                if (columnSpec.comment
+                                    && columnSpec.comment.length !== 0
+                                    && (tableSpec.columns[columnName].comment || '').length === 0) {
+                                    tableSpec.columns[columnName].comment = columnSpec.comment;
+                                }
+                            }
+                            else { // No merge conflict
+                                tableSpec.columns[columnName] = columnSpec;
+                            }
+                        });
+                    });
+                });
             }
             try {
-                result.value += transpileSchema([schemaName], spec.schema[schemaName]);
+                result.value += transpileSchema([schemaName], schemaSpec);
             }
             catch (e) {
                 logger.error([schemaName], e.message);

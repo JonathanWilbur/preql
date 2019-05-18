@@ -4,13 +4,12 @@ const SchemaSchema = {
   title: 'PreQL Schema Schema',
   type: 'object',
   properties: {
-    // functions:
-    // indexes: IndexSchema
+    // functions
     tables: {
       type: 'object',
       additionalProperties: TableSchema,
     },
-    // views:
+    // views
   },
   required: [],
 };

@@ -25,10 +25,10 @@ schema:
             default: "Bob"
             comment: "Should not be abbreviated"
             nullable: True
-          lastname:
-            type: "VARCHAR"
-            length: 64
-            default: "McGobb"
+          # lastname:
+          #   type: "VARCHAR"
+          #   length: 64
+          #   default: "McGobb"
           age:
             type: "uint"
             length: 8
@@ -37,6 +37,8 @@ schema:
             type: "inet"
         # entries
         # foreignkeys
+        implements:
+          - person
         indexes:
           blorpy:
             keys:

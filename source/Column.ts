@@ -3,8 +3,7 @@ import Casing from './Casing';
 export default
 interface Column {
   comment?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default?: any;
+  default?: string | number;
   nullable: boolean;
   type: string;
   length?: number;

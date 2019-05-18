@@ -35,7 +35,7 @@ In development.
     - [ ] NuoDB
     - [ ] Cassandra
 - [ ] Features
-  - [ ] Interfaces
+  - [x] Interfaces
   - [ ] Nested tables (Warning: the schema could cause infinite recursion!)
   - [ ] Support index comments.
   - [ ] Explanatory comments
@@ -90,6 +90,8 @@ In development.
   - [ ] Check that everything is lower-cased.
   - [ ] Make a new error type that includes the path.
   - [ ] Use `Object.freeze()`
+  - [ ] Use `Object.entries()` instead of `Object.keys()` where the values are needed.
   - [x] Configure ESLint
   - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
   - [ ] Strict Null Checks
+  - [ ] New `Error` type.

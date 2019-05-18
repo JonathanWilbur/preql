@@ -53,3 +53,11 @@ DROP PROCEDURE IF EXISTS create_indexes;
 
 The `1068` error code means "primary key already defined." The `DO 0` is a
 no-op.
+
+## Nullability in Interfaces
+
+In a conflict between an interface and implementation for nullability, the
+stricter rule wins. In other words, if the interface and implementation express
+contradicting nullability for a column, the column becomes non-nullable.
+
+TODO: Insert truth table here.

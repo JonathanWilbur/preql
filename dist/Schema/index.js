@@ -15,7 +15,6 @@ const rootSchema = {
             type: 'object',
             additionalProperties: {
                 type: 'object',
-                // items: ColumnSchema,
                 additionalProperties: ColumnSchema_1.default,
             },
         },

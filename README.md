@@ -95,3 +95,5 @@ In development.
   - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
   - [ ] Strict Null Checks
   - [ ] New `Error` type.
+  - [ ] Create path types
+  - [ ] Add a lot more logging.

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ConsoleLogger_1 = __importDefault(require("../../Loggers/ConsoleLogger"));
 const index_1 = __importDefault(require("../../DataTypes/index"));
 const index_2 = __importDefault(require("../../Schema/index"));
+const mergeColumnInterfaceAndImplementation_1 = __importDefault(require("../../mergeColumnInterfaceAndImplementation"));
 const logger = new ConsoleLogger_1.default();
 const Ajv = require("ajv");
 const ajv = new Ajv({
@@ -233,36 +234,8 @@ function main(spec, callback) {
                         Object.entries(spec.interfaces[implementation])
                             .forEach((implementationColumn) => {
                             const [columnName, columnSpec] = implementationColumn;
-                            if (implementationColumn[0] in table[1].columns) { // Merge conflict
-                                if (tableSpec.columns[columnName].type !== columnSpec.type) {
-                                    throw new Error(`Type does not match between interface '${implementation}' `
-                                        + `implementation of column '${columnName}' and the existing `
-                                        + 'column by the same name in the specification for table '
-                                        + `'${tableName}'. Actual type was `
-                                        + `'${tableSpec.columns[columnName].type}', but type `
-                                        + `'${columnSpec.type}' was expected.`);
-                                }
-                                if (tableSpec.columns[columnName].length
-                                    && columnSpec.length
-                                    && tableSpec.columns[columnName].length !== columnSpec.length) {
-                                    throw new Error(`Length does not match between interface '${implementation}' `
-                                        + `implementation of column '${columnName}' and the existing `
-                                        + 'column by the same name in the specification for table '
-                                        + `'${tableName}'. Actual length was `
-                                        + `${tableSpec.columns[columnName].length}, but length of `
-                                        + `${columnSpec.length} was expected.`);
-                                }
-                                if (!(columnSpec.nullable) && tableSpec.columns[columnName].nullable) {
-                                    throw new Error(`Interface '${implementation}' says that column `
-                                        + `'${columnName}' must not be nullable, yet its `
-                                        + `conflicting implementation in table '${tableName}'`
-                                        + 'says that it may be nullable.');
-                                }
-                                if (columnSpec.comment
-                                    && columnSpec.comment.length !== 0
-                                    && (tableSpec.columns[columnName].comment || '').length === 0) {
-                                    tableSpec.columns[columnName].comment = columnSpec.comment;
-                                }
+                            if (columnName in tableSpec.columns) { // Merge conflict
+                                mergeColumnInterfaceAndImplementation_1.default(implementation, [schemaName, tableName, columnName], columnSpec, tableSpec.columns[columnName]);
                             }
                             else { // No merge conflict
                                 tableSpec.columns[columnName] = columnSpec;

@@ -28,6 +28,7 @@ const IndexSchema = {
         },
     },
     required: [
+        'keys',
         'type',
     ],
 };

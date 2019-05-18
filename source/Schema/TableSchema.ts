@@ -26,7 +26,9 @@ const TableSchema = {
       additionalProperties: IndexSchema,
     },
   },
-  required: [],
+  required: [
+    'columns',
+  ],
 };
 
 export default TableSchema;

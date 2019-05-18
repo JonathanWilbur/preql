@@ -30,6 +30,8 @@ const TableSchema = {
             additionalProperties: IndexSchema_1.default,
         },
     },
-    required: [],
+    required: [
+        'columns',
+    ],
 };
 exports.default = TableSchema;

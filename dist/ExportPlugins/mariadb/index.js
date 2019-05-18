@@ -172,8 +172,14 @@ function transpileTable(path, spec) {
             checkConstraintStrings.push(checkConstraint); // REVIEW: Code smell
         Array.prototype.push.apply(triggerStrings, triggers);
     });
-    if ('indexes' in spec) {
+    if (spec.indexes) {
         Object.keys(spec.indexes).forEach((indexName) => {
+            if (!spec.indexes) {
+                throw new Error('spec.indexes was falsy.');
+            }
+            if (!(indexName in spec.indexes)) {
+                throw new Error(`Index '${indexName}' not in spec.indexes.`);
+            }
             const indexSpec = spec.indexes[indexName];
             const indexPath = [schemaName, tableName, indexName];
             const index = transpileIndex(indexPath, indexSpec);
@@ -188,8 +194,12 @@ function transpileTable(path, spec) {
 }
 function transpileSchema(path, spec) {
     let result = '';
-    if ('tables' in spec) {
+    Object.freeze(spec);
+    if (spec.tables) {
         Object.keys(spec.tables).forEach((tableName) => {
+            if (!spec.tables) {
+                throw new Error('spec.tables was falsy.');
+            }
             result += transpileTable([path[0], tableName], spec.tables[tableName]);
         });
     }
@@ -213,6 +223,7 @@ function main(spec, callback) {
     }
     callback(null, result);
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handler = (event, context, callback) => {
     // REVIEW: Handle JSON and YAML strings, too?
     if (!(typeof event === 'object'))

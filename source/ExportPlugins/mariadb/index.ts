@@ -2,6 +2,12 @@ import { Handler, Context, Callback } from 'aws-lambda';
 import ConsoleLogger from '../../Loggers/ConsoleLogger';
 import dataTypes from '../../DataTypes/index';
 import rootSchema from '../../Schema/index';
+import Column from '../../Column';
+import Index from '../../Index';
+import IndexKey from '../../IndexKey';
+import Table from '../../Table';
+import Schema from '../../Schema';
+import PreqlSchema from '../../PreqlSchema';
 
 const logger: ConsoleLogger = new ConsoleLogger();
 import Ajv = require('ajv');
@@ -11,21 +17,21 @@ const ajv: Ajv.Ajv = new Ajv({
 });
 const validate = ajv.compile(rootSchema);
 
-function convertPreqlTypeToNativeType(path: [ string, string, string ], spec: any): string {
+function convertPreqlTypeToNativeType(path: [ string, string, string ], spec: Column): string {
   const type: string = spec.type.toLowerCase();
   if (type in dataTypes) {
     return dataTypes[type].mariadb.equivalentNativeType(path, spec, logger);
   } throw new Error(`${path}: Unrecognized type: ${type}`);
 }
 
-function transpileCheckExpressions(path: [ string, string, string ], spec: any): string[] {
+function transpileCheckExpressions(path: [ string, string, string ], spec: Column): string[] {
   const type: string = spec.type.toLowerCase();
   if (type in dataTypes) {
     return dataTypes[type].mariadb.checkConstraints(path, spec, logger);
   } throw new Error(`${path}: Unrecognized type: ${type}`);
 }
 
-function transpileCheckConstraints(path: [ string, string, string ], spec: any): string {
+function transpileCheckConstraints(path: [ string, string, string ], spec: Column): string {
   const tableName: string = path[1];
   const columnName: string = path[2];
   // TODO: Review constraint name size limits
@@ -41,7 +47,7 @@ function transpileCheckConstraints(path: [ string, string, string ], spec: any):
   );
 }
 
-function transpileTriggers(path: [ string, string, string ], spec: any): string[] {
+function transpileTriggers(path: [ string, string, string ], spec: Column): string[] {
   const type: string = spec.type.toLowerCase();
   if (type in dataTypes) {
     const setters: { [ name: string ]: string } = dataTypes[type].mariadb.setters(path, spec, logger);
@@ -61,7 +67,7 @@ function transpileTriggers(path: [ string, string, string ], spec: any): string[
   } throw new Error(`${path}: Unrecognized type: ${type}`);
 }
 
-function transpileColumn(path: [ string, string, string ], spec: any): string {
+function transpileColumn(path: [ string, string, string ], spec: Column): string {
   const tableName: string = path[1];
   const columnName: string = path[2];
   let columnString = `ALTER TABLE ${tableName}\r\nADD COLUMN IF NOT EXISTS ${columnName} `;
@@ -76,12 +82,12 @@ function transpileColumn(path: [ string, string, string ], spec: any): string {
   return columnString;
 }
 
-function transpileIndex(path: [ string, string, string], spec: any): string {
+function transpileIndex(path: [ string, string, string], spec: Index): string {
   const indexName: string = path[2];
   const storedProcedureName: string = `create_index_${indexName}`;
   const indexType: string = spec.type.toLowerCase();
   const columnString: string = spec.keys
-    .map((key: any): string => `${key.column} ${(key.ascending ? 'ASC' : 'DESC')}`)
+    .map((key: IndexKey): string => `${key.column} ${(key.ascending ? 'ASC' : 'DESC')}`)
     .join(', ');
   switch (indexType) {
     case ('plain'): {
@@ -164,7 +170,7 @@ function transpileIndex(path: [ string, string, string], spec: any): string {
   }
 }
 
-function transpileTable(path: [ string, string ], spec: any): string {
+function transpileTable(path: [ string, string ], spec: Table): string {
   const schemaName: string = path[0];
   const tableName: string = path[1];
   if (!('columns' in spec)) {
@@ -175,7 +181,7 @@ function transpileTable(path: [ string, string ], spec: any): string {
   const triggerStrings: string[] = [];
   const indexStrings: string[] = [];
   Object.keys(spec.columns).forEach((columnName: string): void => {
-    const columnSpec: any = spec.columns[columnName];
+    const columnSpec: Column = spec.columns[columnName];
     const columnPath: [ string, string, string ] = [schemaName, tableName, columnName];
     const column: string = transpileColumn(columnPath, columnSpec);
     const checkConstraint: string = transpileCheckConstraints(columnPath, columnSpec);
@@ -184,9 +190,15 @@ function transpileTable(path: [ string, string ], spec: any): string {
     if (checkConstraint.length !== 0) checkConstraintStrings.push(checkConstraint); // REVIEW: Code smell
     Array.prototype.push.apply(triggerStrings, triggers);
   });
-  if ('indexes' in spec) {
+  if (spec.indexes) {
     Object.keys(spec.indexes).forEach((indexName: string): void => {
-      const indexSpec: any = spec.indexes[indexName];
+      if (!spec.indexes) {
+        throw new Error('spec.indexes was falsy.');
+      }
+      if (!(indexName in spec.indexes)) {
+        throw new Error(`Index '${indexName}' not in spec.indexes.`);
+      }
+      const indexSpec: Index = spec.indexes[indexName];
       const indexPath: [ string, string, string ] = [schemaName, tableName, indexName];
       const index: string = transpileIndex(indexPath, indexSpec);
       indexStrings.push(index);
@@ -201,10 +213,14 @@ function transpileTable(path: [ string, string ], spec: any): string {
   );
 }
 
-function transpileSchema(path: [ string ], spec: any): string {
+function transpileSchema(path: [ string ], spec: Schema): string {
   let result = '';
-  if ('tables' in spec) {
+  Object.freeze(spec);
+  if (spec.tables) {
     Object.keys(spec.tables).forEach((tableName: string): void => {
+      if (!spec.tables) {
+        throw new Error('spec.tables was falsy.');
+      }
       result += transpileTable([path[0], tableName], spec.tables[tableName]);
     });
   }
@@ -212,7 +228,7 @@ function transpileSchema(path: [ string ], spec: any): string {
   return result;
 }
 
-function main(spec: any, callback: Callback<object>): void {
+function main(spec: PreqlSchema, callback: Callback<object>): void {
   const result = {
     value: '',
   };
@@ -229,6 +245,7 @@ function main(spec: any, callback: Callback<object>): void {
   callback(null, result);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handler: Handler<any, object> = (event: any, context: Context, callback: Callback<object>): void => {
   // REVIEW: Handle JSON and YAML strings, too?
   if (!(typeof event === 'object')) callback(new Error('Event was not of an object type.'));

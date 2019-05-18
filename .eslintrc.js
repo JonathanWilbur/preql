@@ -53,5 +53,8 @@ module.exports = {
 
         // This just does not work for some reason.
         "import/no-unresolved": "off",
+
+        // This does not appear to be on by default in AirBnB's rules.
+        "@typescript-eslint/no-explicit-any": [ "error" ]
     }
 };

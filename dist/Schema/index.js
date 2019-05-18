@@ -14,8 +14,9 @@ const rootSchema = {
         interfaces: {
             type: 'object',
             additionalProperties: {
-                type: 'array',
-                items: ColumnSchema_1.default,
+                type: 'object',
+                // items: ColumnSchema,
+                additionalProperties: ColumnSchema_1.default,
             },
         },
         // roles: RoleSchema

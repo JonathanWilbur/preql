@@ -35,6 +35,8 @@ schema:
             default: 18
           ip:
             type: "inet"
+        # entries
+        # foreignkeys
         indexes:
           blorpy:
             keys:

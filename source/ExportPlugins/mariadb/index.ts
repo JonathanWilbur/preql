@@ -84,7 +84,7 @@ function transpileColumn(path: [ string, string, string ], spec: Column): string
   return columnString;
 }
 
-function transpileIndex(path: [ string, string, string], spec: Index): string {
+function transpileIndex(path: [ string, string, string ], spec: Index): string {
   const indexName: string = path[2];
   const storedProcedureName: string = `create_index_${indexName}`;
   const indexType: string = spec.type.toLowerCase();
@@ -293,6 +293,103 @@ function main(spec: PreqlSchema, callback: Callback<object>): void {
           });
         });
       }
+
+      // Validate FK constraints
+      if (schemaSpec.tables) {
+        Object.entries(schemaSpec.tables).forEach((table: [string, Table]): void => {
+          const [tableName, tableSpec] = table;
+          if (!(tableSpec.foreignkeys)) return;
+          Object.entries(tableSpec.foreignkeys).forEach((fk: [string, ForeignKeyConstraint]): void => {
+            const [fkName, fkSpec] = fk;
+            if (!(schemaSpec.tables)) return;
+
+            // Check that length of columns matches referenceColumns
+            if (!(fkSpec.columns.length !== fkSpec.referenceColumns.length)) {
+              throw new Error(
+                'Number of columns do not match up between child and parent '
+                + `table in constraint '${fkName}'. Child table has `
+                + `${fkSpec.columns.length} columns, yet the parent table `
+                + `has ${fkSpec.referenceColumns.length} columns.`,
+              );
+            }
+
+            // Check that all columns exist
+            fkSpec.columns.forEach((columnName: string): void => {
+              if (!(columnName in tableSpec.columns)) {
+                throw new Error(
+                  `Foreign key constraint '${fkName}' refers to a non-existent `
+                  + `column '${columnName}' in table '${tableName}'.`,
+                );
+              }
+            });
+
+            // Check that referenceTable exists
+            if (!(fkSpec.referenceTable in schemaSpec.tables)) {
+              throw new Error(
+                `Foreign key constraint '${fkName}' refers to a non-existent `
+                + `table '${fkSpec.referenceTable}'.`,
+              );
+            }
+            const referenceTableSpec: Table = schemaSpec.tables[fkSpec.referenceTable];
+
+            // Check that referenceColumns exist in referenceTable
+            fkSpec.referenceColumns.forEach((columnName: string): void => {
+              if (!(columnName in referenceTableSpec.columns)) {
+                throw new Error(
+                  `Foreign key constraint '${fkName}' refers to a non-existent `
+                  + `column '${columnName}' in reference table '${tableName}'.`,
+                );
+              }
+            });
+
+            // Check that types of columns matches referenceColumns
+            fkSpec.columns.forEach((columnName: string, columnIndex: number): void => {
+              const columnSpec: Column = tableSpec.columns[columnName];
+              const referenceColumnName: string = fkSpec.referenceColumns[columnIndex];
+              const referenceColumnSpec: Column = referenceTableSpec.columns[referenceColumnName];
+
+              if (columnSpec.type !== referenceColumnSpec.type) {
+                throw new Error(
+                  `Type mismatch between columns '${schemaName}.${tableName}.${columnName}' `
+                  + `and '${schemaName}.${fkSpec.referenceTable}.${referenceColumnName}' as `
+                  + `used by foreign key constraint '${fkName}'.`,
+                );
+              }
+
+              if (columnSpec.length !== referenceColumnSpec.length) {
+                throw new Error(
+                  `Length mismatch between columns '${schemaName}.${tableName}.${columnName}' `
+                  + `and '${schemaName}.${fkSpec.referenceTable}.${referenceColumnName}' as `
+                  + `used by foreign key constraint '${fkName}'.`,
+                );
+              }
+
+              // TODO: I can't decide if I need to do this.
+              // if (columnSpec.nullable !== referenceColumnSpec.nullable) {
+              //   throw new Error(
+              //     `Type mismatch between columns '${schemaName}.${tableName}.${columnName}' `
+              //     + `and '${schemaName}.${fkSpec.referenceTable}.${referenceColumnName}' as `
+              //     + `used by foreign key constraint '${fkName}'.`,
+              //   );
+              // }
+            });
+
+            // Check that at least one reference column is a primary key
+            fkSpec.referenceColumns.some((referenceColumnName: string): boolean => {
+              if (!referenceTableSpec.indexes) return false;
+              let primaryKeyIndexEncountered = false;
+              Object.values(referenceTableSpec.indexes).forEach((index: Index): void => {
+                if (index.type === 'primary') {
+                  primaryKeyIndexEncountered = true;
+                }
+              });
+              // return (referenceTableSpec)
+            });
+          });
+        });
+      }
+
+      // TODO: Validate that there is only one primary key index per table.
 
       try {
         result.value += transpileSchema([schemaName], schemaSpec);

@@ -25,6 +25,8 @@ const TableSchema = {
       items: {
         type: 'string',
       },
+      minItems: 1,
+      uniqueItems: true,
     },
     indexes: {
       type: 'object',

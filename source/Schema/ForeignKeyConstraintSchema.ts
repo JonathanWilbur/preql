@@ -11,10 +11,16 @@ const ForeignKeyConstraintSchema = {
       items: {
         type: 'string',
       },
+      minItems: 1,
+      uniqueItems: true,
     },
-    // TODO: Support this (RESTRICT, CASCADE, SET NULL)
     onDelete: {
       type: 'string',
+      enum: [
+        'restrict',
+        'cascade',
+        'nullify',
+      ],
     },
     // TODO: Support this: (RESTRICT, CASCADE, SET NULL)
     onUpdate: {
@@ -28,6 +34,8 @@ const ForeignKeyConstraintSchema = {
       items: {
         type: 'string',
       },
+      minItems: 1,
+      uniqueItems: true,
     },
   },
   required: [

@@ -36,7 +36,10 @@ In development.
     - [ ] Cassandra
 - [ ] Features
   - [x] Interfaces
-  - [ ] Nested tables (Warning: the schema could cause infinite recursion!)
+  - [x] ~~Nested tables~~ (Not doing this, because security risk of DoS, difficulty, and bad practice.)
+  - [ ] Inline references (e.g. `$pets` becomes a reference to the primary key of the `pets` table.)
+    - [ ] Check that a primary key index exists
+    - [ ] Make the type of the referencing column match.
   - [ ] Support index comments.
   - [ ] Explanatory comments
   - [ ] Preamble?
@@ -45,6 +48,7 @@ In development.
   - [ ] Users
   - [x] Unique Constraints
   - [x] Composite keys
+  - [ ] Kubernetes-like keys in schema.
 - [ ] Append warnings in comments?
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)

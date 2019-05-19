@@ -1,13 +1,13 @@
 interfaces:
   person:
     firstname:
-      type: "VARCHAR"
+      type: "varchar"
       length: 64
       default: "Bob"
       comment: "Should not be abbreviated"
       nullable: True
     lastname:
-      type: "VARCHAR"
+      type: "varchar"
       length: 64
       default: "McGobb"
 # users:
@@ -20,7 +20,7 @@ schema:
         comment: "A table of people"
         columns:
           firstname:
-            type: "VARCHAR"
+            type: "varchar"
             length: 64
             default: "Bob"
             comment: "Should not be abbreviated"
@@ -35,8 +35,9 @@ schema:
             default: 18
           ip:
             type: "inet"
+          # pets:
+          #   type: $pets
         # entries
-        # foreignkeys
         implements:
           - person
         indexes:
@@ -44,5 +45,34 @@ schema:
             keys:
               - column: "lastname"
             type: "primary"
+      pets:
+        columns:
+          name:
+            type: "varchar"
+            length: 64
+            nullable: False
+          species:
+            type: "varchar"
+            length: 64
+            nullable: False
+          # TODO: Check that FK type matches reference type.
+          ownerFirstName:
+            type: "varchar"
+            length: 64
+            nullable: True
+          ownerLastName:
+            type: "varchar"
+            length: 64
+            nullable: True
+        foreignkeys:
+          owner:
+            columns:
+              - ownerFirstName
+              - ownerLastName
+            referenceTable: people
+            referenceColumns:
+              - firstName
+              - lastName
+
     # views:
     # functions:

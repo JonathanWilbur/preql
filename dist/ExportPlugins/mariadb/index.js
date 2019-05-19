@@ -196,11 +196,26 @@ function transpileTable(path, spec) {
 function transpileSchema(path, spec) {
     let result = '';
     if (spec.tables) {
-        Object.keys(spec.tables).forEach((tableName) => {
-            if (!spec.tables) {
-                throw new Error('spec.tables was falsy.');
+        // Transpile all of the tables
+        Object.entries(spec.tables).forEach((table) => {
+            const [tableName, tableSpec] = table;
+            result += transpileTable([path[0], tableName], tableSpec);
+        });
+        // Then, transpile all of the foreign key constraints.
+        Object.entries(spec.tables).forEach((table) => {
+            const [tableName, tableSpec] = table;
+            if (tableSpec.foreignkeys) {
+                Object.entries(tableSpec.foreignkeys)
+                    .forEach((fk) => {
+                    const [fkName, fkSpec] = fk;
+                    result += `ALTER TABLE ${tableName}\r\n`
+                        + `ADD CONSTRAINT ${fkName}\r\n`
+                        + `FOREIGN KEY IF NOT EXISTS ${fkName}_index `
+                        + `(\r\n\t${fkSpec.columns.join(',\r\n\t')}\r\n)\r\n`
+                        + `REFERENCES ${fkSpec.referenceTable} `
+                        + `(\r\n\t${fkSpec.referenceColumns.join(',\r\n\t')}\r\n);`;
+                });
             }
-            result += transpileTable([path[0], tableName], spec.tables[tableName]);
         });
     }
     logger.info(path, 'Transpiled.');

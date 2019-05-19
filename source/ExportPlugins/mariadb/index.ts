@@ -9,6 +9,7 @@ import Table from '../../Table';
 import Schema from '../../Schema';
 import PreqlSchema from '../../PreqlSchema';
 import mergeColumnInterfaceAndImplementation from '../../mergeColumnInterfaceAndImplementation';
+import ForeignKeyConstraint from '../../ForeignKeyConstraint';
 
 const logger: ConsoleLogger = new ConsoleLogger();
 import Ajv = require('ajv');
@@ -217,11 +218,27 @@ function transpileTable(path: [ string, string ], spec: Table): string {
 function transpileSchema(path: [ string ], spec: Schema): string {
   let result = '';
   if (spec.tables) {
-    Object.keys(spec.tables).forEach((tableName: string): void => {
-      if (!spec.tables) {
-        throw new Error('spec.tables was falsy.');
+    // Transpile all of the tables
+    Object.entries(spec.tables).forEach((table: [ string, Table ]): void => {
+      const [tableName, tableSpec] = table;
+      result += transpileTable([path[0], tableName], tableSpec);
+    });
+
+    // Then, transpile all of the foreign key constraints.
+    Object.entries(spec.tables).forEach((table: [string, Table]): void => {
+      const [tableName, tableSpec] = table;
+      if (tableSpec.foreignkeys) {
+        Object.entries(tableSpec.foreignkeys)
+          .forEach((fk: [ string, ForeignKeyConstraint ]): void => {
+            const [fkName, fkSpec] = fk;
+            result += `ALTER TABLE ${tableName}\r\n`
+              + `ADD CONSTRAINT ${fkName}\r\n`
+              + `FOREIGN KEY IF NOT EXISTS ${fkName}_index `
+              + `(\r\n\t${fkSpec.columns.join(',\r\n\t')}\r\n)\r\n`
+              + `REFERENCES ${fkSpec.referenceTable} `
+              + `(\r\n\t${fkSpec.referenceColumns.join(',\r\n\t')}\r\n);`;
+          });
       }
-      result += transpileTable([path[0], tableName], spec.tables[tableName]);
     });
   }
   logger.info(path, 'Transpiled.');

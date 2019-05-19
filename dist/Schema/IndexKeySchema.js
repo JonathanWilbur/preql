@@ -8,21 +8,21 @@ const IndexKeySchema = {
         column: {
             type: 'string',
         },
-        references: {
-            type: 'object',
-            properties: {
-                column: {
-                    type: 'string',
-                },
-                table: {
-                    type: 'string',
-                },
-            },
-            required: [
-                'column',
-                'table',
-            ],
-        },
+        // references: {
+        //   type: 'object',
+        //   properties: {
+        //     column: {
+        //       type: 'string',
+        //     },
+        //     table: {
+        //       type: 'string',
+        //     },
+        //   },
+        //   required: [
+        //     'column',
+        //     'table',
+        //   ],
+        // },
         ascending: {
             type: 'boolean',
             default: true,

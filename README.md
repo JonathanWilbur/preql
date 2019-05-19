@@ -22,10 +22,10 @@ Kubernetes-like API.
 - [ ] Kubernetes-Like API
   - [ ] API Objects
     - [ ] DataType
-    - [ ] Schema
-    - [ ] Entity
-    - [ ] Table
-    - [ ] Column
+    - [ ] Namespace (A "schema" or "database" in an RDBMS)
+    - [ ] Entity (A document in a DODBMS)
+    - [ ] Struct (A table in an RDBMS)
+    - [ ] Attribute (A column in an RDBMS)
       - [ ] Virtual
     - [ ] PrimaryIndex
     - [ ] PlainIndex

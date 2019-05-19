@@ -15,6 +15,8 @@ const IndexSchema = {
         keys: {
             type: 'array',
             items: IndexKeySchema_1.default,
+            minItems: 1,
+            uniqueItems: true,
         },
         type: {
             type: 'string',

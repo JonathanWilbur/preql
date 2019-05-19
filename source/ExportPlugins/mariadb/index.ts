@@ -375,16 +375,16 @@ function main(spec: PreqlSchema, callback: Callback<object>): void {
             });
 
             // Check that at least one reference column is a primary key
-            fkSpec.referenceColumns.some((referenceColumnName: string): boolean => {
-              if (!referenceTableSpec.indexes) return false;
-              let primaryKeyIndexEncountered = false;
-              Object.values(referenceTableSpec.indexes).forEach((index: Index): void => {
-                if (index.type === 'primary') {
-                  primaryKeyIndexEncountered = true;
-                }
-              });
-              // return (referenceTableSpec)
-            });
+            // fkSpec.referenceColumns.some((referenceColumnName: string): boolean => {
+            //   if (!referenceTableSpec.indexes) return false;
+            //   let primaryKeyIndexEncountered = false;
+            //   Object.values(referenceTableSpec.indexes).forEach((index: Index): void => {
+            //     if (index.type === 'primary') {
+            //       primaryKeyIndexEncountered = true;
+            //     }
+            //   });
+            //   // return (referenceTableSpec)
+            // });
           });
         });
       }

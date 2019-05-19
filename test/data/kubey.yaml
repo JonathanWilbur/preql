@@ -1,0 +1,114 @@
+apiVersion: 1.0.0
+kind: Interface
+metadata:
+  name: person
+spec:
+  columns:
+    firstname:
+      type: "varchar"
+      length: 64
+      default: "Bob"
+      comment: "Should not be abbreviated"
+      nullable: True
+    lastname:
+      type: "varchar"
+      length: 64
+      default: "McGobb"
+---
+apiVersion: 1.0.0
+kind: Schema
+metadata:
+  name: dbo
+  annotations:
+    comment: "Whatever"
+spec:
+  collation: utf8
+---
+apiVersion: 1.0.0
+kind: Table
+metadata:
+  name: people
+  labels:
+    schema: dbo
+    table: people
+    entity: person
+  annotations:
+    comment: "A big ol dang table of people"
+spec: {}
+---
+apiVersion: 1.0.0
+kind: Table
+metadata:
+  name: pets
+  labels:
+    schema: dbo
+    table: pets
+    entity: pet
+  annotations:
+    comment: "A big ol dang table of pets"
+spec: {}
+---
+apiVersion: 1.0.0
+kind: Column
+metadata:
+  name: firstName
+  annotations:
+    comment: "Should not be abbreviated"
+spec:
+  selector:
+    matchLabels:
+      schema: dbo
+      table: person
+  type: varchar
+  length: 64
+  nullable: False
+  default: Bob
+  casing: upper
+---
+apiVersion: 1.0.0
+kind: Column
+metadata:
+  name: lastName
+  labels:
+    schema: dbo
+    table: person
+  annotations:
+    comment: "Should not be abbreviated"
+spec:
+  type: varchar
+  length: 64
+  nullable: False
+  default: McGobb
+  casing: upper
+---
+apiVersion: 1.0.0
+kind: PrimaryKeyIndex
+metadata:
+  name: important
+  labels:
+    schema: dbo
+    table: person
+  annotations:
+    comment: "Not that you would want to do this in real life."
+spec:
+  columns:
+    - name: firstName
+      sort: Ascending
+    - name: lastName
+      sort: Descending
+---
+apiVersion: 1.0.0
+kind: ForeignKeyConstraint
+metadata:
+  name: owner
+  labels:
+    schema: dbo
+spec:
+  childTable: pets
+  childKey:
+    - columnName: ownerFirstName
+    - columnName: ownerLastName
+  parentTable: people
+  parentKey:
+    - columnName: firstName
+    - columnName: lastName

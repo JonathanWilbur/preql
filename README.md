@@ -14,10 +14,32 @@ Build by running `tsc` in the root directory.
 
 ## Status
 
-In development.
+In development, and being overhauled: I am changing this to use a more
+Kubernetes-like API.
 
 ## To Do
 
+- [ ] Kubernetes-Like API
+  - [ ] API Objects
+    - [ ] DataType
+    - [ ] Schema
+    - [ ] Entity
+    - [ ] Table
+    - [ ] Column
+      - [ ] Virtual
+    - [ ] PrimaryIndex
+    - [ ] PlainIndex
+    - [ ] UniqueIndex
+    - [ ] TextIndex
+    - [ ] SpatialIndex
+    - [ ] ForeignKeyConstraint
+    - [ ] View
+    - [ ] Function
+    - [ ] StoredProcedure
+    - [ ] Role
+    - [ ] User
+    - [ ] Preamble
+    - [ ] Postamble
 - [ ] Databases
   - [ ] Must have for 1.0.0
     - [ ] MySQL
@@ -34,22 +56,6 @@ In development.
     - [ ] IBM DB2
     - [ ] NuoDB
     - [ ] Cassandra
-- [ ] Features
-  - [x] Interfaces
-  - [x] ~~Nested tables~~ (Not doing this, because security risk of DoS, difficulty, and bad practice.)
-  - [ ] Inline references (e.g. `$pets` becomes a reference to the primary key of the `pets` table.)
-    - [ ] Check that a primary key index exists
-    - [ ] Make the type of the referencing column match.
-  - [ ] Support index comments.
-  - [ ] Explanatory comments
-  - [ ] Preamble?
-  - [ ] Ensure the schema exists!
-  - [ ] Roles
-  - [ ] Users
-  - [x] Unique Constraints
-  - [x] Composite keys
-  - [ ] Kubernetes-like keys in schema.
-- [ ] Append warnings in comments?
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Use fully-qualified names everywhere possible.
@@ -101,3 +107,12 @@ In development.
   - [ ] New `Error` type.
   - [ ] Create path types
   - [ ] Add a lot more logging.
+  - [ ] Regexp `pattern`s in JSON schema.
+  - [ ] Refactor universal validation
+    - [ ] `validateStructure()` (This comes from `ajv`.)
+    - [ ] `validateSemantics()`
+  - [ ] Convenience attributes
+    - [ ] `schema.tables.table.primaryKeyIndexName`
+    - [ ] `schema.tables.table.columns.column.indexInPrimaryKey`
+    - [ ] `schema.tables.table.columns.column.indexInForeignKey`
+    - [ ] `schema.tables.table.columns.inheritedFromInterface`

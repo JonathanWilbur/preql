@@ -6,7 +6,10 @@
 
 ## What is PreQL?
 
-A Pre-SQL language that can transpile to any SQL dialect.
+A Pre-SQL language that can transpile to any SQL dialect. It takes a declarative
+Kubernetes-like YAML schema and generates the necessary commands or statements
+in the correct order to generate schema and other database objects in the
+database dialect of your choice.
 
 ## Build
 
@@ -14,18 +17,19 @@ Build by running `tsc` in the root directory.
 
 ## Status
 
-In development, and being overhauled: I am changing this to use a more
-Kubernetes-like API.
+In development.
 
 ## To Do
 
+- [ ] Make `validateStructure()` just the AJV validator.
+- [ ] Make `validateStructure()` asynchronous.
 - [ ] Kubernetes-Like API
   - [ ] API Objects
     - [ ] DataType
-    - [ ] Namespace (A "schema" or "database" in an RDBMS)
-    - [ ] Entity (A document in a DODBMS)
-    - [ ] Struct (A table in an RDBMS)
-    - [ ] Attribute (A column in an RDBMS)
+    - [x] Namespace (A "schema" or "database" in an RDBMS)
+    - [x] Entity (A document in a DODBMS)
+    - [x] Struct (A table in an RDBMS)
+    - [x] Attribute (A column in an RDBMS)
       - [ ] Virtual
     - [ ] PrimaryIndex
     - [ ] PlainIndex
@@ -98,7 +102,9 @@ Kubernetes-like API.
 - [ ] Add `lengthUnits` field to each type.
 - [ ] Quality
   - [ ] Check that everything is lower-cased.
-  - [ ] Make a new error type that includes the path.
+  - [ ] Make a new error type that includes the path?
+  - [ ] Ensure unique (type, name).
+  - [ ] Escape names and quote them.
   - [ ] Use `Object.freeze()`
   - [ ] Use `Object.entries()` instead of `Object.keys()` where the values are needed.
   - [x] Configure ESLint
@@ -108,11 +114,3 @@ Kubernetes-like API.
   - [ ] Create path types
   - [ ] Add a lot more logging.
   - [ ] Regexp `pattern`s in JSON schema.
-  - [ ] Refactor universal validation
-    - [ ] `validateStructure()` (This comes from `ajv`.)
-    - [ ] `validateSemantics()`
-  - [ ] Convenience attributes
-    - [ ] `schema.tables.table.primaryKeyIndexName`
-    - [ ] `schema.tables.table.columns.column.indexInPrimaryKey`
-    - [ ] `schema.tables.table.columns.column.indexInForeignKey`
-    - [ ] `schema.tables.table.columns.inheritedFromInterface`

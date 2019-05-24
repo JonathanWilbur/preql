@@ -95,3 +95,7 @@ spec:
 
 The former can be implemented first, then the latter can be introduced as a
 feature later on.
+
+Then again, it might not be wise to use selectors, because a change to one
+column could propagate to unexpected changes elsewhere. On the other hand,
+you could just say that the developer needs to be cautious.

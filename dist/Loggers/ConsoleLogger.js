@@ -28,4 +28,4 @@ class ConsoleLogger {
             console.error(`${this.ERROR_ICON} ${path.join('.')}: ${event}`);
     }
 }
-exports.default = ConsoleLogger;
+exports.default = new ConsoleLogger();

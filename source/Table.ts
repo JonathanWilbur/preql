@@ -1,6 +1,6 @@
 import Column from './Column';
 import ForeignKeyConstraint from './ForeignKeyConstraint';
-import Index from './Index';
+import Index from './IndexCrap';
 
 export default
 interface Table {

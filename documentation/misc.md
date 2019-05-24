@@ -61,3 +61,37 @@ stricter rule wins. In other words, if the interface and implementation express
 contradicting nullability for a column, the column becomes non-nullable.
 
 TODO: Insert truth table here.
+
+## Linking objects
+
+Use labels to link objects, but if a `matchSelector` exists, use that instead.
+
+```yaml
+apiVersion: 1.0.0
+kind: Attribute
+metadata:
+  name: furColor
+  labels:
+    struct: bunnies
+spec:
+  ...
+```
+
+or
+
+```yaml
+apiVersion: 1.0.0
+kind: Attribute
+metadata:
+  name: furColor
+spec:
+  structSelector:
+    matchSelector:
+      key: struct
+      operator: in
+      values:
+        - bunnies
+```
+
+The former can be implemented first, then the latter can be introduced as a
+feature later on.

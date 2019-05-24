@@ -1,26 +1,28 @@
-boolean
-uint8
-sint8
-uint16
-sint16
-uint32
-sint32
-uint64
-sint64
-ureal8
-sreal8
-ureal16
-sreal16
-ureal32
-sreal32
-ureal64
-sreal64
-serial
-text8
-text16
-text32
-text64
-blob8
-blob16
-blob32
-blob64
+# Data Types
+
+Generally, data types break down to one of these categories:
+
+- Simple map (`boolean` => `BOOLEAN`, `inet` => `INET`)
+- Size map (`sint8` => `TINYINT`, `sint15` => `MEDIUMINT`)
+
+In each case, checkConstraints, getters, and setters may be present.
+
+A `DataType` API Object Kind could look like this
+
+```yaml
+apiVersion: 1.0.0
+kind: DataType
+metadata:
+  labels:
+    name: coolguy
+spec:
+  simpleMap:
+    mariadb:
+      nativeType: VARCHAR(64)
+      check:
+        - "%s REGEXP '^jonathan$'"
+    tsql:
+      nativeType: NVARCHAR(64)
+      check:
+        - "%s LIKE 'jonathan'"
+```

@@ -16,9 +16,7 @@ const APIObjectSchema = {
         kind: {
             type: 'string',
         },
-        metadata: {
-            type: APIObjectMetadata_1.default,
-        },
+        metadata: APIObjectMetadata_1.default,
         spec: {
             type: 'object',
             additionalProperties: {},

@@ -13,9 +13,7 @@ const APIObjectSchema = {
       type: 'string',
       // TODO: Make this an enum
     },
-    metadata: {
-      type: APIObjectMetadataSchema,
-    },
+    metadata: APIObjectMetadataSchema,
     spec: {
       type: 'object',
       additionalProperties: {},

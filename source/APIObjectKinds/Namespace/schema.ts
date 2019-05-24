@@ -1,4 +1,4 @@
-const APIObjectMetadataSchema = {
+const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   title: 'PreQL Namespace Specification Schema',
   type: 'object',
@@ -15,4 +15,4 @@ const APIObjectMetadataSchema = {
   required: [],
 };
 
-export default APIObjectMetadataSchema;
+export default schema;

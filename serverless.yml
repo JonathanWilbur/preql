@@ -14,3 +14,8 @@ functions:
     handler: source/ExportPlugins/mariadb/index.default
     timeout: 30
     memorySize: 128
+
+  transpile:
+    handler: source/index.default
+    timeout: 30
+    memorySize: 128

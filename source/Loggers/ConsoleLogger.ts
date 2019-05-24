@@ -1,6 +1,5 @@
 import Logger from '../Logger';
 
-export default
 class ConsoleLogger implements Logger {
   private DEBUG_ICON: string = '(?) DEBUG';
 
@@ -30,3 +29,5 @@ class ConsoleLogger implements Logger {
     if (console) console.error(`${this.ERROR_ICON} ${path.join('.')}: ${event}`);
   }
 }
+
+export default new ConsoleLogger();

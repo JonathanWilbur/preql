@@ -1,14 +1,14 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import HandlerEventSchema from './JSONSchema/HandlerEvent';
-// import ConsoleLogger from './Loggers/ConsoleLogger';
-import etcd from './etcd';
 import HandlerEvent from './Interfaces/HandlerEvent';
 import APIObject from './Interfaces/APIObject';
 import APIObjectKind from './APIObjectKind';
 import kinds from './APIObjectKinds';
 import targets from './Targets';
 import Target from './Target';
-// const logger: ConsoleLogger = new ConsoleLogger();
+import logger from './Loggers/ConsoleLogger';
+import APIObjectDatabase from './Interfaces/APIObjectDatabase';
+
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
   useDefaults: true,
@@ -16,16 +16,36 @@ const ajv: Ajv.Ajv = new Ajv({
 const validateHandlerEvent = ajv.compile(HandlerEventSchema);
 
 function main(event: HandlerEvent, callback: Callback<object>) {
+  /**
+   * This is named after etcd, which is the database that Kubernetes uses to
+   * store configuration and state information. This etcd serves a similar
+   * purpose without being a full-blown database. It could have been an array,
+   * but I went with a Map so that objects could be quickly filtered by kind.
+   * That said, the key of the etcd map is the kind, and the value is an array
+   * of API objects of that kind.
+   *
+   * This is not pre-populated with keys from all recognized kinds as of now.
+   * Care should be taken by developer to ensure that the key exists before
+   * attempting to read its value, and care should be taken to ensure that
+   * the key is created upon writing if it does not exist.
+   */
+  const etcd: APIObjectDatabase = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    absent: new Map<string, APIObject<any>[]>([]),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    present: new Map<string, APIObject<any>[]>([]),
+  };
+
   // This is done to present residual global state between serverless calls.
-  etcd.present.clear();
-  etcd.absent.clear();
+  // etcd.present.clear();
+  // etcd.absent.clear();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   event.ensureTheseThingsArePresent.forEach((apiObject: APIObject<any>) => {
     // TODO: Validate spec against schema.
     const kind : APIObjectKind | undefined = kinds.get(apiObject.kind.toLowerCase());
     if (!kind) {
-      console.warn(`Kind ${apiObject.kind} not recognized.`);
+      logger.warn([], `Kind ${apiObject.kind} not recognized.`);
       return;
     }
     kind.validateStructure(apiObject, etcd);

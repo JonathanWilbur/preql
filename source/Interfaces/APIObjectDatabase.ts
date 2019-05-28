@@ -1,7 +1,10 @@
+import APIObject from './APIObject';
 import APIObjectIndex from './APIObjectIndex';
 
 export default
 interface APIObjectDatabase {
-  absent: APIObjectIndex;
-  present: APIObjectIndex;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  allObjects: APIObject<any>[];
+  kindIndex: APIObjectIndex;
+  pathIndex: APIObjectIndex;
 };

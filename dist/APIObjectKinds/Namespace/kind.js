@@ -8,21 +8,13 @@ const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
 });
-const namespaceValidator = ajv.compile(schema_1.default);
+const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Namespace',
-    // eslint-disable-next-line
-    validateStructure: (apiObject) => {
-        return new Promise((resolve, reject) => {
-            const valid = namespaceValidator(apiObject.spec);
-            if (valid) {
-                resolve([]);
-            }
-            else {
-                reject(new Error((namespaceValidator.errors || []).map(e => e.message).join('; ')));
-            }
-        });
-    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    getPath: (apiObject) => apiObject.metadata.name,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: () => Promise.resolve(),
     transpilePresenceIn: new Map([
         [

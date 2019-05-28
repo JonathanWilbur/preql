@@ -19,10 +19,42 @@ Build by running `tsc` in the root directory.
 
 In development.
 
+### Architectural Concerns
+
+- Semantics will vary somewhat between target DBMSs, so a single `validateSemantics()`
+  will probably prove problematic. However, it is probably better to be _more_ strict
+  than necessary in the interest of portability, even if a single DBMS target would
+  allow, for example, an `Attribute` without a corresponding `Struct`.
+- Different semantic validation might be necessary when ensuring the _absence_ of
+  objects. For instance, when ensuring an attribute does not exist, ensuring that
+  the table exists first is not really necessary.
+- Bifurcation of the database into separate `present` and `absent` indexes mean that
+  I have to duplicate code.
+- I am not sure how to gracefully pass around an options object, but then again, I
+  don't really know what options are necessary.
+- It may sound like a silly concern, but what about linguistic characteristics of
+  pluralization? Should `.metadata.name` be singular or plural? How do you supply
+  both?
+
+### Architectural Decisions
+
+- Should an API call just have a single `objects` array?
+  - This would deduplicate and simplify code.
+  - If you want to target deletion, you could just run a separate command.
+    - Label selectors could be used to pick and choose objects for deletion.
+  - `etcd` could contain several indexes instead.
+    - `kindIndex`
+    - `allObjects`
+    - `pathIndex` (This will have to be a string, because objects will compare by reference!)
+      - I am not sure how this would be used, though.
+        - Maybe `path.startsWith('schemaName.tableName')`?
+      - This will probably involve creating a per-kind `path()` accessor.
+
 ## To Do
 
-- [ ] Make `validateStructure()` just the AJV validator.
-- [ ] Make `validateStructure()` asynchronous.
+- [x] Make `validateStructure()` just the AJV validator.
+- [x] Make `validateStructure()` asynchronous.
+- [x] Actually use `validateSemantics()`!
 - [ ] Kubernetes-Like API
   - [ ] API Objects
     - [ ] DataType
@@ -31,7 +63,7 @@ In development.
     - [x] Struct (A table in an RDBMS)
     - [x] Attribute (A column in an RDBMS)
       - [ ] Virtual
-    - [ ] PrimaryIndex
+    - [x] PrimaryIndex
     - [ ] PlainIndex
     - [ ] UniqueIndex
     - [ ] TextIndex
@@ -62,7 +94,8 @@ In development.
     - [ ] Cassandra
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
-- [ ] Use fully-qualified names everywhere possible.
+- [ ] Use fully-qualified names everywhere possible, or use `USE schema` statements to select the          schema first.
+- [ ] `apiVersion` checking.
 - [ ] Data Types
   - [ ] URC (Uniform Resource Citation)
   - [ ] [Data URI](https://en.wikipedia.org/wiki/Data_URI_scheme)
@@ -110,7 +143,19 @@ In development.
   - [x] Configure ESLint
   - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
   - [ ] Strict Null Checks
-  - [ ] New `Error` type.
+  - [ ] New `Error` type. (This might be considered bad practice.)
   - [ ] Create path types
   - [ ] Add a lot more logging.
   - [ ] Regexp `pattern`s in JSON schema.
+  - [ ] Pass logger into `validateSemantics()` instead of importing, because that
+        is the only part of a Kind where logging should be used.
+- [ ] Command-Line Interface (CLI) sub-commands
+  - [ ] `transpile` (Ensures all objects exist)
+  - [ ] `delete` (Ensures that selected objects do not exist)
+  - [ ] `get`
+  - [ ] `describe`
+  - [ ] `test` (Compares a data source against a table)
+  - [ ] `tree`
+  - [ ] `validate`
+  - [ ] `version`
+  - [ ] `help`

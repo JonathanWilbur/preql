@@ -11,21 +11,19 @@ const ajv: Ajv.Ajv = new Ajv({
   useDefaults: true,
 });
 
-const attributeValidator = ajv.compile(schema);
+const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'Attribute',
-  // eslint-disable-next-line
-  validateStructure: (apiObject: APIObject<any>): Promise<string[]> => {
-    return new Promise<string[]>((resolve, reject): void => {
-      const valid: boolean = attributeValidator(apiObject.spec) as boolean;
-      if (valid) {
-        resolve([]);
-      } else {
-        reject(new Error((attributeValidator.errors || []).map(e => e.message).join('; ')));
-      }
-    });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getPath: (apiObject: APIObject<any>): string => {
+    const namespace: string = apiObject.metadata.namespace || '';
+    const struct: string = apiObject.metadata.labels ? apiObject.metadata.labels.get('struct') || '' : '';
+    const attribute: string = apiObject.metadata.name;
+    return `${namespace}.${struct}.${attribute}`;
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validateStructure: (apiObject: APIObject<any>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     const labeledNamespace: string | undefined = apiObject.metadata.namespace;
     if (!labeledNamespace) {
@@ -43,7 +41,7 @@ const kind: APIObjectKind = {
     }
 
     // eslint-disable-next-line
-    const namespaces: APIObject<any>[] | undefined = etcd.present.get('namespace');
+    const namespaces: APIObject<any>[] | undefined = etcd.kindIndex.get('namespace');
     if (!namespaces) {
       throw new Error(`No namespaces defined for attribute '${apiObject.metadata.name}' to attach to.`);
     }
@@ -57,11 +55,11 @@ const kind: APIObjectKind = {
     }
 
     // eslint-disable-next-line
-    const structs: APIObject<any>[] | undefined = etcd.present.get('struct');
-    if (!namespaces) {
+    const structs: APIObject<any>[] | undefined = etcd.kindIndex.get('struct');
+    if (!structs) {
       throw new Error(`No structs defined for attribute '${apiObject.metadata.name}' to attach to.`);
     }
-    const matchingStructFound: boolean = namespaces
+    const matchingStructFound: boolean = structs
       .some((struct: APIObject<Spec>): boolean => struct.metadata.name === labeledStruct);
     if (!matchingStructFound) {
       throw new Error(

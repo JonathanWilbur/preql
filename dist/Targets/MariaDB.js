@@ -10,12 +10,15 @@ const MariaDBTarget = {
         'namespace',
         // 'entity',
         'struct',
+        // 'attribute',
+        // 'index',
+        'primaryindex',
     ].map((kindName) => {
         const kind = APIObjectKinds_1.default.get(kindName);
         if (!kind)
             throw new Error(`${kindName} kind not recognized.`);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const objectsOfMatchingKind = etcd.present.get(kindName);
+        const objectsOfMatchingKind = etcd.kindIndex.get(kindName);
         if (!objectsOfMatchingKind)
             return '';
         const kindTranspiler = kind.transpilePresenceIn.get('mariadb');

@@ -13,19 +13,14 @@ const HandlerEventSchema = {
         transpileTo: {
             type: 'string',
         },
-        ensureTheseThingsArePresent: {
-            type: 'array',
-            items: APIObject_1.default,
-        },
-        ensureTheseThingsAreAbsent: {
+        objects: {
             type: 'array',
             items: APIObject_1.default,
         },
     },
     required: [
         'transpileTo',
-        'ensureTheseThingsArePresent',
-        'ensureTheseThingsAreAbsent',
+        'objects',
     ],
 };
 exports.default = HandlerEventSchema;

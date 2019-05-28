@@ -1,4 +1,5 @@
 "use strict";
+// FIXME: The only thing stopping me from deleting this is re-using the index transpiling code.
 // import { Handler, Context, Callback } from 'aws-lambda';
 // import ConsoleLogger from '../../Loggers/ConsoleLogger';
 // import dataTypes from '../../DataTypes/index';

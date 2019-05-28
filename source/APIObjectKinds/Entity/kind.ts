@@ -10,21 +10,18 @@ const ajv: Ajv.Ajv = new Ajv({
   useDefaults: true,
 });
 
-const entityValidator = ajv.compile(schema);
+const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'Entity',
-  // eslint-disable-next-line
-  validateStructure: (apiObject: APIObject<any>): Promise<void> => {
-    return new Promise<void>((resolve, reject): void => {
-      const valid: boolean = entityValidator(apiObject.spec) as boolean;
-      if (valid) {
-        resolve();
-      } else {
-        reject(new Error((entityValidator.errors || []).map(e => e.message).join('; ')));
-      }
-    });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getPath: (apiObject: APIObject<any>): string => {
+    const namespace: string = apiObject.metadata.namespace || '';
+    const entity: string = apiObject.metadata.name;
+    return `${namespace}.${entity}`;
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validateStructure: (apiObject: APIObject<any>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     const labelNamespace: string | undefined = apiObject.metadata.namespace;
     if (!labelNamespace) {
@@ -32,7 +29,7 @@ const kind: APIObjectKind = {
     }
 
     // eslint-disable-next-line
-    const namespaces: APIObject<any>[] | undefined = etcd.present.get('namespace');
+    const namespaces: APIObject<any>[] | undefined = etcd.kindIndex.get('namespace');
     if (!namespaces) {
       throw new Error(`No namespaces defined for Entity '${apiObject.metadata.name}' to attach to.`)
     }
@@ -46,7 +43,7 @@ const kind: APIObjectKind = {
     }
 
     // eslint-disable-next-line
-    const structs: APIObject<any>[] | undefined = etcd.present.get('struct');
+    const structs: APIObject<any>[] | undefined = etcd.kindIndex.get('struct');
     if (!structs) {
       throw new Error(`No structs defined for Entity '${apiObject.metadata.name}' to attach to.`)
     }

@@ -12,12 +12,13 @@ const MariaDBTarget: Target = {
     'struct',
     // 'attribute',
     // 'index',
+    'primaryindex',
     // 'link',
   ].map((kindName: string): string => {
     const kind: APIObjectKind | undefined = kinds.get(kindName);
     if (!kind) throw new Error(`${kindName} kind not recognized.`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const objectsOfMatchingKind: APIObject<any>[] | undefined = etcd.present.get(kindName);
+    const objectsOfMatchingKind: APIObject<any>[] | undefined = etcd.kindIndex.get(kindName);
     if (!objectsOfMatchingKind) return '';
     const kindTranspiler = kind.transpilePresenceIn.get('mariadb');
     if (!kindTranspiler) throw new Error('MariaDB not recognized.');

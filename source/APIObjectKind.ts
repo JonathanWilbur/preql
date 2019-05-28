@@ -5,7 +5,9 @@ export default
 interface APIObjectKind {
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validateStructure: (apiObject: APIObject<any>, etcd: APIObjectDatabase) => void;
+  getPath(apiObject: APIObject<any>): string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validateStructure: (apiObject: APIObject<any>, etcd: APIObjectDatabase) => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validateSemantics: (apiObject: APIObject<any>, etcd: APIObjectDatabase) => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

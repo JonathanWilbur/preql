@@ -8,28 +8,24 @@ const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
 });
-const entityValidator = ajv.compile(schema_1.default);
+const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Entity',
-    // eslint-disable-next-line
-    validateStructure: (apiObject) => {
-        return new Promise((resolve, reject) => {
-            const valid = entityValidator(apiObject.spec);
-            if (valid) {
-                resolve();
-            }
-            else {
-                reject(new Error((entityValidator.errors || []).map(e => e.message).join('; ')));
-            }
-        });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    getPath: (apiObject) => {
+        const namespace = apiObject.metadata.namespace || '';
+        const entity = apiObject.metadata.name;
+        return `${namespace}.${entity}`;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         const labelNamespace = apiObject.metadata.namespace;
         if (!labelNamespace) {
             throw new Error(`No metadata.namespace defined for Entity '${apiObject.metadata.name}'.`);
         }
         // eslint-disable-next-line
-        const namespaces = etcd.present.get('namespace');
+        const namespaces = etcd.kindIndex.get('namespace');
         if (!namespaces) {
             throw new Error(`No namespaces defined for Entity '${apiObject.metadata.name}' to attach to.`);
         }
@@ -40,7 +36,7 @@ const kind = {
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         // eslint-disable-next-line
-        const structs = etcd.present.get('struct');
+        const structs = etcd.kindIndex.get('struct');
         if (!structs) {
             throw new Error(`No structs defined for Entity '${apiObject.metadata.name}' to attach to.`);
         }

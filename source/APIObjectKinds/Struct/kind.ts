@@ -11,21 +11,18 @@ const ajv: Ajv.Ajv = new Ajv({
   useDefaults: true,
 });
 
-const structValidator = ajv.compile(schema);
+const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'Struct',
-  // eslint-disable-next-line
-  validateStructure: (apiObject: APIObject<any>): Promise<string[]> => {
-    return new Promise<string[]>((resolve, reject): void => {
-      const valid: boolean = structValidator(apiObject.spec) as boolean;
-      if (valid) {
-        resolve([]);
-      } else {
-        reject(new Error((structValidator.errors || []).map(e => e.message).join('; ')));
-      }
-    });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getPath: (apiObject: APIObject<any>): string => {
+    const namespace: string = apiObject.metadata.namespace || '';
+    const struct: string = apiObject.metadata.labels ? apiObject.metadata.labels.get('struct') || '' : '';
+    return `${namespace}.${struct}`;
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validateStructure: (apiObject: APIObject<any>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     const labelNamespace: string | undefined = apiObject.metadata.namespace;
     if (!labelNamespace) {
@@ -33,7 +30,7 @@ const kind: APIObjectKind = {
     }
 
     // eslint-disable-next-line
-    const namespaces: APIObject<any>[] | undefined = etcd.present.get('namespace');
+    const namespaces: APIObject<any>[] | undefined = etcd.kindIndex.get('namespace');
     if (!namespaces) {
       throw new Error(`No namespaces defined for Struct '${apiObject.metadata.name}' to attach to.`);
     }
@@ -56,7 +53,7 @@ const kind: APIObjectKind = {
           throw new Error('Cannot transpile columns for MariaDB.');
         }
         let transpiledAttributes: string[] = [];
-        const attributes: APIObject<AttributeSpec>[] | undefined = etcd.present.get('attribute');
+        const attributes: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.get('attribute');
         if (attributes) {
           transpiledAttributes = attributes
             .filter((attr: APIObject<AttributeSpec>): boolean => {

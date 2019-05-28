@@ -1,5 +1,5 @@
 transpileTo: mariadb
-ensureTheseThingsArePresent:
+objects:
   - apiVersion: 1.0.0
     kind: Interface
     metadata:
@@ -78,20 +78,19 @@ ensureTheseThingsArePresent:
       default: McGobb
       casing: upper
   - apiVersion: 1.0.0
-    kind: PrimaryKeyIndex
+    kind: PrimaryIndex
     metadata:
       name: important
+      namespace: dbo
       labels:
-        schema: dbo
-        table: person
+        struct: people
       annotations:
-        comment: "Not that you would want to do this in real life."
+        comment: "Ogres are like onions."
     spec:
-      columns:
+      keyColumns:
         - name: firstName
-          sort: Ascending
+          ascending: True
         - name: lastName
-          sort: Descending
   - apiVersion: 1.0.0
     kind: ForeignKeyConstraint
     metadata:
@@ -107,4 +106,3 @@ ensureTheseThingsArePresent:
       parentKey:
         - columnName: firstName
         - columnName: lastName
-ensureTheseThingsAreAbsent: []

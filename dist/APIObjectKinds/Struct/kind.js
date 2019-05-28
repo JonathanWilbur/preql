@@ -9,28 +9,24 @@ const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
 });
-const structValidator = ajv.compile(schema_1.default);
+const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Struct',
-    // eslint-disable-next-line
-    validateStructure: (apiObject) => {
-        return new Promise((resolve, reject) => {
-            const valid = structValidator(apiObject.spec);
-            if (valid) {
-                resolve([]);
-            }
-            else {
-                reject(new Error((structValidator.errors || []).map(e => e.message).join('; ')));
-            }
-        });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    getPath: (apiObject) => {
+        const namespace = apiObject.metadata.namespace || '';
+        const struct = apiObject.metadata.labels ? apiObject.metadata.labels.get('struct') || '' : '';
+        return `${namespace}.${struct}`;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         const labelNamespace = apiObject.metadata.namespace;
         if (!labelNamespace) {
             throw new Error(`No metadata.namespace defined for Entity '${apiObject.metadata.name}'.`);
         }
         // eslint-disable-next-line
-        const namespaces = etcd.present.get('namespace');
+        const namespaces = etcd.kindIndex.get('namespace');
         if (!namespaces) {
             throw new Error(`No namespaces defined for Struct '${apiObject.metadata.name}' to attach to.`);
         }
@@ -51,7 +47,7 @@ const kind = {
                     throw new Error('Cannot transpile columns for MariaDB.');
                 }
                 let transpiledAttributes = [];
-                const attributes = etcd.present.get('attribute');
+                const attributes = etcd.kindIndex.get('attribute');
                 if (attributes) {
                     transpiledAttributes = attributes
                         .filter((attr) => {

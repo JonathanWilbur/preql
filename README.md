@@ -58,7 +58,6 @@ In development.
 - [x] Make `namespace` default to `default`.
 - [x] Make all (namespace, kind, name) unique.
   - [x] This means using `databaseName`, `entityName`, `structName`, `attributeName` to identify.
-- [ ] Add support for `entityPluralName`, `structPluralName`, `attributePluralName`.
 - [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
 - [ ] API Objects
   - [ ] DataType
@@ -145,7 +144,7 @@ In development.
   - [ ] Use `Object.entries()` instead of `Object.keys()` where the values are needed.
   - [x] Configure ESLint
   - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
-  - [ ] Strict Null Checks
+  - [x] Strict Null Checks
   - [ ] New `Error` type. (This might be considered bad practice.)
   - [ ] Create path types
   - [ ] Add a lot more logging.

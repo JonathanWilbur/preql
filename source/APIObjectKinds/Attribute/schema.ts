@@ -1,8 +1,20 @@
 const schema = {
-  title: 'PreQL Column Schema',
+  title: 'PreQL Attribute Schema',
   type: 'object',
   additionalProperties: true,
   properties: {
+    name: {
+      type: 'string',
+    },
+    structName: {
+      type: 'string',
+    },
+    entityName: {
+      type: 'string',
+    },
+    databaseName: {
+      type: 'string',
+    },
     // According to [this](https://stackoverflow.com/questions/16826128/why-is-this-json-schema-invalid-using-any-type),
     // {} will effectively give "default" an "any" type.
     // TODO: Make this string | number
@@ -28,6 +40,10 @@ const schema = {
     },
   },
   required: [
+    'name',
+    'structName',
+    // 'entityName',
+    'databaseName',
     'type',
   ],
 };

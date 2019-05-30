@@ -4,6 +4,7 @@ import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
 import StructSpec from '../Struct/spec';
+import DatabaseSpec from '../Database/spec';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -15,39 +16,31 @@ const structureValidator = ajv.compile(schema);
 const kind: APIObjectKind = {
   name: 'Entity',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getPath: (apiObject: APIObject<any>): string => {
-    const namespace: string = apiObject.metadata.namespace || '';
-    const entity: string = apiObject.metadata.name;
-    return `${namespace}.${entity}`;
+  getPath: (apiObject: APIObject<Spec>): string => {
+    const databaseName: string = apiObject.spec.databaseName || '';
+    const entityName: string = apiObject.spec.name || '';
+    return `${databaseName}.${entityName}`;
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validateStructure: (apiObject: APIObject<any>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
+  validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
-    const labelNamespace: string | undefined = apiObject.metadata.namespace;
-    if (!labelNamespace) {
-      throw new Error(`No metadata.namespace defined for Entity '${apiObject.metadata.name}'.`)
+    const databases: APIObject<DatabaseSpec>[] | undefined = etcd.kindIndex.get('database');
+    if (!databases) {
+      throw new Error(`No databases defined for Entity '${apiObject.metadata.name}' to attach to.`)
     }
-
-    // eslint-disable-next-line
-    const namespaces: APIObject<any>[] | undefined = etcd.kindIndex.get('namespace');
-    if (!namespaces) {
-      throw new Error(`No namespaces defined for Entity '${apiObject.metadata.name}' to attach to.`)
-    }
-    const matchingNamespaceFound: boolean = namespaces
-      .some((namespace: APIObject<Spec>): boolean => namespace.metadata.name === labelNamespace);
-    if (!matchingNamespaceFound) {
+    const matchingDatabaseFound: boolean = databases
+      .some((database: APIObject<DatabaseSpec>): boolean => database.spec.name === apiObject.spec.databaseName);
+    if (!matchingDatabaseFound) {
       throw new Error(
-        `No namespaces found that are named '${labelNamespace}' for Entity `
+        `No databases found that are named '${apiObject.spec.databaseName}' for Entity `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
 
-    // eslint-disable-next-line
-    const structs: APIObject<any>[] | undefined = etcd.kindIndex.get('struct');
+    const structs: APIObject<StructSpec>[] | undefined = etcd.kindIndex.get('struct');
     if (!structs) {
       throw new Error(`No structs defined for Entity '${apiObject.metadata.name}' to attach to.`)
     }
-    const matchingStructsFound: boolean = namespaces
+    const matchingStructsFound: boolean = structs
       .some((struct: APIObject<StructSpec>): boolean => apiObject.spec.rootStruct === struct.metadata.name);
     if (!matchingStructsFound) {
       throw new Error(

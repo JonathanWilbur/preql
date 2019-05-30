@@ -1,5 +1,6 @@
 export default
 interface Spec {
-  characterSet?: string;
-  collation?: string;
+  name: string;
+  entityName?: string;
+  databaseName: string;
 };

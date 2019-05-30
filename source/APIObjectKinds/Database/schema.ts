@@ -1,9 +1,12 @@
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
-  title: 'PreQL Namespace Specification Schema',
+  title: 'PreQL Database Specification Schema',
   type: 'object',
   additionalProperties: false,
   properties: {
+    name: {
+      type: 'string',
+    },
     collation: {
       type: 'string',
       default: 'utf8',
@@ -11,8 +14,13 @@ const schema = {
         'Only lowercase alphabetic and numeric characters from the acronym'
         + '/ symbol of the character encoding.',
     },
+    characterSet: {
+      type: 'string',
+    },
   },
-  required: [],
+  required: [
+    'name',
+  ],
 };
 
 export default schema;

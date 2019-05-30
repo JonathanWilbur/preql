@@ -2,11 +2,11 @@ export default
 interface APIObjectMetadata {
   name: string;
   /**
-   * The namespace MUST be optional, because not all API objects, such as users
-   * and roles, will have an associated namespace.
+   * If not supplied by a user, namespace defaults to 'default'. Still,
+   * namespaces are not used by every resource.
    */
-  namespace?: string;
-  labels?: Map<string, string>;
-  annotations?: Map<string, string>;
+  namespace: string;
+  labels: Map<string, string>;
+  annotations: Map<string, string>;
   uid?: string;
 };

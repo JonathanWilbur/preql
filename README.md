@@ -55,10 +55,17 @@ In development.
 - [x] Make `validateStructure()` just the AJV validator.
 - [x] Make `validateStructure()` asynchronous.
 - [x] Actually use `validateSemantics()`!
+- [x] Make `namespace` default to `default`.
+- [ ] Make all (namespace, kind, name) unique.
+  - [x] This means using `databaseName`, `entityName`, `structName`, `attributeName` to identify.
+- [ ] Add support for `entityPluralName`, `structPluralName`, `attributePluralName`.
+- [ ] Add `multiValued` label, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
+- [ ] Add `path` label?
 - [ ] Kubernetes-Like API
   - [ ] API Objects
     - [ ] DataType
     - [x] Namespace (A "schema" or "database" in an RDBMS)
+      - [ ] Rename to "database"
     - [x] Entity (A document in a DODBMS)
     - [x] Struct (A table in an RDBMS)
     - [x] Attribute (A column in an RDBMS)
@@ -76,6 +83,7 @@ In development.
     - [ ] User
     - [ ] Preamble
     - [ ] Postamble
+    - [ ] DBMS
 - [ ] Databases
   - [ ] Must have for 1.0.0
     - [ ] MySQL

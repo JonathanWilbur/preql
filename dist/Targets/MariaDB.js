@@ -7,7 +7,7 @@ const APIObjectKinds_1 = __importDefault(require("../APIObjectKinds"));
 const ConsoleLogger_1 = __importDefault(require("../Loggers/ConsoleLogger"));
 const MariaDBTarget = {
     transpile: (etcd) => [
-        'namespace',
+        'database',
         // 'entity',
         'struct',
         // 'attribute',

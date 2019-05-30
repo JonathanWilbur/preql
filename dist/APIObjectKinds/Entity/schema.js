@@ -6,11 +6,19 @@ const schema = {
     type: 'object',
     additionalProperties: false,
     properties: {
+        name: {
+            type: 'string',
+        },
+        databaseName: {
+            type: 'string',
+        },
         rootStruct: {
             type: 'string',
         },
     },
     required: [
+        'name',
+        'databaseName',
         'rootStruct',
     ],
 };

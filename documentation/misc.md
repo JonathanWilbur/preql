@@ -99,3 +99,7 @@ feature later on.
 Then again, it might not be wise to use selectors, because a change to one
 column could propagate to unexpected changes elsewhere. On the other hand,
 you could just say that the developer needs to be cautious.
+
+## Plural vs. Singular
+
+See [this](https://stackoverflow.com/questions/338156/table-naming-dilemma-singular-vs-plural-names).

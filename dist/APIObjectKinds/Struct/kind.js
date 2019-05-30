@@ -12,35 +12,27 @@ const ajv = new Ajv({
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Struct',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getPath: (apiObject) => {
-        const namespace = apiObject.metadata.namespace || '';
-        const struct = apiObject.metadata.labels ? apiObject.metadata.labels.get('struct') || '' : '';
-        return `${namespace}.${struct}`;
+        const databaseName = apiObject.spec.databaseName || '';
+        const structName = apiObject.spec.name || '';
+        return `${databaseName}.${structName}`;
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
-        const labelNamespace = apiObject.metadata.namespace;
-        if (!labelNamespace) {
-            throw new Error(`No metadata.namespace defined for Entity '${apiObject.metadata.name}'.`);
+        const databases = etcd.kindIndex.get('database');
+        if (!databases) {
+            throw new Error(`No databases defined for Struct '${apiObject.metadata.name}' to attach to.`);
         }
-        // eslint-disable-next-line
-        const namespaces = etcd.kindIndex.get('namespace');
-        if (!namespaces) {
-            throw new Error(`No namespaces defined for Struct '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingNamespaceFound = namespaces
-            .some((namespace) => namespace.metadata.name === labelNamespace);
-        if (!matchingNamespaceFound) {
-            throw new Error(`No namespaces found that are named '${labelNamespace}' for Entity `
+        const matchingDatabaseFound = databases
+            .some((database) => database.spec.name === apiObject.spec.databaseName);
+        if (!matchingDatabaseFound) {
+            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for Entity `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
     },
     transpilePresenceIn: new Map([
         [
             'mariadb',
-            // eslint-disable-next-line
             (apiObject, etcd) => {
                 const columnTranspiler = kind_1.default.transpilePresenceIn.get('mariadb');
                 if (!columnTranspiler) {
@@ -51,32 +43,30 @@ const kind = {
                 if (attributes) {
                     transpiledAttributes = attributes
                         .filter((attr) => {
-                        if (!attr.metadata.namespace)
-                            return false;
-                        if (!attr.metadata.labels)
-                            return false;
-                        const databaseName = attr.metadata.namespace;
-                        const tableName = attr.metadata.labels.get('struct');
-                        if (databaseName === apiObject.metadata.namespace && tableName === apiObject.metadata.name)
+                        if (attr.spec.databaseName === apiObject.spec.databaseName
+                            && attr.spec.structName === apiObject.spec.name)
                             return true;
                         return false;
                     }).map((column) => columnTranspiler(column, etcd));
+                }
+                else {
+                    throw new Error('Cannot define a Struct with no attributes defined.');
                 }
                 if (transpiledAttributes.length === 0) {
                     throw new Error(`No attributes (columns) found for struct (table) '${apiObject.metadata.name}'.`);
                 }
                 return 'CREATE TABLE IF NOT EXISTS '
-                    + `${apiObject.metadata.namespace}.${apiObject.metadata.name} (__placeholder__ BOOLEAN);\r\n\r\n`
+                    + `${apiObject.spec.databaseName}.${apiObject.spec.name} (__placeholder__ BOOLEAN);\r\n\r\n`
                     + `${transpiledAttributes.join('\r\n\r\n')}\r\n\r\n`
-                    + `ALTER TABLE ${apiObject.metadata.name} DROP COLUMN IF EXISTS __placeholder__;\r\n\r\n`;
+                    + `ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.name} `
+                    + 'DROP COLUMN IF EXISTS __placeholder__;';
             },
         ],
     ]),
     transpileAbsenceIn: new Map([
         [
             'mariadb',
-            // eslint-disable-next-line
-            (apiObject) => `DROP TABLE IF EXISTS ${apiObject.metadata.name};\r\n\r\n`,
+            (apiObject) => `DROP TABLE IF EXISTS ${apiObject.spec.name};`,
         ],
     ]),
 };

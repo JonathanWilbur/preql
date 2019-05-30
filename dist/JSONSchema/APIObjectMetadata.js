@@ -12,18 +12,21 @@ const APIObjectMetadataSchema = {
             additionalProperties: {
                 type: 'string',
             },
+            default: {},
         },
         labels: {
             type: 'object',
             additionalProperties: {
                 type: 'string',
             },
+            default: {},
         },
         name: {
             type: 'string',
         },
         namespace: {
             type: 'string',
+            default: 'default',
         },
     },
     required: [

@@ -10,23 +10,21 @@ const ajv = new Ajv({
 });
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
-    name: 'Namespace',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getPath: (apiObject) => apiObject.metadata.name,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    name: 'Database',
+    getPath: (apiObject) => apiObject.spec.name || '',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: () => Promise.resolve(),
     transpilePresenceIn: new Map([
         [
             'mariadb',
             // TODO: Support character sets and collation.
-            (apiObject) => `CREATE DATABASE IF NOT EXISTS ${apiObject.metadata.name};`,
+            (apiObject) => `CREATE DATABASE IF NOT EXISTS ${apiObject.spec.name};`,
         ],
     ]),
     transpileAbsenceIn: new Map([
         [
             'mariadb',
-            (apiObject) => `DROP DATABASE IF EXISTS ${apiObject.metadata.name};`,
+            (apiObject) => `DROP DATABASE IF EXISTS ${apiObject.spec.name};`,
         ],
     ]),
 };

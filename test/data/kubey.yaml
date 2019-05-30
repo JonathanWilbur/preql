@@ -17,25 +17,19 @@ objects:
           length: 64
           default: "McGobb"
   - apiVersion: 1.0.0
-    kind: Namespace
+    kind: Database
     metadata:
-      name: dbo
-      annotations:
-        comment: "Whatever"
+      name: floofy
     spec:
+      name: floofy
       collation: utf8
   - apiVersion: 1.0.0
     kind: Struct
     metadata:
       name: people
-      labels:
-        schema: dbo
-        struct: people
-        entity: person
-      annotations:
-        comment: "A big ol dang table of people"
-      namespace: dbo
-    spec: {}
+    spec:
+      name: person
+      databaseName: floofy
   # - apiVersion: 1.0.0
   #   kind: Struct
   #   metadata:
@@ -51,12 +45,12 @@ objects:
     kind: Attribute
     metadata:
       name: firstName
-      labels:
-        struct: people
       annotations:
         comment: "Should not be abbreviated"
-      namespace: dbo
     spec:
+      name: firstName
+      structName: person
+      databaseName: floofy
       type: varchar
       length: 64
       nullable: False
@@ -66,12 +60,12 @@ objects:
     kind: Attribute
     metadata:
       name: lastName
-      labels:
-        struct: people
       annotations:
         comment: "Should not be abbreviated"
-      namespace: dbo
     spec:
+      name: lastName
+      structName: person
+      databaseName: floofy
       type: varchar
       length: 64
       nullable: False
@@ -81,23 +75,22 @@ objects:
     kind: PrimaryIndex
     metadata:
       name: important
-      namespace: dbo
-      labels:
-        struct: people
       annotations:
         comment: "Ogres are like onions."
     spec:
+      name: important
+      structName: person
+      databaseName: floofy
       keyColumns:
-        - name: firstName
-          ascending: True
-        - name: lastName
+      - name: firstName
+        ascending: True
+      - name: lastName
   - apiVersion: 1.0.0
     kind: ForeignKeyConstraint
     metadata:
       name: owner
-      labels:
-        schema: dbo
     spec:
+      # name: owner
       childTable: pets
       childKey:
         - columnName: ownerFirstName

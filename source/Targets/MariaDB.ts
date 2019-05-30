@@ -7,7 +7,7 @@ import logger from '../Loggers/ConsoleLogger';
 
 const MariaDBTarget: Target = {
   transpile: (etcd: APIObjectIndex): string => [
-    'namespace',
+    'database',
     // 'entity',
     'struct',
     // 'attribute',

@@ -13,48 +13,32 @@ const ajv = new Ajv({
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Attribute',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getPath: (apiObject) => {
-        const namespace = apiObject.metadata.namespace || '';
-        const struct = apiObject.metadata.labels ? apiObject.metadata.labels.get('struct') || '' : '';
-        const attribute = apiObject.metadata.name;
-        return `${namespace}.${struct}.${attribute}`;
+        const databaseName = apiObject.spec.databaseName || '';
+        const structName = apiObject.spec.structName || '';
+        const attributeName = apiObject.spec.name || '';
+        return `${databaseName}.${structName}.${attributeName}`;
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
-        const labeledNamespace = apiObject.metadata.namespace;
-        if (!labeledNamespace) {
-            throw new Error(`No metadata.namespace defined for Attribute '${apiObject.metadata.name}'.`);
+        const databases = etcd.kindIndex.get('database');
+        if (!databases) {
+            throw new Error(`No databases defined for attribute '${apiObject.metadata.name}' to attach to.`);
         }
-        if (!(apiObject.metadata.labels)) {
-            throw new Error(`Attribute '${apiObject.metadata.name}' needs labels to associate `
-                + 'it to a namespace (database) and struct (table).');
-        }
-        const labeledStruct = apiObject.metadata.labels.get('struct');
-        if (!labeledStruct) {
-            throw new Error(`No metadata.namespace defined for Attribute '${apiObject.metadata.name}'.`);
-        }
-        // eslint-disable-next-line
-        const namespaces = etcd.kindIndex.get('namespace');
-        if (!namespaces) {
-            throw new Error(`No namespaces defined for attribute '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingNamespaceFound = namespaces
-            .some((namespace) => namespace.metadata.name === labeledNamespace);
-        if (!matchingNamespaceFound) {
-            throw new Error(`No namespaces found that are named '${labeledNamespace}' for attribute `
+        const matchingDatabaseFound = databases
+            .some((database) => database.spec.name === apiObject.spec.databaseName);
+        if (!matchingDatabaseFound) {
+            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for attribute `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
-        // eslint-disable-next-line
         const structs = etcd.kindIndex.get('struct');
         if (!structs) {
             throw new Error(`No structs defined for attribute '${apiObject.metadata.name}' to attach to.`);
         }
         const matchingStructFound = structs
-            .some((struct) => struct.metadata.name === labeledStruct);
+            .some((struct) => struct.spec.name === apiObject.spec.structName);
         if (!matchingStructFound) {
-            throw new Error(`No structs found that are named '${labeledStruct}' for attribute `
+            throw new Error(`No structs found that are named '${apiObject.spec.structName}' for attribute `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
     },
@@ -62,20 +46,14 @@ const kind = {
         [
             'mariadb',
             (apiObject) => {
-                const schemaName = apiObject.metadata.namespace;
-                if (!(apiObject.metadata.labels)) {
-                    throw new Error(`Attribute '${apiObject.metadata.name}' needs labels to associate `
-                        + 'it to a namespace (database) and struct (table).');
-                }
-                const tableName = apiObject.metadata.labels.get('struct');
-                const columnName = apiObject.metadata.name;
-                let columnString = `ALTER TABLE ${schemaName}.${tableName}\r\nADD COLUMN IF NOT EXISTS ${columnName} `;
+                let columnString = `ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
+                    + `ADD COLUMN IF NOT EXISTS ${apiObject.spec.name} `;
                 // columnString += convertPreqlTypeToNativeType(path, spec);
                 const type = apiObject.spec.type.toLowerCase();
                 const path = [
-                    schemaName || '',
-                    tableName || '',
-                    columnName,
+                    apiObject.spec.databaseName,
+                    apiObject.spec.structName,
+                    apiObject.spec.name,
                 ];
                 if (type in index_1.default) {
                     columnString += index_1.default[type].mariadb.equivalentNativeType(path, apiObject.spec, ConsoleLogger_1.default);
@@ -102,8 +80,9 @@ const kind = {
     transpileAbsenceIn: new Map([
         [
             'mariadb',
-            // eslint-disable-next-line
-            (apiObject) => '',
+            (apiObject) => 'ALTER TABLE '
+                + `${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
+                + `DROP COLUMN IF EXISTS ${apiObject.spec.name};`,
         ],
     ]),
 };

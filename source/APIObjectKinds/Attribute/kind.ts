@@ -5,6 +5,8 @@ import schema from './schema';
 import Spec from './spec';
 import dataTypes from '../../DataTypes/index';
 import logger from '../../Loggers/ConsoleLogger';
+import DatabaseSpec from '../Database/spec';
+import StructSpec from '../Struct/spec';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -15,55 +17,36 @@ const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'Attribute',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getPath: (apiObject: APIObject<any>): string => {
-    const namespace: string = apiObject.metadata.namespace || '';
-    const struct: string = apiObject.metadata.labels ? apiObject.metadata.labels.get('struct') || '' : '';
-    const attribute: string = apiObject.metadata.name;
-    return `${namespace}.${struct}.${attribute}`;
+  getPath: (apiObject: APIObject<Spec>): string => {
+    const databaseName: string = apiObject.spec.databaseName || '';
+    const structName: string = apiObject.spec.structName || '';
+    const attributeName: string = apiObject.spec.name || '';
+    return `${databaseName}.${structName}.${attributeName}`;
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validateStructure: (apiObject: APIObject<any>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
+  validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
-    const labeledNamespace: string | undefined = apiObject.metadata.namespace;
-    if (!labeledNamespace) {
-      throw new Error(`No metadata.namespace defined for Attribute '${apiObject.metadata.name}'.`);
+    const databases: APIObject<DatabaseSpec>[] | undefined = etcd.kindIndex.get('database');
+    if (!databases) {
+      throw new Error(`No databases defined for attribute '${apiObject.metadata.name}' to attach to.`);
     }
-    if (!(apiObject.metadata.labels)) {
+    const matchingDatabaseFound: boolean = databases
+      .some((database: APIObject<DatabaseSpec>): boolean => database.spec.name === apiObject.spec.databaseName);
+    if (!matchingDatabaseFound) {
       throw new Error(
-        `Attribute '${apiObject.metadata.name}' needs labels to associate `
-        + 'it to a namespace (database) and struct (table).',
-      );
-    }
-    const labeledStruct: string | undefined = apiObject.metadata.labels.get('struct');
-    if (!labeledStruct) {
-      throw new Error(`No metadata.namespace defined for Attribute '${apiObject.metadata.name}'.`);
-    }
-
-    // eslint-disable-next-line
-    const namespaces: APIObject<any>[] | undefined = etcd.kindIndex.get('namespace');
-    if (!namespaces) {
-      throw new Error(`No namespaces defined for attribute '${apiObject.metadata.name}' to attach to.`);
-    }
-    const matchingNamespaceFound: boolean = namespaces
-      .some((namespace: APIObject<Spec>): boolean => namespace.metadata.name === labeledNamespace);
-    if (!matchingNamespaceFound) {
-      throw new Error(
-        `No namespaces found that are named '${labeledNamespace}' for attribute `
+        `No databases found that are named '${apiObject.spec.databaseName}' for attribute `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
 
-    // eslint-disable-next-line
-    const structs: APIObject<any>[] | undefined = etcd.kindIndex.get('struct');
+    const structs: APIObject<StructSpec>[] | undefined = etcd.kindIndex.get('struct');
     if (!structs) {
       throw new Error(`No structs defined for attribute '${apiObject.metadata.name}' to attach to.`);
     }
     const matchingStructFound: boolean = structs
-      .some((struct: APIObject<Spec>): boolean => struct.metadata.name === labeledStruct);
+      .some((struct: APIObject<StructSpec>): boolean => struct.spec.name === apiObject.spec.structName);
     if (!matchingStructFound) {
       throw new Error(
-        `No structs found that are named '${labeledStruct}' for attribute `
+        `No structs found that are named '${apiObject.spec.structName}' for attribute `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
@@ -72,22 +55,14 @@ const kind: APIObjectKind = {
     [
       'mariadb',
       (apiObject: APIObject<Spec>) => {
-        const schemaName: string | undefined = apiObject.metadata.namespace;
-        if (!(apiObject.metadata.labels)) {
-          throw new Error(
-            `Attribute '${apiObject.metadata.name}' needs labels to associate `
-            + 'it to a namespace (database) and struct (table).',
-          );
-        }
-        const tableName: string | undefined = apiObject.metadata.labels.get('struct');
-        const columnName: string = apiObject.metadata.name;
-        let columnString = `ALTER TABLE ${schemaName}.${tableName}\r\nADD COLUMN IF NOT EXISTS ${columnName} `;
+        let columnString = `ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
+          + `ADD COLUMN IF NOT EXISTS ${apiObject.spec.name} `;
         // columnString += convertPreqlTypeToNativeType(path, spec);
         const type: string = apiObject.spec.type.toLowerCase();
         const path: [ string, string, string ] = [
-          schemaName || '',
-          tableName || '',
-          columnName,
+          apiObject.spec.databaseName,
+          apiObject.spec.structName,
+          apiObject.spec.name,
         ];
         if (type in dataTypes) {
           columnString += dataTypes[type].mariadb.equivalentNativeType(path, apiObject.spec, logger);
@@ -110,8 +85,9 @@ const kind: APIObjectKind = {
   transpileAbsenceIn: new Map([
     [
       'mariadb',
-      // eslint-disable-next-line
-      (apiObject: APIObject<any>) => '',
+      (apiObject: APIObject<Spec>) => 'ALTER TABLE '
+        + `${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
+        + `DROP COLUMN IF EXISTS ${apiObject.spec.name};`,
     ],
   ]),
 };

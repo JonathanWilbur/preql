@@ -10,11 +10,11 @@ const ajv = new Ajv({
 });
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
-    name: 'PrimaryIndex',
+    name: 'PlainIndex',
     getPath: (apiObject) => {
         const databaseName = apiObject.spec.databaseName || '';
         const structName = apiObject.spec.structName || '';
-        const indexName = apiObject.spec.name;
+        const indexName = apiObject.spec.name || '';
         return `${databaseName}.${structName}.${indexName}`;
     },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
@@ -22,12 +22,12 @@ const kind = {
     validateSemantics: async (apiObject, etcd) => {
         const databases = etcd.kindIndex.get('database');
         if (!databases) {
-            throw new Error(`No databases defined for PrimaryIndex '${apiObject.metadata.name}' to attach to.`);
+            throw new Error(`No databases defined for PlainIndex '${apiObject.metadata.name}' to attach to.`);
         }
         const matchingDatabaseFound = databases
             .some((database) => database.spec.name === apiObject.spec.databaseName);
         if (!matchingDatabaseFound) {
-            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for PrimaryIndex `
+            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for PlainIndex `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         const structs = etcd.kindIndex.get('struct');
@@ -37,19 +37,19 @@ const kind = {
         const matchingStructFound = structs
             .some((struct) => struct.spec.name === apiObject.spec.structName);
         if (!matchingStructFound) {
-            throw new Error(`No structs found that are named '${apiObject.spec.structName}' for PrimaryIndex `
+            throw new Error(`No structs found that are named '${apiObject.spec.structName}' for PlainIndex `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         const columns = etcd.kindIndex.get('attribute');
         if (!columns) {
-            throw new Error(`No attributes found for PrimaryIndex '${apiObject.metadata.name}' `
+            throw new Error(`No attributes found for PlainIndex '${apiObject.metadata.name}' `
                 + 'to index.');
         }
         // Check that the columns are real
         apiObject.spec.keyColumns.forEach((kc) => {
             const columnFound = columns.some((column) => column.spec.name === kc.name);
             if (!columnFound) {
-                throw new Error(`No attribute named '${kc.name}' for PrimaryIndex '${apiObject.metadata.name}' to index.`);
+                throw new Error(`No attribute named '${kc.name}' for PlainIndex '${apiObject.metadata.name}' to index.`);
             }
         });
     },
@@ -57,24 +57,12 @@ const kind = {
         [
             'mariadb',
             (apiObject) => {
-                const schemaName = apiObject.spec.databaseName;
-                const tableName = apiObject.spec.structName;
-                const indexName = apiObject.spec.name;
-                const storedProcedureName = `create_index_${indexName}`;
                 const columnString = apiObject.spec.keyColumns
                     .map((key) => `${key.name} ${(key.ascending ? 'ASC' : 'DESC')}`)
                     .join(', ');
-                return (`DROP PROCEDURE IF EXISTS ${schemaName}.${storedProcedureName};\r\n`
-                    + 'DELIMITER $$\r\n'
-                    + `CREATE PROCEDURE IF NOT EXISTS ${schemaName}.${storedProcedureName} ()\r\n`
-                    + 'BEGIN\r\n'
-                    + '\tDECLARE EXIT HANDLER FOR 1068 DO 0;\r\n'
-                    + `\tALTER TABLE ${schemaName}.${tableName}\r\n`
-                    + `\tADD CONSTRAINT ${indexName} PRIMARY KEY (${columnString});\r\n`
-                    + 'END $$\r\n'
-                    + 'DELIMITER ;\r\n'
-                    + `CALL ${schemaName}.${storedProcedureName};\r\n`
-                    + `DROP PROCEDURE IF EXISTS ${schemaName}.${storedProcedureName};\r\n`);
+                return (`ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
+                    + `ADD INDEX IF NOT EXISTS ${apiObject.spec.name}\r\n`
+                    + `PRIMARY KEY (${columnString});`);
             },
         ],
     ]),
@@ -82,7 +70,8 @@ const kind = {
         [
             'mariadb',
             (apiObject) => 'ALTER TABLE '
-                + `${apiObject.spec.databaseName}.${apiObject.spec.structName} DROP PRIMARY KEY;`,
+                + `${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
+                + `DROP INDEX IF EXISTS ${apiObject.spec.name};`,
         ],
     ]),
 };

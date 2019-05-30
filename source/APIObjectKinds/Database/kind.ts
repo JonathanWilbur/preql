@@ -1,7 +1,7 @@
 import APIObject from '../../Interfaces/APIObject';
 import APIObjectKind from '../../APIObjectKind';
 import schema from './schema';
-import spec from './spec';
+import Spec from './spec';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -11,23 +11,21 @@ const ajv: Ajv.Ajv = new Ajv({
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
-  name: 'Namespace',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getPath: (apiObject: APIObject<any>): string => apiObject.metadata.name,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validateStructure: (apiObject: APIObject<any>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
+  name: 'Database',
+  getPath: (apiObject: APIObject<Spec>): string => apiObject.spec.name || '',
+  validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: (): Promise<void> => Promise.resolve(),
   transpilePresenceIn: new Map([
     [
       'mariadb',
       // TODO: Support character sets and collation.
-      (apiObject: APIObject<spec>) => `CREATE DATABASE IF NOT EXISTS ${apiObject.metadata.name};`,
+      (apiObject: APIObject<Spec>) => `CREATE DATABASE IF NOT EXISTS ${apiObject.spec.name};`,
     ],
   ]),
   transpileAbsenceIn: new Map([
     [
       'mariadb',
-      (apiObject: APIObject<spec>) => `DROP DATABASE IF EXISTS ${apiObject.metadata.name};`,
+      (apiObject: APIObject<Spec>) => `DROP DATABASE IF EXISTS ${apiObject.spec.name};`,
     ],
   ]),
 };

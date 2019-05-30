@@ -38,6 +38,14 @@ const schema = {
         'sentence',
       ],
     },
+    // Mostly used for LDAP: Whether an entity can have multiple of these attributes.
+    // See: http://www.openldap.org/doc/admin22/schema.html
+    // If multiValued with an RDBMS target, it should be broken into its own separate table,
+    // and implement a FKC linking it to the parent table.
+    multiValued: {
+      type: 'boolean',
+      default: false,
+    },
   },
   required: [
     'name',

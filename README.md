@@ -59,7 +59,7 @@ In development.
 - [x] Make all (namespace, kind, name) unique.
   - [x] This means using `databaseName`, `entityName`, `structName`, `attributeName` to identify.
 - [ ] Add support for `entityPluralName`, `structPluralName`, `attributePluralName`.
-- [ ] Add `multiValued` label, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
+- [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
 - [ ] API Objects
   - [ ] DataType
   - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)

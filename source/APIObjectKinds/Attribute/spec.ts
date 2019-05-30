@@ -12,4 +12,5 @@ interface Attribute {
   type: string;
   length?: number;
   casing? : Casing;
+  multiValued: boolean;
 };

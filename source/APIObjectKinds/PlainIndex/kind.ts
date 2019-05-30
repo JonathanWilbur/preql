@@ -3,8 +3,7 @@ import APIObjectKind from '../../APIObjectKind';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
-import DatabaseSpec from '../Database/spec';
-import StructSpec from '../Struct/spec';
+import matchingResource from '../matchingResource';
 import AttributeSpec from '../Attribute/spec';
 
 import Ajv = require('ajv');
@@ -25,32 +24,18 @@ const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   // TODO: Log warnings for includedColumns, because they are not used.
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
-    const databases: APIObject<DatabaseSpec>[] | undefined = etcd.kindIndex.get('database');
-    if (!databases) {
-      throw new Error(`No databases defined for PlainIndex '${apiObject.metadata.name}' to attach to.`);
-    }
-    const matchingDatabaseFound: boolean = databases
-      .some((database: APIObject<DatabaseSpec>): boolean => database.spec.name === apiObject.spec.databaseName);
-    if (!matchingDatabaseFound) {
+    if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new Error(
         `No databases found that are named '${apiObject.spec.databaseName}' for PlainIndex `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
-
-    const structs: APIObject<StructSpec>[] | undefined = etcd.kindIndex.get('struct');
-    if (!structs) {
-      throw new Error(`No structs defined for PrimaryIndex '${apiObject.metadata.name}' to attach to.`);
-    }
-    const matchingStructFound: boolean = structs
-      .some((struct: APIObject<StructSpec>): boolean => struct.spec.name === apiObject.spec.structName);
-    if (!matchingStructFound) {
+    if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
       throw new Error(
         `No structs found that are named '${apiObject.spec.structName}' for PlainIndex `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
-
     const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.get('attribute');
     if (!columns) {
       throw new Error(

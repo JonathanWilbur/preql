@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("./schema"));
+const matchingResource_1 = __importDefault(require("../matchingResource"));
 const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
@@ -20,23 +21,11 @@ const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     // TODO: Log warnings for includedColumns, because they are not used.
     validateSemantics: async (apiObject, etcd) => {
-        const databases = etcd.kindIndex.get('database');
-        if (!databases) {
-            throw new Error(`No databases defined for PlainIndex '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingDatabaseFound = databases
-            .some((database) => database.spec.name === apiObject.spec.databaseName);
-        if (!matchingDatabaseFound) {
+        if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
             throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for PlainIndex `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
-        const structs = etcd.kindIndex.get('struct');
-        if (!structs) {
-            throw new Error(`No structs defined for PrimaryIndex '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingStructFound = structs
-            .some((struct) => struct.spec.name === apiObject.spec.structName);
-        if (!matchingStructFound) {
+        if (!matchingResource_1.default(apiObject.spec.structName, 'struct', etcd)) {
             throw new Error(`No structs found that are named '${apiObject.spec.structName}' for PlainIndex `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }

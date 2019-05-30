@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("./schema"));
 const index_1 = __importDefault(require("../../DataTypes/index"));
 const ConsoleLogger_1 = __importDefault(require("../../Loggers/ConsoleLogger"));
+const matchingResource_1 = __importDefault(require("../matchingResource"));
 const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
@@ -21,23 +22,11 @@ const kind = {
     },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
-        const databases = etcd.kindIndex.get('database');
-        if (!databases) {
-            throw new Error(`No databases defined for attribute '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingDatabaseFound = databases
-            .some((database) => database.spec.name === apiObject.spec.databaseName);
-        if (!matchingDatabaseFound) {
+        if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
             throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for attribute `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
-        const structs = etcd.kindIndex.get('struct');
-        if (!structs) {
-            throw new Error(`No structs defined for attribute '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingStructFound = structs
-            .some((struct) => struct.spec.name === apiObject.spec.structName);
-        if (!matchingStructFound) {
+        if (!matchingResource_1.default(apiObject.spec.structName, 'struct', etcd)) {
             throw new Error(`No structs found that are named '${apiObject.spec.structName}' for attribute `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }

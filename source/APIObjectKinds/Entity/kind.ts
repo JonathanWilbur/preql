@@ -3,8 +3,7 @@ import APIObjectKind from '../../APIObjectKind';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
-import StructSpec from '../Struct/spec';
-import DatabaseSpec from '../Database/spec';
+import matchingResource from '../matchingResource';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -23,26 +22,13 @@ const kind: APIObjectKind = {
   },
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
-    const databases: APIObject<DatabaseSpec>[] | undefined = etcd.kindIndex.get('database');
-    if (!databases) {
-      throw new Error(`No databases defined for Entity '${apiObject.metadata.name}' to attach to.`)
-    }
-    const matchingDatabaseFound: boolean = databases
-      .some((database: APIObject<DatabaseSpec>): boolean => database.spec.name === apiObject.spec.databaseName);
-    if (!matchingDatabaseFound) {
+    if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new Error(
         `No databases found that are named '${apiObject.spec.databaseName}' for Entity `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
-
-    const structs: APIObject<StructSpec>[] | undefined = etcd.kindIndex.get('struct');
-    if (!structs) {
-      throw new Error(`No structs defined for Entity '${apiObject.metadata.name}' to attach to.`)
-    }
-    const matchingStructsFound: boolean = structs
-      .some((struct: APIObject<StructSpec>): boolean => apiObject.spec.rootStruct === struct.metadata.name);
-    if (!matchingStructsFound) {
+    if (!matchingResource(apiObject.spec.rootStruct, 'struct', etcd)) {
       throw new Error(
         `No structs found that are named '${apiObject.spec.rootStruct}' for Entity `
         + `'${apiObject.metadata.name}' to use as the root struct.`,

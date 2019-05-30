@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("./schema"));
+const matchingResource_1 = __importDefault(require("../matchingResource"));
 const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
@@ -19,23 +20,11 @@ const kind = {
     },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
-        const databases = etcd.kindIndex.get('database');
-        if (!databases) {
-            throw new Error(`No databases defined for Entity '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingDatabaseFound = databases
-            .some((database) => database.spec.name === apiObject.spec.databaseName);
-        if (!matchingDatabaseFound) {
+        if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
             throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for Entity `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
-        const structs = etcd.kindIndex.get('struct');
-        if (!structs) {
-            throw new Error(`No structs defined for Entity '${apiObject.metadata.name}' to attach to.`);
-        }
-        const matchingStructsFound = structs
-            .some((struct) => apiObject.spec.rootStruct === struct.metadata.name);
-        if (!matchingStructsFound) {
+        if (!matchingResource_1.default(apiObject.spec.rootStruct, 'struct', etcd)) {
             throw new Error(`No structs found that are named '${apiObject.spec.rootStruct}' for Entity `
                 + `'${apiObject.metadata.name}' to use as the root struct.`);
         }

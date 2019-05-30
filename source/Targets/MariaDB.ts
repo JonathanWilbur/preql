@@ -17,14 +17,12 @@ const MariaDBTarget: Target = {
   ].map((kindName: string): string => {
     const kind: APIObjectKind | undefined = kinds.get(kindName);
     if (!kind) throw new Error(`${kindName} kind not recognized.`);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const objectsOfMatchingKind: APIObject<any>[] | undefined = etcd.kindIndex.get(kindName);
+    const objectsOfMatchingKind: APIObject[] | undefined = etcd.kindIndex.get(kindName);
     if (!objectsOfMatchingKind) return '';
     const kindTranspiler = kind.transpilePresenceIn.get('mariadb');
     if (!kindTranspiler) throw new Error('MariaDB not recognized.');
     return objectsOfMatchingKind
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((obj: APIObject<any>) => {
+      .map((obj: APIObject) => {
         logger.info([], `Transpiling ${obj.kind} '${obj.metadata.name}'.`);
         return kindTranspiler(obj, etcd);
       })

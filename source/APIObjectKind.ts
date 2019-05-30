@@ -4,14 +4,9 @@ import APIObjectDatabase from './Interfaces/APIObjectDatabase';
 export default
 interface APIObjectKind {
   name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getPath(apiObject: APIObject<any>): string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validateStructure: (apiObject: APIObject<any>, etcd: APIObjectDatabase) => Promise<void>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validateSemantics: (apiObject: APIObject<any>, etcd: APIObjectDatabase) => Promise<void>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  transpilePresenceIn: Map<string, (apiObject: APIObject<any>, etcd: APIObjectDatabase) => string>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  transpileAbsenceIn: Map<string, (apiObject: APIObject<any>, etcd: APIObjectDatabase) => string>;
+  getPath(apiObject: APIObject): string;
+  validateStructure: (apiObject: APIObject, etcd: APIObjectDatabase) => Promise<void>;
+  validateSemantics: (apiObject: APIObject, etcd: APIObjectDatabase) => Promise<void>;
+  transpilePresenceIn: Map<string, (apiObject: APIObject, etcd: APIObjectDatabase) => string>;
+  transpileAbsenceIn: Map<string, (apiObject: APIObject, etcd: APIObjectDatabase) => string>;
 };

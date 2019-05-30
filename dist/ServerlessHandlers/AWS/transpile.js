@@ -20,7 +20,7 @@ const handler = (event, context, callback) => {
             + `${(validateHandlerEvent.errors || []).map(e => e.message).join('\r\n')}`));
         return;
     }
-    transpile_1.default(event.transpileTo, event.objects)
+    transpile_1.default(event.namespace || 'default', event.transpileTo, event.objects)
         .then((result) => {
         callback(null, result);
     });

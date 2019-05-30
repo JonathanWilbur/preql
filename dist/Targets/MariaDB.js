@@ -17,7 +17,6 @@ const MariaDBTarget = {
         const kind = APIObjectKinds_1.default.get(kindName);
         if (!kind)
             throw new Error(`${kindName} kind not recognized.`);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const objectsOfMatchingKind = etcd.kindIndex.get(kindName);
         if (!objectsOfMatchingKind)
             return '';
@@ -25,7 +24,6 @@ const MariaDBTarget = {
         if (!kindTranspiler)
             throw new Error('MariaDB not recognized.');
         return objectsOfMatchingKind
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .map((obj) => {
             ConsoleLogger_1.default.info([], `Transpiling ${obj.kind} '${obj.metadata.name}'.`);
             return kindTranspiler(obj, etcd);

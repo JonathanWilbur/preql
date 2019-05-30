@@ -17,6 +17,10 @@ const HandlerEventSchema = {
             type: 'array',
             items: APIObject_1.default,
         },
+        namespace: {
+            type: 'string',
+            default: 'default',
+        },
     },
     required: [
         'transpileTo',

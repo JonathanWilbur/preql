@@ -1,6 +1,6 @@
 # PreQL
 
-* Author: [Jonathan M. Wilbur](https://jonathan.wilbur.space) <[jonathan@wilbur.space](mailto:jonathan@wilbur.space)>
+* Author: Jonathan M. Wilbur <[jonathan@wilbur.space](mailto:jonathan@wilbur.space)>
 * Copyright Year: 2019
 * License: [MIT License](https://mit-license.org/)
 
@@ -56,34 +56,31 @@ In development.
 - [x] Make `validateStructure()` asynchronous.
 - [x] Actually use `validateSemantics()`!
 - [x] Make `namespace` default to `default`.
-- [ ] Make all (namespace, kind, name) unique.
+- [x] Make all (namespace, kind, name) unique.
   - [x] This means using `databaseName`, `entityName`, `structName`, `attributeName` to identify.
 - [ ] Add support for `entityPluralName`, `structPluralName`, `attributePluralName`.
 - [ ] Add `multiValued` label, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
-- [ ] Add `path` label?
-- [ ] Kubernetes-Like API
-  - [ ] API Objects
-    - [ ] DataType
-    - [x] Namespace (A "schema" or "database" in an RDBMS)
-      - [ ] Rename to "database"
-    - [x] Entity (A document in a DODBMS)
-    - [x] Struct (A table in an RDBMS)
-    - [x] Attribute (A column in an RDBMS)
-      - [ ] Virtual
-    - [x] PrimaryIndex
-    - [ ] PlainIndex
-    - [ ] UniqueIndex
-    - [ ] TextIndex
-    - [ ] SpatialIndex
-    - [ ] ForeignKeyConstraint
-    - [ ] View
-    - [ ] Function
-    - [ ] StoredProcedure
-    - [ ] Role
-    - [ ] User
-    - [ ] Preamble
-    - [ ] Postamble
-    - [ ] DBMS
+- [ ] API Objects
+  - [ ] DataType
+  - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
+  - [x] Entity (A document in a DODBMS or an entity using an ORM)
+  - [x] Struct (A table in an RDBMS)
+  - [x] Attribute (A column in an RDBMS)
+    - [ ] Virtual
+  - [x] PrimaryIndex
+  - [ ] PlainIndex
+  - [ ] UniqueIndex
+  - [ ] TextIndex
+  - [ ] SpatialIndex
+  - [ ] ForeignKeyConstraint
+  - [ ] View
+  - [ ] Function
+  - [ ] StoredProcedure
+  - [ ] Role
+  - [ ] User
+  - [ ] Preamble
+  - [ ] Postamble
+  - [ ] DBMS
 - [ ] Databases
   - [ ] Must have for 1.0.0
     - [ ] MySQL
@@ -102,7 +99,6 @@ In development.
     - [ ] Cassandra
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
-- [ ] Use fully-qualified names everywhere possible, or use `USE schema` statements to select the          schema first.
 - [ ] `apiVersion` checking.
 - [ ] Data Types
   - [ ] URC (Uniform Resource Citation)
@@ -144,7 +140,6 @@ In development.
 - [ ] Quality
   - [ ] Check that everything is lower-cased.
   - [ ] Make a new error type that includes the path?
-  - [ ] Ensure unique (type, name).
   - [ ] Escape names and quote them.
   - [ ] Use `Object.freeze()`
   - [ ] Use `Object.entries()` instead of `Object.keys()` where the values are needed.

@@ -24,7 +24,7 @@ const handler: Handler<HandlerEvent, object> = (
     ));
     return;
   }
-  transpile(event.transpileTo, event.objects)
+  transpile(event.namespace || 'default', event.transpileTo, event.objects)
     .then((result): void => {
       callback(null, result);
     });

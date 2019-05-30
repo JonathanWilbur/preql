@@ -7,8 +7,7 @@ const APIObjectKinds_1 = __importDefault(require("../APIObjectKinds"));
 const Targets_1 = __importDefault(require("../Targets"));
 const ConsoleLogger_1 = __importDefault(require("../Loggers/ConsoleLogger"));
 // TODO: Implement error handling here.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const main = async (dialect, objects) => {
+const main = async (namespace, dialect, objects) => {
     /**
      * This is named after etcd, which is the database that Kubernetes uses to
      * store configuration and state information. This etcd serves a similar
@@ -23,15 +22,15 @@ const main = async (dialect, objects) => {
      * the key is created upon writing if it does not exist.
      */
     const etcd = {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         allObjects: [],
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         kindIndex: new Map([]),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         pathIndex: new Map([]),
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await Promise.all(objects.map(async (apiObject) => {
+    const objectsWithinSelectedNamespace = objects
+        .filter((apiOject) => (apiOject.metadata.namespace || 'default') === namespace);
+    const encounteredNames = new Set([]);
+    await Promise.all(objectsWithinSelectedNamespace
+        .map(async (apiObject) => {
         const kind = APIObjectKinds_1.default.get(apiObject.kind.toLowerCase());
         if (!kind) {
             ConsoleLogger_1.default.warn([], `Kind '${apiObject.kind}' not recognized.`);
@@ -46,17 +45,19 @@ const main = async (dialect, objects) => {
             // eslint-disable-next-line no-param-reassign
             apiObject.metadata.annotations = new Map(Object.entries(apiObject.metadata.annotations));
         }
-        etcd.allObjects.push(apiObject);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const kindIndexReference = etcd.kindIndex.get(apiObject.kind.toLowerCase());
         if (!kindIndexReference) {
             etcd.kindIndex.set(apiObject.kind.toLowerCase(), [apiObject]);
         }
         else {
+            if (encounteredNames.has(apiObject.metadata.name)) {
+                throw new Error(`Duplicated name: two objects in namespace '${namespace}' of kind `
+                    + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`);
+            }
             kindIndexReference.push(apiObject);
         }
+        encounteredNames.add(apiObject.metadata.name);
         const path = kind.getPath(apiObject);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const pathIndexReference = etcd.pathIndex.get(path);
         if (!pathIndexReference) {
             etcd.pathIndex.set(path, [apiObject]);
@@ -64,6 +65,7 @@ const main = async (dialect, objects) => {
         else {
             pathIndexReference.push(apiObject);
         }
+        etcd.allObjects.push(apiObject);
         return Promise.resolve();
     }));
     await Promise.all(Array.from(etcd.kindIndex.keys())
@@ -71,7 +73,6 @@ const main = async (dialect, objects) => {
         const kind = APIObjectKinds_1.default.get(kindName);
         if (!kind)
             return Promise.reject();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const objectsOfMatchingKind = etcd.kindIndex.get(kindName);
         if (!objectsOfMatchingKind)
             return Promise.reject();

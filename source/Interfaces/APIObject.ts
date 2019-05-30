@@ -1,7 +1,8 @@
 import APIObjectMetadata from './APIObjectMetadata';
 
 export default
-interface APIObject<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface APIObject<T = any> {
   apiVersion: string;
   kind: string;
   metadata: APIObjectMetadata;

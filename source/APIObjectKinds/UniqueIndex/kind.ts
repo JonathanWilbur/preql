@@ -43,7 +43,7 @@ const kind: APIObjectKind = {
           + 'END $$\r\n'
           + 'DELIMITER ;\r\n'
           + `CALL ${storedProcedureName};\r\n`
-          + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+          + `DROP PROCEDURE IF EXISTS ${storedProcedureName};`
         );
       },
     ],

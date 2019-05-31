@@ -41,7 +41,7 @@ const kind = {
                     + 'END $$\r\n'
                     + 'DELIMITER ;\r\n'
                     + `CALL ${schemaName}.${storedProcedureName};\r\n`
-                    + `DROP PROCEDURE IF EXISTS ${schemaName}.${storedProcedureName};\r\n`);
+                    + `DROP PROCEDURE IF EXISTS ${schemaName}.${storedProcedureName};`);
             },
         ],
     ]),

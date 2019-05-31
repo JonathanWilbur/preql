@@ -96,13 +96,26 @@ const kind = {
     transpilePresenceIn: new Map([
         [
             'mariadb',
-            (apiObject) => 'ALTER TABLE '
-                + `${apiObject.spec.databaseName}.${apiObject.spec.child.struct}\r\n`
-                + `ADD CONSTRAINT ${apiObject.spec.name} FOREIGN KEY\r\n`
-                + `IF NOT EXISTS ${apiObject.spec.name}_index\r\n`
-                + `(\r\n\t${apiObject.spec.child.key.map(k => k.columnName).join(',\r\n\t')}\r\n)\r\n`
-                + `REFERENCES ${apiObject.spec.parent.struct}\r\n`
-                + `(\r\n\t${apiObject.spec.parent.key.map(k => k.columnName).join(',\r\n\t')}\r\n);`,
+            (apiObject) => {
+                const storedProcedureName = `${apiObject.spec.databaseName}.create_${apiObject.spec.name}`;
+                return `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+                    + 'DELIMITER $$\r\n'
+                    + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
+                    + 'BEGIN\r\n'
+                    + '\tDECLARE EXIT HANDLER FOR 1005 DO 0;\r\n'
+                    + `\tALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.child.struct}\r\n`
+                    + `\tADD CONSTRAINT ${apiObject.spec.name} FOREIGN KEY\r\n`
+                    + `\tIF NOT EXISTS ${apiObject.spec.name}_index\r\n`
+                    + `\t(\r\n\t\t${apiObject.spec.child.key.map(k => k.columnName).join(',\r\n\t\t')}\r\n\t)\r\n`
+                    + `\tREFERENCES ${apiObject.spec.parent.struct}\r\n`
+                    + `\t(\r\n\t\t${apiObject.spec.parent.key.map(k => k.columnName).join(',\r\n\t\t')}\r\n\t)\r\n`
+                    + `\tON DELETE ${apiObject.spec.onDeleteAction.toUpperCase() || 'RESTRICT'}\r\n`
+                    + `\tON UPDATE ${apiObject.spec.onUpdateAction.toUpperCase() || 'RESTRICT'};\r\n`
+                    + 'END $$\r\n'
+                    + 'DELIMITER ;\r\n'
+                    + `CALL ${storedProcedureName};\r\n`
+                    + `DROP PROCEDURE IF EXISTS ${storedProcedureName};`;
+            },
         ],
     ]),
     transpileAbsenceIn: new Map([

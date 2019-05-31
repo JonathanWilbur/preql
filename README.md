@@ -64,7 +64,7 @@ In development.
   - [x] UniqueIndex
   - [x] TextIndex
   - [x] SpatialIndex
-  - [ ] ForeignKeyConstraint
+  - [x] ForeignKeyConstraint
   - [ ] View?
   - [x] Preamble
   - [x] Postamble
@@ -88,7 +88,7 @@ In development.
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Make `getPath()` return an array of strings.
-- [ ] `apiVersion` checking.
+- [x] `apiVersion` checking.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Data Types
   - [ ] URC (Uniform Resource Citation)

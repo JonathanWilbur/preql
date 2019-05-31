@@ -26,6 +26,15 @@ const keyReference = {
         'key',
     ],
 };
+const foreignKeyChangeAction = {
+    type: 'string',
+    enum: [
+        'no action',
+        'cascade',
+        'set null',
+    ],
+    default: 'no action',
+};
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'PreQL Foreign Key Constraint Specification Schema',
@@ -40,6 +49,8 @@ const schema = {
         },
         child: keyReference,
         parent: keyReference,
+        onDeleteAction: foreignKeyChangeAction,
+        onUpdateAction: foreignKeyChangeAction,
     },
     required: [
         'name',

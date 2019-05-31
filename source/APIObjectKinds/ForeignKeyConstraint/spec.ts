@@ -13,4 +13,6 @@ interface Spec {
   databaseName: string;
   child: ForeignKeyReference;
   parent: ForeignKeyReference;
+  onDeleteAction: string;
+  onUpdateAction: string;
 };

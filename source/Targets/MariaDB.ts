@@ -13,6 +13,7 @@ const MariaDBTarget: Target = {
     // 'attribute',
     // 'index',
     'primaryindex',
+    'foreignkeyconstraint',
     // 'link',
   ].map((kindName: string): string => {
     const kind: APIObjectKind | undefined = kinds.get(kindName);

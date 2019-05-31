@@ -30,17 +30,49 @@ objects:
     spec:
       name: person
       databaseName: floofy
-  # - apiVersion: preql/1.0.0
-  #   kind: Struct
-  #   metadata:
-  #     name: pets
-  #     labels:
-  #       schema: dbo
-  #       table: pets
-  #       entity: pet
-  #     annotations:
-  #       comment: "A big ol dang table of pets"
-  #   spec: {}
+  - apiVersion: preql/1.0.0
+    kind: Struct
+    metadata:
+      name: pet
+      labels:
+        schema: dbo
+        table: pets
+        entity: pet
+      annotations:
+        comment: "A big ol dang table of pets"
+    spec:
+      name: pet
+      databaseName: floofy
+  - apiVersion: preql/1.0.0
+    kind: Attribute
+    metadata:
+      name: ownerFirstName
+      annotations:
+        comment: "Should not be abbreviated"
+    spec:
+      name: ownerFirstName
+      structName: pet
+      databaseName: floofy
+      type: varchar
+      length: 64
+      nullable: False
+      default: Bob
+      casing: upper
+  - apiVersion: preql/1.0.0
+    kind: Attribute
+    metadata:
+      name: ownerLastName
+      annotations:
+        comment: "Should not be abbreviated"
+    spec:
+      name: ownerLastName
+      structName: pet
+      databaseName: floofy
+      type: varchar
+      length: 64
+      nullable: False
+      default: Bob
+      casing: upper
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -90,12 +122,15 @@ objects:
     metadata:
       name: owner
     spec:
-      # name: owner
-      childTable: pets
-      childKey:
+      name: fk_something
+      databaseName: floofy
+      child:
+        struct: pet
+        key:
         - columnName: ownerFirstName
         - columnName: ownerLastName
-      parentTable: people
-      parentKey:
+      parent:
+        struct: person
+        key:
         - columnName: firstName
         - columnName: lastName

@@ -15,6 +15,7 @@ const kind_9 = __importDefault(require("./SpatialIndex/kind"));
 const kind_10 = __importDefault(require("./Server/kind"));
 const kind_11 = __importDefault(require("./Preamble/kind"));
 const kind_12 = __importDefault(require("./Postamble/kind"));
+const kind_13 = __importDefault(require("./ForeignKeyConstraint/kind"));
 exports.default = new Map([
     ['database', kind_1.default],
     ['entity', kind_2.default],
@@ -28,4 +29,5 @@ exports.default = new Map([
     ['server', kind_10.default],
     ['preamble', kind_11.default],
     ['postamble', kind_12.default],
+    ['foreignkeyconstraint', kind_13.default],
 ]);

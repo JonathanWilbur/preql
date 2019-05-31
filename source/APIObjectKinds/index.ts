@@ -10,6 +10,7 @@ import SpatialIndexKind from './SpatialIndex/kind';
 import ServerKind from './Server/kind';
 import PreambleKind from './Preamble/kind';
 import PostambleKind from './Postamble/kind';
+import ForeignKeyConstraintKind from './ForeignKeyConstraint/kind';
 import APIObjectKind from '../APIObjectKind';
 
 export default new Map<string, APIObjectKind>([
@@ -25,4 +26,5 @@ export default new Map<string, APIObjectKind>([
   ['server', ServerKind],
   ['preamble', PreambleKind],
   ['postamble', PostambleKind],
+  ['foreignkeyconstraint', ForeignKeyConstraintKind],
 ]);

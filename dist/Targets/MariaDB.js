@@ -13,6 +13,7 @@ const MariaDBTarget = {
         // 'attribute',
         // 'index',
         'primaryindex',
+        'foreignkeyconstraint',
     ].map((kindName) => {
         const kind = APIObjectKinds_1.default.get(kindName);
         if (!kind)

@@ -87,7 +87,9 @@ In development.
     - [ ] Cassandra
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
+- [ ] Make `getPath()` return an array of strings.
 - [ ] `apiVersion` checking.
+- [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Data Types
   - [ ] URC (Uniform Resource Citation)
   - [ ] [Data URI](https://en.wikipedia.org/wiki/Data_URI_scheme)

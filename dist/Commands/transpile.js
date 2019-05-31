@@ -1,11 +1,20 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const semver = __importStar(require("semver"));
 const APIObjectKinds_1 = __importDefault(require("../APIObjectKinds"));
 const Targets_1 = __importDefault(require("../Targets"));
 const ConsoleLogger_1 = __importDefault(require("../Loggers/ConsoleLogger"));
+const version_1 = __importDefault(require("../version"));
 // TODO: Implement error handling here.
 const main = async (namespace, dialect, objects) => {
     /**
@@ -26,6 +35,14 @@ const main = async (namespace, dialect, objects) => {
         kindIndex: new Map([]),
         pathIndex: new Map([]),
     };
+    objects.forEach((obj) => {
+        if (obj.apiVersion.indexOf('preql/') !== 0) {
+            throw new Error('All objects used by PreQL must have an apiVersion that starts with "preql/".');
+        }
+        if (!semver.satisfies(obj.apiVersion.replace('preql/', ''), `<=${version_1.default}`)) {
+            throw new Error(`Version number '${obj.apiVersion}' is too high for this version of PreQL to handle.`);
+        }
+    });
     const objectsWithinSelectedNamespace = objects
         .filter((apiOject) => (apiOject.metadata.namespace || 'default') === namespace);
     const encounteredNames = new Set([]);

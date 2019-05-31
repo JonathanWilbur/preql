@@ -13,6 +13,8 @@ const kind_7 = __importDefault(require("./UniqueIndex/kind"));
 const kind_8 = __importDefault(require("./TextIndex/kind"));
 const kind_9 = __importDefault(require("./SpatialIndex/kind"));
 const kind_10 = __importDefault(require("./Server/kind"));
+const kind_11 = __importDefault(require("./Preamble/kind"));
+const kind_12 = __importDefault(require("./Postamble/kind"));
 exports.default = new Map([
     ['database', kind_1.default],
     ['entity', kind_2.default],
@@ -24,4 +26,6 @@ exports.default = new Map([
     ['textindex', kind_8.default],
     ['spatialindex', kind_9.default],
     ['server', kind_10.default],
+    ['preamble', kind_11.default],
+    ['postamble', kind_12.default],
 ]);

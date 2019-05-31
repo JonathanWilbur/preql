@@ -1,9 +1,11 @@
+import * as semver from 'semver';
 import APIObject from '../Interfaces/APIObject';
 import APIObjectKind from '../APIObjectKind';
 import kinds from '../APIObjectKinds';
 import targets from '../Targets';
 import Target from '../Target';
 import logger from '../Loggers/ConsoleLogger';
+import PREQL_VERSION from '../version';
 
 // TODO: Implement error handling here.
 const main = async (namespace: string, dialect: string, objects: APIObject[]): Promise<{ value: string }> => {
@@ -25,6 +27,15 @@ const main = async (namespace: string, dialect: string, objects: APIObject[]): P
     kindIndex: new Map<string, APIObject[]>([]),
     pathIndex: new Map<string, APIObject[]>([]),
   };
+
+  objects.forEach((obj: APIObject): void => {
+    if (obj.apiVersion.indexOf('preql/') !== 0) {
+      throw new Error('All objects used by PreQL must have an apiVersion that starts with "preql/".');
+    }
+    if (!semver.satisfies(obj.apiVersion.replace('preql/', ''), `<=${PREQL_VERSION}`)) {
+      throw new Error(`Version number '${obj.apiVersion}' is too high for this version of PreQL to handle.`);
+    }
+  });
 
   const objectsWithinSelectedNamespace: APIObject[] = objects
     .filter((apiOject: APIObject): boolean => (apiOject.metadata.namespace || 'default') === namespace);

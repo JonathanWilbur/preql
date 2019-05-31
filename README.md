@@ -52,12 +52,6 @@ In development.
 
 ## To Do
 
-- [x] Make `validateStructure()` just the AJV validator.
-- [x] Make `validateStructure()` asynchronous.
-- [x] Actually use `validateSemantics()`!
-- [x] Make `namespace` default to `default`.
-- [x] Make all (namespace, kind, name) unique.
-  - [x] This means using `databaseName`, `entityName`, `structName`, `attributeName` to identify.
 - [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
 - [ ] API Objects
   - [ ] DataType
@@ -82,7 +76,7 @@ In development.
     - [ ] Transact-SQL
     - [ ] PostgreSQL
     - [ ] Oracle PL/SQL
-    - [ ] LDAP
+    - [ ] OpenLDAP OLC Schema
     - [ ] MongoDB?
   - [ ] Can wait
     - [ ] Microsoft Access
@@ -129,12 +123,6 @@ In development.
   - [ ] unixperm
   - [ ] sddl
 - [ ] Quality
-  - [x] Use `Object.freeze()`
-  - [x] Use `Object.entries()` instead of `Object.keys()` where the values are needed.
-  - [x] Configure ESLint
-  - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
-  - [x] Strict Null Checks
-  - [x] Get rid of `path` by making `DataType` methods accept only the `spec`.
   - [ ] Add a lot more logging.
   - [ ] Regexp `pattern`s in JSON schema.
   - [ ] Pass logger into `validateSemantics()` instead of importing, because that

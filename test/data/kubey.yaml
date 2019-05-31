@@ -1,6 +1,6 @@
 transpileTo: mariadb
 objects:
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: Interface
     metadata:
       name: person
@@ -16,21 +16,21 @@ objects:
           type: "varchar"
           length: 64
           default: "McGobb"
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: Database
     metadata:
       name: floofy
     spec:
       name: floofy
       collation: utf8
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: Struct
     metadata:
       name: people
     spec:
       name: person
       databaseName: floofy
-  # - apiVersion: 1.0.0
+  # - apiVersion: preql/1.0.0
   #   kind: Struct
   #   metadata:
   #     name: pets
@@ -41,7 +41,7 @@ objects:
   #     annotations:
   #       comment: "A big ol dang table of pets"
   #   spec: {}
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
       name: firstName
@@ -56,7 +56,7 @@ objects:
       nullable: False
       default: Bob
       casing: upper
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
       name: lastName
@@ -71,7 +71,7 @@ objects:
       nullable: False
       default: McGobb
       casing: upper
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: PrimaryIndex
     metadata:
       name: important
@@ -85,7 +85,7 @@ objects:
       - name: firstName
         ascending: True
       - name: lastName
-  - apiVersion: 1.0.0
+  - apiVersion: preql/1.0.0
     kind: ForeignKeyConstraint
     metadata:
       name: owner

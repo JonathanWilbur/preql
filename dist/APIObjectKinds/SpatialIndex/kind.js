@@ -11,11 +11,11 @@ const ajv = new Ajv({
 });
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
-    name: 'PlainIndex',
+    name: 'TextIndex',
     getPath: (apiObject) => {
         const databaseName = apiObject.spec.databaseName || '';
         const structName = apiObject.spec.structName || '';
-        const indexName = apiObject.spec.name || '';
+        const indexName = apiObject.spec.name;
         return `${databaseName}.${structName}.${indexName}`;
     },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
@@ -24,12 +24,24 @@ const kind = {
         [
             'mariadb',
             (apiObject) => {
+                const schemaName = apiObject.spec.databaseName;
+                const tableName = apiObject.spec.structName;
+                const indexName = apiObject.spec.name;
+                const storedProcedureName = `create_index_${indexName}`;
                 const columnString = apiObject.spec.keyColumns
                     .map((key) => `${key.name} ${(key.ascending ? 'ASC' : 'DESC')}`)
                     .join(', ');
-                return (`ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
-                    + `ADD INDEX IF NOT EXISTS ${apiObject.spec.name}\r\n`
-                    + `PRIMARY KEY (${columnString});`);
+                return (`DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
+                    + 'DELIMITER $$\r\n'
+                    + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
+                    + 'BEGIN\r\n'
+                    + '\tDECLARE EXIT HANDLER FOR 1061 DO 0;\r\n'
+                    + `\tALTER TABLE ${schemaName}.${tableName}\r\n`
+                    + `\tADD SPATIAL INDEX (${columnString});\r\n`
+                    + 'END $$\r\n'
+                    + 'DELIMITER ;\r\n'
+                    + `CALL ${storedProcedureName};\r\n`
+                    + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`);
             },
         ],
     ]),
@@ -37,8 +49,7 @@ const kind = {
         [
             'mariadb',
             (apiObject) => 'ALTER TABLE '
-                + `${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
-                + `DROP INDEX IF EXISTS ${apiObject.spec.name};`,
+                + `${apiObject.spec.databaseName}.${apiObject.spec.structName} DROP PRIMARY KEY;`,
         ],
     ]),
 };

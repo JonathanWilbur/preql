@@ -12,7 +12,7 @@ const ajv: Ajv.Ajv = new Ajv({
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
-  name: 'PrimaryIndex',
+  name: 'TextIndex',
   getPath: (apiObject: APIObject<Spec>): string => {
     const databaseName: string = apiObject.spec.databaseName || '';
     const structName: string = apiObject.spec.structName || '';
@@ -33,17 +33,17 @@ const kind: APIObjectKind = {
           .map((key): string => `${key.name} ${(key.ascending ? 'ASC' : 'DESC')}`)
           .join(', ');
         return (
-          `DROP PROCEDURE IF EXISTS ${schemaName}.${storedProcedureName};\r\n`
+          `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
           + 'DELIMITER $$\r\n'
-          + `CREATE PROCEDURE IF NOT EXISTS ${schemaName}.${storedProcedureName} ()\r\n`
+          + `CREATE PROCEDURE IF NOT EXISTS ${storedProcedureName} ()\r\n`
           + 'BEGIN\r\n'
-          + '\tDECLARE EXIT HANDLER FOR 1068 DO 0;\r\n'
+          + '\tDECLARE EXIT HANDLER FOR 1061 DO 0;\r\n'
           + `\tALTER TABLE ${schemaName}.${tableName}\r\n`
-          + `\tADD CONSTRAINT ${indexName} PRIMARY KEY (${columnString});\r\n`
+          + `\tADD FULLTEXT INDEX (${columnString});\r\n`
           + 'END $$\r\n'
           + 'DELIMITER ;\r\n'
-          + `CALL ${schemaName}.${storedProcedureName};\r\n`
-          + `DROP PROCEDURE IF EXISTS ${schemaName}.${storedProcedureName};\r\n`
+          + `CALL ${storedProcedureName};\r\n`
+          + `DROP PROCEDURE IF EXISTS ${storedProcedureName};\r\n`
         );
       },
     ],

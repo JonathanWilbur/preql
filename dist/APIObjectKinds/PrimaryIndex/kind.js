@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("./schema"));
-const matchingResource_1 = __importDefault(require("../matchingResource"));
+const validateIndex_1 = __importDefault(require("../validateIndex"));
 const Ajv = require("ajv");
 const ajv = new Ajv({
     useDefaults: true,
@@ -19,29 +19,7 @@ const kind = {
         return `${databaseName}.${structName}.${indexName}`;
     },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
-    // TODO: Log warnings for includedColumns, because they are not used.
-    validateSemantics: async (apiObject, etcd) => {
-        if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
-            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for PrimaryIndex `
-                + `'${apiObject.metadata.name}' to attach to.`);
-        }
-        if (!matchingResource_1.default(apiObject.spec.structName, 'struct', etcd)) {
-            throw new Error(`No structs found that are named '${apiObject.spec.structName}' for PrimaryIndex `
-                + `'${apiObject.metadata.name}' to attach to.`);
-        }
-        const columns = etcd.kindIndex.get('attribute');
-        if (!columns) {
-            throw new Error(`No attributes found for PrimaryIndex '${apiObject.metadata.name}' `
-                + 'to index.');
-        }
-        // Check that the columns are real
-        apiObject.spec.keyColumns.forEach((kc) => {
-            const columnFound = columns.some((column) => column.spec.name === kc.name);
-            if (!columnFound) {
-                throw new Error(`No attribute named '${kc.name}' for PrimaryIndex '${apiObject.metadata.name}' to index.`);
-            }
-        });
-    },
+    validateSemantics: validateIndex_1.default,
     transpilePresenceIn: new Map([
         [
             'mariadb',

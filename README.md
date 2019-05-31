@@ -67,8 +67,8 @@ In development.
   - [x] Attribute (A column in an RDBMS)
     - [ ] Virtual
   - [x] PrimaryIndex
-  - [ ] PlainIndex
-  - [ ] UniqueIndex
+  - [x] PlainIndex
+  - [x] UniqueIndex
   - [ ] TextIndex
   - [ ] SpatialIndex
   - [ ] ForeignKeyConstraint

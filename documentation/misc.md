@@ -103,3 +103,21 @@ you could just say that the developer needs to be cautious.
 ## Plural vs. Singular
 
 See [this](https://stackoverflow.com/questions/338156/table-naming-dilemma-singular-vs-plural-names).
+
+## How views could work
+
+```yaml
+spec:
+  select:
+    - bloop
+  from:
+    - blap
+  where:
+    - column: blarp
+      operator: lessThan
+      value: 5
+      next: and
+    - column: bling
+      operation: is
+      value: True
+```

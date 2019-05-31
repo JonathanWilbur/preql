@@ -84,6 +84,7 @@ const main = async (namespace, dialect, objects) => {
     const targetTranspiler = Targets_1.default.get(dialect);
     if (!(targetTranspiler))
         throw new Error(`Target '${dialect}' not understood.`);
+    Object.freeze(etcd);
     return { value: targetTranspiler.transpile(etcd) };
 };
 exports.default = main;

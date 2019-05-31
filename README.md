@@ -65,21 +65,16 @@ In development.
   - [x] Entity (A document in a DODBMS or an entity using an ORM)
   - [x] Struct (A table in an RDBMS)
   - [x] Attribute (A column in an RDBMS)
-    - [ ] Virtual
   - [x] PrimaryIndex
   - [x] PlainIndex
   - [x] UniqueIndex
-  - [ ] TextIndex
-  - [ ] SpatialIndex
+  - [x] TextIndex
+  - [x] SpatialIndex
   - [ ] ForeignKeyConstraint
-  - [ ] View
-  - [ ] Function
-  - [ ] StoredProcedure
-  - [ ] Role
-  - [ ] User
-  - [ ] Preamble
-  - [ ] Postamble
-  - [ ] DBMS
+  - [ ] View?
+  - [x] Preamble
+  - [x] Postamble
+  - [x] DBMS
 - [ ] Databases
   - [ ] Must have for 1.0.0
     - [ ] MySQL
@@ -133,19 +128,12 @@ In development.
   - [ ] gtin
   - [ ] unixperm
   - [ ] sddl
-- [ ] Tools
-  - [ ] Tool that generates a table of data type support per database.
-- [ ] Add `lengthUnits` field to each type.
 - [ ] Quality
-  - [ ] Check that everything is lower-cased.
-  - [ ] Make a new error type that includes the path?
-  - [ ] Escape names and quote them.
-  - [ ] Use `Object.freeze()`
-  - [ ] Use `Object.entries()` instead of `Object.keys()` where the values are needed.
+  - [x] Use `Object.freeze()`
+  - [x] Use `Object.entries()` instead of `Object.keys()` where the values are needed.
   - [x] Configure ESLint
   - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
   - [x] Strict Null Checks
-  - [ ] New `Error` type. (This might be considered bad practice.)
   - [x] Get rid of `path` by making `DataType` methods accept only the `spec`.
   - [ ] Add a lot more logging.
   - [ ] Regexp `pattern`s in JSON schema.
@@ -161,3 +149,4 @@ In development.
   - [ ] `validate`
   - [ ] `version`
   - [ ] `help`
+  - [ ] Command that generates a table of data type support per database.

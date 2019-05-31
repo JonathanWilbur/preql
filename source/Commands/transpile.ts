@@ -90,6 +90,7 @@ const main = async (namespace: string, dialect: string, objects: APIObject[]): P
 
   const targetTranspiler: Target | undefined = targets.get(dialect);
   if (!(targetTranspiler)) throw new Error(`Target '${dialect}' not understood.`);
+  Object.freeze(etcd);
   return { value: targetTranspiler.transpile(etcd) };
 }
 

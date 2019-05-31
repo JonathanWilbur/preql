@@ -1,13 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// FIXME: BINARY(6), yet UPPER()? Wuuut?
 const macaddr = {
     mariadb: {
-        equivalentNativeType: () => 'BINARY(6)',
-        checkConstraints: () => [],
+        equivalentNativeType: () => 'VARCHAR(17)',
+        checkConstraints: (spec) => [
+            `${spec.name} REGEXP '^[A-Fa-f0-9]{2}(?::[A-Fa-f0-9]{2}){5}$' `
+                + `OR ${spec.name} REGEXP '^[A-Fa-f0-9]{2}(?:-[A-Fa-f0-9]{2}){5}$' `
+                + `OR ${spec.name} REGEXP '^[A-Fa-f0-9]{6}(:|-)?[A-Fa-f0-9]{6}$' `
+                + `OR ${spec.name} REGEXP '^[A-Fa-f0-9]{4}.[A-Fa-f0-9]{4}.[A-Fa-f0-9]{4}$'`,
+        ],
         getters: () => ({}),
-        setters: (path) => ({
-            uppercase: `UPPER(${path[2]})`,
+        setters: (spec) => ({
+            uppercase: `UPPER(${spec.name})`,
         }),
     },
 };

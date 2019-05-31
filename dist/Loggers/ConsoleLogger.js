@@ -7,25 +7,25 @@ class ConsoleLogger {
         this.WARN_ICON = '<!> WARN';
         this.ERROR_ICON = '[X] ERROR';
     }
-    debug(path, event) {
+    debug(event) {
         // eslint-disable-next-line no-console
         if (console)
-            console.debug(`${this.DEBUG_ICON} ${path.join('.')}: ${event}`);
+            console.debug(`${this.DEBUG_ICON}: ${event}`);
     }
-    info(path, event) {
+    info(event) {
         // eslint-disable-next-line no-console
         if (console)
-            console.info(`${this.INFO_ICON} ${path.join('.')}: ${event}`);
+            console.info(`${this.INFO_ICON}: ${event}`);
     }
-    warn(path, event) {
+    warn(event) {
         // eslint-disable-next-line no-console
         if (console)
-            console.warn(`${this.WARN_ICON} ${path.join('.')}: ${event}`);
+            console.warn(`${this.WARN_ICON}: ${event}`);
     }
-    error(path, event) {
+    error(event) {
         // eslint-disable-next-line no-console
         if (console)
-            console.error(`${this.ERROR_ICON} ${path.join('.')}: ${event}`);
+            console.error(`${this.ERROR_ICON}: ${event}`);
     }
 }
 exports.default = new ConsoleLogger();

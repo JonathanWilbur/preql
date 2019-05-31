@@ -2,8 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fixchar = {
     mariadb: {
-        // TODO: Check that spec.length exists.
-        equivalentNativeType: (path, spec) => `CHAR(${spec.length})`,
+        equivalentNativeType: (spec) => `CHAR(${spec.length || 256})`,
         checkConstraints: () => [],
         getters: () => ({}),
         setters: () => ({}),

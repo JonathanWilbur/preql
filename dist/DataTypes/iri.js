@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const iri = {
     mariadb: {
         equivalentNativeType: () => 'TEXT',
-        checkConstraints: (path) => [
-            `${path[2]} RLIKE '^[A-Za-z][A-Za-z0-9\\+\\.\\-]+:\\W+$'`,
+        checkConstraints: (spec) => [
+            `${spec.name} REGEXP '^[A-Za-z][A-Za-z0-9\\+\\.\\-]+:\\W+$'`,
         ],
         getters: () => ({}),
         setters: () => ({}),

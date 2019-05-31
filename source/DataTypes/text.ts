@@ -1,32 +1,30 @@
 import DataType from '../DataType';
 import Logger from '../Logger';
+import AttributeSpec from '../APIObjectKinds/Attribute/spec';
 
 const text: DataType = {
   mariadb: {
-    equivalentNativeType: (path: [ string, string, string ], spec: any, logger: Logger): string => {
-      const length: number = (('length' in spec) ? spec.length : 65535);
-      if (Number.isNaN(length)) throw new Error('Non-numeric length received.');
-      if (length < 0) throw new Error('Negative length received.');
-      if (length === 0) throw new Error('Zero-length received.');
-      if (length < 256) {
-        logger.warn(path,
-          `A fixchar or varchar with a length of ${(2 ** length)} characters `
-          + 'could have been used instead for better performance.');
+    equivalentNativeType: (spec: AttributeSpec, logger: Logger): string => {
+      if (!spec.length) return 'TEXT';
+      if (spec.length < 256) {
+        logger.warn(
+          `Attribute ${spec.name} fixchar or varchar with a length of ${2 ** spec.length} bytes`
+          + 'could have been used instead for better performance.',
+        );
       }
-      if (length > ((2 ** 32) - 1)) {
-        logger.warn(path,
-          `No native text type can support a length that encodes on ${length} bits. Defaulting to LONGTEXT.`);
+      if (spec.length > ((2 ** 32) - 1)) {
+        logger.warn(
+          `No native text type can support a length of ${spec.length} bytes `
+          + `for attribute '${spec.name}'. Defaulting to LONGTEXT.`,
+        );
         return 'LONGTEXT';
       }
-      return `TEXT(${length})`;
+      return `TEXT(${spec.length})`;
     },
-    checkConstraints: (path: [ string, string, string ], spec: any): string[] => {
-      const length: number = (('length' in spec) ? spec.length : 65535);
-      if (Number.isNaN(length)) throw new Error('Non-numeric length received.');
-      if (length < 0) throw new Error('Negative length received.');
-      if (length === 0) throw new Error('Zero-length received.');
+    checkConstraints: (spec: AttributeSpec): string[] => {
+      if (!spec.length) return [];
       return [
-        `CHAR_LENGTH(${path[2]}) < ${length}`,
+        `CHAR_LENGTH(${spec.name}) < ${spec.length}`,
       ];
     },
     getters: (): { [ name: string ]: string } => ({}),

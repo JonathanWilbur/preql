@@ -25,7 +25,7 @@ const MariaDBTarget = {
             throw new Error('MariaDB not recognized.');
         return objectsOfMatchingKind
             .map((obj) => {
-            ConsoleLogger_1.default.info([], `Transpiling ${obj.kind} '${obj.metadata.name}'.`);
+            ConsoleLogger_1.default.info(`Transpiling ${obj.kind} '${obj.metadata.name}'.`);
             return kindTranspiler(obj, etcd);
         })
             .filter((transpilation) => transpilation !== '')

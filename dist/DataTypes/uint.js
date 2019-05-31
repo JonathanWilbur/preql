@@ -2,41 +2,33 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const uint = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            const length = (('length' in spec) ? spec.length : 1);
-            if (Number.isNaN(length))
-                throw new Error('Non-numeric length received.');
-            if (length < 0)
-                throw new Error('Negative length received.');
-            if (length === 0)
-                throw new Error('Zero-length received.');
-            if (length === 1) {
-                logger.warn(path, 'uint with a length of 1 has been transpiled to a BOOLEAN.');
+        equivalentNativeType: (spec, logger) => {
+            if (!spec.length)
+                return 'BIGINT UNSIGNED';
+            if (spec.length === 1) {
+                logger.warn(`Attribute '${spec.name}' of type 'uint' with a length `
+                    + 'of 1 has been transpiled to a BOOLEAN instead.');
                 return 'BOOLEAN';
             }
-            if (length <= 8)
+            if (spec.length <= 8)
                 return 'TINYINT UNSIGNED';
-            if (length <= 16)
+            if (spec.length <= 16)
                 return 'SMALLINT UNSIGNED';
-            if (length <= 32)
+            if (spec.length <= 32)
                 return 'INTEGER UNSIGNED';
-            if (length <= 64)
+            if (spec.length <= 64)
                 return 'BIGINT UNSIGNED';
-            logger.warn(path, `No native unsigned integral type can support ${length} bits. Defaulting to BIGINT UNSIGNED.`);
+            logger.warn(`No native signed integral type can support ${spec.length} bits for `
+                + `attribute '${spec.name}'. Defaulting to BIGINT SIGNED.`);
             return 'BIGINT UNSIGNED';
         },
-        checkConstraints: (path, spec) => {
-            const length = (('length' in spec) ? spec.length : 1);
-            if (Number.isNaN(length))
-                throw new Error('Non-numeric length received.');
-            if (length < 0)
-                throw new Error('Negative length received.');
-            if (length === 0)
-                throw new Error('Zero-length received.');
-            if ([1, 8, 16, 32, 64].includes(length))
+        checkConstraints: (spec) => {
+            if (!spec.length)
                 return [];
-            const max = (2 ** length);
-            return [`${path[2]} <= ${max}`];
+            if ([1, 8, 16, 32, 64].includes(spec.length))
+                return [];
+            const max = (2 ** spec.length);
+            return [`${spec.name} <= ${max}`];
         },
         getters: () => ({}),
         setters: () => ({}),

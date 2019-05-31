@@ -1,13 +1,10 @@
 import Logger from './Logger';
+import AttributeSpec from './APIObjectKinds/Attribute/spec';
 
 export default
 interface NativeTypeProperties {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  equivalentNativeType (path: [ string, string, string ], spec: any, logger: Logger): string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  checkConstraints (path: [ string, string, string ], spec: any, logger: Logger): string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getters: (path: [ string, string, string ], spec: any, logger: Logger) => { [ name: string ]: string };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setters: (path: [ string, string, string ], spec: any, logger: Logger) => { [ name: string ]: string };
+  equivalentNativeType (spec: AttributeSpec, logger: Logger): string;
+  checkConstraints (spec: AttributeSpec, logger: Logger): string[];
+  getters: (spec: AttributeSpec, logger: Logger) => { [ name: string ]: string };
+  setters: (spec: AttributeSpec, logger: Logger) => { [ name: string ]: string };
 };

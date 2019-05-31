@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const json = {
     mariadb: {
         equivalentNativeType: () => 'LONGTEXT',
-        checkConstraints: (path) => [
-            `JSON_VALID(${path[2]})`,
+        checkConstraints: (spec) => [
+            `JSON_VALID(${spec.name})`,
         ],
         getters: () => ({}),
         setters: () => ({}),

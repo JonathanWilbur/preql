@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sid = {
     mariadb: {
         equivalentNativeType: () => 'VARCHAR(128)',
-        checkConstraints: (path) => [
-            `${path[2]} RLIKE '^S-\\d-\\d+(?:-\\d+)*$'`,
+        checkConstraints: (spec) => [
+            `${spec.name} REGEXP '^S-\\d-\\d+(?:-\\d+)*$'`,
         ],
         getters: () => ({}),
         setters: () => ({}),

@@ -9,24 +9,24 @@ class ConsoleLogger implements Logger {
 
   private ERROR_ICON: string = '[X] ERROR';
 
-  public debug(path: string[], event: string): void {
+  public debug(event: string): void {
     // eslint-disable-next-line no-console
-    if (console) console.debug(`${this.DEBUG_ICON} ${path.join('.')}: ${event}`);
+    if (console) console.debug(`${this.DEBUG_ICON}: ${event}`);
   }
 
-  public info(path: string[], event: string): void {
+  public info(event: string): void {
     // eslint-disable-next-line no-console
-    if (console) console.info(`${this.INFO_ICON} ${path.join('.')}: ${event}`);
+    if (console) console.info(`${this.INFO_ICON}: ${event}`);
   }
 
-  public warn(path: string[], event: string): void {
+  public warn(event: string): void {
     // eslint-disable-next-line no-console
-    if (console) console.warn(`${this.WARN_ICON} ${path.join('.')}: ${event}`);
+    if (console) console.warn(`${this.WARN_ICON}: ${event}`);
   }
 
-  public error(path: string[], event: string): void {
+  public error(event: string): void {
     // eslint-disable-next-line no-console
-    if (console) console.error(`${this.ERROR_ICON} ${path.join('.')}: ${event}`);
+    if (console) console.error(`${this.ERROR_ICON}: ${event}`);
   }
 }
 

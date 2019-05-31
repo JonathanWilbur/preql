@@ -33,7 +33,7 @@ const main = async (namespace, dialect, objects) => {
         .map(async (apiObject) => {
         const kind = APIObjectKinds_1.default.get(apiObject.kind.toLowerCase());
         if (!kind) {
-            ConsoleLogger_1.default.warn([], `Kind '${apiObject.kind}' not recognized.`);
+            ConsoleLogger_1.default.warn(`Kind '${apiObject.kind}' not recognized.`);
             return Promise.resolve();
         }
         await kind.validateStructure(apiObject, etcd);

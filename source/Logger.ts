@@ -1,7 +1,7 @@
 export default
 interface Logger {
-  debug (path: string[], event: string): void;
-  info (path: string[], event: string): void;
-  warn (path: string[], event: string): void;
-  error (path: string[], event: string): void;
+  debug (event: string): void;
+  info (event: string): void;
+  warn (event: string): void;
+  error (event: string): void;
 };

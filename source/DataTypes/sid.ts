@@ -1,10 +1,11 @@
 import DataType from '../DataType';
+import AttributeSpec from '../APIObjectKinds/Attribute/spec';
 
 const sid: DataType = {
   mariadb: {
     equivalentNativeType: (): string => 'VARCHAR(128)',
-    checkConstraints: (path: [ string, string, string ]): string[] => [
-      `${path[2]} RLIKE '^S-\\d-\\d+(?:-\\d+)*$'`,
+    checkConstraints: (spec: AttributeSpec): string[] => [
+      `${spec.name} REGEXP '^S-\\d-\\d+(?:-\\d+)*$'`,
     ],
     getters: (): { [ name: string ]: string } => ({}),
     setters: (): { [ name: string ]: string } => ({}),

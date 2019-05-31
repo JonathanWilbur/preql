@@ -30,6 +30,7 @@ const schema = {
         },
         length: {
             type: 'integer',
+            minimum: 1,
         },
         casing: {
             type: 'string',

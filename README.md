@@ -146,7 +146,7 @@ In development.
   - [x] Use [AirBnB's ESLint](https://github.com/iamturns/eslint-config-airbnb-typescript), if possible.
   - [x] Strict Null Checks
   - [ ] New `Error` type. (This might be considered bad practice.)
-  - [ ] Create path types
+  - [x] Get rid of `path` by making `DataType` methods accept only the `spec`.
   - [ ] Add a lot more logging.
   - [ ] Regexp `pattern`s in JSON schema.
   - [ ] Pass logger into `validateSemantics()` instead of importing, because that

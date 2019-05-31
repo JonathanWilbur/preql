@@ -1,10 +1,11 @@
 import DataType from '../DataType';
+import AttributeSpec from '../APIObjectKinds/Attribute/spec';
 
 const month: DataType = {
   mariadb: {
     equivalentNativeType: (): string => 'TINYINT UNSIGNED',
-    checkConstraints: (path: [ string, string, string ]): string[] => [
-      `${path[2]} > 0 AND ${path[2]} <= 12`,
+    checkConstraints: (spec: AttributeSpec): string[] => [
+      `${spec.name} > 0 AND ${spec.name} <= 12`,
     ],
     getters: (): { [ name: string ]: string } => ({}),
     setters: (): { [ name: string ]: string } => ({}),

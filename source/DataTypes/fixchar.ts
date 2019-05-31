@@ -1,9 +1,9 @@
 import DataType from '../DataType';
+import AttributeSpec from '../APIObjectKinds/Attribute/spec';
 
 const fixchar: DataType = {
   mariadb: {
-    // TODO: Check that spec.length exists.
-    equivalentNativeType: (path: [ string, string, string ], spec: any): string => `CHAR(${spec.length})`,
+    equivalentNativeType: (spec: AttributeSpec): string => `CHAR(${spec.length || 256})`,
     checkConstraints: (): string[] => [],
     getters: (): { [ name: string ]: string } => ({}),
     setters: (): { [ name: string ]: string } => ({}),

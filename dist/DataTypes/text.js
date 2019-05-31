@@ -2,34 +2,25 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const text = {
     mariadb: {
-        equivalentNativeType: (path, spec, logger) => {
-            const length = (('length' in spec) ? spec.length : 65535);
-            if (Number.isNaN(length))
-                throw new Error('Non-numeric length received.');
-            if (length < 0)
-                throw new Error('Negative length received.');
-            if (length === 0)
-                throw new Error('Zero-length received.');
-            if (length < 256) {
-                logger.warn(path, `A fixchar or varchar with a length of ${(2 ** length)} characters `
+        equivalentNativeType: (spec, logger) => {
+            if (!spec.length)
+                return 'TEXT';
+            if (spec.length < 256) {
+                logger.warn(`Attribute ${spec.name} fixchar or varchar with a length of ${2 ** spec.length} bytes`
                     + 'could have been used instead for better performance.');
             }
-            if (length > ((2 ** 32) - 1)) {
-                logger.warn(path, `No native text type can support a length that encodes on ${length} bits. Defaulting to LONGTEXT.`);
+            if (spec.length > ((2 ** 32) - 1)) {
+                logger.warn(`No native text type can support a length of ${spec.length} bytes `
+                    + `for attribute '${spec.name}'. Defaulting to LONGTEXT.`);
                 return 'LONGTEXT';
             }
-            return `TEXT(${length})`;
+            return `TEXT(${spec.length})`;
         },
-        checkConstraints: (path, spec) => {
-            const length = (('length' in spec) ? spec.length : 65535);
-            if (Number.isNaN(length))
-                throw new Error('Non-numeric length received.');
-            if (length < 0)
-                throw new Error('Negative length received.');
-            if (length === 0)
-                throw new Error('Zero-length received.');
+        checkConstraints: (spec) => {
+            if (!spec.length)
+                return [];
             return [
-                `CHAR_LENGTH(${path[2]}) < ${length}`,
+                `CHAR_LENGTH(${spec.name}) < ${spec.length}`,
             ];
         },
         getters: () => ({}),

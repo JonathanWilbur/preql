@@ -23,7 +23,7 @@ const MariaDBTarget: Target = {
     if (!kindTranspiler) throw new Error('MariaDB not recognized.');
     return objectsOfMatchingKind
       .map((obj: APIObject) => {
-        logger.info([], `Transpiling ${obj.kind} '${obj.metadata.name}'.`);
+        logger.info(`Transpiling ${obj.kind} '${obj.metadata.name}'.`);
         return kindTranspiler(obj, etcd);
       })
       .filter((transpilation: string): boolean => transpilation !== '')

@@ -34,7 +34,7 @@ const main = async (namespace: string, dialect: string, objects: APIObject[]): P
     .map(async (apiObject: APIObject): Promise<void> => {
       const kind : APIObjectKind | undefined = kinds.get(apiObject.kind.toLowerCase());
       if (!kind) {
-        logger.warn([], `Kind '${apiObject.kind}' not recognized.`);
+        logger.warn(`Kind '${apiObject.kind}' not recognized.`);
         return Promise.resolve();
       }
       await kind.validateStructure(apiObject, etcd);

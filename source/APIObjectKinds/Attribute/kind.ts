@@ -43,27 +43,20 @@ const kind: APIObjectKind = {
       (apiObject: APIObject<Spec>) => {
         let columnString = `ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
           + `ADD COLUMN IF NOT EXISTS ${apiObject.spec.name} `;
-        // columnString += convertPreqlTypeToNativeType(path, spec);
         const type: string = apiObject.spec.type.toLowerCase();
-        const path: [ string, string, string ] = [
-          apiObject.spec.databaseName,
-          apiObject.spec.structName,
-          apiObject.spec.name,
-        ];
         if (type in dataTypes) {
-          columnString += dataTypes[type].mariadb.equivalentNativeType(path, apiObject.spec, logger);
+          columnString += dataTypes[type].mariadb.equivalentNativeType(apiObject.spec, logger);
         } else {
-          throw new Error(`${path}: Unrecognized type: ${type}`);
+          throw new Error(`Attribute '${apiObject.metadata.name}' has unrecognized type '${type}'.`);
         }
         if (apiObject.spec.nullable) columnString += ' NULL';
         else columnString += ' NOT NULL';
-        // Simply quoting the default value is fine, because MySQL will cast it.
+        // Simply quoting the default value is fine, because MariaDB will cast it.
         if (apiObject.spec.default) columnString += ` DEFAULT '${apiObject.spec.default}'`;
         if (apiObject.metadata.annotations && apiObject.metadata.annotations.has('comment')) {
           columnString += `\r\nCOMMENT '${apiObject.metadata.annotations.get('comment')}'`;
         }
         columnString += ';';
-        // logger.debug(path, 'Transpiled.');
         return columnString;
       },
     ],

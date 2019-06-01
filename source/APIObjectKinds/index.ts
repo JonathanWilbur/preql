@@ -11,6 +11,7 @@ import ServerKind from './Server/kind';
 import PreambleKind from './Preamble/kind';
 import PostambleKind from './Postamble/kind';
 import ForeignKeyConstraintKind from './ForeignKeyConstraint/kind';
+import DataTypeKind from './DataType/kind';
 import APIObjectKind from '../APIObjectKind';
 
 export default new Map<string, APIObjectKind>([
@@ -27,4 +28,5 @@ export default new Map<string, APIObjectKind>([
   ['preamble', PreambleKind],
   ['postamble', PostambleKind],
   ['foreignkeyconstraint', ForeignKeyConstraintKind],
+  ['datatype', DataTypeKind],
 ]);

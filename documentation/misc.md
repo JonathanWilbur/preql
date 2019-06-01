@@ -106,18 +106,226 @@ See [this](https://stackoverflow.com/questions/338156/table-naming-dilemma-singu
 
 ## How views could work
 
+It would look something like this.
+
 ```yaml
 spec:
   select:
-    - bloop
+    - attributeName: bloop
+      structName: people
+      alias: woop
   from:
-    - blap
+    - people
+    - cars
+  joinType: left
+  joinOn:
+    - attribute: id
+      struct: people
   where:
-    - column: blarp
+    - attribute: woop
       operator: lessThan
       value: 5
       next: and
-    - column: bling
+    - attribute: bling
       operation: is
       value: True
 ```
+
+Operators:
+
+- lessThan
+- lessThanOrEqual
+- equal / is
+- moreThan
+- moreThanOrEqual
+- in
+
+The problem is that views often depend on joins, so I need some way of doing
+joins.
+
+JoinTypes:
+
+- left
+- right
+- inner
+- outer
+- cross / cartesian
+
+## Data Types as an API Object Kind
+
+An example demonstrating regexes:
+
+```yaml
+apiVersion: preql/1.0.0
+kind: DataType
+metadata:
+  name: IPAddress
+spec:
+  regexes:
+    pcre:
+      ipv4: # Both of the below must match.
+        - pattern: '\d+\.\d+\.\d+\.\d+'
+          positive: True # If this matches, we have a match.
+        - pattern: '.*[a-zA-Z].*'
+          positive: False # If this matches, we do not have a match.
+      ipv6: # Or, this must match.
+        - pattern: '[0-9a-fA-F:]+'
+    tsql:
+      ipv4:
+        - pattern: '%hello%'
+  nativeTypeMap:
+    mysql: 'VARCHAR(32)'
+    tsql: 'VARCHAR(32)'
+```
+
+An example demonstrating length-switched returns and return templating.
+Should I break `return` into `return` and `returnTemplate`?
+
+```yaml
+apiVersion: preql/1.0.0
+kind: DataType
+metadata:
+  name: JPEGPhoto
+spec:
+  # TODO: objectIdentifier? (This might be used instead for LDAP.)
+  # TODO: ldapMatchingRule
+  # TODO: ldapOrderingRule
+  nativeTypeMap:
+    # mysql: 'VARBINARY(%L)'
+    tsql:
+      warnIfLengthIsGreaterThan: 12345
+      failIfLengthIsGreaterThan: 12346
+      return: 'VARBINARY(%L)'
+    ldap:
+      return: '1.2.3.4{%L}'
+    mariadb:
+      lengthSwitchedReturn:
+        1: 'BOOLEAN'
+        4: 'TINYBLOB'
+        8: 'TINYBLOB'
+        16: 'BLOB'
+        24: 'MEDIUMBLOB'
+        32: 'LONGBLOB' # Defaults to this, since its the largest number.
+        # Displays a warning if the length is greater than 32.
+```
+
+An example demonstrating check constraints:
+
+```yaml
+apiVersion: preql/1.0.0
+kind: DataType
+metadata:
+  name: Month
+spec:
+  nativeTypeMap:
+    mysql: 'TINYINT UNSIGNED'
+    tsql: 'TINYINT'
+  check:
+    mysql:
+      - '%n > 0'
+      - '%n < 13'
+```
+
+An example demonstrating triggers:
+
+```yaml
+apiVersion: preql/1.0.0
+kind: DataType
+metadata:
+  name: MACAddress
+spec:
+  nativeTypeMap:
+    mysql: 'CHAR(20)'
+    tsql: 'CHAR(20)'
+  triggers:
+    mysql:
+      - 'UPPER(%n)' # We want the alphabetic hex chars to be stored in uppercase.
+```
+
+Needed features:
+
+- Length bits %l
+- Length bytes %L
+- Bits of data that the length could indicate %b
+- Bytes of data that the length could indicate  %B
+- Decimal minimum %d
+- Decimal maximum %D
+- Attribute name %a
+- Struct name %s
+- Entity name %e
+- Database name %d
+- `integral` (Might be useful for permitting not-exactly-matching types in FKCs later on)
+- `real`
+- `string`
+- `binary`
+- Warning when lengths are too big.
+- Triggers
+
+Potential feature: sentitivity
+
+```yaml
+apiVersion: preql/1.0.0
+kind: DataType
+metadata:
+  name: Password
+spec:
+  nativeTypeMap:
+    mysql: 'VARCHAR(20)'
+    tsql: 'VARCHAR(20)'
+  sensitivity:
+    # This data type usually contains security-sensitive information.
+    # You would want to use this for data types like Password or
+    # PrivateKey or Salt or PINNumber.
+    security: True
+    # This data type usually contains legally-sensitive information, such as
+    # healthcare data protected by HIPAA. An 'ICD10Code' data type might be
+    # an example where you would use this, since ICD-10 Codes, if associated
+    # with a real patient visit, constitute HIPAA-protected health information.
+    legality: False
+    # This data type usually contains proprietary information. An example
+    # where you would use this might be ProgrammingLanguage or
+    # ThirdPartyLibraryName.
+    proprietary: False
+```
+
+The use case for this is that the PreQL transpiler can emit warnings when
+certain datatypes are used, flag whole tables as being sensitive, and
+make sensitive attributes or tables inaccessible to all users by default. A
+corresponding view with only the non-sensitive columns could also be generated.
+
+For security-sensitive data types, specifically, an emitted warning could say:
+
+> WARNING: Storing plain-text passwords in a database is a dangerous practice.
+> If the database is compromised by a hacker or exfiltrated, the passwords are
+> compromised as well. Consider storing secure cryptographic hashes of salted
+> passwords instead. For more information, see these links: ...
+
+Or, the PreQL transpiler could outright fail unless a flag is given on the
+command line, such as `--i-understand-cwe-257`, but that probably would not
+be implemented at the `DataType` level.
+
+If legally-sensitive attributes are stored, query logging settings could be
+queried, and adding the column could fail if no query logs are kept.
+
+Alternatively, instead of using sensitivity flags, a new API Object kind,
+possibly named `DataPolicy` could use a `matchSelector` on labels, then
+have these policies:
+
+- `requireQueryLogs`
+- `requireSlowQueryLogs`
+- `requireInsertLogs` (Create insert triggers that insert an entry in a restricted table.)
+- `requireUpdateLogs` (Create update triggers that insert an entry in a restricted table.)
+- `requireFlag`
+
+With these actions being taken in non-compliance:
+
+- `displayWarning` (Add the attribute, but warn.)
+- `addWarningEntryInTable`
+- `ignore` (Skip over the attibute entirely.)
+<!-- - `remove` (Transpile the code to remove the attribute, if present.) -->
+- `drop` (Transpile the code to remove the attribute, if present, deleting all data in this column.)
+- `delete` (Set all entries in this column to `NULL`.)
+- `dropIfEmpty`
+
+The `matchSelector` could also be a regex that matches `metadata.name` or `spec.name`.
+If you want to display a warning every time, the policies could just be empty.

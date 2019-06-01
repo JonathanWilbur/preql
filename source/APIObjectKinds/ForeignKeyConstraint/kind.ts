@@ -84,7 +84,6 @@ const kind: APIObjectKind = {
 
     apiObject.spec.child.key.forEach((key: { columnName: string }): void => {
       if (!childStructAttributes.has(key.columnName.toLowerCase())) {
-        console.log(childStructAttributes);
         throw new Error(
           `Child struct '${apiObject.spec.child.struct}' has no column named `
           + `'${key.columnName}' to which ForeignKeyConstraint `

@@ -3,9 +3,11 @@ import APIObjectKind from '../../APIObjectKind';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
-import dataTypes from '../../DataTypes/index';
-import logger from '../../Loggers/ConsoleLogger';
+// import dataTypes from '../../DataTypes/index';
+// import logger from '../../Loggers/ConsoleLogger';
 import matchingResource from '../matchingResource';
+import DataTypeSpec from '../DataType/spec';
+import transpile from '../DataType/transpile';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -40,15 +42,33 @@ const kind: APIObjectKind = {
   transpilePresenceIn: new Map([
     [
       'mariadb',
-      (apiObject: APIObject<Spec>) => {
+      (apiObject: APIObject<Spec>, etcd: APIObjectDatabase) => {
+        const datatypes: APIObject[] = etcd.kindIndex.get('datatype') || [];
+        if (datatypes.length === 0) {
+          throw new Error('No data types defined.');
+        }
         let columnString = `ALTER TABLE ${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
           + `ADD COLUMN IF NOT EXISTS ${apiObject.spec.name} `;
         const type: string = apiObject.spec.type.toLowerCase();
-        if (type in dataTypes) {
-          columnString += dataTypes[type].mariadb.equivalentNativeType(apiObject.spec, logger);
-        } else {
-          throw new Error(`Attribute '${apiObject.metadata.name}' has unrecognized type '${type}'.`);
+        const matchingTypes: APIObject[] = datatypes
+          .filter((datatype: APIObject): boolean => datatype.metadata.name.toLowerCase() === type);
+        if (matchingTypes.length !== 1) {
+          throw new Error(`Data type '${type}' not recognized.`);
         }
+        const datatype: APIObject<DataTypeSpec> = matchingTypes[0];
+
+        // if returnBasedOnLength:
+        //    if no length, look for a return.
+        //      if no return, throw "must specify length"
+        //    else, return
+        // elseif return, return.
+        // else throw "must have a return or returnBasedOnLength"
+        columnString += transpile('mariadb', datatype, apiObject);
+        // if (type in dataTypes) {
+        //   columnString += dataTypes[type].mariadb.equivalentNativeType(apiObject.spec, logger);
+        // } else {
+        //   throw new Error(`Attribute '${apiObject.metadata.name}' has unrecognized type '${type}'.`);
+        // }
         if (apiObject.spec.nullable) columnString += ' NULL';
         else columnString += ' NOT NULL';
         // Simply quoting the default value is fine, because MariaDB will cast it.

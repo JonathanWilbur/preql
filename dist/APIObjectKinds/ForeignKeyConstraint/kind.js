@@ -58,7 +58,6 @@ const kind = {
         ]));
         apiObject.spec.child.key.forEach((key) => {
             if (!childStructAttributes.has(key.columnName.toLowerCase())) {
-                console.log(childStructAttributes);
                 throw new Error(`Child struct '${apiObject.spec.child.struct}' has no column named `
                     + `'${key.columnName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);

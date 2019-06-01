@@ -54,7 +54,10 @@ In development.
 
 - [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
 - [ ] API Objects
-  - [ ] DataType
+  - [x] DataType
+    - [ ] Check constraint transpilation
+    - [ ] Regex check constraint transpilation
+    - [ ] Setter transpilation
   - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
   - [x] Entity (A document in a DODBMS or an entity using an ORM)
   - [x] Struct (A table in an RDBMS)
@@ -65,10 +68,12 @@ In development.
   - [x] TextIndex
   - [x] SpatialIndex
   - [x] ForeignKeyConstraint
-  - [ ] View?
   - [x] Preamble
   - [x] Postamble
   - [x] DBMS
+  - [ ] Entry
+  - [ ] EntrySource? (Require hash for security)
+  - [ ] DataPolicy
 - [ ] Databases
   - [ ] Must have for 1.0.0
     - [ ] MySQL
@@ -88,6 +93,12 @@ In development.
 - [ ] Escape strings and test strings with escape characters.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Make `getPath()` return an array of strings.
+- [ ] Use the fallback operator (`||`) when `get`ing from a `Map` instead of checking for `undefined`.
+- [ ] Can there only be one FKC between two tables?
+- [ ] Security warnings for attributes containing the terms:
+  - `password`
+  - `passphrase`
+  - `passtoken`
 - [x] `apiVersion` checking.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Data Types

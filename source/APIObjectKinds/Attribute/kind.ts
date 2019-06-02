@@ -76,8 +76,21 @@ const kind: APIObjectKind = {
                 + `ADD CONSTRAINT IF NOT EXISTS preql_valid_${datatype.metadata.name}_${index}\r\n`
                 + `CHECK (${printf(expression, apiObject)});`;
               })
-              .join('\r\n\r\n')
+              .join('\r\n\r\n');
           }
+          // if (datatype.spec.regexes && datatype.spec.regexes.pcre && datatype.spec.regexes.pcre) {
+          //   columnString += '\r\n\r\n';
+          //   columnString += Object.entries(datatype.spec.regexes.pcre)
+          //     .map((group: [ string, { pattern: string; positive: boolean; }[] ], index: number): string => {
+          //       const qualifiedTableName: string = `${apiObject.spec.databaseName}.${apiObject.spec.structName}`;
+          //       return `ALTER TABLE ${qualifiedTableName}\r\n`
+          //       + `DROP CONSTRAINT IF EXISTS preql_valid_${datatype.metadata.name}_${index};\r\n`
+          //       + `ALTER TABLE ${qualifiedTableName}\r\n`
+          //       + `ADD CONSTRAINT IF NOT EXISTS preql_valid_${datatype.metadata.name}_${index}\r\n`
+          //       + `CHECK (${printf(expression, apiObject)});`;
+          //     })
+          //     .join('\r\n\r\n');
+          // }
           if (datatype.spec.targets.mariadb.setters) {
             columnString += '\r\n\r\n';
             columnString += datatype.spec.targets.mariadb.setters
@@ -107,6 +120,7 @@ const kind: APIObjectKind = {
   transpileAbsenceIn: new Map([
     [
       'mariadb',
+      // REVIEW: Do I need to delete triggers and check constraints, here?
       (apiObject: APIObject<Spec>) => 'ALTER TABLE '
         + `${apiObject.spec.databaseName}.${apiObject.spec.structName}\r\n`
         + `DROP COLUMN IF EXISTS ${apiObject.spec.name};`,

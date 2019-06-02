@@ -389,4 +389,4 @@ GROUP BY '1';
 ## Fundamental assumptions of PreQL
 
 - Anything PreQL defines, PreQL has full access to.
-- 
+- All triggers and checks will automatically be prefixed with `preql_`.

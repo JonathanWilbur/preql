@@ -8,6 +8,7 @@ import Spec from './spec';
 import matchingResource from '../matchingResource';
 import DataTypeSpec from '../DataType/spec';
 import transpile from '../DataType/transpile';
+import printf from '../DataType/printf';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -56,19 +57,7 @@ const kind: APIObjectKind = {
           throw new Error(`Data type '${type}' not recognized.`);
         }
         const datatype: APIObject<DataTypeSpec> = matchingTypes[0];
-
-        // if returnBasedOnLength:
-        //    if no length, look for a return.
-        //      if no return, throw "must specify length"
-        //    else, return
-        // elseif return, return.
-        // else throw "must have a return or returnBasedOnLength"
         columnString += transpile('mariadb', datatype, apiObject);
-        // if (type in dataTypes) {
-        //   columnString += dataTypes[type].mariadb.equivalentNativeType(apiObject.spec, logger);
-        // } else {
-        //   throw new Error(`Attribute '${apiObject.metadata.name}' has unrecognized type '${type}'.`);
-        // }
         if (apiObject.spec.nullable) columnString += ' NULL';
         else columnString += ' NOT NULL';
         // Simply quoting the default value is fine, because MariaDB will cast it.
@@ -77,6 +66,35 @@ const kind: APIObjectKind = {
           columnString += `\r\nCOMMENT '${apiObject.metadata.annotations.get('comment')}'`;
         }
         columnString += ';';
+        if (datatype.spec.targets.mariadb) {
+          if (datatype.spec.targets.mariadb.check) {
+            columnString += '\r\n\r\n';
+            columnString += datatype.spec.targets.mariadb.check
+              .map((expression: string, index: number): string => 'ALTER TABLE '
+                + `${apiObject.spec.structName}\r\n`
+                + `ADD CONSTRAINT preql_valid_${datatype.metadata.name}_${index}`
+                + `CHECK (${printf(expression, apiObject)});`)
+              .join('\r\n\r\n')
+          }
+          if (datatype.spec.targets.mariadb.setters) {
+            columnString += '\r\n\r\n';
+            columnString += datatype.spec.targets.mariadb.setters
+              .map((expression: string, index: number): string => {
+                const qualifiedTableName: string = `${apiObject.spec.databaseName}.${apiObject.spec.structName}`;
+                const formattedExpression: string = printf(expression, apiObject);
+                return (
+                  `REPLACE TRIGGER preql_insert_${datatype.metadata.name}_${index}\r\n`
+                  + `BEFORE INSERT ON ${qualifiedTableName} FOR EACH ROW\r\n`
+                  + `SET NEW.${apiObject.spec.name} = ${formattedExpression};\r\n`
+                  + '\r\n'
+                  + `REPLACE TRIGGER preql_update_${datatype.metadata.name}_${index}\r\n`
+                  + `BEFORE UPDATE ON ${qualifiedTableName} FOR EACH ROW\r\n`
+                  + `SET NEW.${apiObject.spec.name} = ${formattedExpression};`
+                );
+              })
+              .join('\r\n\r\n');
+          }
+        }
         return columnString;
       },
     ],

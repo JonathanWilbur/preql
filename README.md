@@ -55,13 +55,14 @@ In development.
 - [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
 - [ ] API Objects
   - [x] DataType
-    - [ ] Check constraint transpilation
+    - [x] Check constraint transpilation
     - [ ] Regex check constraint transpilation
-    - [ ] Setter transpilation
+    - [x] Setter transpilation
   - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
   - [x] Entity (A document in a DODBMS or an entity using an ORM)
   - [x] Struct (A table in an RDBMS)
   - [x] Attribute (A column in an RDBMS)
+    - [ ] Fix issue with `length` not meaning the same thing across types.
   - [x] PrimaryIndex
   - [x] PlainIndex
   - [x] UniqueIndex

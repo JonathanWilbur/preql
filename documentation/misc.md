@@ -329,3 +329,64 @@ With these actions being taken in non-compliance:
 
 The `matchSelector` could also be a regex that matches `metadata.name` or `spec.name`.
 If you want to display a warning every time, the policies could just be empty.
+
+## How to drop all CHECK constraints for a table
+
+This is used because the `CHECK` constraints can be trivially rebuilt. I got
+this code from [here](https://stackoverflow.com/questions/17072786/drop-all-table-constraints-in-mysql).
+
+```mysql
+DROP PROCEDURE IF EXISTS testeroni.dropAllConstraintsForColumn;
+DELIMITER $$
+CREATE PROCEDURE testeroni.dropAllCheckConstraintsForColumn(IN param_schema VARCHAR(255), in param_table VARCHAR(255))
+BEGIN
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    DECLARE dropCommand VARCHAR(255);
+    DECLARE dropCur CURSOR FOR
+        SELECT concat('alter table ', table_schema, '.', table_name, ' DROP CONSTRAINT ', constraint_name, ';')
+        FROM information_schema.table_constraints
+        WHERE
+            constraint_type = 'CHECK'
+            AND table_schema = param_schema
+            AND table_name = param_table;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    OPEN dropCur;
+    read_loop: LOOP
+        FETCH dropCur
+        INTO dropCommand;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        SET @sdropCommand = dropCommand;
+        PREPARE dropClientUpdateKeyStmt FROM @sdropCommand;
+        EXECUTE dropClientUpdateKeyStmt;
+        DEALLOCATE PREPARE dropClientUpdateKeyStmt;
+    END LOOP;
+    CLOSE dropCur;
+END $$
+DELIMITER ;
+-- call testeroni.dropAllConstraintsForColumn('testeroni', 'people');
+```
+
+## How to drop all triggers for a table
+
+I got this idea from [here](https://stackoverflow.com/questions/12637945/how-can-i-delete-all-the-triggers-in-a-mysql-database-using-one-sql-statement).
+
+```sql
+-- set `group_concat_max_len`
+SET @@session.group_concat_max_len = @@global.max_allowed_packet;
+
+-- select all the triggers and build the `DROP TRIGGER` SQL
+-- replace <your_schema> with your schema name (e.g. your database name)
+SELECT GROUP_CONCAT(sql_string SEPARATOR '\n')
+FROM (
+    SELECT CONCAT('DROP TRIGGER IF EXISTS `', TRIGGER_NAME, '`;') AS sql_string,'1'
+    FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA = '<your_schema>'
+    ) AS sql_strings
+GROUP BY '1';
+```
+
+## Fundamental assumptions of PreQL
+
+- Anything PreQL defines, PreQL has full access to.
+- 

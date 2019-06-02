@@ -91,6 +91,7 @@ In development.
     - [ ] NuoDB
     - [ ] Cassandra
 - [ ] Escape strings and test strings with escape characters.
+- [ ] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Make `getPath()` return an array of strings.
 - [ ] Use the fallback operator (`||`) when `get`ing from a `Map` instead of checking for `undefined`.

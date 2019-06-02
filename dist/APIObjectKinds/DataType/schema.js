@@ -15,6 +15,10 @@ const schema = {
                 'binary',
             ],
         },
+        lengthUnits: {
+            type: 'string',
+            description: 'A purely informational field.',
+        },
         regexes: {
             type: 'object',
             description: 'A map of regex kinds.',

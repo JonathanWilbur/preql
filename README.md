@@ -62,7 +62,7 @@ In development.
   - [x] Entity (A document in a DODBMS or an entity using an ORM)
   - [x] Struct (A table in an RDBMS)
   - [x] Attribute (A column in an RDBMS)
-    - [ ] Fix issue with `length` not meaning the same thing across types.
+    - [x] Fix issue with `length` not meaning the same thing across types.
   - [x] PrimaryIndex
   - [x] PlainIndex
   - [x] UniqueIndex
@@ -92,7 +92,7 @@ In development.
     - [ ] NuoDB
     - [ ] Cassandra
 - [ ] Escape strings and test strings with escape characters.
-- [ ] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
+- [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Make `getPath()` return an array of strings.
 - [ ] Use the fallback operator (`||`) when `get`ing from a `Map` instead of checking for `undefined`.

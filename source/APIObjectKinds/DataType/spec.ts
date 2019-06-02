@@ -1,6 +1,7 @@
 export default
 interface Spec {
   category: string;
+  lengthUnits?: string;
   regexes?: {
     [ regexType: string ]: {
       [ groupName: string ]: {

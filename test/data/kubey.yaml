@@ -8,15 +8,15 @@ objects:
       category: string
       targets:
         mariadb:
-          return: 'VARCHAR(%B)'
+          return: 'VARCHAR(%l)'
           # returnBasedOnLength:
           #   1: 'BOOLEAN'
           #   8: 'VARCHAR(8)'
           #   32: 'VARCHAR(32)'
-          # check:
-          #   - 'LENGTH(%a) <= %B'
-          # setters:
-          #   - 'UPPER(%a)'
+          check:
+            - 'LENGTH(%a) <= %l'
+          setters:
+            - 'UPPER(%a)'
   - apiVersion: preql/1.0.0
     kind: Database
     metadata:

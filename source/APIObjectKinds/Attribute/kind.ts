@@ -3,8 +3,6 @@ import APIObjectKind from '../../APIObjectKind';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
-// import dataTypes from '../../DataTypes/index';
-// import logger from '../../Loggers/ConsoleLogger';
 import matchingResource from '../matchingResource';
 import DataTypeSpec from '../DataType/spec';
 import transpile from '../DataType/transpile';
@@ -70,10 +68,14 @@ const kind: APIObjectKind = {
           if (datatype.spec.targets.mariadb.check) {
             columnString += '\r\n\r\n';
             columnString += datatype.spec.targets.mariadb.check
-              .map((expression: string, index: number): string => 'ALTER TABLE '
-                + `${apiObject.spec.structName}\r\n`
-                + `ADD CONSTRAINT preql_valid_${datatype.metadata.name}_${index}`
-                + `CHECK (${printf(expression, apiObject)});`)
+              .map((expression: string, index: number): string => {
+                const qualifiedTableName: string = `${apiObject.spec.databaseName}.${apiObject.spec.structName}`;
+                return `ALTER TABLE ${qualifiedTableName}\r\n`
+                + `DROP CONSTRAINT IF EXISTS preql_valid_${datatype.metadata.name}_${index};\r\n`
+                + `ALTER TABLE ${qualifiedTableName}\r\n`
+                + `ADD CONSTRAINT IF NOT EXISTS preql_valid_${datatype.metadata.name}_${index}\r\n`
+                + `CHECK (${printf(expression, apiObject)});`;
+              })
               .join('\r\n\r\n')
           }
           if (datatype.spec.targets.mariadb.setters) {
@@ -82,12 +84,15 @@ const kind: APIObjectKind = {
               .map((expression: string, index: number): string => {
                 const qualifiedTableName: string = `${apiObject.spec.databaseName}.${apiObject.spec.structName}`;
                 const formattedExpression: string = printf(expression, apiObject);
+                const triggerBaseName = `${apiObject.spec.databaseName}.preql_${datatype.metadata.name}_${index}`;
                 return (
-                  `REPLACE TRIGGER preql_insert_${datatype.metadata.name}_${index}\r\n`
+                  `DROP TRIGGER IF EXISTS ${triggerBaseName}_insert;\r\n`
+                  + `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_insert\r\n`
                   + `BEFORE INSERT ON ${qualifiedTableName} FOR EACH ROW\r\n`
                   + `SET NEW.${apiObject.spec.name} = ${formattedExpression};\r\n`
                   + '\r\n'
-                  + `REPLACE TRIGGER preql_update_${datatype.metadata.name}_${index}\r\n`
+                  + `DROP TRIGGER IF EXISTS ${triggerBaseName}_update;\r\n`
+                  + `CREATE TRIGGER IF NOT EXISTS ${triggerBaseName}_update\r\n`
                   + `BEFORE UPDATE ON ${qualifiedTableName} FOR EACH ROW\r\n`
                   + `SET NEW.${apiObject.spec.name} = ${formattedExpression};`
                 );

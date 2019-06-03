@@ -14,12 +14,12 @@ functions:
   list-kinds:
     handler: source/ServerlessHandlers/AWS/listKinds.default
     timeout: 1
-    memorySize: 32
+    memorySize: 128
 
   validate-object:
     handler: source/ServerlessHandlers/AWS/validateObject.default
     timeout: 5
-    memorySize: 64
+    memorySize: 128
 
   index-objects:
     handler: source/ServerlessHandlers/AWS/indexObjects.default

@@ -49,7 +49,7 @@ module.exports = {
             3. Conversion of daisy chains into a more cumbersome sequence
                of declarations and assignment.
         */
-        "max-len": [ "error", 120 ],
+        "max-len": [ "warn", 120 ],
 
         // This just does not work for some reason.
         "import/no-unresolved": "off",

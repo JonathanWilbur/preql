@@ -12,10 +12,14 @@ const handler: Handler<{ objects: APIObject[] }> = async (
   if (!event.objects) callback(new Error('Event was supposed to have an `objects` field.'));
   if (typeof event.objects !== 'object') callback(new Error('Event.objects should have been an array.'));
   try {
-    callback(null, {
-      namespaces: await indexObjects(event.objects),
+    const namespaces = await indexObjects(event.objects);
+    // See: https://stackoverflow.com/questions/44740423/create-json-string-from-js-map-and-string
+    callback(null, JSON.parse(JSON.stringify({
+      // namespaces: Array.from(namespaces.entries()),
+      namespaces,
       numberOfObjects: event.objects.length,
-    });
+      // eslint-disable-next-line
+    }, (key: string, value: any) => (value instanceof Map ? [...value] : value))));
   } catch (e) {
     callback(e);
   }

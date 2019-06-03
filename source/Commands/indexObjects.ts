@@ -7,16 +7,17 @@ async function indexObjects(objects: APIObject[]): Promise<Map<string, APIObject
   const namespaces: Map<string, APIObjectDatabase> = new Map<string, APIObjectDatabase>([]);
   await Promise.all(objects
     .map(async (apiObject: APIObject): Promise<void> => {
-      if (!namespaces.has(apiObject.metadata.namespace)) {
-        namespaces.set(apiObject.metadata.namespace, {
-          namespace: apiObject.metadata.namespace,
+      if (!namespaces.has(apiObject.metadata.namespace || 'default')) {
+        namespaces.set(apiObject.metadata.namespace || 'default', {
+          namespace: apiObject.metadata.namespace || 'default',
           // apiVersionIndex: new Map<string, APIObject[]>([]),
           kindIndex: new Map<string, APIObject[]>([]),
           kindNameIndex: new Map<string, APIObject>([]),
           objectsWithInvalidSpecs: [], // Is this even used?
         });
       }
-      const namespace: APIObjectDatabase = namespaces.get(apiObject.metadata.namespace) as APIObjectDatabase;
+      const namespace: APIObjectDatabase = namespaces
+        .get(apiObject.metadata.namespace || 'default') as APIObjectDatabase;
 
       const kindIndexReference: APIObject[] | undefined = namespace.kindIndex.get(apiObject.kind.toLowerCase());
       if (!kindIndexReference) namespace.kindIndex.set(apiObject.kind.toLowerCase(), [apiObject]);
@@ -27,7 +28,7 @@ async function indexObjects(objects: APIObject[]): Promise<Map<string, APIObject
       if (!kindNameValue) namespace.kindNameIndex.set(kindAndName, apiObject);
       else {
         throw new Error(
-          `Duplicated name: two objects in namespace '${apiObject.metadata.namespace}' of kind `
+          `Duplicated name: two objects in namespace '${apiObject.metadata.namespace || 'default'}' of kind `
           + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`,
         );
       }

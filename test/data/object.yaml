@@ -1,0 +1,13 @@
+apiVersion: preql/1.0.0
+kind: Struct
+metadata:
+  name: pet
+  labels:
+    schema: dbo
+    table: pets
+    entity: pet
+  annotations:
+    comment: "A big ol dang table of pets"
+spec:
+  name: pet
+  databaseName: floofy

@@ -12,7 +12,6 @@ const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'DataType',
-  getPath: (apiObject: APIObject<Spec>): string => apiObject.metadata.name,
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (): Promise<void> => {
     // TODO: Validate regexes.

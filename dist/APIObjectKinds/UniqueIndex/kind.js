@@ -12,12 +12,6 @@ const ajv = new Ajv({
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'UniqueIndex',
-    getPath: (apiObject) => {
-        const databaseName = apiObject.spec.databaseName || '';
-        const structName = apiObject.spec.structName || '';
-        const indexName = apiObject.spec.name;
-        return `${databaseName}.${structName}.${indexName}`;
-    },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: validateIndex_1.default,
     transpilePresenceIn: new Map([

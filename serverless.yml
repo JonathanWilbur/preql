@@ -10,7 +10,23 @@ provider:
   timeout: 10
 
 functions:
-  transpile:
-    handler: source/ServerlessHandlers/AWS/transpile.default
-    timeout: 30
+
+  list-kinds:
+    handler: source/ServerlessHandlers/AWS/listKinds.default
+    timeout: 1
+    memorySize: 32
+
+  validate-object:
+    handler: source/ServerlessHandlers/AWS/validateObject.default
+    timeout: 5
+    memorySize: 64
+
+  index-objects:
+    handler: source/ServerlessHandlers/AWS/indexObjects.default
+    timeout: 15
     memorySize: 128
+
+  validate:
+    handler: source/ServerlessHandlers/AWS/validate.default
+    timeout: 30
+    memorySize: 256

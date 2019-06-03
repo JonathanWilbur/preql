@@ -12,7 +12,6 @@ const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'Database',
-  getPath: (apiObject: APIObject<Spec>): string => apiObject.spec.name || '',
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: (): Promise<void> => Promise.resolve(),
   transpilePresenceIn: new Map([

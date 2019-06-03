@@ -15,6 +15,16 @@ database dialect of your choice.
 
 Build by running `tsc` in the root directory.
 
+## Usage
+
+1.  Call `validateObject` for each object. This just validates the object against schema.
+2.  Call `indexObjects` on the array of validated objects. This produces a
+    "database" that the next function will use.
+3.  Call `validateNamespace` for each namespace produced by `indexObjects`.
+    This performs more semantic validation, such as checking that foreign-key
+    constraints are satisfied across objects, and ensuring that `Attribute`s
+    belong to a `Struct` that actually exists.
+
 ## Status
 
 In development.
@@ -143,13 +153,13 @@ In development.
   - [ ] Pass logger into `validateSemantics()` instead of importing, because that
         is the only part of a Kind where logging should be used.
 - [ ] Command-Line Interface (CLI) sub-commands
-  - [ ] `transpile` (Ensures all objects exist)
-  - [ ] `delete` (Ensures that selected objects do not exist)
-  - [ ] `get`
-  - [ ] `describe`
-  - [ ] `test` (Compares a data source against a table)
-  - [ ] `tree`
-  - [ ] `validate`
+  - [ ] `transpile` (Ensures all objects exist) (Target)
+  - [ ] `delete` (Ensures that selected objects do not exist) (Target)
+  - [ ] `get` (CLI)
+  - [ ] `describe` (CLI)
+  - [ ] `test`? (Compares a data source against a table)
+  - [ ] `tree` (CLI)
+  - [ ] `validate` (Core)
   - [ ] `version`
   - [ ] `help`
   - [ ] Command that generates a table of data type support per database.

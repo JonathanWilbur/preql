@@ -13,11 +13,6 @@ const ajv = new Ajv({
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Struct',
-    getPath: (apiObject) => {
-        const databaseName = apiObject.spec.databaseName || '';
-        const structName = apiObject.spec.name || '';
-        return `${databaseName}.${structName}`;
-    },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {

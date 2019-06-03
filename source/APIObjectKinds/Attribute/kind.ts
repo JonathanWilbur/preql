@@ -17,12 +17,6 @@ const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'Attribute',
-  getPath: (apiObject: APIObject<Spec>): string => {
-    const databaseName: string = apiObject.spec.databaseName || '';
-    const structName: string = apiObject.spec.structName || '';
-    const attributeName: string = apiObject.spec.name || '';
-    return `${databaseName}.${structName}.${attributeName}`;
-  },
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {

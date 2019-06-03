@@ -13,12 +13,6 @@ const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   name: 'PlainIndex',
-  getPath: (apiObject: APIObject<Spec>): string => {
-    const databaseName: string = apiObject.spec.databaseName || '';
-    const structName: string = apiObject.spec.structName || '';
-    const indexName: string = apiObject.spec.name || '';
-    return `${databaseName}.${structName}.${indexName}`;
-  },
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: validateIndex,
   transpilePresenceIn: new Map([

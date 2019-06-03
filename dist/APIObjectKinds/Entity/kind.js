@@ -12,12 +12,6 @@ const ajv = new Ajv({
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
     name: 'Entity',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getPath: (apiObject) => {
-        const databaseName = apiObject.spec.databaseName || '';
-        const entityName = apiObject.spec.name || '';
-        return `${databaseName}.${entityName}`;
-    },
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {

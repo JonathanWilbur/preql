@@ -4,18 +4,26 @@ const schema = {
   type: 'object',
   additionalProperties: false,
   properties: {
-    category: {
+    jsonEquivalent: {
       type: 'string',
       enum: [
+        'boolean',
         'integer',
-        'real',
+        'number',
         'string',
-        'binary',
+        'array',
+        // 'object',
       ],
     },
     lengthUnits: {
       type: 'string',
       description: 'A purely informational field.',
+    },
+    minimum: {
+      type: 'number',
+    },
+    maximum: {
+      type: 'number',
     },
     regexes: {
       type: 'object',
@@ -77,7 +85,7 @@ const schema = {
     },
   },
   required: [
-    'category',
+    'jsonEquivalent',
     'targets',
   ],
 };

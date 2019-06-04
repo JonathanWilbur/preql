@@ -12,6 +12,7 @@ import PreambleKind from './Preamble/kind';
 import PostambleKind from './Postamble/kind';
 import ForeignKeyConstraintKind from './ForeignKeyConstraint/kind';
 import DataTypeKind from './DataType/kind';
+import EntryKind from './Entry/kind';
 import APIObjectKind from '../Interfaces/APIObjectKind';
 
 const kinds: Record<string, APIObjectKind> = {
@@ -29,6 +30,7 @@ const kinds: Record<string, APIObjectKind> = {
   postamble: PostambleKind,
   foreignkeyconstraint: ForeignKeyConstraintKind,
   datatype: DataTypeKind,
+  entry: EntryKind,
 };
 
 export default kinds;

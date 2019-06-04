@@ -57,14 +57,15 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [x] Get rid of all occurrences of `Map`, per [this](https://stackoverflow.com/questions/46066343/convert-typescript-mapstring-string-to-json-string-representation) recommendation.
 - [x] Make interface members `readonly`.
 - [x] Create `NullLogger`.
-- [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
+- [ ] Add `serverName` to `Database`
+- [x] Add `minimum` and `maximum` to `DataType`
+- [ ] Make schema validation actually work!
 - [ ] API Objects
   - [x] DataType
   - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
   - [x] Entity (A document in a DODBMS or an entity using an ORM)
   - [x] Struct (A table in an RDBMS)
   - [x] Attribute (A column in an RDBMS)
-    - [x] Fix issue with `length` not meaning the same thing across types.
   - [x] PrimaryIndex
   - [x] PlainIndex
   - [x] UniqueIndex
@@ -74,19 +75,22 @@ implements the `Logger` interface--and this might just be a plain old `console`.
   - [x] Preamble
   - [x] Postamble
   - [x] DBMS
-  - [ ] Entry
+  - [x] Entry
   - [ ] DataPolicy
+  - [ ] ReplicationSet
 - [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
-- [ ] PreQL Log (In-database log of errors, warnings, etc.)
-- [ ] Can there only be one FKC between two tables?
-- [ ] Security warnings for attributes containing the terms:
-  - `password`
-  - `passphrase`
-  - `passtoken`
-- [x] `apiVersion` checking.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
-- [ ] Quality
-  - [ ] Add a lot more logging.
-  - [ ] Regexp `pattern`s in JSON schema.
-  - [ ] Pass logger into `validateSemantics()` instead of importing, because that
-        is the only part of a Kind where logging should be used.
+- [ ] Regexp `pattern`s in JSON schema.
+- [ ] Serverless functions
+  - [ ] `get-server-uri`
+  - [ ] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
+  - [ ] `get-entity` (Displays a hierarchical breakdown of all the `structs` that go into an `entity`.)
+  - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
+  - [ ] `get-entries`
+  - [ ] `get-data-policy-result`
+
+## Possible Future Features
+
+- [ ] `apiVersion` checking.
+- [ ] PreQL Log (In-database log of errors, warnings, etc.)
+- [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)

@@ -1,7 +1,11 @@
+import JSONType from './jsonTypes';
+
 export default
 interface Spec {
-  category: string;
+  jsonEquivalent: JSONType;
   lengthUnits?: string;
+  minimum?: number;
+  maximum?: number;
   regexes?: {
     [ regexType: string ]: {
       [ groupName: string ]: {

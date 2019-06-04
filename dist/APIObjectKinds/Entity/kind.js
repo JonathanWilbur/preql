@@ -23,17 +23,5 @@ const kind = {
                 + `'${apiObject.metadata.name}' to use as the root struct.`);
         }
     },
-    transpilePresenceIn: new Map([
-        [
-            'mariadb',
-            () => '',
-        ],
-    ]),
-    transpileAbsenceIn: new Map([
-        [
-            'mariadb',
-            () => '',
-        ],
-    ]),
 };
 exports.default = kind;

@@ -13,10 +13,13 @@ const handler = async (event, context, callback) => {
     if (typeof event.objects !== 'object')
         callback(new Error('Event.objects should have been an array.'));
     try {
-        callback(null, {
-            namespaces: await indexObjects_1.default(event.objects),
+        const namespaces = await indexObjects_1.default(event.objects);
+        // See: https://stackoverflow.com/questions/44740423/create-json-string-from-js-map-and-string
+        callback(null, JSON.parse(JSON.stringify({
+            // namespaces: Array.from(namespaces.entries()),
+            namespaces,
             numberOfObjects: event.objects.length,
-        });
+        }, (key, value) => (value instanceof Map ? [...value] : value))));
     }
     catch (e) {
         callback(e);

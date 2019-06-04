@@ -29,18 +29,6 @@ const kind: APIObjectKind = {
       );
     }
   },
-  transpilePresenceIn: new Map([
-    [
-      'mariadb',
-      () => '',
-    ],
-  ]),
-  transpileAbsenceIn: new Map([
-    [
-      'mariadb',
-      () => '',
-    ],
-  ]),
 };
 
 export default kind;

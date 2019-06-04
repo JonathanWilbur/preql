@@ -18,8 +18,6 @@ const kind: APIObjectKind = {
     // TODO: Throw if regexes and non-string type.
     // TODO: Ensure every target has either return or returnBasedOnLength
   },
-  transpilePresenceIn: new Map([]),
-  transpileAbsenceIn: new Map([]),
 };
 
 export default kind;

@@ -14,13 +14,6 @@ const kind: APIObjectKind = {
   name: 'Preamble',
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: Promise.resolve,
-  transpilePresenceIn: new Map([
-    [
-      'mariadb',
-      (apiObject: APIObject<Spec>): string => `-- ${apiObject.spec.uncommentedText.replace(/\r?\n/, '\r\n-- ')}`,
-    ],
-  ]),
-  transpileAbsenceIn: new Map([]),
 };
 
 export default kind;

@@ -13,7 +13,5 @@ const kind = {
     name: 'Server',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: Promise.resolve,
-    transpilePresenceIn: new Map([]),
-    transpileAbsenceIn: new Map([]),
 };
 exports.default = kind;

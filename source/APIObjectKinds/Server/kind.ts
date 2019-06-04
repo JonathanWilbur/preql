@@ -14,8 +14,6 @@ const kind: APIObjectKind = {
   name: 'Server',
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: Promise.resolve,
-  transpilePresenceIn: new Map([]),
-  transpileAbsenceIn: new Map([]),
 };
 
 export default kind;

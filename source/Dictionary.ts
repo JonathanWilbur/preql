@@ -12,3 +12,6 @@
  * [this website](https://brainlessdeveloper.com/typescript/2019/01/30/typescript-series-1-record-is-usually-not-the-best-choice/).
  */
 type Dictionary<K extends string, T> = Partial<Record<K, T>>;
+// Again, it seems to be a bug.
+// eslint-disable-next-line no-undef
+export default Dictionary;

@@ -13,18 +13,5 @@ const kind = {
     name: 'Database',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: () => Promise.resolve(),
-    transpilePresenceIn: new Map([
-        [
-            'mariadb',
-            // TODO: Support character sets and collation.
-            (apiObject) => `CREATE DATABASE IF NOT EXISTS ${apiObject.spec.name};`,
-        ],
-    ]),
-    transpileAbsenceIn: new Map([
-        [
-            'mariadb',
-            (apiObject) => `DROP DATABASE IF EXISTS ${apiObject.spec.name};`,
-        ],
-    ]),
 };
 exports.default = kind;

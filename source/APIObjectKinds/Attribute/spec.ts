@@ -1,4 +1,4 @@
-import Casing from '../../Casing';
+import Casing from './Casing';
 
 export default
 interface Attribute {

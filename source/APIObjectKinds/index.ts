@@ -12,7 +12,7 @@ import PreambleKind from './Preamble/kind';
 import PostambleKind from './Postamble/kind';
 import ForeignKeyConstraintKind from './ForeignKeyConstraint/kind';
 import DataTypeKind from './DataType/kind';
-import APIObjectKind from '../APIObjectKind';
+import APIObjectKind from '../Interfaces/APIObjectKind';
 
 const kinds: Record<string, APIObjectKind> = {
   database: DatabaseKind,

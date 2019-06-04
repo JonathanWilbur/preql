@@ -1,5 +1,5 @@
 import APIObject from '../Interfaces/APIObject';
-import APIObjectKind from '../APIObjectKind';
+import APIObjectKind from '../Interfaces/APIObjectKind';
 import APIObjectSchema from '../JSONSchema/APIObject';
 import kinds from '../APIObjectKinds';
 

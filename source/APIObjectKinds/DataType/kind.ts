@@ -1,5 +1,5 @@
 import APIObject from '../../Interfaces/APIObject';
-import APIObjectKind from '../../APIObjectKind';
+import APIObjectKind from '../../Interfaces/APIObjectKind';
 import schema from './schema';
 import Spec from './spec';
 

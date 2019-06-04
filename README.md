@@ -44,15 +44,19 @@ These target libraries _should_:
 - Use `./source/SuggestedTargetIndexHandler.ts` for transpiling the entire database.
   - This should make calls to all of the object-transpiling functions.
 - All of the object-transpiling functions should be exposed as Serverless functions.
-- Use the `./source/Logger.ts` interface for logging. (`console` already satisfies it.)
+- Use the `./source/Interfaces/Logger.ts` interface for logging. (`console` already satisfies it.)
+  - `./source/NullLogger.ts` may be used as a default for `Logger` parameters.
 
-The above will be _required_ for inclusion in the official CLI.
+The above will be _required_ for inclusion in the official CLI. (Except using `NullLogger`.)
+
+The command-line interface will always pass a console-logging object that
+implements the `Logger` interface--and this might just be a plain old `console`.
 
 ## To Do
 
 - [x] Get rid of all occurrences of `Map`, per [this](https://stackoverflow.com/questions/46066343/convert-typescript-mapstring-string-to-json-string-representation) recommendation.
 - [x] Make interface members `readonly`.
-- [ ] Create `NullLogger`.
+- [x] Create `NullLogger`.
 - [ ] Add `multiValued` Attribute member, which makes it a separate relational table in an RDBMS, an array in a DODBMS, and a multi-valued attribute in LDAP.
 - [ ] API Objects
   - [x] DataType

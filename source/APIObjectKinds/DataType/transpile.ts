@@ -1,7 +1,6 @@
 import APIObject from '../../Interfaces/APIObject';
 import Spec from './spec';
 import AttributeSpec from '../Attribute/spec';
-import logger from '../../Loggers/ConsoleLogger';
 import printf from './printf';
 
 const transpile = (target: string, dataType: APIObject<Spec>, attribute: APIObject<AttributeSpec>): string => {
@@ -20,10 +19,10 @@ const transpile = (target: string, dataType: APIObject<Spec>, attribute: APIObje
     if (!smallestContainingThresholdLength) { // If no threshold length can contain, just use the largest one.
       const smallestAccomodatingType: string = targetSpec
         .returnBasedOnLength[thresholdLengths[thresholdLengths.length - 1]];
-      logger.warn(
-        `Attribute '${attribute.metadata.name}'s length was too large for the largest `
-        + `'${dataType.metadata.name}', so it has been transpiled to a '${smallestAccomodatingType}'`,
-      );
+      // logger.warn(
+      //   `Attribute '${attribute.metadata.name}'s length was too large for the largest `
+      //   + `'${dataType.metadata.name}', so it has been transpiled to a '${smallestAccomodatingType}'`,
+      // );
       return printf(smallestAccomodatingType, attribute);
     }
     return printf(targetSpec.returnBasedOnLength[smallestContainingThresholdLength], attribute);

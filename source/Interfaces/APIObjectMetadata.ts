@@ -6,7 +6,7 @@ interface APIObjectMetadata {
    * namespaces are not used by every resource.
    */
   namespace: string;
-  labels: Map<string, string>;
-  annotations: Map<string, string>;
+  labels: Record<string, string>;
+  annotations: Record<string, string>;
   uid?: string;
 };

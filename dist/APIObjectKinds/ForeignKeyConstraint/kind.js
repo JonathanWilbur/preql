@@ -32,34 +32,34 @@ const kind = {
                 + `'${apiObject.spec.parent.struct}' for the ForeignKeyConstraint named `
                 + `'${apiObject.metadata.name}'.`);
         }
-        const columns = etcd.kindIndex.get('attribute');
+        const columns = etcd.kindIndex.attribute;
         if (!columns || columns.length === 0) {
             throw new Error(`No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
                 + 'to use as keys.');
         }
-        const childStructAttributes = new Map(columns
+        const childStructAttributes = {};
+        columns
             .filter((attr) => (attr.spec.structName.toLowerCase() === apiObject.spec.child.struct.toLowerCase()
             && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()))
-            .map((attr) => [
-            attr.spec.name.toLowerCase(),
-            attr,
-        ]));
-        const parentStructAttributes = new Map(columns
+            .forEach((attr) => {
+            childStructAttributes[attr.spec.name.toLowerCase()] = attr;
+        });
+        const parentStructAttributes = {};
+        columns
             .filter((attr) => (attr.spec.structName.toLowerCase() === apiObject.spec.parent.struct.toLowerCase()
             && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()))
-            .map((attr) => [
-            attr.spec.name.toLowerCase(),
-            attr,
-        ]));
+            .forEach((attr) => {
+            parentStructAttributes[attr.spec.name.toLowerCase()] = attr;
+        });
         apiObject.spec.child.key.forEach((key) => {
-            if (!childStructAttributes.has(key.columnName.toLowerCase())) {
+            if (!(key.columnName.toLowerCase() in childStructAttributes)) {
                 throw new Error(`Child struct '${apiObject.spec.child.struct}' has no column named `
                     + `'${key.columnName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);
             }
         });
         apiObject.spec.parent.key.forEach((key) => {
-            if (!parentStructAttributes.has(key.columnName.toLowerCase())) {
+            if (!(key.columnName.toLowerCase() in parentStructAttributes)) {
                 throw new Error(`Parent struct '${apiObject.spec.parent.struct}' has no column named `
                     + `'${key.columnName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);
@@ -68,10 +68,9 @@ const kind = {
         // Note that nullability should not factor into the FKC.
         apiObject.spec.child.key.forEach((key, index) => {
             const childAttributeName = key.columnName.toLowerCase();
-            const childAttribute = childStructAttributes.get(childAttributeName);
+            const childAttribute = childStructAttributes[childAttributeName];
             const parentAttributeName = apiObject.spec.parent.key[index].columnName.toLowerCase();
-            const parentAttribute = parentStructAttributes
-                .get(parentAttributeName);
+            const parentAttribute = parentStructAttributes[parentAttributeName];
             if (!childAttribute)
                 throw new Error('Assertion failed.');
             if (!parentAttribute)

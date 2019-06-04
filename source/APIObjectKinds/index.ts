@@ -14,19 +14,21 @@ import ForeignKeyConstraintKind from './ForeignKeyConstraint/kind';
 import DataTypeKind from './DataType/kind';
 import APIObjectKind from '../APIObjectKind';
 
-export default new Map<string, APIObjectKind>([
-  ['database', DatabaseKind],
-  ['entity', EntityKind],
-  ['struct', StructKind],
-  ['attribute', AttributeKind],
-  ['primaryindex', PrimaryIndexKind],
-  ['plainindex', PlainIndexKind],
-  ['uniqueindex', UniqueIndexKind],
-  ['textindex', TextIndexKind],
-  ['spatialindex', SpatialIndexKind],
-  ['server', ServerKind],
-  ['preamble', PreambleKind],
-  ['postamble', PostambleKind],
-  ['foreignkeyconstraint', ForeignKeyConstraintKind],
-  ['datatype', DataTypeKind],
-]);
+const kinds: Record<string, APIObjectKind> = {
+  database: DatabaseKind,
+  entity: EntityKind,
+  struct: StructKind,
+  attribute: AttributeKind,
+  primaryindex: PrimaryIndexKind,
+  plainindex: PlainIndexKind,
+  uniqueindex: UniqueIndexKind,
+  textindex: TextIndexKind,
+  spatialindex: SpatialIndexKind,
+  server: ServerKind,
+  preamble: PreambleKind,
+  postamble: PostambleKind,
+  foreignkeyconstraint: ForeignKeyConstraintKind,
+  datatype: DataTypeKind,
+};
+
+export default kinds;

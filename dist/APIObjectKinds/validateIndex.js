@@ -13,7 +13,7 @@ async function validateIndex(apiObject, etcd) {
         throw new Error(`No structs found that are named '${apiObject.spec.structName}' for ${apiObject.kind} `
             + `'${apiObject.metadata.name}' to attach to.`);
     }
-    const columns = etcd.kindIndex.get('attribute');
+    const columns = etcd.kindIndex.attribute;
     if (!columns) {
         throw new Error(`No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
             + 'to index.');

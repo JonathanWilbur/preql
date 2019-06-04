@@ -15,7 +15,7 @@ const handler = async (event, context, callback) => {
     try {
         await Promise.all(event.objects.map(validateObject_1.default));
         const namespaces = await indexObjects_1.default(event.objects);
-        await Promise.all(Array.from(namespaces.values()).map(validateNamespace_1.default));
+        await Promise.all(Object.values(namespaces).map(validateNamespace_1.default));
         callback(null, {
             namespaces,
             numberOfObjects: event.objects.length,

@@ -45,7 +45,7 @@ const kind: APIObjectKind = {
       )
     }
 
-    const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.get('attribute');
+    const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
     if (!columns || columns.length === 0) {
       throw new Error(
         `No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
@@ -53,32 +53,28 @@ const kind: APIObjectKind = {
       );
     }
 
-    const childStructAttributes: Map<string, APIObject<AttributeSpec>> = new Map<string, APIObject<AttributeSpec>>(
-      columns
-        .filter((attr: APIObject<AttributeSpec>): boolean => (
-          attr.spec.structName.toLowerCase() === apiObject.spec.child.struct.toLowerCase()
-          && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()
-        ))
-        .map((attr: APIObject<AttributeSpec>): [ string, APIObject<AttributeSpec> ] => [
-          attr.spec.name.toLowerCase(),
-          attr,
-        ]),
-    );
+    const childStructAttributes: Record<string, APIObject<AttributeSpec>> = {};
+    columns
+      .filter((attr: APIObject<AttributeSpec>): boolean => (
+        attr.spec.structName.toLowerCase() === apiObject.spec.child.struct.toLowerCase()
+        && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()
+      ))
+      .forEach((attr: APIObject<AttributeSpec>): void => {
+        childStructAttributes[attr.spec.name.toLowerCase()] = attr;
+      });
 
-    const parentStructAttributes: Map<string, APIObject<AttributeSpec>> = new Map<string, APIObject<AttributeSpec>>(
-      columns
-        .filter((attr: APIObject<AttributeSpec>): boolean => (
-          attr.spec.structName.toLowerCase() === apiObject.spec.parent.struct.toLowerCase()
-          && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()
-        ))
-        .map((attr: APIObject<AttributeSpec>): [ string, APIObject<AttributeSpec> ] => [
-          attr.spec.name.toLowerCase(),
-          attr,
-        ]),
-    );
+    const parentStructAttributes: Record<string, APIObject<AttributeSpec>> = {};
+    columns
+      .filter((attr: APIObject<AttributeSpec>): boolean => (
+        attr.spec.structName.toLowerCase() === apiObject.spec.parent.struct.toLowerCase()
+        && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()
+      ))
+      .forEach((attr: APIObject<AttributeSpec>): void => {
+        parentStructAttributes[attr.spec.name.toLowerCase()] = attr;
+      });
 
     apiObject.spec.child.key.forEach((key: { columnName: string }): void => {
-      if (!childStructAttributes.has(key.columnName.toLowerCase())) {
+      if (!(key.columnName.toLowerCase() in childStructAttributes)) {
         throw new Error(
           `Child struct '${apiObject.spec.child.struct}' has no column named `
           + `'${key.columnName}' to which ForeignKeyConstraint `
@@ -88,7 +84,7 @@ const kind: APIObjectKind = {
     });
 
     apiObject.spec.parent.key.forEach((key: { columnName: string }): void => {
-      if (!parentStructAttributes.has(key.columnName.toLowerCase())) {
+      if (!(key.columnName.toLowerCase() in parentStructAttributes)) {
         throw new Error(
           `Parent struct '${apiObject.spec.parent.struct}' has no column named `
           + `'${key.columnName}' to which ForeignKeyConstraint `
@@ -100,10 +96,9 @@ const kind: APIObjectKind = {
     // Note that nullability should not factor into the FKC.
     apiObject.spec.child.key.forEach((key: { columnName: string }, index: number): void => {
       const childAttributeName: string = key.columnName.toLowerCase();
-      const childAttribute: APIObject<AttributeSpec> | undefined = childStructAttributes.get(childAttributeName);
+      const childAttribute: APIObject<AttributeSpec> | undefined = childStructAttributes[childAttributeName];
       const parentAttributeName: string = apiObject.spec.parent.key[index].columnName.toLowerCase();
-      const parentAttribute: APIObject<AttributeSpec> | undefined = parentStructAttributes
-        .get(parentAttributeName);
+      const parentAttribute: APIObject<AttributeSpec> | undefined = parentStructAttributes[parentAttributeName];
       if (!childAttribute) throw new Error('Assertion failed.');
       if (!parentAttribute) throw new Error('Assertion failed');
       if (

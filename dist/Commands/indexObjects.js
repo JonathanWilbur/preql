@@ -2,31 +2,30 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 async function indexObjects(objects) {
-    const namespaces = new Map([]);
-    await Promise.all(objects
-        .map(async (apiObject) => {
-        if (!namespaces.has(apiObject.metadata.namespace || 'default')) {
-            namespaces.set(apiObject.metadata.namespace || 'default', {
+    const namespaces = {};
+    await Promise.all(objects.map(async (apiObject) => {
+        const namespaceName = apiObject.metadata.namespace || 'default';
+        if (!namespaces[namespaceName]) {
+            namespaces[namespaceName] = {
                 namespace: apiObject.metadata.namespace || 'default',
-                // apiVersionIndex: new Map<string, APIObject[]>([]),
-                kindIndex: new Map([]),
-                kindNameIndex: new Map([]),
+                kindIndex: {},
+                kindNameIndex: {},
                 objectsWithInvalidSpecs: [],
-            });
+            };
         }
-        const namespace = namespaces
-            .get(apiObject.metadata.namespace || 'default');
-        const kindIndexReference = namespace.kindIndex.get(apiObject.kind.toLowerCase());
+        const namespace = namespaces[namespaceName];
+        const kindName = apiObject.kind.toLowerCase();
+        const kindIndexReference = namespace.kindIndex[kindName];
         if (!kindIndexReference)
-            namespace.kindIndex.set(apiObject.kind.toLowerCase(), [apiObject]);
+            namespace.kindIndex[kindName] = [apiObject];
         else
             kindIndexReference.push(apiObject);
-        const kindAndName = `${apiObject.kind.toLowerCase()}:${apiObject.metadata.name.toLowerCase()}`;
-        const kindNameValue = namespace.kindNameIndex.get(kindAndName);
+        const kindAndName = `${kindName}:${apiObject.metadata.name.toLowerCase()}`;
+        const kindNameValue = namespace.kindNameIndex[kindAndName];
         if (!kindNameValue)
-            namespace.kindNameIndex.set(kindAndName, apiObject);
+            namespace.kindNameIndex[kindAndName] = apiObject;
         else {
-            throw new Error(`Duplicated name: two objects in namespace '${apiObject.metadata.namespace || 'default'}' of kind `
+            throw new Error(`Duplicated name: two objects in namespace '${namespaceName}' of kind `
                 + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`);
         }
         return Promise.resolve();

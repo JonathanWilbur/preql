@@ -18,7 +18,7 @@ const structureValidator = ajv.compile(APIObject_1.default);
  * @param apiObject The object to be structurally validated.
  */
 async function validateStructure(apiObject) {
-    const kind = APIObjectKinds_1.default.get(apiObject.kind.toLowerCase());
+    const kind = APIObjectKinds_1.default[apiObject.kind.toLowerCase()];
     if (!kind)
         return Promise.resolve(false);
     await Promise.all([

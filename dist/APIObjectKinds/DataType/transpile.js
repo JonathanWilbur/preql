@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ConsoleLogger_1 = __importDefault(require("../../Loggers/ConsoleLogger"));
 const printf_1 = __importDefault(require("./printf"));
 const transpile = (target, dataType, attribute) => {
     if (!(target in dataType.spec.targets)) {
@@ -21,8 +20,10 @@ const transpile = (target, dataType, attribute) => {
         if (!smallestContainingThresholdLength) { // If no threshold length can contain, just use the largest one.
             const smallestAccomodatingType = targetSpec
                 .returnBasedOnLength[thresholdLengths[thresholdLengths.length - 1]];
-            ConsoleLogger_1.default.warn(`Attribute '${attribute.metadata.name}'s length was too large for the largest `
-                + `'${dataType.metadata.name}', so it has been transpiled to a '${smallestAccomodatingType}'`);
+            // logger.warn(
+            //   `Attribute '${attribute.metadata.name}'s length was too large for the largest `
+            //   + `'${dataType.metadata.name}', so it has been transpiled to a '${smallestAccomodatingType}'`,
+            // );
             return printf_1.default(smallestAccomodatingType, attribute);
         }
         return printf_1.default(targetSpec.returnBasedOnLength[smallestContainingThresholdLength], attribute);

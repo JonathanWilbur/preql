@@ -10,7 +10,7 @@ const handler: Handler<{}> = async (
   if (!(typeof event === 'object')) callback(new Error('Event was not of an object type.'));
   try {
     callback(null, {
-      kinds: Array.from(kinds.keys()),
+      kinds: Object.keys(kinds),
     });
   } catch (e) {
     callback(e);

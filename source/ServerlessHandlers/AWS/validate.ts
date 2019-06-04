@@ -15,7 +15,7 @@ const handler: Handler<{ objects: APIObject[] }> = async (
   try {
     await Promise.all(event.objects.map(validateObject));
     const namespaces = await indexObjects(event.objects);
-    await Promise.all(Array.from(namespaces.values()).map(validateNamespace));
+    await Promise.all(Object.values(namespaces).map(validateNamespace));
     callback(null, {
       namespaces,
       numberOfObjects: event.objects.length,

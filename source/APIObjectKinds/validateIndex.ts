@@ -18,7 +18,7 @@ async function validateIndex(apiObject: APIObject, etcd: APIObjectDatabase): Pro
     );
   }
 
-  const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.get('attribute');
+  const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
   if (!columns) {
     throw new Error(
       `No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `

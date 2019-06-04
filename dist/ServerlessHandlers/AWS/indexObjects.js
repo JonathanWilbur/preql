@@ -15,11 +15,10 @@ const handler = async (event, context, callback) => {
     try {
         const namespaces = await indexObjects_1.default(event.objects);
         // See: https://stackoverflow.com/questions/44740423/create-json-string-from-js-map-and-string
-        callback(null, JSON.parse(JSON.stringify({
-            // namespaces: Array.from(namespaces.entries()),
+        callback(null, {
             namespaces,
             numberOfObjects: event.objects.length,
-        }, (key, value) => (value instanceof Map ? [...value] : value))));
+        });
     }
     catch (e) {
         callback(e);

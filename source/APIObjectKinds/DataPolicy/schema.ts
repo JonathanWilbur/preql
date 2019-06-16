@@ -41,53 +41,18 @@ const schema = {
         },
       },
     },
-    nonComplianceActions: {
-      type: 'object',
-      properties: {
-        displayWarning: {
-          type: 'object',
-          properties: {
-            text: {
-              type: 'string',
-            },
-          },
-          required: [
-            'text',
-          ],
-        },
-        addWarningEntry: {
-          type: 'object',
-          properties: {
-            databaseName: {
-              type: 'string',
-            },
-            structName: {
-              type: 'string',
-            },
-            attributeName: {
-              type: 'string',
-            },
-          },
-          required: [
-            'structName',
-          ],
-        },
-        ignore: {
-          type: 'boolean',
-        },
-        nullify: {
-          type: 'boolean',
-        },
-        dropIfEmpty: {
-          type: 'boolean',
-        },
-      },
+    nonComplianceAction: {
+      type: 'string',
+      enum: [
+        'warn',
+        'ignore',
+      ],
     },
   },
   required: [
     'selector',
     'require',
-    'nonComplianceActions',
+    'nonComplianceAction',
   ],
 };
 

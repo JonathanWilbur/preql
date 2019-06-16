@@ -13,16 +13,5 @@ interface Spec {
     flag: boolean;
     nonExistence: boolean;
   };
-  // TODO: I think this needs to be an enum.
-  nonComplianceActions: {
-    displayWarning: boolean;
-    addWarningEntry: {
-      databaseName: string;
-      structName: string;
-      attributeName: string;
-    }
-    ignore: boolean;
-    nullify: boolean;
-    dropIfEmpty: boolean;
-  };
+  nonComplianceAction: 'warn' | 'ignore';
 };

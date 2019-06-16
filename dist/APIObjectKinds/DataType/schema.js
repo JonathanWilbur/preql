@@ -86,7 +86,7 @@ const schema = {
         },
     },
     required: [
-        'category',
+        'jsonEquivalent',
         'targets',
     ],
 };

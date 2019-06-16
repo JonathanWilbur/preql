@@ -17,6 +17,7 @@ const kind_11 = __importDefault(require("./Preamble/kind"));
 const kind_12 = __importDefault(require("./Postamble/kind"));
 const kind_13 = __importDefault(require("./ForeignKeyConstraint/kind"));
 const kind_14 = __importDefault(require("./DataType/kind"));
+const kind_15 = __importDefault(require("./Entry/kind"));
 const kinds = {
     database: kind_1.default,
     entity: kind_2.default,
@@ -32,5 +33,6 @@ const kinds = {
     postamble: kind_12.default,
     foreignkeyconstraint: kind_13.default,
     datatype: kind_14.default,
+    entry: kind_15.default,
 };
 exports.default = kinds;

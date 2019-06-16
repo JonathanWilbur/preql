@@ -135,13 +135,13 @@ objects:
         key:
         - columnName: firstName
         - columnName: lastName
-  - apiVersion: preql/1.0.0
-    kind: Entry
-    metadata:
-      name: myself
-    spec:
-      databaseName: floofy
-      structName: person
-      values:
-        firstName: True
-        lastName: Wilbur
+  # - apiVersion: preql/1.0.0
+  #   kind: Entry
+  #   metadata:
+  #     name: myself
+  #   spec:
+  #     databaseName: floofy
+  #     structName: person
+  #     values:
+  #       firstName: True
+  #       lastName: Wilbur

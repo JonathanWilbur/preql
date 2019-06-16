@@ -32,3 +32,13 @@ functions:
     handler: dist/ServerlessHandlers/AWS/matchLabels.default
     timeout: 5
     memorySize: 128
+
+  get-server-uri:
+    handler: dist/ServerlessHandlers/AWS/getServerURI.default
+    timeout: 1
+    memorySize: 128
+
+  get-tree:
+    handler: dist/ServerlessHandlers/AWS/getTree.default
+    timeout: 30
+    memorySize: 256

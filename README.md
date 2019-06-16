@@ -81,8 +81,8 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Regexp `pattern`s in JSON schema.
 - [ ] Serverless functions
-  - [ ] `get-server-uri`
-  - [ ] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
+  - [x] `get-server-uri`
+  - [x] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
   - [ ] `get-entity` (Displays a hierarchical breakdown of all the `structs` that go into an `entity`.)
   - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
   - [ ] `get-entries`

@@ -18,6 +18,9 @@ const schema = {
         characterSet: {
             type: 'string',
         },
+        serverName: {
+            type: 'string',
+        },
     },
     required: [
         'name',

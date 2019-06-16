@@ -57,7 +57,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [x] Get rid of all occurrences of `Map`, per [this](https://stackoverflow.com/questions/46066343/convert-typescript-mapstring-string-to-json-string-representation) recommendation.
 - [x] Make interface members `readonly`.
 - [x] Create `NullLogger`.
-- [ ] Add `serverName` to `Database`
+- [x] Add `serverName` to `Database`
 - [x] Add `minimum` and `maximum` to `DataType`
 - [ ] Make schema validation actually work!
 - [ ] API Objects

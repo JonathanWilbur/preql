@@ -60,7 +60,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [x] Add `serverName` to `Database`
 - [x] Add `minimum` and `maximum` to `DataType`
 - [ ] Make schema validation actually work!
-- [ ] API Objects
+- [x] API Objects
   - [x] DataType
   - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
   - [x] Entity (A document in a DODBMS or an entity using an ORM)
@@ -76,8 +76,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
   - [x] Postamble
   - [x] DBMS
   - [x] Entry
-  - [ ] DataPolicy
-  - [ ] ReplicationSet
+  - [x] DataPolicy
 - [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Regexp `pattern`s in JSON schema.
@@ -88,6 +87,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
   - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
   - [ ] `get-entries`
   - [ ] `get-data-policy-result`
+  - [x] `match-labels`
 
 ## Possible Future Features
 

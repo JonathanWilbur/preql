@@ -27,3 +27,8 @@ functions:
     handler: dist/ServerlessHandlers/AWS/validate.default
     timeout: 30
     memorySize: 256
+
+  match-labels:
+    handler: dist/ServerlessHandlers/AWS/matchLabels.default
+    timeout: 5
+    memorySize: 128

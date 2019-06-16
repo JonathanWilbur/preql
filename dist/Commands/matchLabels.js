@@ -11,6 +11,8 @@ async function matchLabels(labels, apiObject) {
         allLabelsCaseSensitiveMatch: true,
         allLabelsCaseInsensitiveMatch: true,
         allLabelsFound: true,
+        labels,
+        apiObject,
     };
     Object.entries(labels).forEach((entry) => {
         if (!(entry[0] in apiObject.metadata.labels)) {

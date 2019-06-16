@@ -33,7 +33,10 @@ const schema = {
       },
     },
   },
-  required: [],
+  required: [
+    'hostname',
+    'protocol',
+  ],
 };
 
 export default schema;

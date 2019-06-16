@@ -34,6 +34,9 @@ const schema = {
             },
         },
     },
-    required: [],
+    required: [
+        'hostname',
+        'protocol',
+    ],
 };
 exports.default = schema;

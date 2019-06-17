@@ -85,7 +85,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
   - [x] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
   - [ ] `get-entity` (Displays a hierarchical breakdown of all the `structs` that go into an `entity`.)
   - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
-  - [ ] `get-entries`
+  - [x] `get-entries`
   - [ ] `get-data-policy-result`
   - [x] `match-labels`
 
@@ -94,3 +94,4 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [ ] `apiVersion` checking.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)
+- [ ] `ReplicationSet` kind

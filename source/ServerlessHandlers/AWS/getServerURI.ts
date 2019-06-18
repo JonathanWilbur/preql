@@ -1,6 +1,7 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import getServerURI from '../../Commands/getServerURI';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler = async (
   event: {
@@ -14,7 +15,7 @@ const handler: Handler = async (
   try {
     callback(null, getServerURI(event.apiObject));
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

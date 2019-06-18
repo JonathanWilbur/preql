@@ -4,6 +4,7 @@ import validateNamespace from '../../Commands/validateNamespace';
 import indexObjects from '../../Commands/indexObjects';
 import getTree from '../../Commands/getTree';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler<{ objects: APIObject[] }> = async (
   event: { objects: APIObject[] },
@@ -20,7 +21,7 @@ const handler: Handler<{ objects: APIObject[] }> = async (
     const tree = await getTree(namespaces);
     callback(null, tree);
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

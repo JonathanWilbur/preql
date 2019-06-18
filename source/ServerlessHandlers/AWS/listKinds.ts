@@ -1,5 +1,6 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import kinds from '../../APIObjectKinds/index';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler<{}> = async (
   event: {},
@@ -13,7 +14,7 @@ const handler: Handler<{}> = async (
       kinds: Object.keys(kinds),
     });
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

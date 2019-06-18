@@ -4,6 +4,7 @@ import validateNamespace from '../../Commands/validateNamespace';
 import indexObjects from '../../Commands/indexObjects';
 import getEntries from '../../Commands/getEntries';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler<{ objects: APIObject[] }> = async (
   event: { objects: APIObject[], namespace?: string },
@@ -20,7 +21,7 @@ const handler: Handler<{ objects: APIObject[] }> = async (
     const entries = await getEntries(namespaces[event.namespace || 'default']);
     callback(null, entries);
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

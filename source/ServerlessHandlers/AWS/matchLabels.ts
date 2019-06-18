@@ -1,6 +1,7 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import matchLabels from '../../Commands/matchLabels';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler = async (
   event: {
@@ -17,7 +18,7 @@ const handler: Handler = async (
   try {
     callback(null, matchLabels(event.labels, event.apiObject));
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

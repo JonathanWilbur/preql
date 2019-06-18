@@ -80,7 +80,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Regexp `pattern`s in JSON schema.
-- [ ] In Ajv validation errors, append `errors` to `Error.message`
+- [x] In Ajv validation errors, append `errors` to `Error.message`
 - [x] Serverless functions
   - [x] `get-server-uri`
   - [x] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)

@@ -7,6 +7,7 @@ const validateObject_1 = __importDefault(require("../../Commands/validateObject"
 const validateNamespace_1 = __importDefault(require("../../Commands/validateNamespace"));
 const indexObjects_1 = __importDefault(require("../../Commands/indexObjects"));
 const getEntries_1 = __importDefault(require("../../Commands/getEntries"));
+const normalizeError_1 = __importDefault(require("../../normalizeError"));
 const handler = async (event, context, callback) => {
     // REVIEW: Handle JSON and YAML strings, too?
     if (!(typeof event === 'object'))
@@ -21,7 +22,7 @@ const handler = async (event, context, callback) => {
         callback(null, entries);
     }
     catch (e) {
-        callback(e);
+        callback(normalizeError_1.default(e));
     }
 };
 exports.default = handler;

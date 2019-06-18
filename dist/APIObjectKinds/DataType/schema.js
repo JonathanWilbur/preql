@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
     title: 'PreQL Data Type Specification Schema',
     type: 'object',
     additionalProperties: false,

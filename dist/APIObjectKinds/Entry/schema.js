@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
     title: 'PreQL Entry Specification Schema',
     type: 'object',
     additionalProperties: false,
@@ -13,12 +14,19 @@ const schema = {
             type: 'string',
         },
         values: {
-            type: [
-                'boolean',
-                'number',
-                'string',
-            ],
+            type: 'object',
+            additionalProperties: {
+                type: [
+                    'boolean',
+                    'number',
+                    'string',
+                ],
+            },
         },
     },
+    required: [
+        'databaseName',
+        'structName',
+    ],
 };
 exports.default = schema;

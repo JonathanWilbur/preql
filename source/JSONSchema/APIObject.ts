@@ -2,6 +2,7 @@ import APIObjectMetadataSchema from './APIObjectMetadata';
 
 const APIObjectSchema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
+  $async: true,
   title: 'PreQL API Object Schema',
   type: 'object',
   additionalProperties: false,

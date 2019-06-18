@@ -137,8 +137,8 @@ objects:
         - columnName: lastName
   - apiVersion: preql/1.0.0
     kind: Entry
-    metadata:
-      name: myself
+    # metadata:
+    #   name: myself
     spec:
       databaseName: floofy
       structName: person

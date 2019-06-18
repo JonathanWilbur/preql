@@ -17,6 +17,7 @@ const structureValidator = ajv.compile(schema);
  */
 export default
 async function getServerURI(apiObject: APIObject<Spec>): Promise<{ uri: string }> {
+  // TODO: Move this out of here.
   await structureValidator(apiObject);
   let uri: string = `${apiObject.spec.protocol}://${apiObject.spec.hostname}`;
   uri += apiObject.spec.port ? `:${apiObject.spec.port}` : '';

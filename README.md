@@ -59,7 +59,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [x] Create `NullLogger`.
 - [x] Add `serverName` to `Database`
 - [x] Add `minimum` and `maximum` to `DataType`
-- [ ] Make schema validation actually work!
+- [x] Make schema validation actually work!
 - [x] API Objects
   - [x] DataType
   - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
@@ -80,13 +80,11 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
 - [ ] Regexp `pattern`s in JSON schema.
-- [ ] Serverless functions
+- [ ] In Ajv validation errors, append `errors` to `Error.message`
+- [x] Serverless functions
   - [x] `get-server-uri`
   - [x] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
-  - [ ] `get-entity` (Displays a hierarchical breakdown of all the `structs` that go into an `entity`.)
-  - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
   - [x] `get-entries`
-  - [ ] `get-data-policy-result`
   - [x] `match-labels`
 
 ## Possible Future Features
@@ -95,3 +93,6 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)
 - [ ] `ReplicationSet` kind
+- [ ] Serverless functions (I don't know if these would actually be useful.)
+  - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
+  - [ ] `get-data-policy-result`

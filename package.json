@@ -1,7 +1,7 @@
 {
-  "name": "preql",
+  "name": "preql-core",
   "version": "1.0.0-beta",
-  "description": "A program for transpiling PreQL to chosen SQL dialects",
+  "description": "The core PreQL library.",
   "directories": {
     "test": "test"
   },
@@ -10,7 +10,11 @@
   },
   "keywords": [
     "sql",
-    "ddl"
+    "ddl",
+    "schema",
+    "database",
+    "dbms",
+    "modeling"
   ],
   "author": "Jonathan M. Wilbur <jonathan@wilbur.space>",
   "license": "MIT",

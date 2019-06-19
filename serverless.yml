@@ -1,32 +1,49 @@
 service: preql
 
-plugins:
-  - serverless-plugin-typescript
-
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   region: us-east-1
-  timeout: 10
+  timeout: 30
 
 functions:
 
   list-kinds:
-    handler: source/ServerlessHandlers/AWS/listKinds.default
+    handler: dist/ServerlessHandlers/AWS/listKinds.default
     timeout: 1
     memorySize: 128
 
   validate-object:
-    handler: source/ServerlessHandlers/AWS/validateObject.default
+    handler: dist/ServerlessHandlers/AWS/validateObject.default
     timeout: 5
     memorySize: 128
 
   index-objects:
-    handler: source/ServerlessHandlers/AWS/indexObjects.default
+    handler: dist/ServerlessHandlers/AWS/indexObjects.default
     timeout: 15
     memorySize: 128
 
   validate:
-    handler: source/ServerlessHandlers/AWS/validate.default
+    handler: dist/ServerlessHandlers/AWS/validate.default
     timeout: 30
+    memorySize: 256
+
+  match-labels:
+    handler: dist/ServerlessHandlers/AWS/matchLabels.default
+    timeout: 5
+    memorySize: 128
+
+  get-server-uri:
+    handler: dist/ServerlessHandlers/AWS/getServerURI.default
+    timeout: 1
+    memorySize: 128
+
+  get-tree:
+    handler: dist/ServerlessHandlers/AWS/getTree.default
+    timeout: 30
+    memorySize: 256
+
+  get-entries:
+    handler: dist/ServerlessHandlers/AWS/getEntries.default
+    timeout: 15
     memorySize: 256

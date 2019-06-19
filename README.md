@@ -52,45 +52,12 @@ The above will be _required_ for inclusion in the official CLI. (Except using `N
 The command-line interface will always pass a console-logging object that
 implements the `Logger` interface--and this might just be a plain old `console`.
 
-## To Do
-
-- [x] Get rid of all occurrences of `Map`, per [this](https://stackoverflow.com/questions/46066343/convert-typescript-mapstring-string-to-json-string-representation) recommendation.
-- [x] Make interface members `readonly`.
-- [x] Create `NullLogger`.
-- [x] Add `serverName` to `Database`
-- [x] Add `minimum` and `maximum` to `DataType`
-- [ ] Make schema validation actually work!
-- [ ] API Objects
-  - [x] DataType
-  - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
-  - [x] Entity (A document in a DODBMS or an entity using an ORM)
-  - [x] Struct (A table in an RDBMS)
-  - [x] Attribute (A column in an RDBMS)
-  - [x] PrimaryIndex
-  - [x] PlainIndex
-  - [x] UniqueIndex
-  - [x] TextIndex
-  - [x] SpatialIndex
-  - [x] ForeignKeyConstraint
-  - [x] Preamble
-  - [x] Postamble
-  - [x] DBMS
-  - [x] Entry
-  - [ ] DataPolicy
-  - [ ] ReplicationSet
-- [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
-- [ ] Check that nullable attributes do not find their way into a PrimaryIndex
-- [ ] Regexp `pattern`s in JSON schema.
-- [ ] Serverless functions
-  - [ ] `get-server-uri`
-  - [ ] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
-  - [ ] `get-entity` (Displays a hierarchical breakdown of all the `structs` that go into an `entity`.)
-  - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
-  - [ ] `get-entries`
-  - [ ] `get-data-policy-result`
-
 ## Possible Future Features
 
 - [ ] `apiVersion` checking.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)
+- [ ] `ReplicationSet` kind
+- [ ] Serverless functions (I don't know if these would actually be useful.)
+  - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
+  - [ ] `get-data-policy-result`

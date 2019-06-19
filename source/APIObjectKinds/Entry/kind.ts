@@ -3,7 +3,6 @@ import APIObjectKind from '../../Interfaces/APIObjectKind';
 import schema from './schema';
 import Spec from './spec';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
-// import matchingResource from '../matchingResource';
 import AttributeSpec from '../Attribute/spec';
 import DataTypeSpec from '../DataType/spec';
 

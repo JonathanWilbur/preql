@@ -128,20 +128,22 @@ objects:
       child:
         struct: pet
         key:
-        - columnName: ownerFirstName
-        - columnName: ownerLastName
+        - attributeName: ownerFirstName
+        - attributeName: ownerLastName
       parent:
         struct: person
         key:
-        - columnName: firstName
-        - columnName: lastName
+        - attributeName: firstName
+        - attributeName: lastName
   - apiVersion: preql/1.0.0
     kind: Entry
     metadata:
       name: myself
+      labels:
+        name: biggay
     spec:
       databaseName: floofy
       structName: person
       values:
-        firstName: True
+        firstName: Jonathan
         lastName: Wilbur

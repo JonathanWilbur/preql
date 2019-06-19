@@ -1,5 +1,8 @@
+import identifierRegexString from '../../identifierRegex';
+
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
+  $async: true,
   title: 'PreQL Server Specification Schema',
   description: 'This is not really used for anything.',
   type: 'object',
@@ -7,10 +10,11 @@ const schema = {
   properties: {
     protocol: {
       type: 'string',
-      // TODO: Add enum?
+      // TODO: pattern
     },
     hostname: {
       type: 'string',
+      // TODO: pattern
     },
     port: {
       type: 'number',
@@ -19,6 +23,7 @@ const schema = {
     },
     defaultDatabase: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     tlsSupported: {
       type: 'boolean',
@@ -33,7 +38,10 @@ const schema = {
       },
     },
   },
-  required: [],
+  required: [
+    'hostname',
+    'protocol',
+  ],
 };
 
 export default schema;

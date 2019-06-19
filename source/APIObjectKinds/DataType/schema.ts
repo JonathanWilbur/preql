@@ -1,5 +1,6 @@
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
+  $async: true,
   title: 'PreQL Data Type Specification Schema',
   type: 'object',
   additionalProperties: false,
@@ -28,6 +29,11 @@ const schema = {
     regexes: {
       type: 'object',
       description: 'A map of regex kinds.',
+      propertyNames: {
+        pattern: '^[A-Za-z0-9]+$',
+        minLength: 1,
+        maxLength: 32,
+      },
       additionalProperties: {
         type: 'object',
         description: 'A map of match groups. If all regexes under one match group match the value, the value matches.',

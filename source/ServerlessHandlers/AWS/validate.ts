@@ -3,6 +3,7 @@ import validateObject from '../../Commands/validateObject';
 import validateNamespace from '../../Commands/validateNamespace';
 import indexObjects from '../../Commands/indexObjects';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler<{ objects: APIObject[] }> = async (
   event: { objects: APIObject[] },
@@ -22,7 +23,7 @@ const handler: Handler<{ objects: APIObject[] }> = async (
       valid: true,
     });
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

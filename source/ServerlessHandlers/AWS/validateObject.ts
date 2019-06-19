@@ -1,6 +1,7 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import validateObject from '../../Commands/validateObject';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler<APIObject> = async (
   event: APIObject,
@@ -16,7 +17,7 @@ const handler: Handler<APIObject> = async (
       validatedObject: event,
     });
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

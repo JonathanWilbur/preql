@@ -1,11 +1,15 @@
+import identifierRegexString from '../../identifierRegex';
+
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
+  $async: true,
   title: 'PreQL Database Specification Schema',
   type: 'object',
   additionalProperties: false,
   properties: {
     name: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     collation: {
       type: 'string',
@@ -19,6 +23,7 @@ const schema = {
     },
     serverName: {
       type: 'string',
+      // TODO: pattern
     },
   },
   required: [

@@ -1,19 +1,27 @@
+import identifierRegexString from '../../identifierRegex';
+
 const schema = {
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  $async: true,
   title: 'PreQL Attribute Schema',
   type: 'object',
   additionalProperties: true,
   properties: {
     name: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     structName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     entityName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     databaseName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     // According to [this](https://stackoverflow.com/questions/16826128/why-is-this-json-schema-invalid-using-any-type),
     // {} will effectively give "default" an "any" type.
@@ -24,7 +32,8 @@ const schema = {
       default: true, // WARNING: Ajv will only respect the defaults if you set the useDefaults option!
     },
     type: {
-      type: 'string', // TODO: Add data type validation.
+      type: 'string',
+      pattern: identifierRegexString,
     },
     length: {
       type: 'integer',

@@ -1,22 +1,26 @@
+import identifierRegexString from '../../identifierRegex';
+
 const keyReference = {
   type: 'object',
   properties: {
     struct: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     key: {
       type: 'array',
       items: {
         type: 'object',
         properties: {
-          columnName: {
+          attributeName: {
             type: 'string',
+            pattern: identifierRegexString,
           },
         },
+        required: [
+          'attributeName',
+        ],
       },
-      required: [
-        'columnName',
-      ],
     },
   },
   required: [
@@ -37,15 +41,18 @@ const foreignKeyChangeAction = {
 
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
+  $async: true,
   title: 'PreQL Foreign Key Constraint Specification Schema',
   type: 'object',
   additionalProperties: false,
   properties: {
     name: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     databaseName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     child: keyReference,
     parent: keyReference,

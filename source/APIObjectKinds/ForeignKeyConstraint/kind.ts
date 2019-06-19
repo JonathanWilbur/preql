@@ -45,8 +45,8 @@ const kind: APIObjectKind = {
       )
     }
 
-    const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
-    if (!columns || columns.length === 0) {
+    const attributes: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
+    if (!attributes || attributes.length === 0) {
       throw new Error(
         `No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
         + 'to use as keys.',
@@ -54,7 +54,7 @@ const kind: APIObjectKind = {
     }
 
     const childStructAttributes: Record<string, APIObject<AttributeSpec>> = {};
-    columns
+    attributes
       .filter((attr: APIObject<AttributeSpec>): boolean => (
         attr.spec.structName.toLowerCase() === apiObject.spec.child.struct.toLowerCase()
         && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()
@@ -64,7 +64,7 @@ const kind: APIObjectKind = {
       });
 
     const parentStructAttributes: Record<string, APIObject<AttributeSpec>> = {};
-    columns
+    attributes
       .filter((attr: APIObject<AttributeSpec>): boolean => (
         attr.spec.structName.toLowerCase() === apiObject.spec.parent.struct.toLowerCase()
         && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()
@@ -73,31 +73,31 @@ const kind: APIObjectKind = {
         parentStructAttributes[attr.spec.name.toLowerCase()] = attr;
       });
 
-    apiObject.spec.child.key.forEach((key: { columnName: string }): void => {
-      if (!(key.columnName.toLowerCase() in childStructAttributes)) {
+    apiObject.spec.child.key.forEach((key: { attributeName: string }): void => {
+      if (!(key.attributeName.toLowerCase() in childStructAttributes)) {
         throw new Error(
-          `Child struct '${apiObject.spec.child.struct}' has no column named `
-          + `'${key.columnName}' to which ForeignKeyConstraint `
+          `Child struct '${apiObject.spec.child.struct}' has no attribute named `
+          + `'${key.attributeName}' to which ForeignKeyConstraint `
           + `'${apiObject.metadata.name}' can apply.`,
         );
       }
     });
 
-    apiObject.spec.parent.key.forEach((key: { columnName: string }): void => {
-      if (!(key.columnName.toLowerCase() in parentStructAttributes)) {
+    apiObject.spec.parent.key.forEach((key: { attributeName: string }): void => {
+      if (!(key.attributeName.toLowerCase() in parentStructAttributes)) {
         throw new Error(
-          `Parent struct '${apiObject.spec.parent.struct}' has no column named `
-          + `'${key.columnName}' to which ForeignKeyConstraint `
+          `Parent struct '${apiObject.spec.parent.struct}' has no attribute named `
+          + `'${key.attributeName}' to which ForeignKeyConstraint `
           + `'${apiObject.metadata.name}' can apply.`,
         );
       }
     });
 
     // Note that nullability should not factor into the FKC.
-    apiObject.spec.child.key.forEach((key: { columnName: string }, index: number): void => {
-      const childAttributeName: string = key.columnName.toLowerCase();
+    apiObject.spec.child.key.forEach((key: { attributeName: string }, index: number): void => {
+      const childAttributeName: string = key.attributeName.toLowerCase();
       const childAttribute: APIObject<AttributeSpec> | undefined = childStructAttributes[childAttributeName];
-      const parentAttributeName: string = apiObject.spec.parent.key[index].columnName.toLowerCase();
+      const parentAttributeName: string = apiObject.spec.parent.key[index].attributeName.toLowerCase();
       const parentAttribute: APIObject<AttributeSpec> | undefined = parentStructAttributes[parentAttributeName];
       if (!childAttribute) throw new Error('Assertion failed.');
       if (!parentAttribute) throw new Error('Assertion failed');
@@ -111,8 +111,8 @@ const kind: APIObjectKind = {
         )
       ) {
         throw new Error(
-          'Mismatching types between these columns used in ForeignKeyConstraint '
-          + `'${apiObject.metadata.name}': '${key.columnName}' and '${parentAttributeName}'.`,
+          'Mismatching types between these attribute used in ForeignKeyConstraint '
+          + `'${apiObject.metadata.name}': '${key.attributeName}' and '${parentAttributeName}'.`,
         );
       }
     });

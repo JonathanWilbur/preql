@@ -21,10 +21,12 @@ async function validateStructure(apiObject) {
     const kind = APIObjectKinds_1.default[apiObject.kind.toLowerCase()];
     if (!kind)
         return Promise.resolve(false);
-    await Promise.all([
-        structureValidator(apiObject),
-        kind.validateStructure(apiObject),
-    ]);
+    // await Promise.all([
+    // const valid =
+    await structureValidator(apiObject);
+    // if (!valid) throw new Error('wwuuuwuut');
+    await kind.validateStructure(apiObject);
+    // ]);
     return Promise.resolve(true);
 }
 exports.default = validateStructure;

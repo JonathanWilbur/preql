@@ -1,6 +1,7 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import indexObjects from '../../Commands/indexObjects';
 import APIObject from '../../Interfaces/APIObject';
+import normalizeError from '../../normalizeError';
 
 const handler: Handler<{ objects: APIObject[] }> = async (
   event: { objects: APIObject[] },
@@ -19,7 +20,7 @@ const handler: Handler<{ objects: APIObject[] }> = async (
       numberOfObjects: event.objects.length,
     });
   } catch (e) {
-    callback(e);
+    callback(normalizeError(e));
   }
 };
 

@@ -79,7 +79,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
   - [x] DataPolicy
 - [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
 - [ ] Check that nullable attributes do not find their way into a PrimaryIndex
-- [ ] Regexp `pattern`s in JSON schema.
+- [x] Regexp `pattern`s in JSON schema.
 - [x] In Ajv validation errors, append `errors` to `Error.message`
 - [x] Serverless functions
   - [x] `get-server-uri`

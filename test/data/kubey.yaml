@@ -86,7 +86,7 @@ objects:
       databaseName: floofy
       type: varchar
       length: 4
-      nullable: False
+      nullable: True
       default: Bob
       casing: upper
   - apiVersion: preql/1.0.0

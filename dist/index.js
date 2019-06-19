@@ -18,5 +18,9 @@ exports.validateObject = validateObject_1.default;
 // Miscellaneous
 var NullLogger_1 = require("./NullLogger");
 exports.NullLogger = NullLogger_1.default;
+var printf_1 = require("./APIObjectKinds/DataType/printf");
+exports.printf = printf_1.default;
+var transpile_1 = require("./APIObjectKinds/DataType/transpile");
+exports.transpileDataType = transpile_1.default;
 var version_1 = require("./version");
 exports.PREQL_VERSION = version_1.default;

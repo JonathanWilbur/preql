@@ -12,15 +12,15 @@ const keyReference = {
       items: {
         type: 'object',
         properties: {
-          columnName: {
+          attributeName: {
             type: 'string',
             pattern: identifierRegexString,
           },
         },
+        required: [
+          'attributeName',
+        ],
       },
-      required: [
-        'columnName',
-      ],
     },
   },
   required: [

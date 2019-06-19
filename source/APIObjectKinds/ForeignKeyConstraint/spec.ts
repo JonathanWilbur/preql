@@ -1,5 +1,5 @@
 interface KeyReference {
-  columnName: string;
+  attributeName: string;
 };
 
 interface ForeignKeyReference {

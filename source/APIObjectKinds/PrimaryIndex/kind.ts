@@ -31,8 +31,8 @@ const kind: APIObjectKind = {
       );
     }
 
-    const columns: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
-    if (!columns) {
+    const attributes: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
+    if (!attributes) {
       throw new Error(
         `No attributes found for PrimaryIndex '${apiObject.metadata.name}' `
         + 'to index.',
@@ -41,12 +41,12 @@ const kind: APIObjectKind = {
     // Check that the columns are real
     // eslint-disable-next-line
     apiObject.spec.keyColumns.forEach((kc: any): void => {
-      const columnFound: APIObject<AttributeSpec> | undefined = columns
-        .find((column): boolean => column.spec.name === kc.name);
-      if (!columnFound) {
+      const attributeFound: APIObject<AttributeSpec> | undefined = attributes
+        .find((attr): boolean => attr.spec.name === kc.name);
+      if (!attributeFound) {
         throw new Error(`No attribute named '${kc.name}' for PrimaryIndex '${apiObject.metadata.name}' to index.`);
       }
-      if (columnFound.spec.nullable) {
+      if (attributeFound.spec.nullable) {
         throw new Error(`Nullable attribute '${kc.name}' may not be used in PrimaryIndex '${apiObject.metadata.name}'.`);
       }
     });

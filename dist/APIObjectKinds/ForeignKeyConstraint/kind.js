@@ -32,44 +32,44 @@ const kind = {
                 + `'${apiObject.spec.parent.struct}' for the ForeignKeyConstraint named `
                 + `'${apiObject.metadata.name}'.`);
         }
-        const columns = etcd.kindIndex.attribute;
-        if (!columns || columns.length === 0) {
+        const attributes = etcd.kindIndex.attribute;
+        if (!attributes || attributes.length === 0) {
             throw new Error(`No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
                 + 'to use as keys.');
         }
         const childStructAttributes = {};
-        columns
+        attributes
             .filter((attr) => (attr.spec.structName.toLowerCase() === apiObject.spec.child.struct.toLowerCase()
             && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()))
             .forEach((attr) => {
             childStructAttributes[attr.spec.name.toLowerCase()] = attr;
         });
         const parentStructAttributes = {};
-        columns
+        attributes
             .filter((attr) => (attr.spec.structName.toLowerCase() === apiObject.spec.parent.struct.toLowerCase()
             && attr.spec.databaseName.toLowerCase() === apiObject.spec.databaseName.toLowerCase()))
             .forEach((attr) => {
             parentStructAttributes[attr.spec.name.toLowerCase()] = attr;
         });
         apiObject.spec.child.key.forEach((key) => {
-            if (!(key.columnName.toLowerCase() in childStructAttributes)) {
-                throw new Error(`Child struct '${apiObject.spec.child.struct}' has no column named `
-                    + `'${key.columnName}' to which ForeignKeyConstraint `
+            if (!(key.attributeName.toLowerCase() in childStructAttributes)) {
+                throw new Error(`Child struct '${apiObject.spec.child.struct}' has no attribute named `
+                    + `'${key.attributeName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);
             }
         });
         apiObject.spec.parent.key.forEach((key) => {
-            if (!(key.columnName.toLowerCase() in parentStructAttributes)) {
-                throw new Error(`Parent struct '${apiObject.spec.parent.struct}' has no column named `
-                    + `'${key.columnName}' to which ForeignKeyConstraint `
+            if (!(key.attributeName.toLowerCase() in parentStructAttributes)) {
+                throw new Error(`Parent struct '${apiObject.spec.parent.struct}' has no attribute named `
+                    + `'${key.attributeName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);
             }
         });
         // Note that nullability should not factor into the FKC.
         apiObject.spec.child.key.forEach((key, index) => {
-            const childAttributeName = key.columnName.toLowerCase();
+            const childAttributeName = key.attributeName.toLowerCase();
             const childAttribute = childStructAttributes[childAttributeName];
-            const parentAttributeName = apiObject.spec.parent.key[index].columnName.toLowerCase();
+            const parentAttributeName = apiObject.spec.parent.key[index].attributeName.toLowerCase();
             const parentAttribute = parentStructAttributes[parentAttributeName];
             if (!childAttribute)
                 throw new Error('Assertion failed.');
@@ -81,8 +81,8 @@ const kind = {
                 childAttribute.spec.length
                     && parentAttribute.spec.length
                     && childAttribute.spec.length !== parentAttribute.spec.length)) {
-                throw new Error('Mismatching types between these columns used in ForeignKeyConstraint '
-                    + `'${apiObject.metadata.name}': '${key.columnName}' and '${parentAttributeName}'.`);
+                throw new Error('Mismatching types between these attribute used in ForeignKeyConstraint '
+                    + `'${apiObject.metadata.name}': '${key.attributeName}' and '${parentAttributeName}'.`);
             }
         });
     },

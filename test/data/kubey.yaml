@@ -86,7 +86,7 @@ objects:
       databaseName: floofy
       type: varchar
       length: 4
-      nullable: True
+      nullable: False
       default: Bob
       casing: upper
   - apiVersion: preql/1.0.0
@@ -128,13 +128,13 @@ objects:
       child:
         struct: pet
         key:
-        - columnName: ownerFirstName
-        - columnName: ownerLastName
+        - attributeName: ownerFirstName
+        - attributeName: ownerLastName
       parent:
         struct: person
         key:
-        - columnName: firstName
-        - columnName: lastName
+        - attributeName: firstName
+        - attributeName: lastName
   - apiVersion: preql/1.0.0
     kind: Entry
     metadata:

@@ -1,3 +1,5 @@
+import identifierRegexString from '../../identifierRegex';
+
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   $async: true,
@@ -7,15 +9,19 @@ const schema = {
   properties: {
     name: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     structName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     entityName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     databaseName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     // According to [this](https://stackoverflow.com/questions/16826128/why-is-this-json-schema-invalid-using-any-type),
     // {} will effectively give "default" an "any" type.

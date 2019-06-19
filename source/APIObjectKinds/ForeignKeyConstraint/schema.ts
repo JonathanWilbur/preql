@@ -1,8 +1,11 @@
+import identifierRegexString from '../../identifierRegex';
+
 const keyReference = {
   type: 'object',
   properties: {
     struct: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     key: {
       type: 'array',
@@ -11,6 +14,7 @@ const keyReference = {
         properties: {
           columnName: {
             type: 'string',
+            pattern: identifierRegexString,
           },
         },
       },
@@ -44,9 +48,11 @@ const schema = {
   properties: {
     name: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     databaseName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     child: keyReference,
     parent: keyReference,

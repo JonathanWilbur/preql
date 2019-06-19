@@ -1,3 +1,5 @@
+import identifierRegexString from '../../identifierRegex';
+
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   $async: true,
@@ -7,12 +9,15 @@ const schema = {
   properties: {
     name: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     databaseName: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     rootStruct: {
       type: 'string',
+      pattern: identifierRegexString,
     },
   },
   required: [

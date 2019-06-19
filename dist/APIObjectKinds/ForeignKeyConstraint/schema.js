@@ -1,10 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
 const keyReference = {
     type: 'object',
     properties: {
         struct: {
             type: 'string',
+            pattern: identifierRegex_1.default,
         },
         key: {
             type: 'array',
@@ -13,6 +18,7 @@ const keyReference = {
                 properties: {
                     columnName: {
                         type: 'string',
+                        pattern: identifierRegex_1.default,
                     },
                 },
             },
@@ -44,9 +50,11 @@ const schema = {
     properties: {
         name: {
             type: 'string',
+            pattern: identifierRegex_1.default,
         },
         databaseName: {
             type: 'string',
+            pattern: identifierRegex_1.default,
         },
         child: keyReference,
         parent: keyReference,

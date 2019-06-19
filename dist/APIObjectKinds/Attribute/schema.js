@@ -37,6 +37,7 @@ const schema = {
         },
         type: {
             type: 'string',
+            pattern: identifierRegex_1.default,
         },
         length: {
             type: 'integer',

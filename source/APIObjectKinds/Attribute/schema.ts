@@ -32,7 +32,8 @@ const schema = {
       default: true, // WARNING: Ajv will only respect the defaults if you set the useDefaults option!
     },
     type: {
-      type: 'string', // TODO: Add data type validation.
+      type: 'string',
+      pattern: identifierRegexString,
     },
     length: {
       type: 'integer',

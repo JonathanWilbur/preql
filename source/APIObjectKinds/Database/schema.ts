@@ -23,6 +23,7 @@ const schema = {
     },
     serverName: {
       type: 'string',
+      // TODO: pattern
     },
   },
   required: [

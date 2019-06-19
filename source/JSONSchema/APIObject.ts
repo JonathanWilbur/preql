@@ -1,3 +1,4 @@
+import identifierRegexString from '../identifierRegex';
 import APIObjectMetadataSchema from './APIObjectMetadata';
 
 const APIObjectSchema = {
@@ -9,10 +10,11 @@ const APIObjectSchema = {
   properties: {
     apiVersion: {
       type: 'string',
+      pattern: '^preql/(0|(?:[1-9]\\d*))\\.(0|(?:[1-9]\\d*))\\.(0|(?:[1-9]\\d*))$',
     },
     kind: {
       type: 'string',
-      // TODO: Make this an enum
+      pattern: identifierRegexString,
     },
     metadata: APIObjectMetadataSchema,
     spec: {

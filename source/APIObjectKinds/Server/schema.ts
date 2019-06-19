@@ -1,3 +1,5 @@
+import identifierRegexString from '../../identifierRegex';
+
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   $async: true,
@@ -8,10 +10,11 @@ const schema = {
   properties: {
     protocol: {
       type: 'string',
-      // TODO: Add enum?
+      // TODO: pattern
     },
     hostname: {
       type: 'string',
+      // TODO: pattern
     },
     port: {
       type: 'number',
@@ -20,6 +23,7 @@ const schema = {
     },
     defaultDatabase: {
       type: 'string',
+      pattern: identifierRegexString,
     },
     tlsSupported: {
       type: 'boolean',

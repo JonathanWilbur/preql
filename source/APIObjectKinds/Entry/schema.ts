@@ -17,6 +17,9 @@ const schema = {
     },
     values: {
       type: 'object',
+      propertyNames: {
+        pattern: identifierRegexString,
+      },
       additionalProperties: {
         type: [
           'boolean',

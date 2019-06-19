@@ -10,8 +10,10 @@ const schema = {
       properties: {
         matchLabels: {
           type: 'object',
+          // TODO: propertyNames
           additionalProperties: {
             type: 'string',
+            // TODO: pattern
           },
         },
       },

@@ -21,6 +21,9 @@ const schema = {
         },
         values: {
             type: 'object',
+            propertyNames: {
+                pattern: identifierRegex_1.default,
+            },
             additionalProperties: {
                 type: [
                     'boolean',

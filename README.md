@@ -52,41 +52,6 @@ The above will be _required_ for inclusion in the official CLI. (Except using `N
 The command-line interface will always pass a console-logging object that
 implements the `Logger` interface--and this might just be a plain old `console`.
 
-## To Do
-
-- [x] Get rid of all occurrences of `Map`, per [this](https://stackoverflow.com/questions/46066343/convert-typescript-mapstring-string-to-json-string-representation) recommendation.
-- [x] Make interface members `readonly`.
-- [x] Create `NullLogger`.
-- [x] Add `serverName` to `Database`
-- [x] Add `minimum` and `maximum` to `DataType`
-- [x] Make schema validation actually work!
-- [x] API Objects
-  - [x] DataType
-  - [x] Database (A "schema" or "database" in an RDBMS; a "collection" in a DODBMS)
-  - [x] Entity (A document in a DODBMS or an entity using an ORM)
-  - [x] Struct (A table in an RDBMS)
-  - [x] Attribute (A column in an RDBMS)
-  - [x] PrimaryIndex
-  - [x] PlainIndex
-  - [x] UniqueIndex
-  - [x] TextIndex
-  - [x] SpatialIndex
-  - [x] ForeignKeyConstraint
-  - [x] Preamble
-  - [x] Postamble
-  - [x] DBMS
-  - [x] Entry
-  - [x] DataPolicy
-- [x] Delete all check constraints and triggers that start with `preql_`, then recreate them all inside of a transaction, so that no writes occur while there are no checks active.
-- [ ] Check that nullable attributes do not find their way into a PrimaryIndex
-- [x] Regexp `pattern`s in JSON schema.
-- [x] In Ajv validation errors, append `errors` to `Error.message`
-- [x] Serverless functions
-  - [x] `get-server-uri`
-  - [x] `get-tree` (Displays a hierarchical breakdown of `database`.`struct`.`attribute`)
-  - [x] `get-entries`
-  - [x] `match-labels`
-
 ## Possible Future Features
 
 - [ ] `apiVersion` checking.

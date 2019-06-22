@@ -57,6 +57,79 @@ const schema = {
         },
       },
     },
+    setters: {
+      type: 'object',
+      properties: {
+        trim: {
+          type: 'object',
+          properties: {
+            side: {
+              type: 'string',
+              enum: [
+                'left',
+                'right',
+                'both',
+              ],
+              default: 'both',
+            },
+          },
+        },
+        substring: {
+          type: 'object',
+          properties: {
+            fromIndex: {
+              type: 'number',
+              minimum: 0,
+            },
+            toIndex: {
+              type: 'number',
+              minimum: 1,
+            },
+            reverse: {
+              type: 'boolean',
+              default: false,
+            },
+          },
+        },
+        replace: {
+          type: 'object',
+          additionalProperties: {
+            type: 'string',
+          },
+        },
+        case: {
+          type: 'object',
+          properties: {
+            casing: {
+              type: 'string',
+              enum: [
+                'upper',
+                'lower',
+                'title',
+                'sentence',
+              ],
+            },
+          },
+          required: 'casing',
+        },
+        pad: {
+          type: 'object',
+          properties: {
+            side: {
+              type: 'string',
+              enum: [
+                'left',
+                'right',
+              ],
+            },
+            padString: {
+              type: 'string',
+              minLength: 1,
+            },
+          },
+        },
+      },
+    },
     targets: {
       type: 'object',
       additionalProperties: {
@@ -71,18 +144,6 @@ const schema = {
               pattern: '^[1-9]\\d+$',
             },
             additionalProperties: {
-              type: 'string',
-            },
-          },
-          check: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          setters: {
-            type: 'array',
-            items: {
               type: 'string',
             },
           },

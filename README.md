@@ -58,6 +58,7 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
 - [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)
 - [ ] `ReplicationSet` kind
+- [ ] `VirtualAttribute` kind
 - [ ] Serverless functions (I don't know if these would actually be useful.)
   - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
   - [ ] `get-data-policy-result`

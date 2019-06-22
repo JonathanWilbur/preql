@@ -39,15 +39,6 @@ const schema = {
       type: 'integer',
       minimum: 1,
     },
-    casing: {
-      type: 'string',
-      enum: [
-        'upper',
-        'lower',
-        'title',
-        'sentence',
-      ],
-    },
     // Mostly used for LDAP: Whether an entity can have multiple of these attributes.
     // See: http://www.openldap.org/doc/admin22/schema.html
     // If multiValued with an RDBMS target, it should be broken into its own separate table,

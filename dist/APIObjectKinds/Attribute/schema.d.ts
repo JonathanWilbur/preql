@@ -34,10 +34,6 @@ declare const schema: {
             type: string;
             minimum: number;
         };
-        casing: {
-            type: string;
-            enum: string[];
-        };
         multiValued: {
             type: string;
             default: boolean;

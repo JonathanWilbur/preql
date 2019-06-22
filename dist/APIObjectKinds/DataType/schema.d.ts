@@ -48,6 +48,67 @@ declare const schema: {
                 };
             };
         };
+        setters: {
+            type: string;
+            properties: {
+                trim: {
+                    type: string;
+                    properties: {
+                        side: {
+                            type: string;
+                            enum: string[];
+                            default: string;
+                        };
+                    };
+                };
+                substring: {
+                    type: string;
+                    properties: {
+                        fromIndex: {
+                            type: string;
+                            minimum: number;
+                        };
+                        toIndex: {
+                            type: string;
+                            minimum: number;
+                        };
+                        reverse: {
+                            type: string;
+                            default: boolean;
+                        };
+                    };
+                };
+                replace: {
+                    type: string;
+                    additionalProperties: {
+                        type: string;
+                    };
+                };
+                case: {
+                    type: string;
+                    properties: {
+                        casing: {
+                            type: string;
+                            enum: string[];
+                        };
+                    };
+                    required: string;
+                };
+                pad: {
+                    type: string;
+                    properties: {
+                        side: {
+                            type: string;
+                            enum: string[];
+                        };
+                        padString: {
+                            type: string;
+                            minLength: number;
+                        };
+                    };
+                };
+            };
+        };
         targets: {
             type: string;
             additionalProperties: {
@@ -62,18 +123,6 @@ declare const schema: {
                             pattern: string;
                         };
                         additionalProperties: {
-                            type: string;
-                        };
-                    };
-                    check: {
-                        type: string;
-                        items: {
-                            type: string;
-                        };
-                    };
-                    setters: {
-                        type: string;
-                        items: {
                             type: string;
                         };
                     };

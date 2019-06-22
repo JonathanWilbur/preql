@@ -1,3 +1,4 @@
+import Casing from './Casing';
 import JSONType from './jsonTypes';
 export default interface Spec {
     jsonEquivalent: JSONType;
@@ -12,14 +13,30 @@ export default interface Spec {
             }[];
         };
     };
+    setters?: {
+        trim?: {
+            side: string;
+        };
+        substring?: {
+            fromIndex?: number;
+            toIndex?: number;
+            reverse: boolean;
+        };
+        replace?: Record<string, string>;
+        case?: {
+            casing: Casing;
+        };
+        pad?: {
+            side: string;
+            padString: string;
+        };
+    };
     targets: {
         [targetName: string]: {
             return?: string;
             returnBasedOnLength?: {
                 [length: number]: string;
             };
-            check?: string[];
-            setters?: string[];
             objectIdentifier?: string;
             ldapMatchingRule?: string;
             ldapOrderingRule?: string;

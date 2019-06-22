@@ -108,6 +108,10 @@ declare const schema: {
                     };
                 };
             };
+            now: {
+                type: string;
+                properties: {};
+            };
         };
         targets: {
             type: string;

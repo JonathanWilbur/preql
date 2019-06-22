@@ -130,6 +130,10 @@ const schema = {
                     },
                 },
             },
+            now: {
+                type: 'object',
+                properties: {},
+            },
         },
         targets: {
             type: 'object',

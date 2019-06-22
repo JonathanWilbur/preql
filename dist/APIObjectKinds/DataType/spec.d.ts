@@ -30,6 +30,11 @@ export default interface Spec {
             side: string;
             padString: string;
         };
+        /**
+         * The targets will be responsible for intelligently updating the attribute
+         * with the correct data type.
+         */
+        now?: {};
     };
     targets: {
         [targetName: string]: {

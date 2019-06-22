@@ -6,5 +6,8 @@ interface Spec {
   defaultDatabase?: string;
   tlsSupported?: boolean;
   starttlsSupported?: boolean;
-  options?: { [name: string]: string };
+  options?: {
+    timezone: number | string;
+    [name: string]: number | string;
+  };
 };

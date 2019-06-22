@@ -29,6 +29,14 @@ declare const schema: {
         };
         options: {
             type: string;
+            properties: {
+                timezone: {
+                    type: string[];
+                    description: string;
+                    minimum: number;
+                    maximum: number;
+                };
+            };
             additionalProperties: {
                 type: string;
             };

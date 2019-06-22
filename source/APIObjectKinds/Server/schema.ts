@@ -33,6 +33,14 @@ const schema = {
     },
     options: {
       type: 'object',
+      properties: {
+        timezone: {
+          type: ['number', 'string'],
+          description: 'If this is a string, it should be a TZ Database timezone name. If it is a number, it should be a UTC offset.',
+          minimum: -12,
+          maximum: 14,
+        },
+      },
       additionalProperties: {
         type: 'string',
       },

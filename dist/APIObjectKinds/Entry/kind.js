@@ -60,7 +60,7 @@ const kind = {
                         return false;
                     return Object.entries(datatype.spec.regexes.pcre[group[0]])
                         .every((re) => {
-                        const regex = new RegExp(re[1].pattern);
+                        const regex = new RegExp(re[1].pattern); // TODO: Support flags / Unicode?
                         if (re[1].positive) { // Make sure it matches.
                             return regex.test(apiObject.spec.values[key]);
                         }

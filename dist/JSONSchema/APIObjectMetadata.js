@@ -13,7 +13,7 @@ const APIObjectMetadataSchema = {
             propertyNames: {
                 // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
                 // https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-                // pattern: '^(?:(?:(\\p{L}|\\p{N}){1,63}\\.)*(\\p{L}|\\p{N}){1,63}\\.?/)?[a-z0-9A-Z](?:[a-z0-9A-Z\\-\\_\\.]*[a-z0-9A-Z])?$',
+                unicodePattern: '^(?:(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?/))?[a-z0-9A-Z](?:[a-z0-9A-Z-_\\.]*[a-z0-9A-Z])?$',
                 minLength: 1,
                 maxLength: 317,
             },
@@ -27,7 +27,7 @@ const APIObjectMetadataSchema = {
             propertyNames: {
                 // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
                 // https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-                // pattern: '^(?:(?:(\\p{L}|\\p{N}){1,63}\\.)*(\\p{L}|\\p{N}){1,63}\\.?/)?[a-z0-9A-Z](?:[a-z0-9A-Z\\-\\_\\.]*[a-z0-9A-Z])?$',
+                unicodePattern: '^(?:(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?/))?[a-z0-9A-Z](?:[a-z0-9A-Z-_\\.]*[a-z0-9A-Z])?$',
                 minLength: 1,
                 maxLength: 317,
             },
@@ -40,7 +40,7 @@ const APIObjectMetadataSchema = {
             type: 'string',
             // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
             // https://kubernetes.io/docs/concepts/overview/working-with-objects/names/
-            // pattern: '^(\\p{L}|\\p{N}|\\.|\\-){1,253}$',
+            unicodePattern: '^(\\p{L}|\\p{N}|\\.|-){1,253}$',
             minLength: 1,
             maxLength: 253,
         },
@@ -49,7 +49,7 @@ const APIObjectMetadataSchema = {
             default: 'default',
             // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
             // https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
-            // pattern: '^(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|\\-)*(\\p{L}|\\p{N}))?$',
+            unicodePattern: '^(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-)*(\\p{L}|\\p{N}))?$',
             minLength: 1,
             maxLength: 63,
         },

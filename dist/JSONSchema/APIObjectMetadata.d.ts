@@ -8,6 +8,7 @@ declare const APIObjectMetadataSchema: {
         annotations: {
             type: string;
             propertyNames: {
+                unicodePattern: string;
                 minLength: number;
                 maxLength: number;
             };
@@ -19,6 +20,7 @@ declare const APIObjectMetadataSchema: {
         labels: {
             type: string;
             propertyNames: {
+                unicodePattern: string;
                 minLength: number;
                 maxLength: number;
             };
@@ -29,12 +31,14 @@ declare const APIObjectMetadataSchema: {
         };
         name: {
             type: string;
+            unicodePattern: string;
             minLength: number;
             maxLength: number;
         };
         namespace: {
             type: string;
             default: string;
+            unicodePattern: string;
             minLength: number;
             maxLength: number;
         };

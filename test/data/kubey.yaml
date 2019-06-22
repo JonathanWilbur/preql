@@ -4,6 +4,9 @@ objects:
     kind: DataType
     metadata:
       name: varchar
+      labels:
+        学-中文.com/wut: 'apple'
+        blurpy-blurp.squizzle./bizzle: mynizzle
     spec:
       jsonEquivalent: string
       targets:
@@ -13,10 +16,6 @@ objects:
           #   1: 'BOOLEAN'
           #   8: 'VARCHAR(8)'
           #   32: 'VARCHAR(32)'
-          check:
-            - 'LENGTH(%a) <= %l'
-          setters:
-            - 'UPPER(%a)'
   - apiVersion: preql/1.0.0
     kind: Database
     metadata:

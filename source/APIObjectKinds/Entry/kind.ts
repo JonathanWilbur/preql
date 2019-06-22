@@ -75,7 +75,7 @@ const kind: APIObjectKind = {
             if (!datatype.spec.regexes) return false;
             return Object.entries(datatype.spec.regexes.pcre[group[0]])
               .every((re): boolean => {
-                const regex: RegExp = new RegExp(re[1].pattern);
+                const regex: RegExp = new RegExp(re[1].pattern); // TODO: Support flags / Unicode?
                 if (re[1].positive) { // Make sure it matches.
                   return regex.test(apiObject.spec.values[key] as string);
                 }

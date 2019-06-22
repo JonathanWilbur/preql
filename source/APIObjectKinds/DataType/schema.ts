@@ -110,7 +110,9 @@ const schema = {
               ],
             },
           },
-          required: 'casing',
+          required: [
+            'casing',
+          ],
         },
         pad: {
           type: 'object',

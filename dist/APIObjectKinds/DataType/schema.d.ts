@@ -92,7 +92,7 @@ declare const schema: {
                             enum: string[];
                         };
                     };
-                    required: string;
+                    required: string[];
                 };
                 pad: {
                     type: string;

@@ -58,82 +58,146 @@ const schema = {
       },
     },
     setters: {
-      type: 'object',
-      properties: {
-        trim: {
-          type: 'object',
-          properties: {
-            side: {
-              type: 'string',
-              enum: [
-                'left',
-                'right',
-                'both',
-              ],
-              default: 'both',
+      type: 'array',
+      items: {
+        anyOf: [
+
+          // trim
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['trim'],
+              },
+              side: {
+                type: 'string',
+                enum: [
+                  'left',
+                  'right',
+                  'both',
+                ],
+                default: 'both',
+              },
             },
+            required: [
+              'type',
+            ],
           },
-        },
-        substring: {
-          type: 'object',
-          properties: {
-            fromIndex: {
-              type: 'number',
-              minimum: 0,
+
+          // substring
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['substring'],
+              },
+              fromIndex: {
+                type: 'number',
+                minimum: 0,
+              },
+              toIndex: {
+                type: 'number',
+                minimum: 1,
+              },
+              reverse: {
+                type: 'boolean',
+                default: false,
+              },
             },
-            toIndex: {
-              type: 'number',
-              minimum: 1,
-            },
-            reverse: {
-              type: 'boolean',
-              default: false,
-            },
+            required: [
+              'type',
+            ],
           },
-        },
-        replace: {
-          type: 'object',
-          additionalProperties: {
-            type: 'string',
-          },
-        },
-        case: {
-          type: 'object',
-          properties: {
-            casing: {
-              type: 'string',
-              enum: [
-                'upper',
-                'lower',
-                'title',
-                'sentence',
-              ],
+
+          // replace
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['replace'],
+              },
+              mapping: {
+                type: 'object',
+                additionalProperties: {
+                  type: 'string',
+                },
+              },
             },
+            required: [
+              'type',
+              'mapping',
+            ],
           },
-          required: [
-            'casing',
-          ],
-        },
-        pad: {
-          type: 'object',
-          properties: {
-            side: {
-              type: 'string',
-              enum: [
-                'left',
-                'right',
-              ],
+
+          // case
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['case'],
+              },
+              casing: {
+                type: 'string',
+                enum: [
+                  'upper',
+                  'lower',
+                  'title',
+                  'sentence',
+                ],
+              },
             },
-            padString: {
-              type: 'string',
-              minLength: 1,
-            },
+            required: [
+              'type',
+              'casing',
+            ],
           },
-        },
-      },
-      now: {
-        type: 'object',
-        properties: {},
+
+          // pad
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['pad'],
+              },
+              side: {
+                type: 'string',
+                enum: [
+                  'left',
+                  'right',
+                ],
+              },
+              padString: {
+                type: 'string',
+                minLength: 1,
+              },
+            },
+            required: [
+              'type',
+              'side',
+              'padString',
+            ],
+          },
+
+          // now
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['now'],
+              },
+            },
+            required: [
+              'type',
+            ],
+          },
+
+        ],
       },
     },
     targets: {

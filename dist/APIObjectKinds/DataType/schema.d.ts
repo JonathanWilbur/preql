@@ -50,20 +50,34 @@ declare const schema: {
         };
         setters: {
             type: string;
-            properties: {
-                trim: {
+            items: {
+                anyOf: ({
                     type: string;
                     properties: {
+                        type: {
+                            type: string;
+                            enum: string[];
+                        };
                         side: {
                             type: string;
                             enum: string[];
                             default: string;
                         };
+                        fromIndex?: undefined;
+                        toIndex?: undefined;
+                        reverse?: undefined;
+                        mapping?: undefined;
+                        casing?: undefined;
+                        padString?: undefined;
                     };
-                };
-                substring: {
+                    required: string[];
+                } | {
                     type: string;
                     properties: {
+                        type: {
+                            type: string;
+                            enum: string[];
+                        };
                         fromIndex: {
                             type: string;
                             minimum: number;
@@ -76,41 +90,92 @@ declare const schema: {
                             type: string;
                             default: boolean;
                         };
+                        side?: undefined;
+                        mapping?: undefined;
+                        casing?: undefined;
+                        padString?: undefined;
                     };
-                };
-                replace: {
-                    type: string;
-                    additionalProperties: {
-                        type: string;
-                    };
-                };
-                case: {
+                    required: string[];
+                } | {
                     type: string;
                     properties: {
+                        type: {
+                            type: string;
+                            enum: string[];
+                        };
+                        mapping: {
+                            type: string;
+                            additionalProperties: {
+                                type: string;
+                            };
+                        };
+                        side?: undefined;
+                        fromIndex?: undefined;
+                        toIndex?: undefined;
+                        reverse?: undefined;
+                        casing?: undefined;
+                        padString?: undefined;
+                    };
+                    required: string[];
+                } | {
+                    type: string;
+                    properties: {
+                        type: {
+                            type: string;
+                            enum: string[];
+                        };
                         casing: {
                             type: string;
                             enum: string[];
                         };
+                        side?: undefined;
+                        fromIndex?: undefined;
+                        toIndex?: undefined;
+                        reverse?: undefined;
+                        mapping?: undefined;
+                        padString?: undefined;
                     };
                     required: string[];
-                };
-                pad: {
+                } | {
                     type: string;
                     properties: {
+                        type: {
+                            type: string;
+                            enum: string[];
+                        };
                         side: {
                             type: string;
                             enum: string[];
+                            default?: undefined;
                         };
                         padString: {
                             type: string;
                             minLength: number;
                         };
+                        fromIndex?: undefined;
+                        toIndex?: undefined;
+                        reverse?: undefined;
+                        mapping?: undefined;
+                        casing?: undefined;
                     };
-                };
-            };
-            now: {
-                type: string;
-                properties: {};
+                    required: string[];
+                } | {
+                    type: string;
+                    properties: {
+                        type: {
+                            type: string;
+                            enum: string[];
+                        };
+                        side?: undefined;
+                        fromIndex?: undefined;
+                        toIndex?: undefined;
+                        reverse?: undefined;
+                        mapping?: undefined;
+                        casing?: undefined;
+                        padString?: undefined;
+                    };
+                    required: string[];
+                })[];
             };
         };
         targets: {

@@ -9,6 +9,11 @@ objects:
         blurpy-blurp.squizzle./bizzle: mynizzle
     spec:
       jsonEquivalent: string
+      setters:
+        - type: trim
+          side: both
+        - type: case
+          casing: upper
       targets:
         mariadb:
           return: 'VARCHAR(%l)'

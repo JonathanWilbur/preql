@@ -1,6 +1,42 @@
 import Casing from './Casing';
 import JSONType from './jsonTypes';
 
+type Trim = {
+  type: 'trim';
+  side: string;
+};
+
+type Substring = {
+  type: 'substring';
+  fromIndex?: number;
+  toIndex?: number;
+  reverse: boolean;
+};
+
+type Replace = {
+  type: 'replace';
+  mapping: Record<string, string>;
+};
+
+type Case = {
+  type: 'case';
+  casing: Casing;
+};
+
+type Pad = {
+  type: 'pad';
+  side: string;
+  padString: string;
+};
+
+/**
+ * The targets will be responsible for intelligently updating the attribute
+ * with the correct data type.
+*/
+type Now = {
+  type: 'now';
+};
+
 export default
 interface Spec {
   jsonEquivalent: JSONType;
@@ -15,29 +51,7 @@ interface Spec {
       }[]
     };
   };
-  setters?: {
-    trim?: {
-      side: string;
-    };
-    substring?: {
-      fromIndex?: number;
-      toIndex?: number;
-      reverse: boolean;
-    };
-    replace?: Record<string, string>;
-    case?: {
-      casing: Casing;
-    };
-    pad?: {
-      side: string;
-      padString: string;
-    };
-    /**
-     * The targets will be responsible for intelligently updating the attribute
-     * with the correct data type.
-     */
-    now?: {};
-  };
+  setters?: (Trim | Substring | Replace | Case | Pad | Now)[];
   targets: {
     [ targetName: string ]: {
       return?: string;

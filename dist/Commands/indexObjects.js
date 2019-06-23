@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
+// TODO: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 async function indexObjects(objects) {
     const namespaces = {};
     await Promise.all(objects.map(async (apiObject) => {

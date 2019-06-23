@@ -15,8 +15,15 @@ const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
-            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for Entity `
+            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for Struct `
                 + `'${apiObject.metadata.name}' to attach to.`);
+        }
+        const attributeFound = (etcd.kindIndex.attribute || [])
+            .some((attr) => (attr.spec.databaseName === apiObject.spec.databaseName
+            && attr.spec.structName === apiObject.spec.name));
+        if (!attributeFound) {
+            throw new Error(`No attributes found for Struct '${apiObject.metadata.name}'. Every`
+                + ' Struct must have at least one attribute.');
         }
     },
 };

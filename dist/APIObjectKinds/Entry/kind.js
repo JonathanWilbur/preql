@@ -24,7 +24,7 @@ const kind = {
             // Check that an attribute with that name exists.
             const matchingAttribute = structAttributes[key];
             if (!matchingAttribute) {
-                throw new Error(`Attribute '${key}' does not exist on struct '${apiObject.spec.structName}' `
+                throw new Error(`Attribute '${key}' does not exist on Struct '${apiObject.spec.structName}' `
                     + `for Entry '${apiObject.metadata.name}' to populate.`);
             }
             // Check that the attribute's data type is compatible with the Entry's attribute's type.
@@ -38,18 +38,18 @@ const kind = {
             const attributeJSONType = datatype.spec.jsonEquivalent.toLowerCase();
             if (attributeJSONType === 'integer') {
                 if (valueType !== 'number') {
-                    throw new Error(`Type used in attribute '${key}' in entry '${apiObject.metadata.name}' `
+                    throw new Error(`Type used in Attribute '${key}' in Entry '${apiObject.metadata.name}' `
                         + 'is not an integer, which is the legitimate type of that attribute.');
                 }
                 if (!(Number.isSafeInteger(apiObject.spec.values[key]))) {
-                    throw new Error(`Number used in attribute '${key}' in entry '${apiObject.metadata.name}' `
+                    throw new Error(`Number used in Attribute '${key}' in Entry '${apiObject.metadata.name}' `
                         + 'is either too big or small to be safely used as an integer.');
                 }
             }
             else if (valueType !== attributeJSONType) {
-                throw new Error(`Type '${valueType}' used in attribute '${key}' in entry `
+                throw new Error(`Type '${valueType}' used in Attribute '${key}' in Entry `
                     + `'${apiObject.metadata.name}' is not compatible with the `
-                    + `legitimate type of that attribute, which is a(n) '${datatype.metadata.name}'.`);
+                    + `legitimate type of that Attribute, which is a(n) '${datatype.metadata.name}'.`);
             }
             // Check regexes
             if (valueType === 'string' && datatype.spec.regexes && datatype.spec.regexes.pcre) {
@@ -69,18 +69,18 @@ const kind = {
                 });
                 if (!match) {
                     throw new Error(`None of the regular expressions for data type '${datatype.metadata.name}' `
-                        + `matched the value of '${key}' for entry '${apiObject.metadata.name}'.`);
+                        + `matched the value of '${key}' for Entry '${apiObject.metadata.name}'.`);
                 }
             }
             // Check minimums and maximums
             if (valueType === 'number') {
                 if (datatype.spec.minimum && apiObject.spec.values[key] < datatype.spec.minimum) {
-                    throw new Error(`Value of '${key}' for entry '${apiObject.metadata.name}' was `
+                    throw new Error(`Value of '${key}' for Entry '${apiObject.metadata.name}' was `
                         + `${apiObject.spec.values[key]}, but the permissible minimum for `
                         + `the data type '${datatype.metadata.name}' is ${datatype.spec.minimum}.`);
                 }
                 if (datatype.spec.maximum && apiObject.spec.values[key] > datatype.spec.maximum) {
-                    throw new Error(`Value of '${key}' for entry '${apiObject.metadata.name}' was `
+                    throw new Error(`Value of '${key}' for Entry '${apiObject.metadata.name}' was `
                         + `${apiObject.spec.values[key]}, but the permissible maximum for `
                         + `the data type '${datatype.metadata.name}' is ${datatype.spec.maximum}.`);
                 }
@@ -89,7 +89,7 @@ const kind = {
         Object.values(structAttributes)
             .forEach((attr) => {
             if (!(attr.spec.nullable) && !(attr.spec.name in apiObject.spec.values)) {
-                throw new Error(`Attribute '${attr.spec.name}' in struct '${attr.spec.databaseName}'.`
+                throw new Error(`Attribute '${attr.spec.name}' in Struct '${attr.spec.databaseName}'.`
                     + `'${attr.spec.structName}' cannot be null for entry '${apiObject.metadata.name}'.`);
             }
         });

@@ -17,7 +17,7 @@ const kind: APIObjectKind = {
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new Error(
-        `No databases found that are named '${apiObject.spec.databaseName}' for attribute `
+        `No Databases found that are named '${apiObject.spec.databaseName}' for Attribute `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
@@ -29,7 +29,7 @@ const kind: APIObjectKind = {
     }
     if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
       throw new Error(
-        `No structs found that are named '${apiObject.spec.structName}' for attribute `
+        `No Structs found that are named '${apiObject.spec.structName}' for Attribute `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }

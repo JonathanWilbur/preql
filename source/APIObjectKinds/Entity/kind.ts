@@ -17,14 +17,14 @@ const kind: APIObjectKind = {
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new Error(
-        `No databases found that are named '${apiObject.spec.databaseName}' for Entity `
+        `No Databases found that are named '${apiObject.spec.databaseName}' for Entity `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
     if (!matchingResource(apiObject.spec.rootStruct, 'struct', etcd)) {
       throw new Error(
-        `No structs found that are named '${apiObject.spec.rootStruct}' for Entity `
-        + `'${apiObject.metadata.name}' to use as the root struct.`,
+        `No Structs found that are named '${apiObject.spec.rootStruct}' for Entity `
+        + `'${apiObject.metadata.name}' to use as the root Struct.`,
       );
     }
   },

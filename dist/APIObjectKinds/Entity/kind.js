@@ -14,12 +14,12 @@ const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
-            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for Entity `
+            throw new Error(`No Databases found that are named '${apiObject.spec.databaseName}' for Entity `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         if (!matchingResource_1.default(apiObject.spec.rootStruct, 'struct', etcd)) {
-            throw new Error(`No structs found that are named '${apiObject.spec.rootStruct}' for Entity `
-                + `'${apiObject.metadata.name}' to use as the root struct.`);
+            throw new Error(`No Structs found that are named '${apiObject.spec.rootStruct}' for Entity `
+                + `'${apiObject.metadata.name}' to use as the root Struct.`);
         }
     },
 };

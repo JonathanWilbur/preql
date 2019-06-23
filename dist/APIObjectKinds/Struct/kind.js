@@ -25,8 +25,8 @@ const kind = {
             .some((attr) => (attr.spec.databaseName === apiObject.spec.databaseName
             && attr.spec.structName === apiObject.spec.name));
         if (!attributeFound) {
-            throw new Error(`No attributes found for Struct '${apiObject.metadata.name}'. Every`
-                + ' Struct must have at least one attribute.');
+            throw new Error(`No Attributes found for Struct '${apiObject.metadata.name}'. Every`
+                + ' Struct must have at least one Attribute.');
         }
     },
 };

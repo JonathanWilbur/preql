@@ -14,7 +14,7 @@ ajv.addKeyword('unicodePattern', {
       ? (new RegExp(schema, 'u')).test(data) : false
   ),
   async: true,
-  errors: false, // Array<ErrorObject>
+  errors: false,
 });
 const structureValidator = ajv.compile(APIObjectSchema);
 

@@ -35,8 +35,8 @@ const kind: APIObjectKind = {
       ));
     if (!attributeFound) {
       throw new Error(
-        `No attributes found for Struct '${apiObject.metadata.name}'. Every`
-        + ' Struct must have at least one attribute.',
+        `No Attributes found for Struct '${apiObject.metadata.name}'. Every`
+        + ' Struct must have at least one Attribute.',
       );
     }
   },

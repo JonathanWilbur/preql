@@ -32,7 +32,7 @@ const kind: APIObjectKind = {
       const matchingAttribute: APIObject<AttributeSpec> = structAttributes[key];
       if (!matchingAttribute) {
         throw new Error(
-          `Attribute '${key}' does not exist on struct '${apiObject.spec.structName}' `
+          `Attribute '${key}' does not exist on Struct '${apiObject.spec.structName}' `
           + `for Entry '${apiObject.metadata.name}' to populate.`,
         )
       }
@@ -49,21 +49,21 @@ const kind: APIObjectKind = {
       if (attributeJSONType === 'integer') {
         if (valueType !== 'number') {
           throw new Error(
-            `Type used in attribute '${key}' in entry '${apiObject.metadata.name}' `
+            `Type used in Attribute '${key}' in Entry '${apiObject.metadata.name}' `
             + 'is not an integer, which is the legitimate type of that attribute.',
           );
         }
         if (!(Number.isSafeInteger(apiObject.spec.values[key] as number))) {
           throw new Error(
-            `Number used in attribute '${key}' in entry '${apiObject.metadata.name}' `
+            `Number used in Attribute '${key}' in Entry '${apiObject.metadata.name}' `
             + 'is either too big or small to be safely used as an integer.',
           );
         }
       } else if (valueType !== attributeJSONType) {
         throw new Error(
-          `Type '${valueType}' used in attribute '${key}' in entry `
+          `Type '${valueType}' used in Attribute '${key}' in Entry `
           + `'${apiObject.metadata.name}' is not compatible with the `
-          + `legitimate type of that attribute, which is a(n) '${datatype.metadata.name}'.`,
+          + `legitimate type of that Attribute, which is a(n) '${datatype.metadata.name}'.`,
         );
       }
 
@@ -85,7 +85,7 @@ const kind: APIObjectKind = {
         if (!match) {
           throw new Error(
             `None of the regular expressions for data type '${datatype.metadata.name}' `
-            + `matched the value of '${key}' for entry '${apiObject.metadata.name}'.`,
+            + `matched the value of '${key}' for Entry '${apiObject.metadata.name}'.`,
           );
         }
       }
@@ -94,14 +94,14 @@ const kind: APIObjectKind = {
       if (valueType === 'number') {
         if (datatype.spec.minimum && apiObject.spec.values[key] < datatype.spec.minimum) {
           throw new Error(
-            `Value of '${key}' for entry '${apiObject.metadata.name}' was `
+            `Value of '${key}' for Entry '${apiObject.metadata.name}' was `
             + `${apiObject.spec.values[key]}, but the permissible minimum for `
             + `the data type '${datatype.metadata.name}' is ${datatype.spec.minimum}.`,
           );
         }
         if (datatype.spec.maximum && apiObject.spec.values[key] > datatype.spec.maximum) {
           throw new Error(
-            `Value of '${key}' for entry '${apiObject.metadata.name}' was `
+            `Value of '${key}' for Entry '${apiObject.metadata.name}' was `
             + `${apiObject.spec.values[key]}, but the permissible maximum for `
             + `the data type '${datatype.metadata.name}' is ${datatype.spec.maximum}.`,
           );
@@ -113,7 +113,7 @@ const kind: APIObjectKind = {
       .forEach((attr: APIObject<AttributeSpec>): void => {
         if (!(attr.spec.nullable) && !(attr.spec.name in apiObject.spec.values)) {
           throw new Error(
-            `Attribute '${attr.spec.name}' in struct '${attr.spec.databaseName}'.`
+            `Attribute '${attr.spec.name}' in Struct '${attr.spec.databaseName}'.`
             + `'${attr.spec.structName}' cannot be null for entry '${apiObject.metadata.name}'.`,
           );
         }

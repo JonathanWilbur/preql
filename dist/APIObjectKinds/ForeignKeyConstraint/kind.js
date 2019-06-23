@@ -14,26 +14,26 @@ const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
-            throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for ${apiObject.kind} `
+            throw new Error(`No Databases found that are named '${apiObject.spec.databaseName}' for ${apiObject.kind} `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         if (!matchingResource_1.default(apiObject.spec.child.struct, 'struct', etcd)) {
-            throw new Error(`No structs found that are named '${apiObject.spec.child.struct}' for ${apiObject.kind} `
+            throw new Error(`No Structs found that are named '${apiObject.spec.child.struct}' for ${apiObject.kind} `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         if (!matchingResource_1.default(apiObject.spec.parent.struct, 'struct', etcd)) {
-            throw new Error(`No structs found that are named '${apiObject.spec.parent.struct}' for ${apiObject.kind} `
+            throw new Error(`No Structs found that are named '${apiObject.spec.parent.struct}' for ${apiObject.kind} `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
         if (apiObject.spec.child.key.length !== apiObject.spec.parent.key.length) {
-            throw new Error(`Number of key attributes in child struct '${apiObject.spec.child.struct}' `
-                + 'does not match the number of key attributes in the parent struct '
+            throw new Error(`Number of key Attributes in child Struct '${apiObject.spec.child.struct}' `
+                + 'does not match the number of key Attributes in the parent Struct '
                 + `'${apiObject.spec.parent.struct}' for the ForeignKeyConstraint named `
                 + `'${apiObject.metadata.name}'.`);
         }
         const attributes = etcd.kindIndex.attribute;
         if (!attributes || attributes.length === 0) {
-            throw new Error(`No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
+            throw new Error(`No Attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
                 + 'to use as keys.');
         }
         const childStructAttributes = {};
@@ -52,14 +52,14 @@ const kind = {
         });
         apiObject.spec.child.key.forEach((key) => {
             if (!(key.attributeName.toLowerCase() in childStructAttributes)) {
-                throw new Error(`Child struct '${apiObject.spec.child.struct}' has no attribute named `
+                throw new Error(`Child Struct '${apiObject.spec.child.struct}' has no Attribute named `
                     + `'${key.attributeName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);
             }
         });
         apiObject.spec.parent.key.forEach((key) => {
             if (!(key.attributeName.toLowerCase() in parentStructAttributes)) {
-                throw new Error(`Parent struct '${apiObject.spec.parent.struct}' has no attribute named `
+                throw new Error(`Parent Struct '${apiObject.spec.parent.struct}' has no Attribute named `
                     + `'${key.attributeName}' to which ForeignKeyConstraint `
                     + `'${apiObject.metadata.name}' can apply.`);
             }
@@ -73,7 +73,7 @@ const kind = {
             if (!childAttribute)
                 throw new Error('Assertion failed.');
             if (!parentAttribute)
-                throw new Error('Assertion failed');
+                throw new Error('Assertion failed.');
             if (childAttribute.spec.type !== parentAttribute.spec.type
                 || (
                 // Remember, sometimes length is undefined legitimately.

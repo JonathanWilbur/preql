@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const PreqlError_1 = __importDefault(require("../PreqlError"));
 // TODO: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 async function indexObjects(objects) {
     const namespaces = {};
@@ -25,7 +29,7 @@ async function indexObjects(objects) {
         if (!kindNameValue)
             namespace.kindNameIndex[kindAndName] = apiObject;
         else {
-            throw new Error(`Duplicated name: two objects in namespace '${namespaceName}' of kind `
+            throw new PreqlError_1.default('f4c7907d-d613-48e7-9e80-37411d2b8e23', `Duplicated name: two objects in namespace '${namespaceName}' of kind `
                 + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`);
         }
         return Promise.resolve();

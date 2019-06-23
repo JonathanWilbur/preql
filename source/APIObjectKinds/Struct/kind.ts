@@ -5,6 +5,7 @@ import schema from './schema';
 import Spec from './spec';
 import matchingResource from '../matchingResource';
 import AttributeSpec from '../Attribute/spec';
+import PreqlError from '../../PreqlError';
 
 import Ajv = require('ajv');
 const ajv: Ajv.Ajv = new Ajv({
@@ -17,13 +18,15 @@ const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
-      throw new Error(
+      throw new PreqlError(
+        '3d98139e-db3d-42de-83a7-1ef389c6ed2c',
         `No Databases found that are named '${apiObject.spec.databaseName}' for Struct `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
     if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
-      throw new Error(
+      throw new PreqlError(
+        '6fe4e182-ef83-48a4-a282-2a418009174c',
         `No Entities found that are named '${apiObject.spec.entityName}' for Struct `
         + `'${apiObject.metadata.name}' to be associated with.`,
       );
@@ -34,7 +37,8 @@ const kind: APIObjectKind = {
         && attr.spec.structName === apiObject.spec.name
       ));
     if (!attributeFound) {
-      throw new Error(
+      throw new PreqlError(
+        '2affcfab-2f7b-46be-84cf-4797dc8be7a6',
         `No Attributes found for Struct '${apiObject.metadata.name}'. Every`
         + ' Struct must have at least one Attribute.',
       );

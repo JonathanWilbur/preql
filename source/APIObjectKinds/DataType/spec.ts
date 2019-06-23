@@ -51,7 +51,7 @@ interface Spec {
       }[]
     };
   };
-  setters?: (Trim | Substring | Replace | Case | Pad | Now)[];
+  setters?: (Trim & Substring & Replace & Case & Pad & Now)[];
   targets: {
     [ targetName: string ]: {
       return?: string;

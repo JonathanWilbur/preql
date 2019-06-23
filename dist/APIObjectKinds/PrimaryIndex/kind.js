@@ -6,11 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("./schema"));
 const matchingResource_1 = __importDefault(require("../matchingResource"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
-const Ajv = require("ajv");
-const ajv = new Ajv({
-    useDefaults: true,
-});
-const structureValidator = ajv.compile(schema_1.default);
+const ajv_1 = __importDefault(require("../../ajv"));
+const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     // This differs from validateIndex in requiring all key columns to not be null.

@@ -6,11 +6,7 @@ import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import matchingResource from '../matchingResource';
 import AttributeSpec from '../Attribute/spec';
 import PreqlError from '../../PreqlError';
-
-import Ajv = require('ajv');
-const ajv: Ajv.Ajv = new Ajv({
-  useDefaults: true,
-});
+import ajv from '../../ajv';
 
 const structureValidator = ajv.compile(schema);
 

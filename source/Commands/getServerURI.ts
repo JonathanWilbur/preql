@@ -1,11 +1,7 @@
 import APIObject from '../Interfaces/APIObject';
 import Spec from '../APIObjectKinds/Server/spec';
 import schema from '../APIObjectKinds/Server/schema';
-
-import Ajv = require('ajv');
-const ajv: Ajv.Ajv = new Ajv({
-  useDefaults: true,
-});
+import ajv from '../ajv';
 
 const structureValidator = ajv.compile(schema);
 

@@ -10,7 +10,6 @@ const ajv = new Ajv({
 });
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
-    name: 'Preamble',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: Promise.resolve,
 };

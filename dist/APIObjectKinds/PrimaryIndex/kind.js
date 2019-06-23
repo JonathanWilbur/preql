@@ -11,7 +11,6 @@ const ajv = new Ajv({
 });
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
-    name: 'PrimaryIndex',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     // This differs from validateIndex in requiring all key columns to not be null.
     validateSemantics: async (apiObject, etcd) => {

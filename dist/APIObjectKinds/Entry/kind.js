@@ -11,7 +11,6 @@ const ajv = new Ajv({
 const structureValidator = ajv.compile(schema_1.default);
 // TODO: Note the limitations of this: that it cannot perfectly check that the data type will insert.
 const kind = {
-    name: 'Entry',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
         const structAttributes = {};

@@ -3,7 +3,6 @@ import APIObjectDatabase from './APIObjectDatabase';
 
 export default
 interface APIObjectKind {
-  readonly name: string;
   readonly validateStructure: (apiObject: APIObject) => Promise<void>;
   readonly validateSemantics: (apiObject: APIObject, etcd: APIObjectDatabase) => Promise<void>;
 };

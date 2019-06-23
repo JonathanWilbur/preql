@@ -11,7 +11,6 @@ const ajv = new Ajv({
 });
 const structureValidator = ajv.compile(schema_1.default);
 const kind = {
-    name: 'UniqueIndex',
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: validateIndex_1.default,
 };

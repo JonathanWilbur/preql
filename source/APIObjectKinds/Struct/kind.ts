@@ -14,7 +14,6 @@ const ajv: Ajv.Ajv = new Ajv({
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
-  name: 'Struct',
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {

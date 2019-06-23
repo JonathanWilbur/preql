@@ -6,8 +6,8 @@ declare type Trim = {
 };
 declare type Substring = {
     type: 'substring';
-    fromIndex?: number;
-    toIndex?: number;
+    from?: number | string;
+    to?: number | string;
     reverse: boolean;
 };
 declare type Replace = {

@@ -37,5 +37,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "types": "./dist/index.d.ts",
-  "version": "1.0.0-beta-rc3"
+  "version": "1.0.0-beta-rc4"
 }

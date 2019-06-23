@@ -93,13 +93,17 @@ const schema = {
                 type: 'string',
                 enum: ['substring'],
               },
-              fromIndex: {
-                type: 'number',
-                minimum: 0,
+              from: {
+                type: [
+                  'number',
+                  'string',
+                ],
               },
-              toIndex: {
-                type: 'number',
-                minimum: 1,
+              to: {
+                type: [
+                  'number',
+                  'string',
+                ],
               },
               reverse: {
                 type: 'boolean',

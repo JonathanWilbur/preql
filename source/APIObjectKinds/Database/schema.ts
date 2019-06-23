@@ -23,7 +23,7 @@ const schema = {
     },
     serverName: {
       type: 'string',
-      // TODO: pattern
+      unicodePattern: '^(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?)$',
     },
   },
   required: [

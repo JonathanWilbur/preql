@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const PreqlError_1 = __importDefault(require("../PreqlError"));
-// TODO: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
+// NOTE: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 async function indexObjects(objects) {
     const namespaces = {};
     await Promise.all(objects.map(async (apiObject) => {

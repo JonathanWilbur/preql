@@ -3,7 +3,7 @@ export default interface Attribute {
     structName: string;
     entityName?: string;
     databaseName: string;
-    default?: string | number;
+    default?: number | string;
     nullable: boolean;
     type: string;
     length?: number;

@@ -21,7 +21,9 @@ declare const schema: {
             type: string;
             pattern: string;
         };
-        default: {};
+        default: {
+            type: string[];
+        };
         nullable: {
             type: string;
             default: boolean;

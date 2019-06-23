@@ -1,7 +1,7 @@
 import APIObject from '../Interfaces/APIObject';
 import APIObjectDatabase from '../Interfaces/APIObjectDatabase';
 import PreqlError from '../PreqlError';
-// TODO: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
+// NOTE: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 
 export default
 async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObjectDatabase>> {

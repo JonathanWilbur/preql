@@ -14,7 +14,6 @@ const ajv: Ajv.Ajv = new Ajv({
 
 const structureValidator = ajv.compile(schema);
 
-// TODO: Note the limitations of this: that it cannot perfectly check that the data type will insert.
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
@@ -81,7 +80,7 @@ const kind: APIObjectKind = {
             if (!datatype.spec.regexes) return false;
             return Object.entries(datatype.spec.regexes.pcre[group[0]])
               .every((re): boolean => {
-                const regex: RegExp = new RegExp(re[1].pattern); // TODO: Support flags / Unicode?
+                const regex: RegExp = new RegExp(re[1].pattern, 'u');
                 if (re[1].positive) { // Make sure it matches.
                   return regex.test(apiObject.spec.values[key] as string);
                 }

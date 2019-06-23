@@ -10,7 +10,6 @@ const ajv = new Ajv({
     useDefaults: true,
 });
 const structureValidator = ajv.compile(schema_1.default);
-// TODO: Note the limitations of this: that it cannot perfectly check that the data type will insert.
 const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
@@ -60,7 +59,7 @@ const kind = {
                         return false;
                     return Object.entries(datatype.spec.regexes.pcre[group[0]])
                         .every((re) => {
-                        const regex = new RegExp(re[1].pattern); // TODO: Support flags / Unicode?
+                        const regex = new RegExp(re[1].pattern, 'u');
                         if (re[1].positive) { // Make sure it matches.
                             return regex.test(apiObject.spec.values[key]);
                         }

@@ -8,9 +8,12 @@ declare const schema: {
     properties: {
         protocol: {
             type: string;
+            pattern: string;
         };
         hostname: {
             type: string;
+            unicodePattern: string;
+            maxLength: number;
         };
         port: {
             type: string;

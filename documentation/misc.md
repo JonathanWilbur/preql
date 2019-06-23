@@ -54,14 +54,6 @@ DROP PROCEDURE IF EXISTS create_indexes;
 The `1068` error code means "primary key already defined." The `DO 0` is a
 no-op.
 
-## Nullability in Interfaces
-
-In a conflict between an interface and implementation for nullability, the
-stricter rule wins. In other words, if the interface and implementation express
-contradicting nullability for a column, the column becomes non-nullable.
-
-TODO: Insert truth table here.
-
 ## Linking objects
 
 Use labels to link objects, but if a `matchSelector` exists, use that instead.
@@ -187,9 +179,6 @@ kind: DataType
 metadata:
   name: JPEGPhoto
 spec:
-  # TODO: objectIdentifier? (This might be used instead for LDAP.)
-  # TODO: ldapMatchingRule
-  # TODO: ldapOrderingRule
   nativeTypeMap:
     # mysql: 'VARBINARY(%L)'
     tsql:
@@ -390,7 +379,3 @@ GROUP BY '1';
 
 - Anything PreQL defines, PreQL has full access to.
 - All triggers and checks will automatically be prefixed with `preql_`.
-
-## Separating preql-core from the individual target transpilers.
-
-- [ ]

@@ -19,6 +19,7 @@ declare const schema: {
         };
         serverName: {
             type: string;
+            unicodePattern: string;
         };
     };
     required: string[];

@@ -27,10 +27,12 @@ const schema = {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
-        // According to [this](https://stackoverflow.com/questions/16826128/why-is-this-json-schema-invalid-using-any-type),
-        // {} will effectively give "default" an "any" type.
-        // TODO: Make this string | number
-        default: {},
+        default: {
+            type: [
+                'number',
+                'string',
+            ],
+        },
         nullable: {
             type: 'boolean',
             default: true,

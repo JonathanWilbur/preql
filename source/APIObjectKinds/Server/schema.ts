@@ -9,12 +9,14 @@ const schema = {
   additionalProperties: false,
   properties: {
     protocol: {
+      // RFC 3987: scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
       type: 'string',
-      // TODO: pattern
+      pattern: '^[A-Za-z][A-Za-z0-9\\+\\-\\.]*$',
     },
     hostname: {
       type: 'string',
-      // TODO: pattern
+      unicodePattern: '^(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?)$',
+      maxLength: 253,
     },
     port: {
       type: 'number',

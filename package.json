@@ -10,7 +10,7 @@
     "@types/ajv": "^1.0.0",
     "@types/aws-lambda": "^8.10.27",
     "@types/js-yaml": "^3.12.1",
-    "@types/semver": "^6.0.0",
+    "@types/semver": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
     "eslint": "^5.16.0",

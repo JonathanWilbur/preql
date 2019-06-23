@@ -52,6 +52,12 @@ The above will be _required_ for inclusion in the official CLI. (Except using `N
 The command-line interface will always pass a console-logging object that
 implements the `Logger` interface--and this might just be a plain old `console`.
 
+## After 1.0.0
+
+- [ ] JSDoc documentation on everything
+- [ ] JSONSchema titles and descriptions
+- [ ] Automated testing
+
 ## Possible Future Features
 
 - [ ] `apiVersion` checking.

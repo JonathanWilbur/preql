@@ -19,6 +19,10 @@ const kind = {
             throw new Error(`No databases found that are named '${apiObject.spec.databaseName}' for PrimaryIndex `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
+        if (apiObject.spec.entityName && !matchingResource_1.default(apiObject.spec.entityName, 'entity', etcd)) {
+            throw new Error(`No Entities found that are named '${apiObject.spec.entityName}' for ${apiObject.kind} `
+                + `'${apiObject.metadata.name}' to be associated with.`);
+        }
         if (!matchingResource_1.default(apiObject.spec.structName, 'struct', etcd)) {
             throw new Error(`No structs found that are named '${apiObject.spec.structName}' for PrimaryIndex `
                 + `'${apiObject.metadata.name}' to attach to.`);

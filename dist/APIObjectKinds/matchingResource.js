@@ -4,7 +4,7 @@ function matchingResource(name, kind, etcd) {
     const matchingResources = etcd.kindIndex[kind.toLowerCase()];
     if (!matchingResources)
         return false;
-    return matchingResources.some((database) => database.spec.name === name);
+    return matchingResources.some((obj) => obj.spec.name === name);
 }
 exports.default = matchingResource;
 ;

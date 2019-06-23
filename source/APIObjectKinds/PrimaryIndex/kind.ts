@@ -20,13 +20,19 @@ const kind: APIObjectKind = {
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase) => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new Error(
-        `No databases found that are named '${apiObject.spec.databaseName}' for PrimaryIndex `
+        `No Databases found that are named '${apiObject.spec.databaseName}' for ${apiObject.kind} `
         + `'${apiObject.metadata.name}' to attach to.`,
+      );
+    }
+    if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
+      throw new Error(
+        `No Entities found that are named '${apiObject.spec.entityName}' for ${apiObject.kind} `
+        + `'${apiObject.metadata.name}' to be associated with.`,
       );
     }
     if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
       throw new Error(
-        `No structs found that are named '${apiObject.spec.structName}' for PrimaryIndex `
+        `No structs found that are named '${apiObject.spec.structName}' for ${apiObject.kind} `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
@@ -34,7 +40,7 @@ const kind: APIObjectKind = {
     const attributes: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
     if (!attributes) {
       throw new Error(
-        `No attributes found for PrimaryIndex '${apiObject.metadata.name}' `
+        `No attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
         + 'to index.',
       );
     }
@@ -44,10 +50,10 @@ const kind: APIObjectKind = {
       const attributeFound: APIObject<AttributeSpec> | undefined = attributes
         .find((attr): boolean => attr.spec.name === kc.name);
       if (!attributeFound) {
-        throw new Error(`No attribute named '${kc.name}' for PrimaryIndex '${apiObject.metadata.name}' to index.`);
+        throw new Error(`No attribute named '${kc.name}' for ${apiObject.kind} '${apiObject.metadata.name}' to index.`);
       }
       if (attributeFound.spec.nullable) {
-        throw new Error(`Nullable attribute '${kc.name}' may not be used in PrimaryIndex '${apiObject.metadata.name}'.`);
+        throw new Error(`Nullable attribute '${kc.name}' may not be used in ${apiObject.kind} '${apiObject.metadata.name}'.`);
       }
     });
   },

@@ -22,6 +22,12 @@ const kind: APIObjectKind = {
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
+    if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
+      throw new Error(
+        `No Entities found that are named '${apiObject.spec.entityName}' for Attribute `
+        + `'${apiObject.metadata.name}' to be associated with.`,
+      );
+    }
     if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
       throw new Error(
         `No structs found that are named '${apiObject.spec.structName}' for attribute `

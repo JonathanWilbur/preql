@@ -19,8 +19,14 @@ const kind: APIObjectKind = {
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new Error(
-        `No databases found that are named '${apiObject.spec.databaseName}' for Struct `
+        `No Databases found that are named '${apiObject.spec.databaseName}' for Struct `
         + `'${apiObject.metadata.name}' to attach to.`,
+      );
+    }
+    if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
+      throw new Error(
+        `No Entities found that are named '${apiObject.spec.entityName}' for Struct `
+        + `'${apiObject.metadata.name}' to be associated with.`,
       );
     }
     const attributeFound: boolean = (etcd.kindIndex.attribute || [])

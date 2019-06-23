@@ -11,6 +11,12 @@ async function validateIndex(apiObject: APIObject, etcd: APIObjectDatabase): Pro
       + `'${apiObject.metadata.name}' to attach to.`,
     );
   }
+  if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
+    throw new Error(
+      `No Entities found that are named '${apiObject.spec.entityName}' for ${apiObject.kind} `
+      + `'${apiObject.metadata.name}' to be associated with.`,
+    );
+  }
   if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
     throw new Error(
       `No structs found that are named '${apiObject.spec.structName}' for ${apiObject.kind} `

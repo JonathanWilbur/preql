@@ -8,7 +8,6 @@ const handler: Handler<{ objects: APIObject[] }> = async (
   context: Context,
   callback: Callback<object>,
 ) => {
-  // REVIEW: Handle JSON and YAML strings, too?
   if (!(typeof event === 'object')) callback(new Error('Event was not of an object type.'));
   if (!event.objects) callback(new Error('Event was supposed to have an `objects` field.'));
   if (typeof event.objects !== 'object') callback(new Error('Event.objects should have been an array.'));

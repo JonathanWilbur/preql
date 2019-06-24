@@ -26,6 +26,7 @@ type Case = {
 type Pad = {
   type: 'pad';
   side: string;
+  padLength: number;
   padString: string;
 };
 

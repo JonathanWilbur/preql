@@ -21,6 +21,7 @@ declare type Case = {
 declare type Pad = {
     type: 'pad';
     side: string;
+    padLength: number;
     padString: string;
 };
 /**

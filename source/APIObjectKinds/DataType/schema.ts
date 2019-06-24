@@ -94,24 +94,17 @@ const schema = {
                 enum: ['substring'],
               },
               from: {
-                type: [
-                  'number',
-                  'string',
-                ],
+                type: 'number',
+                minimum: 0,
               },
               to: {
-                type: [
-                  'number',
-                  'string',
-                ],
-              },
-              reverse: {
-                type: 'boolean',
-                default: false,
+                type: 'number',
+                minimum: 1,
               },
             },
             required: [
               'type',
+              'from',
             ],
           },
 
@@ -123,16 +116,17 @@ const schema = {
                 type: 'string',
                 enum: ['replace'],
               },
-              mapping: {
-                type: 'object',
-                additionalProperties: {
-                  type: 'string',
-                },
+              from: {
+                type: 'string',
+              },
+              to: {
+                type: 'string',
               },
             },
             required: [
               'type',
-              'mapping',
+              'from',
+              'to',
             ],
           },
 
@@ -175,6 +169,10 @@ const schema = {
                   'right',
                 ],
               },
+              padLength: {
+                type: 'number',
+                minimum: 1,
+              },
               padString: {
                 type: 'string',
                 minLength: 1,
@@ -183,6 +181,7 @@ const schema = {
             required: [
               'type',
               'side',
+              'padLength',
               'padString',
             ],
           },

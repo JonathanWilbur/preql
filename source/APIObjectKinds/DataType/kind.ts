@@ -18,6 +18,14 @@ const kind: APIObjectKind = {
       );
     }
 
+    if (apiObject.spec.setters && apiObject.spec.jsonEquivalent.toLowerCase() !== 'string') {
+      throw new PreqlError(
+        '68dc3bb0-b3ae-46ff-b003-17e1cac35e1f',
+        `Setters may not be used in data type '${apiObject.metadata.name}', `
+        + 'because it is not fundamentally string-like.',
+      );
+    }
+
     // Validate regexes
     if (apiObject.spec.regexes && apiObject.spec.regexes.pcre) {
       Object.entries(apiObject.spec.regexes.pcre)

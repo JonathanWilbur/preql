@@ -6,13 +6,13 @@ declare type Trim = {
 };
 declare type Substring = {
     type: 'substring';
-    from?: number | string;
-    to?: number | string;
-    reverse: boolean;
+    from?: number;
+    to?: number;
 };
 declare type Replace = {
     type: 'replace';
-    mapping: Record<string, string>;
+    from: string;
+    to: string;
 };
 declare type Case = {
     type: 'case';

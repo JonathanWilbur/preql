@@ -65,9 +65,8 @@ declare const schema: {
                         };
                         from?: undefined;
                         to?: undefined;
-                        reverse?: undefined;
-                        mapping?: undefined;
                         casing?: undefined;
+                        padLength?: undefined;
                         padString?: undefined;
                     };
                     required: string[];
@@ -79,18 +78,16 @@ declare const schema: {
                             enum: string[];
                         };
                         from: {
-                            type: string[];
+                            type: string;
+                            minimum: number;
                         };
                         to: {
-                            type: string[];
-                        };
-                        reverse: {
                             type: string;
-                            default: boolean;
+                            minimum: number;
                         };
                         side?: undefined;
-                        mapping?: undefined;
                         casing?: undefined;
+                        padLength?: undefined;
                         padString?: undefined;
                     };
                     required: string[];
@@ -101,17 +98,17 @@ declare const schema: {
                             type: string;
                             enum: string[];
                         };
-                        mapping: {
+                        from: {
                             type: string;
-                            additionalProperties: {
-                                type: string;
-                            };
+                            minimum?: undefined;
+                        };
+                        to: {
+                            type: string;
+                            minimum?: undefined;
                         };
                         side?: undefined;
-                        from?: undefined;
-                        to?: undefined;
-                        reverse?: undefined;
                         casing?: undefined;
+                        padLength?: undefined;
                         padString?: undefined;
                     };
                     required: string[];
@@ -129,8 +126,7 @@ declare const schema: {
                         side?: undefined;
                         from?: undefined;
                         to?: undefined;
-                        reverse?: undefined;
-                        mapping?: undefined;
+                        padLength?: undefined;
                         padString?: undefined;
                     };
                     required: string[];
@@ -146,14 +142,16 @@ declare const schema: {
                             enum: string[];
                             default?: undefined;
                         };
+                        padLength: {
+                            type: string;
+                            minimum: number;
+                        };
                         padString: {
                             type: string;
                             minLength: number;
                         };
                         from?: undefined;
                         to?: undefined;
-                        reverse?: undefined;
-                        mapping?: undefined;
                         casing?: undefined;
                     };
                     required: string[];
@@ -167,9 +165,8 @@ declare const schema: {
                         side?: undefined;
                         from?: undefined;
                         to?: undefined;
-                        reverse?: undefined;
-                        mapping?: undefined;
                         casing?: undefined;
+                        padLength?: undefined;
                         padString?: undefined;
                     };
                     required: string[];

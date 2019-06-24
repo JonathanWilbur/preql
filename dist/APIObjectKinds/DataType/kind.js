@@ -14,6 +14,10 @@ const kind = {
             throw new PreqlError_1.default('2abf0f1e-601e-4051-9b66-b6280564093f', `Regexes may not be used in data type '${apiObject.metadata.name}', `
                 + 'because it is not fundamentally string-like.');
         }
+        if (apiObject.spec.setters && apiObject.spec.jsonEquivalent.toLowerCase() !== 'string') {
+            throw new PreqlError_1.default('68dc3bb0-b3ae-46ff-b003-17e1cac35e1f', `Setters may not be used in data type '${apiObject.metadata.name}', `
+                + 'because it is not fundamentally string-like.');
+        }
         // Validate regexes
         if (apiObject.spec.regexes && apiObject.spec.regexes.pcre) {
             Object.entries(apiObject.spec.regexes.pcre)

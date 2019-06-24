@@ -8,14 +8,14 @@ type Trim = {
 
 type Substring = {
   type: 'substring';
-  from?: number | string;
-  to?: number | string;
-  reverse: boolean;
+  from?: number;
+  to?: number;
 };
 
 type Replace = {
   type: 'replace';
-  mapping: Record<string, string>;
+  from: string;
+  to: string;
 };
 
 type Case = {

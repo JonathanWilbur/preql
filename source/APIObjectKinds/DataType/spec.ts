@@ -8,8 +8,8 @@ type Trim = {
 
 type Substring = {
   type: 'substring';
-  from?: number;
-  to?: number;
+  fromIndex: number;
+  toIndex?: number;
 };
 
 type Replace = {

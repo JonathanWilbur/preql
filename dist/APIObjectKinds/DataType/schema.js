@@ -92,18 +92,18 @@ const schema = {
                                 type: 'string',
                                 enum: ['substring'],
                             },
-                            from: {
+                            fromIndex: {
                                 type: 'number',
                                 minimum: 0,
                             },
-                            to: {
+                            toIndex: {
                                 type: 'number',
                                 minimum: 1,
                             },
                         },
                         required: [
                             'type',
-                            'from',
+                            'fromIndex',
                         ],
                     },
                     // replace

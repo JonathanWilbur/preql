@@ -6,6 +6,9 @@ declare const schema: {
     type: string;
     additionalProperties: boolean;
     properties: {
+        name: {
+            type: string;
+        };
         protocol: {
             type: string;
             pattern: string;

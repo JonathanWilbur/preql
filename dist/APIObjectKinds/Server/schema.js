@@ -12,6 +12,9 @@ const schema = {
     type: 'object',
     additionalProperties: false,
     properties: {
+        name: {
+            type: 'string',
+        },
         protocol: {
             // RFC 3987: scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
             type: 'string',
@@ -63,6 +66,7 @@ const schema = {
         },
     },
     required: [
+        'name',
         'hostname',
         'protocol',
     ],

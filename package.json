@@ -11,8 +11,8 @@
     "@types/aws-lambda": "^8.10.27",
     "@types/js-yaml": "^3.12.1",
     "@types/semver": "^6.0.1",
-    "@typescript-eslint/eslint-plugin": "^1.10.2",
-    "@typescript-eslint/parser": "^1.10.2",
+    "@typescript-eslint/eslint-plugin": "^1.11.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-typescript": "^4.0.0",
     "eslint-plugin-import": "^2.17.3",
@@ -37,5 +37,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "types": "./dist/index.d.ts",
-  "version": "1.0.0-beta-rc9"
+  "version": "1.0.0-beta-rc10"
 }

@@ -1,4 +1,5 @@
 export default interface Spec {
+    name: string;
     protocol: string;
     hostname: string;
     port?: number;

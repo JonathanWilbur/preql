@@ -65,6 +65,9 @@ implements the `Logger` interface--and this might just be a plain old `console`.
 - [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)
 - [ ] `ReplicationSet` kind
 - [ ] `VirtualAttribute` kind
+- [ ] `HASH` setter, or something else for hashing
+  - This would be _really_ useful for secure password storage.
+- [ ] `CONCAT` setter (Check if string begins or ends with something, and CONCAT if not present.)
 - [ ] Serverless functions (I don't know if these would actually be useful.)
   - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
   - [ ] `get-data-policy-result`

@@ -6,6 +6,9 @@ export default interface Spec {
     tlsSupported?: boolean;
     starttlsSupported?: boolean;
     options?: {
+        characterSet: string;
+        collation: string;
+        locale: string;
         timezone: number | string;
         [name: string]: number | string;
     };

@@ -379,3 +379,9 @@ GROUP BY '1';
 
 - Anything PreQL defines, PreQL has full access to.
 - All triggers and checks will automatically be prefixed with `preql_`.
+
+## Azure Functions
+
+I am not going to support Azure functions until
+[this shameful joke of a plugin](https://github.com/serverless/serverless-azure-functions)
+improves.

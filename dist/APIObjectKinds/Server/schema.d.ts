@@ -33,6 +33,16 @@ declare const schema: {
         options: {
             type: string;
             properties: {
+                characterSet: {
+                    type: string;
+                };
+                collation: {
+                    type: string;
+                };
+                locale: {
+                    type: string;
+                    pattern: string;
+                };
                 timezone: {
                     type: string[];
                     description: string;

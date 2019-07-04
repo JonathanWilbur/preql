@@ -8,11 +8,6 @@ provider:
 
 functions:
 
-  list-kinds:
-    handler: dist/ServerlessHandlers/AWS/listKinds.default
-    timeout: 1
-    memorySize: 128
-
   validate-object:
     handler: dist/ServerlessHandlers/AWS/validateObject.default
     timeout: 5

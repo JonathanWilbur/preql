@@ -19,6 +19,14 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
+    characterSet: {
+      type: 'string',
+      pattern: identifierRegexString,
+    },
+    collation: {
+      type: 'string',
+      pattern: identifierRegexString,
+    },
   },
   required: [
     'name',

@@ -40,6 +40,14 @@ declare const schema: {
             type: string;
             default: boolean;
         };
+        characterSet: {
+            type: string;
+            pattern: string;
+        };
+        collation: {
+            type: string;
+            pattern: string;
+        };
     };
     required: string[];
 };

@@ -23,6 +23,14 @@ const kind = {
             throw new PreqlError_1.default('1d985193-ce84-4051-a0cc-af9984094d4f', `No Structs found that are named '${apiObject.spec.structName}' for Attribute `
                 + `'${apiObject.metadata.name}' to attach to.`);
         }
+        if (apiObject.spec.characterSet && !matchingResource_1.default(apiObject.spec.characterSet, 'characterset', etcd)) {
+            throw new PreqlError_1.default('9f1e04b9-60bf-4832-ba09-72537231fe1f', `No CharacterSets found that are named '${apiObject.spec.characterSet}' for Attribute `
+                + `'${apiObject.metadata.name}' to use.`);
+        }
+        if (apiObject.spec.collation && !matchingResource_1.default(apiObject.spec.collation, 'collation', etcd)) {
+            throw new PreqlError_1.default('53298ed2-c4cf-41c7-b8fb-bf386388f1b8', `No Collations found that are named '${apiObject.spec.collation}' for Attribute `
+                + `'${apiObject.metadata.name}' to use.`);
+        }
     },
 };
 exports.default = kind;

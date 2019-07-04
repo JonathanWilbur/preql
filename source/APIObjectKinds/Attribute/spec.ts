@@ -9,4 +9,6 @@ interface Attribute {
   type: string;
   length?: number;
   multiValued: boolean;
+  characterSet?: string;
+  collation?: string;
 };

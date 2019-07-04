@@ -5,7 +5,7 @@ const schema = {
   $async: true,
   title: 'PreQL Attribute Schema',
   type: 'object',
-  additionalProperties: true,
+  additionalProperties: false,
   properties: {
     name: {
       type: 'string',
@@ -48,6 +48,14 @@ const schema = {
     multiValued: {
       type: 'boolean',
       default: false,
+    },
+    characterSet: {
+      type: 'string',
+      pattern: identifierRegexString,
+    },
+    collation: {
+      type: 'string',
+      pattern: identifierRegexString,
     },
   },
   required: [

@@ -6,11 +6,28 @@ export default interface Spec {
     defaultDatabase?: string;
     tlsSupported?: boolean;
     starttlsSupported?: boolean;
+    characterSet?: string;
+    collation?: string;
+    locale?: {
+        dateAndTimeFormat?: {
+            country: string;
+            language: string;
+        };
+        language?: {
+            country: string;
+            language: string;
+        };
+        monetaryFormat?: {
+            country: string;
+            language: string;
+        };
+        numberFormat?: {
+            country: string;
+            language: string;
+        };
+    };
+    timezone?: string;
     options?: {
-        characterSet: string;
-        collation: string;
-        locale: string;
-        timezone: number | string;
         [name: string]: number | string;
     };
 }

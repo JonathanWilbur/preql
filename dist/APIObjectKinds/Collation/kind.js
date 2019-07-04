@@ -11,15 +11,9 @@ const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
-        // Validate CharacterSet
         if (apiObject.spec.characterSet && !matchingResource_1.default(apiObject.spec.characterSet, 'characterset', etcd)) {
-            throw new PreqlError_1.default('5f9536b1-4802-4324-aedc-6ad4a59d405d', `No CharacterSets found that are named '${apiObject.spec.characterSet}' for Server `
-                + `'${apiObject.metadata.name}' to use.`);
-        }
-        // Validate Collation
-        if (apiObject.spec.collation && !matchingResource_1.default(apiObject.spec.collation, 'collation', etcd)) {
-            throw new PreqlError_1.default('7b8ab323-1e2b-4bf6-81c1-619b3a523b58', `No Collations found that are named '${apiObject.spec.collation}' for Server `
-                + `'${apiObject.metadata.name}' to use.`);
+            throw new PreqlError_1.default('f191539e-7758-4a56-81ea-bba873dbfad1', `No CharacterSet found that is named '${apiObject.spec.characterSet}' `
+                + `to be for CharacterSet for Collation '${apiObject.metadata.name}'.`);
         }
     },
 };

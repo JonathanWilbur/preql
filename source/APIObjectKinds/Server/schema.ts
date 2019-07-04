@@ -1,4 +1,6 @@
 import identifierRegexString from '../../identifierRegex';
+import Locale from '../../JSONSchema/Locale';
+import timezones from '../../timezones';
 
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
@@ -36,26 +38,28 @@ const schema = {
     starttlsSupported: {
       type: 'boolean',
     },
-    options: {
+    characterSet: {
+      type: 'string',
+    },
+    collation: {
+      type: 'string',
+    },
+    timezone: {
+      type: 'string',
+      enum: timezones,
+    },
+    locale: {
       type: 'object',
       properties: {
-        characterSet: {
-          type: 'string',
-        },
-        collation: {
-          type: 'string',
-        },
-        locale: {
-          type: 'string',
-          pattern: '^[a-z]_[A-Z]$',
-        },
-        timezone: {
-          type: ['number', 'string'],
-          description: 'If this is a string, it should be a TZ Database timezone name. If it is a number, it should be a UTC offset.',
-          minimum: -12,
-          maximum: 14,
-        },
+        dateAndTimeFormat: Locale,
+        language: Locale,
+        monetaryFormat: Locale,
+        numberFormat: Locale,
       },
+      required: [],
+    },
+    options: {
+      type: 'object',
       additionalProperties: {
         type: 'string',
       },

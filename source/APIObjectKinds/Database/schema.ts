@@ -11,15 +11,13 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
-    collation: {
-      type: 'string',
-      default: 'utf8',
-      description:
-        'Only lowercase alphabetic and numeric characters from the acronym'
-        + '/ symbol of the character encoding.',
-    },
     characterSet: {
       type: 'string',
+      pattern: identifierRegexString,
+    },
+    collation: {
+      type: 'string',
+      pattern: identifierRegexString,
     },
     serverName: {
       type: 'string',

@@ -17,6 +17,14 @@ declare const schema: {
             type: string;
             pattern: string;
         };
+        characterSet: {
+            type: string;
+            pattern: string;
+        };
+        collation: {
+            type: string;
+            pattern: string;
+        };
     };
     required: string[];
 };

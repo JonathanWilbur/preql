@@ -33,26 +33,96 @@ declare const schema: {
         starttlsSupported: {
             type: string;
         };
-        options: {
+        characterSet: {
+            type: string;
+        };
+        collation: {
+            type: string;
+        };
+        timezone: {
+            type: string;
+            enum: string[];
+        };
+        locale: {
             type: string;
             properties: {
-                characterSet: {
+                dateAndTimeFormat: {
+                    $schema: string;
+                    $async: boolean;
+                    title: string;
                     type: string;
+                    additionalProperties: boolean;
+                    properties: {
+                        country: {
+                            type: string;
+                            enum: string[];
+                        };
+                        language: {
+                            type: string;
+                            enum: string[];
+                        };
+                    };
+                    required: string[];
                 };
-                collation: {
+                language: {
+                    $schema: string;
+                    $async: boolean;
+                    title: string;
                     type: string;
+                    additionalProperties: boolean;
+                    properties: {
+                        country: {
+                            type: string;
+                            enum: string[];
+                        };
+                        language: {
+                            type: string;
+                            enum: string[];
+                        };
+                    };
+                    required: string[];
                 };
-                locale: {
+                monetaryFormat: {
+                    $schema: string;
+                    $async: boolean;
+                    title: string;
                     type: string;
-                    pattern: string;
+                    additionalProperties: boolean;
+                    properties: {
+                        country: {
+                            type: string;
+                            enum: string[];
+                        };
+                        language: {
+                            type: string;
+                            enum: string[];
+                        };
+                    };
+                    required: string[];
                 };
-                timezone: {
-                    type: string[];
-                    description: string;
-                    minimum: number;
-                    maximum: number;
+                numberFormat: {
+                    $schema: string;
+                    $async: boolean;
+                    title: string;
+                    type: string;
+                    additionalProperties: boolean;
+                    properties: {
+                        country: {
+                            type: string;
+                            enum: string[];
+                        };
+                        language: {
+                            type: string;
+                            enum: string[];
+                        };
+                    };
+                    required: string[];
                 };
             };
+            required: never[];
+        };
+        options: {
+            type: string;
             additionalProperties: {
                 type: string;
             };

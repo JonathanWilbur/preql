@@ -39,6 +39,20 @@ const kind: APIObjectKind = {
         + ' Struct must have at least one Attribute.',
       );
     }
+    if (apiObject.spec.characterSet && !matchingResource(apiObject.spec.characterSet, 'characterset', etcd)) {
+      throw new PreqlError(
+        '0d5be372-5fb4-401e-869b-06f5108d9f2b',
+        `No CharacterSets found that are named '${apiObject.spec.characterSet}' for Struct `
+        + `'${apiObject.metadata.name}' to use.`,
+      );
+    }
+    if (apiObject.spec.collation && !matchingResource(apiObject.spec.collation, 'collation', etcd)) {
+      throw new PreqlError(
+        '33313e20-bf74-4aa9-8c0a-a8e2637b5d4e',
+        `No Collations found that are named '${apiObject.spec.collation}' for Struct `
+        + `'${apiObject.metadata.name}' to use.`,
+      );
+    }
   },
 };
 

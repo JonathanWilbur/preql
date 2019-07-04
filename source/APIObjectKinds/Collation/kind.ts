@@ -12,21 +12,11 @@ const structureValidator = ajv.compile(schema);
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
-    // Validate CharacterSet
     if (apiObject.spec.characterSet && !matchingResource(apiObject.spec.characterSet, 'characterset', etcd)) {
       throw new PreqlError(
-        '5f9536b1-4802-4324-aedc-6ad4a59d405d',
-        `No CharacterSets found that are named '${apiObject.spec.characterSet}' for Server `
-        + `'${apiObject.metadata.name}' to use.`,
-      );
-    }
-
-    // Validate Collation
-    if (apiObject.spec.collation && !matchingResource(apiObject.spec.collation, 'collation', etcd)) {
-      throw new PreqlError(
-        '7b8ab323-1e2b-4bf6-81c1-619b3a523b58',
-        `No Collations found that are named '${apiObject.spec.collation}' for Server `
-        + `'${apiObject.metadata.name}' to use.`,
+        'f191539e-7758-4a56-81ea-bba873dbfad1',
+        `No CharacterSet found that is named '${apiObject.spec.characterSet}' `
+        + `to be for CharacterSet for Collation '${apiObject.metadata.name}'.`,
       );
     }
   },

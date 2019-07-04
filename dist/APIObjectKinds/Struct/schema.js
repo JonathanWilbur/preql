@@ -23,6 +23,14 @@ const schema = {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
+        characterSet: {
+            type: 'string',
+            pattern: identifierRegex_1.default,
+        },
+        collation: {
+            type: 'string',
+            pattern: identifierRegex_1.default,
+        },
     },
     required: [
         'name',

@@ -9,13 +9,13 @@ declare const schema: {
             type: string;
             pattern: string;
         };
-        collation: {
-            type: string;
-            default: string;
-            description: string;
-        };
         characterSet: {
             type: string;
+            pattern: string;
+        };
+        collation: {
+            type: string;
+            pattern: string;
         };
         serverName: {
             type: string;

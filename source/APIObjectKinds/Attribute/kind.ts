@@ -33,6 +33,20 @@ const kind: APIObjectKind = {
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
+    if (apiObject.spec.characterSet && !matchingResource(apiObject.spec.characterSet, 'characterset', etcd)) {
+      throw new PreqlError(
+        '9f1e04b9-60bf-4832-ba09-72537231fe1f',
+        `No CharacterSets found that are named '${apiObject.spec.characterSet}' for Attribute `
+        + `'${apiObject.metadata.name}' to use.`,
+      );
+    }
+    if (apiObject.spec.collation && !matchingResource(apiObject.spec.collation, 'collation', etcd)) {
+      throw new PreqlError(
+        '53298ed2-c4cf-41c7-b8fb-bf386388f1b8',
+        `No Collations found that are named '${apiObject.spec.collation}' for Attribute `
+        + `'${apiObject.metadata.name}' to use.`,
+      );
+    }
   },
 };
 

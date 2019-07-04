@@ -1,6 +1,22 @@
 transpileTo: mariadb
 objects:
   - apiVersion: preql/1.0.0
+    kind: CharacterSet
+    metadata:
+      name: utf8
+    spec:
+      name: utf8
+      targetEquivalents:
+        mysql: utf8
+  - apiVersion: preql/1.0.0
+    kind: Collation
+    metadata:
+      name: latin1csas
+    spec:
+      name: latin1csas
+      targetEquivalents:
+        mysql: latin1_general_cs
+  - apiVersion: preql/1.0.0
     kind: DataType
     metadata:
       name: varchar
@@ -27,7 +43,8 @@ objects:
       name: floofy
     spec:
       name: floofy
-      collation: utf8
+      characterSet: utf8
+      collation: latin1csas
   - apiVersion: preql/1.0.0
     kind: Struct
     metadata:
@@ -48,6 +65,8 @@ objects:
     spec:
       name: pet
       databaseName: floofy
+      characterSet: utf8
+      collation: latin1csas
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -62,7 +81,8 @@ objects:
       length: 4
       nullable: False
       default: Bob
-      casing: upper
+      characterSet: utf8
+      collation: latin1csas
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -77,7 +97,6 @@ objects:
       length: 64
       nullable: False
       default: Bob
-      casing: upper
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -92,7 +111,6 @@ objects:
       length: 4
       nullable: False
       default: Bob
-      casing: upper
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -107,7 +125,6 @@ objects:
       length: 64
       nullable: False
       default: McGobb
-      casing: upper
   - apiVersion: preql/1.0.0
     kind: PrimaryIndex
     metadata:

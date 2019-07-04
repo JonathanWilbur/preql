@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
+const Locale_1 = __importDefault(require("../../JSONSchema/Locale"));
+const timezones_1 = __importDefault(require("../../timezones"));
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     $async: true,
@@ -40,26 +42,28 @@ const schema = {
         starttlsSupported: {
             type: 'boolean',
         },
-        options: {
+        characterSet: {
+            type: 'string',
+        },
+        collation: {
+            type: 'string',
+        },
+        timezone: {
+            type: 'string',
+            enum: timezones_1.default,
+        },
+        locale: {
             type: 'object',
             properties: {
-                characterSet: {
-                    type: 'string',
-                },
-                collation: {
-                    type: 'string',
-                },
-                locale: {
-                    type: 'string',
-                    pattern: '^[a-z]_[A-Z]$',
-                },
-                timezone: {
-                    type: ['number', 'string'],
-                    description: 'If this is a string, it should be a TZ Database timezone name. If it is a number, it should be a UTC offset.',
-                    minimum: -12,
-                    maximum: 14,
-                },
+                dateAndTimeFormat: Locale_1.default,
+                language: Locale_1.default,
+                monetaryFormat: Locale_1.default,
+                numberFormat: Locale_1.default,
             },
+            required: [],
+        },
+        options: {
+            type: 'object',
             additionalProperties: {
                 type: 'string',
             },

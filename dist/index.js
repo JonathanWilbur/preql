@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // Commands
+var getKinds_1 = require("./Commands/getKinds");
+exports.getKinds = getKinds_1.default;
 var getEntries_1 = require("./Commands/getEntries");
 exports.getEntries = getEntries_1.default;
 var getServerURI_1 = require("./Commands/getServerURI");

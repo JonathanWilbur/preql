@@ -52,6 +52,15 @@ The above will be _required_ for inclusion in the official CLI. (Except using `N
 The command-line interface will always pass a console-logging object that
 implements the `Logger` interface--and this might just be a plain old `console`.
 
+### Versioning
+
+Unfortunately, I moved this library into version 1.0.0-beta way too soon. I
+have made so many changes that I have had to increment it to version
+"1.0.0-charlie", and I expect the versions to continue to not make much sense
+until I really release version 1.0.0. I will release version 1.0.0 when I have
+created transpilation libraries for MariaDB, OpenLDAP, and MongoDB; doing so
+will constitute a thorough testing of the library on a wide variety of DBMSs.
+
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything

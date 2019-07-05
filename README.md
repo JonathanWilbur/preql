@@ -64,7 +64,9 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 ## Prior to 1.0.0
 
 - [x] Remove `Server.defaultDatabase`.
-- [ ] Ensure `characterSet` and `collation` is only set on string types.
+- [x] Ensure that an `Attribute`'s `type` actually exists.
+- [x] Ensure `characterSet` and `collation` is only set on string types.
+- [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
 - [ ] Ensure only one `PrimaryKey` per `Struct`.
 - [ ] Object with a multi-valued attribute must have a primary key.
 - [ ] Primary Keys indexed by struct

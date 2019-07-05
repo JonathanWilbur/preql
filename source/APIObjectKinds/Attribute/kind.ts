@@ -6,6 +6,7 @@ import Spec from './spec';
 import matchingResource from '../matchingResource';
 import PreqlError from '../../PreqlError';
 import ajv from '../../ajv';
+import { DataTypeSpec } from '../..';
 
 const structureValidator = ajv.compile(schema);
 
@@ -45,6 +46,27 @@ const kind: APIObjectKind = {
         '53298ed2-c4cf-41c7-b8fb-bf386388f1b8',
         `No Collations found that are named '${apiObject.spec.collation}' for Attribute `
         + `'${apiObject.metadata.name}' to use.`,
+      );
+    }
+
+    const datatype: APIObject<DataTypeSpec> | undefined = (etcd.kindIndex.datatype || [])
+      .find((obj: APIObject): boolean => obj.metadata.name === apiObject.spec.type);
+    if (!datatype) {
+      throw new PreqlError(
+        '6d125c9f-957a-4ce0-9e2a-074ee31fa5f1',
+        `No DataTypes found that are named '${apiObject.spec.type}' for Attribute `
+        + `'${apiObject.metadata.name}' to use.`,
+      );
+    }
+    if (
+      (apiObject.spec.characterSet || apiObject.spec.collation)
+      && datatype.spec.jsonEquivalent.toLowerCase() !== 'string'
+    ) {
+      throw new PreqlError(
+        'c939691d-523f-476d-a751-b878a6613a75',
+        'Character sets and collations may not apply to Attribute '
+        + `'${apiObject.metadata.name}', because it is not fundamentally a `
+        + 'string type.',
       );
     }
   },

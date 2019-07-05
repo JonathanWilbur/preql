@@ -23,10 +23,6 @@ declare const schema: {
             minimum: number;
             maximum: number;
         };
-        defaultDatabase: {
-            type: string;
-            pattern: string;
-        };
         tlsSupported: {
             type: string;
         };

@@ -16,7 +16,6 @@ async function getServerURI(apiObject) {
     await structureValidator(apiObject);
     let uri = `${apiObject.spec.protocol}://${apiObject.spec.hostname}`;
     uri += apiObject.spec.port ? `:${apiObject.spec.port}` : '';
-    uri += apiObject.spec.defaultDatabase ? `/${apiObject.spec.defaultDatabase}` : '';
     return {
         uri,
     };

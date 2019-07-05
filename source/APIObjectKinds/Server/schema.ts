@@ -1,4 +1,3 @@
-import identifierRegexString from '../../identifierRegex';
 import Locale from '../../JSONSchema/Locale';
 import timezones from '../../timezones';
 
@@ -27,10 +26,6 @@ const schema = {
       type: 'number',
       minimum: 0,
       maximum: 65535,
-    },
-    defaultDatabase: {
-      type: 'string',
-      pattern: identifierRegexString,
     },
     tlsSupported: {
       type: 'boolean',

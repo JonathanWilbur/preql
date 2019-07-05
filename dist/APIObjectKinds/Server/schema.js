@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
 const Locale_1 = __importDefault(require("../../JSONSchema/Locale"));
 const timezones_1 = __importDefault(require("../../timezones"));
 const schema = {
@@ -31,10 +30,6 @@ const schema = {
             type: 'number',
             minimum: 0,
             maximum: 65535,
-        },
-        defaultDatabase: {
-            type: 'string',
-            pattern: identifierRegex_1.default,
         },
         tlsSupported: {
             type: 'boolean',

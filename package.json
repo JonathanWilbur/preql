@@ -3,7 +3,7 @@
   "dependencies": {
     "ajv": "^6.10.0",
     "js-yaml": "^3.13.1",
-    "semver": "^6.1.1"
+    "semver": "^6.2.0"
   },
   "description": "The core PreQL library.",
   "devDependencies": {
@@ -15,8 +15,8 @@
     "@typescript-eslint/parser": "^1.11.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-typescript": "^4.0.0",
-    "eslint-plugin-import": "^2.17.3",
-    "serverless": "^1.45.1",
+    "eslint-plugin-import": "^2.18.0",
+    "serverless": "^1.46.1",
     "typescript": "^3.5.2"
   },
   "directories": {
@@ -37,5 +37,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "types": "./dist/index.d.ts",
-  "version": "1.0.0-charlie-rc1"
+  "version": "1.0.0-delta"
 }

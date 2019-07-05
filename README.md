@@ -66,17 +66,14 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Remove `Server.defaultDatabase`.
 - [x] Ensure that an `Attribute`'s `type` actually exists.
 - [x] Ensure `characterSet` and `collation` is only set on string types.
+- [x] Remove `PrimaryKey` entirely and make `ForeignKeyConstraint` `ForeignKey`.
+- [ ] New `APIObjectDatabase` Indexes?
+  - [ ] specNameIndex
+  - [ ] metadataNameIndex
+  - [ ] kindAndPathIndex (`kind:fully.qualified.path`) (This must be unique.)
 - [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
-- [ ] Ensure only one `PrimaryKey` per `Struct`.
-- [ ] Object with a multi-valued attribute must have a primary key.
-- [ ] Primary Keys indexed by struct
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
-- [ ] specNameIndex
-- [ ] metadataNameIndex
-- [ ] kindAndPathIndex (`kind:fully.qualified.path`) (This must be unique.)
 - [ ] Check for uniqueness across case as well!
-- [ ] Should Entity actually have multiple root structs?
-  - Potential column name conflicts.
 
 ## After 1.0.0
 

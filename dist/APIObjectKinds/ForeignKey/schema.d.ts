@@ -21,6 +21,10 @@ declare const schema: {
             type: string;
             pattern: string;
         };
+        nullable: {
+            type: string;
+            default: boolean;
+        };
         onDeleteAction: {
             type: string;
             enum: string[];

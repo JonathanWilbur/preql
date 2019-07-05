@@ -33,6 +33,10 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
+    nullable: {
+      type: 'boolean',
+      default: true,
+    },
     onDeleteAction: foreignKeyChangeAction,
     onUpdateAction: foreignKeyChangeAction,
   },

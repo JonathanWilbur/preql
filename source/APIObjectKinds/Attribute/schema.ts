@@ -31,7 +31,7 @@ const schema = {
     },
     nullable: {
       type: 'boolean',
-      default: true, // WARNING: Ajv will only respect the defaults if you set the useDefaults option!
+      default: true,
     },
     type: {
       type: 'string',

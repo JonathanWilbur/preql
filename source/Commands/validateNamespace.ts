@@ -2,12 +2,12 @@ import APIObject from '../Interfaces/APIObject';
 import APIObjectKind from '../Interfaces/APIObjectKind';
 import APIObjectDatabase from '../Interfaces/APIObjectDatabase';
 import kinds from '../APIObjectKinds';
-import { EntrySpec } from '..';
+import { EntrySpec, AttributeSpec, StructSpec } from '..';
 import PreqlError from '../PreqlError';
 
 export default
 async function validateNamespace(namespace: APIObjectDatabase) {
-  // Ensure Unique distinguishedNames
+  // Ensure unique distinguished names
   const encounteredDistinguishedNames: Map<string, APIObject<EntrySpec>> = new Map([]);
   (namespace.kindIndex.entry || [])
     .filter((entry: APIObject<EntrySpec>): boolean => (typeof entry.spec.distinguishedName === 'string'))
@@ -24,6 +24,27 @@ async function validateNamespace(namespace: APIObjectDatabase) {
         );
       } else {
         encounteredDistinguishedNames.set(entry.spec.distinguishedName.toLowerCase(), entry);
+      }
+    });
+
+  // Ensure unique object identifiers
+  const encounteredObjectIdentifiers: Map<string, APIObject<AttributeSpec | StructSpec>> = new Map([]);
+  (namespace.kindIndex.attribute || [])
+    .concat(namespace.kindIndex.struct || [])
+    .filter((obj: APIObject<AttributeSpec | StructSpec>): boolean => (typeof obj.spec.objectIdentifier === 'string'))
+    .forEach((obj: APIObject<AttributeSpec | StructSpec>): void => {
+      if (!obj.spec.objectIdentifier) return;
+      if (encounteredObjectIdentifiers.has(obj.spec.objectIdentifier)) {
+        const first: APIObject<AttributeSpec | StructSpec> = encounteredObjectIdentifiers
+          .get(obj.spec.objectIdentifier) as APIObject<AttributeSpec | StructSpec>;
+        throw new PreqlError(
+          'ee62701b-8d35-48f9-8d78-be0d8f3c80f3',
+          `Duplicate Object Identifier '${obj.spec.objectIdentifier}'. `
+          + `The first Attribute or Struct to have it was '${first.metadata.name}'. `
+          + `The second Attribute or Struct to have it was '${obj.metadata.name}'.`,
+        );
+      } else {
+        encounteredObjectIdentifiers.set(obj.spec.objectIdentifier.toLowerCase(), obj);
       }
     });
 

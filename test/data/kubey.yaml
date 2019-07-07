@@ -97,6 +97,7 @@ objects:
       length: 64
       nullable: False
       default: Bob
+      objectIdentifier: '1.38.255.4.6.3'
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:

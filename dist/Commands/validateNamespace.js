@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const APIObjectKinds_1 = __importDefault(require("../APIObjectKinds"));
 const PreqlError_1 = __importDefault(require("../PreqlError"));
 async function validateNamespace(namespace) {
-    // Ensure Unique distinguishedNames
+    // Ensure unique distinguished names
     const encounteredDistinguishedNames = new Map([]);
     (namespace.kindIndex.entry || [])
         .filter((entry) => (typeof entry.spec.distinguishedName === 'string'))
@@ -22,6 +22,25 @@ async function validateNamespace(namespace) {
         }
         else {
             encounteredDistinguishedNames.set(entry.spec.distinguishedName.toLowerCase(), entry);
+        }
+    });
+    // Ensure unique object identifiers
+    const encounteredObjectIdentifiers = new Map([]);
+    (namespace.kindIndex.attribute || [])
+        .concat(namespace.kindIndex.struct || [])
+        .filter((obj) => (typeof obj.spec.objectIdentifier === 'string'))
+        .forEach((obj) => {
+        if (!obj.spec.objectIdentifier)
+            return;
+        if (encounteredObjectIdentifiers.has(obj.spec.objectIdentifier)) {
+            const first = encounteredObjectIdentifiers
+                .get(obj.spec.objectIdentifier);
+            throw new PreqlError_1.default('ee62701b-8d35-48f9-8d78-be0d8f3c80f3', `Duplicate Object Identifier '${obj.spec.objectIdentifier}'. `
+                + `The first Attribute or Struct to have it was '${first.metadata.name}'. `
+                + `The second Attribute or Struct to have it was '${obj.metadata.name}'.`);
+        }
+        else {
+            encounteredObjectIdentifiers.set(obj.spec.objectIdentifier.toLowerCase(), obj);
         }
     });
     // Iterate over kinds in a namespace.

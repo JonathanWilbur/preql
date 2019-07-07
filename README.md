@@ -74,6 +74,29 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
 - [ ] Check for uniqueness across case as well!
+- [ ] Put unrecognized kinds in a different index
+- [ ] DO NOT modify attribute names. (Document why not)
+- [ ] Use the "files" attribute in package.json
+- [ ] Ensure that text indexes are only applied to types where jsonEquivalent is string
+- [ ] DataType.ldapSyntaxIdentifiers (array in order of preference) (etcd.objectIdentifierIndex)
+- [x] Attribute.objectIdentifier
+  - [x] Check for uniqueness
+- [ ] Attribute.otherAttributeNames
+- [x] Struct.objectIdentifier
+  - [x] Check for uniqueness
+- [ ] Struct.parentObjectClass?
+- [ ] Server.activeDirectoryDomain?
+- [ ] Server.domain?
+- [ ] Database.domain?
+- [x] Ensure Entry.distinguishedName uniqueness
+- [x] Prohibit "id" Attribute
+- [x] Rename "childStruct" and "parentStruct" to have a more consistent API
+- [x] Rename "attributeName" in ForeignKey to "name" for consistency
+- [x] getProhibitedAttributeNames
+- [x] Fix issue with Preamble and Postamble
+- [x] Database.maximumSizeInBytes
+- [x] Entry.distinguishedName
+
 
 ## After 1.0.0
 

@@ -21,6 +21,7 @@ const schema = {
         },
         distinguishedName: {
             type: 'string',
+            // TODO: Obviously, more validation is needed than this.
             unicodePattern: '^[^#].*=.+',
         },
         values: {

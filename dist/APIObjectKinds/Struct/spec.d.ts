@@ -4,4 +4,5 @@ export default interface Spec {
     databaseName: string;
     characterSet?: string;
     collation?: string;
+    objectIdentifier?: string;
 }

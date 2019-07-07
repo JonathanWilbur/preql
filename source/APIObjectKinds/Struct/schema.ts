@@ -1,4 +1,5 @@
 import identifierRegexString from '../../identifierRegex';
+import objectIdentifierRegexString from '../../objectIdentifierRegexString';
 
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
@@ -26,6 +27,10 @@ const schema = {
     collation: {
       type: 'string',
       pattern: identifierRegexString,
+    },
+    objectIdentifier: {
+      type: 'string',
+      pattern: objectIdentifierRegexString,
     },
   },
   required: [

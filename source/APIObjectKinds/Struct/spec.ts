@@ -5,4 +5,5 @@ interface Spec {
   databaseName: string;
   characterSet?: string;
   collation?: string;
+  objectIdentifier?: string;
 };

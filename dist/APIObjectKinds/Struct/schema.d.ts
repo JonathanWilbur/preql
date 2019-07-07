@@ -25,6 +25,10 @@ declare const schema: {
             type: string;
             pattern: string;
         };
+        objectIdentifier: {
+            type: string;
+            pattern: string;
+        };
     };
     required: string[];
 };

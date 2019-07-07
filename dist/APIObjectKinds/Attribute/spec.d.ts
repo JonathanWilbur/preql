@@ -10,4 +10,5 @@ export default interface Attribute {
     multiValued: boolean;
     characterSet?: string;
     collation?: string;
+    objectIdentifier?: string;
 }

@@ -46,6 +46,8 @@ These target libraries _should_:
 - All of the object-transpiling functions should be exposed as Serverless functions.
 - Use the `./source/Interfaces/Logger.ts` interface for logging. (`console` already satisfies it.)
   - `./source/NullLogger.ts` may be used as a default for `Logger` parameters.
+- Never modify `Attribute` or `Struct` names unless absolutely necessary.
+  - This means no converting `CamelCase` into `snake_case` and vice versa, for instance.
 
 The above will be _required_ for inclusion in the official CLI. (Except using `NullLogger`.)
 
@@ -63,37 +65,13 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 
 ## Prior to 1.0.0
 
-- [x] Remove `Server.defaultDatabase`.
-- [x] Ensure that an `Attribute`'s `type` actually exists.
-- [x] Ensure `characterSet` and `collation` is only set on string types.
-- [x] Remove `PrimaryKey` entirely and make `ForeignKeyConstraint` `ForeignKey`.
 - [ ] New `APIObjectDatabase` Indexes?
   - [ ] specNameIndex
   - [ ] kindAndPathIndex (`kind:fully.qualified.path`) (This must be unique.)
 - [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
-- [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
 - [ ] Check for uniqueness across case as well!
-- [ ] DO NOT modify attribute names. (Document why not)
-- [ ] Ensure that text indexes are only applied to types where jsonEquivalent is string
-- [x] DataType.ldapSyntaxIdentifiers
-- [x] Attribute.objectIdentifier
-  - [x] Check for uniqueness
-- [x] Attribute.otherAttributeNames
-- [x] Struct.objectIdentifier
-  - [x] Check for uniqueness
-- [ ] Struct.parentObjectClass?
-- [ ] Server.activeDirectoryDomain?
-- [ ] Server.domain?
-- [ ] Database.domain?
-- [x] Ensure Entry.distinguishedName uniqueness
-- [x] Prohibit "id" Attribute
-- [x] Rename "childStruct" and "parentStruct" to have a more consistent API
-- [x] Rename "attributeName" in ForeignKey to "name" for consistency
-- [x] getProhibitedAttributeNames
-- [x] Fix issue with Preamble and Postamble
-- [x] Database.maximumSizeInBytes
-- [x] Entry.distinguishedName
-- [x] Condense `get*` commands into `getEnums()`.
+- [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
+- [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
 
 ## After 1.0.0
 
@@ -119,6 +97,4 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] `HASH` setter, or something else for hashing
   - This would be _really_ useful for secure password storage.
 - [ ] `CONCAT` setter (Check if string begins or ends with something, and CONCAT if not present.)
-- [ ] Serverless functions (I don't know if these would actually be useful.)
-  - [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
-  - [ ] `get-data-policy-result`
+- [ ] Add information about error codes in `getPreqlInfo`.

@@ -1,4 +1,3 @@
-transpileTo: mariadb
 objects:
   - apiVersion: preql/1.0.0
     kind: CharacterSet
@@ -127,7 +126,7 @@ objects:
       nullable: False
       default: McGobb
   - apiVersion: preql/1.0.0
-    kind: PrimaryIndex
+    kind: TextIndex
     metadata:
       name: important
       annotations:

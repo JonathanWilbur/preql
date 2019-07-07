@@ -168,3 +168,9 @@ objects:
       values:
         firstName: Jonathan
         lastName: Wilbur
+  - apiVersion: preql/1.0.0
+    kind: Preamble
+    metadata:
+      name: yeet
+    spec:
+      uncommentedText: 'Dang it bobby'

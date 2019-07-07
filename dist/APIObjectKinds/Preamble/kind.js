@@ -8,6 +8,6 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
-    validateSemantics: Promise.resolve,
+    validateSemantics: () => Promise.resolve(),
 };
 exports.default = kind;

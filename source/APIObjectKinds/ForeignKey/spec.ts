@@ -1,9 +1,9 @@
 export default
 interface Spec {
   databaseName: string;
-  parentStruct: string;
-  childStruct: string;
-  attributeName: string;
+  parentStructName: string;
+  childStructName: string;
+  name: string;
   nullable: string;
   onDeleteAction: string;
   onUpdateAction: string;

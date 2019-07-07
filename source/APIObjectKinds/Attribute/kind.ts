@@ -6,13 +6,21 @@ import Spec from './spec';
 import matchingResource from '../matchingResource';
 import PreqlError from '../../PreqlError';
 import ajv from '../../ajv';
-import { DataTypeSpec } from '../..';
+import DataTypeSpec from '../DataType/spec';
+import prohibitedIdentifiers from '../../prohibitedIdentifiers';
 
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
+    if (prohibitedIdentifiers.indexOf(apiObject.spec.name) !== -1) {
+      throw new PreqlError(
+        '74935c2f-ff54-42dc-923d-c66f1c9adcb2',
+        `Attribute name '${apiObject.spec.name}' is prohibited.`,
+      );
+    }
+
     if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
       throw new PreqlError(
         '58f2e994-a54a-48e2-8d53-d7015f934beb',

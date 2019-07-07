@@ -24,15 +24,15 @@ const schema = {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
-        parentStruct: {
+        parentStructName: {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
-        childStruct: {
+        childStructName: {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
-        attributeName: {
+        name: {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
@@ -45,9 +45,9 @@ const schema = {
     },
     required: [
         'databaseName',
-        'parentStruct',
-        'childStruct',
-        'attributeName',
+        'parentStructName',
+        'childStructName',
+        'name',
     ],
 };
 exports.default = schema;

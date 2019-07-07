@@ -21,15 +21,15 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
-    parentStruct: {
+    parentStructName: {
       type: 'string',
       pattern: identifierRegexString,
     },
-    childStruct: {
+    childStructName: {
       type: 'string',
       pattern: identifierRegexString,
     },
-    attributeName: {
+    name: {
       type: 'string',
       pattern: identifierRegexString,
     },
@@ -42,9 +42,9 @@ const schema = {
   },
   required: [
     'databaseName',
-    'parentStruct',
-    'childStruct',
-    'attributeName',
+    'parentStructName',
+    'childStructName',
+    'name',
   ],
 };
 

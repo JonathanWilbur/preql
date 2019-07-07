@@ -9,15 +9,15 @@ declare const schema: {
             type: string;
             pattern: string;
         };
-        parentStruct: {
+        parentStructName: {
             type: string;
             pattern: string;
         };
-        childStruct: {
+        childStructName: {
             type: string;
             pattern: string;
         };
-        attributeName: {
+        name: {
             type: string;
             pattern: string;
         };

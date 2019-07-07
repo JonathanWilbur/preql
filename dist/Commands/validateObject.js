@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const APIObject_1 = __importDefault(require("../JSONSchema/APIObject"));
 const APIObjectKinds_1 = __importDefault(require("../APIObjectKinds"));
 const ajv_1 = __importDefault(require("../ajv"));
+const prohibitedIdentifiers_1 = __importDefault(require("../prohibitedIdentifiers"));
+const PreqlError_1 = __importDefault(require("../PreqlError"));
 const structureValidator = ajv_1.default.compile(APIObject_1.default);
 /**
  * Resolves a boolean indicating whether the `spec` field has been validated.
@@ -20,6 +22,9 @@ async function validateStructure(apiObject) {
         return Promise.resolve(false);
     await structureValidator(apiObject);
     await kind.validateStructure(apiObject);
+    if (prohibitedIdentifiers_1.default.indexOf(apiObject.metadata.name) !== -1) {
+        throw new PreqlError_1.default('ed7558d6-61b8-44e5-ae73-8feaf60404de', `Metadata name '${apiObject.metadata.name}' is prohibited.`);
+    }
     return Promise.resolve(true);
 }
 exports.default = validateStructure;

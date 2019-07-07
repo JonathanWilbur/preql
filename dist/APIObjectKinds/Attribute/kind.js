@@ -7,10 +7,14 @@ const schema_1 = __importDefault(require("./schema"));
 const matchingResource_1 = __importDefault(require("../matchingResource"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
+const prohibitedIdentifiers_1 = __importDefault(require("../../prohibitedIdentifiers"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
+        if (prohibitedIdentifiers_1.default.indexOf(apiObject.spec.name) !== -1) {
+            throw new PreqlError_1.default('74935c2f-ff54-42dc-923d-c66f1c9adcb2', `Attribute name '${apiObject.spec.name}' is prohibited.`);
+        }
         if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
             throw new PreqlError_1.default('58f2e994-a54a-48e2-8d53-d7015f934beb', `No Databases found that are named '${apiObject.spec.databaseName}' for Attribute `
                 + `'${apiObject.metadata.name}' to attach to.`);

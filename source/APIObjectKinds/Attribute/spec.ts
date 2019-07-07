@@ -12,4 +12,5 @@ interface Attribute {
   characterSet?: string;
   collation?: string;
   objectIdentifier?: string;
+  otherNames?: string[];
 };

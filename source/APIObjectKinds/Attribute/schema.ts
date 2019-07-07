@@ -62,6 +62,13 @@ const schema = {
       type: 'string',
       pattern: objectIdentifierRegexString,
     },
+    otherNames: {
+      type: 'array',
+      items: {
+        type: 'string',
+        pattern: objectIdentifierRegexString,
+      },
+    },
   },
   required: [
     'name',

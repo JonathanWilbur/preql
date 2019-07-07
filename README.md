@@ -78,7 +78,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] DataType.ldapSyntaxIdentifiers
 - [x] Attribute.objectIdentifier
   - [x] Check for uniqueness
-- [ ] Attribute.otherAttributeNames
+- [x] Attribute.otherAttributeNames
 - [x] Struct.objectIdentifier
   - [x] Check for uniqueness
 - [ ] Struct.parentObjectClass?
@@ -93,7 +93,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Fix issue with Preamble and Postamble
 - [x] Database.maximumSizeInBytes
 - [x] Entry.distinguishedName
-- [ ] Make all `interface`s `readonly` where possible.
+- [ ] Command: getSupportedTimezones
 
 ## After 1.0.0
 

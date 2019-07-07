@@ -52,6 +52,13 @@ declare const schema: {
             type: string;
             pattern: string;
         };
+        otherNames: {
+            type: string;
+            items: {
+                type: string;
+                pattern: string;
+            };
+        };
     };
     required: string[];
 };

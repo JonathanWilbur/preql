@@ -3,4 +3,5 @@ export default interface Spec {
     characterSet?: string;
     collation?: string;
     serverName?: string;
+    maximumSizeInBytes?: number;
 }

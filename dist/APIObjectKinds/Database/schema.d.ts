@@ -21,6 +21,10 @@ declare const schema: {
             type: string;
             unicodePattern: string;
         };
+        maximumSizeInBytes: {
+            type: string;
+            minimum: number;
+        };
     };
     required: string[];
 };

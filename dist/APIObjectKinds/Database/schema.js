@@ -27,6 +27,10 @@ const schema = {
             type: 'string',
             unicodePattern: '^(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?)$',
         },
+        maximumSizeInBytes: {
+            type: 'number',
+            minimum: 1,
+        },
     },
     required: [
         'name',

@@ -69,16 +69,13 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Remove `PrimaryKey` entirely and make `ForeignKeyConstraint` `ForeignKey`.
 - [ ] New `APIObjectDatabase` Indexes?
   - [ ] specNameIndex
-  - [ ] metadataNameIndex
   - [ ] kindAndPathIndex (`kind:fully.qualified.path`) (This must be unique.)
 - [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
 - [ ] Check for uniqueness across case as well!
-- [ ] Put unrecognized kinds in a different index
 - [ ] DO NOT modify attribute names. (Document why not)
-- [ ] Use the "files" attribute in package.json
 - [ ] Ensure that text indexes are only applied to types where jsonEquivalent is string
-- [ ] DataType.ldapSyntaxIdentifiers (array in order of preference) (etcd.objectIdentifierIndex)
+- [x] DataType.ldapSyntaxIdentifiers
 - [x] Attribute.objectIdentifier
   - [x] Check for uniqueness
 - [ ] Attribute.otherAttributeNames
@@ -96,13 +93,18 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Fix issue with Preamble and Postamble
 - [x] Database.maximumSizeInBytes
 - [x] Entry.distinguishedName
-
+- [ ] Make all `interface`s `readonly` where possible.
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
 - [ ] JSONSchema titles and descriptions
 - [ ] Automated testing
+- [ ] Webpack / Compressed builds
+- [ ] Makefile
+- [ ] Bazel builds?
+- [ ] Use the `files` attribute in `package.json`
+- [ ] `package.json` tests
 
 ## Possible Future Features
 

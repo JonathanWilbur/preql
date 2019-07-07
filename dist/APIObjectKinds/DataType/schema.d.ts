@@ -9,6 +9,14 @@ declare const schema: {
             type: string;
             enum: string[];
         };
+        syntaxObjectIdentifiers: {
+            type: string;
+            description: string;
+            items: {
+                type: string;
+                pattern: string;
+            };
+        };
         lengthUnits: {
             type: string;
             description: string;

@@ -5,5 +5,4 @@ interface APIObjectDatabase {
   readonly namespace: string;
   readonly kindIndex: Record<string, APIObject[]>;
   readonly kindNameIndex: Record<string, APIObject>;
-  readonly objectsWithInvalidSpecs: APIObject[];
 };

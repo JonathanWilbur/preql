@@ -14,7 +14,6 @@ async function indexObjects(objects) {
                 namespace: apiObject.metadata.namespace || 'default',
                 kindIndex: {},
                 kindNameIndex: {},
-                objectsWithInvalidSpecs: [],
             };
         }
         const namespace = namespaces[namespaceName];

@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     $async: true,
@@ -16,6 +20,19 @@ const schema = {
                 'string',
                 'array',
             ],
+        },
+        syntaxObjectIdentifiers: {
+            type: 'array',
+            description: 'These should be arranged in order of descending preference. An array '
+                + 'of object identifiers is used instead of a single object identifier '
+                + 'because it cannot be guaranteed that every LDAP directory will '
+                + 'support the same syntaxes. Allowing multiple "backup" object '
+                + 'identifiers makes it less likely that a suitable syntax will not be '
+                + 'found.',
+            items: {
+                type: 'string',
+                pattern: objectIdentifierRegexString_1.default,
+            },
         },
         lengthUnits: {
             type: 'string',

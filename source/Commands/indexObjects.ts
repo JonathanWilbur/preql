@@ -13,7 +13,6 @@ async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObj
         namespace: apiObject.metadata.namespace || 'default',
         kindIndex: {},
         kindNameIndex: {},
-        objectsWithInvalidSpecs: [], // Is this even used?
       };
     }
     const namespace: APIObjectDatabase = namespaces[namespaceName];

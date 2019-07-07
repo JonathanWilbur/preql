@@ -33,6 +33,7 @@ declare type Now = {
 };
 export default interface Spec {
     jsonEquivalent: JSONType;
+    syntaxObjectIdentifiers?: string[];
     lengthUnits?: string;
     minimum?: number;
     maximum?: number;

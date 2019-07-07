@@ -47,3 +47,8 @@ functions:
     handler: dist/ServerlessHandlers/AWS/getPreqlInfo.default
     timeout: 5
     memorySize: 128
+
+  get-indexed-attributes:
+    handler: dist/ServerlessHandlers/AWS/getIndexedAttributes.default
+    timeout: 5
+    memorySize: 128

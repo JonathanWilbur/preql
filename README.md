@@ -71,7 +71,8 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
 - [ ] Check for uniqueness across case as well!
 - [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
-- [ ] `get-indexed-columns` (Displays a map of `attributes` to `boolean`s indicating whether they have been indexed.)
+- [x] `get-indexed-columns` Serverless function
+- [ ] Rename `keyColumns` and `includedColumns`
 
 ## After 1.0.0
 

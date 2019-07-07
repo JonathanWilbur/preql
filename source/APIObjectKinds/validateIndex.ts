@@ -36,9 +36,9 @@ async function validateIndex(apiObject: APIObject, etcd: APIObjectDatabase): Pro
       + 'to index.',
     );
   }
-  // Check that the columns are real
+  // Check that the attributes are real
   // eslint-disable-next-line
-  apiObject.spec.keyColumns.forEach((kc: any): void => {
+  apiObject.spec.keyAttributes.forEach((kc: any): void => {
     const attributeFound: boolean = attributes.some((attr): boolean => attr.spec.name === kc.name);
     if (!attributeFound) {
       throw new Error(`No Attribute named '${kc.name}' for ${apiObject.kind} '${apiObject.metadata.name}' to index.`);

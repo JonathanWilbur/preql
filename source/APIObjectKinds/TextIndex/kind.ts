@@ -43,9 +43,9 @@ const kind: APIObjectKind = {
         `No Attributes found for ${apiObject.kind} '${apiObject.metadata.name}' to index.`,
       );
     }
-    // Check that the columns are real and of string-ish type
+    // Check that the attributes are real and of string-ish type
     // eslint-disable-next-line
-    apiObject.spec.keyColumns.forEach((kc: any): void => {
+    apiObject.spec.keyAttributes.forEach((kc: any): void => {
       const attribute: APIObject<AttributeSpec> | undefined = attributes
         .find((attr): boolean => attr.spec.name === kc.name);
       if (!attribute) {

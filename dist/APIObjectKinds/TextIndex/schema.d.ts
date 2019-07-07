@@ -25,7 +25,7 @@ declare const schema: {
             type: string;
             default: boolean;
         };
-        keyColumns: {
+        keyAttributes: {
             type: string;
             items: {
                 type: string;
@@ -42,7 +42,7 @@ declare const schema: {
                 required: string[];
             };
         };
-        includedColumns: {
+        includedAttributes: {
             type: string;
             items: {
                 type: string;

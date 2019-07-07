@@ -35,7 +35,7 @@ const schema = {
         },
         // eslint-disable-next-line
         // See: https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-indexes-with-included-columns?view=sql-server-2017
-        keyColumns: {
+        keyAttributes: {
             type: 'array',
             items: {
                 type: 'object',
@@ -54,7 +54,7 @@ const schema = {
                 ],
             },
         },
-        includedColumns: {
+        includedAttributes: {
             type: 'array',
             items: {
                 type: 'object',
@@ -75,7 +75,10 @@ const schema = {
         },
     },
     required: [
-        'keyColumns',
+        'name',
+        'structName',
+        'databaseName',
+        'keyAttributes',
     ],
 };
 exports.default = schema;

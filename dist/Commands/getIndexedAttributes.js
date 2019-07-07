@@ -16,7 +16,7 @@ async function getIndexedAttributes(namespace) {
         result.attributes[path] = false;
     });
     indexes.forEach((index) => {
-        index.spec.keyColumns.forEach(kc => {
+        index.spec.keyAttributes.forEach(kc => {
             const path = `${index.spec.databaseName.toLowerCase()}.`
                 + `${index.spec.structName.toLowerCase()}.`
                 + `${kc.name.toLowerCase()}`;

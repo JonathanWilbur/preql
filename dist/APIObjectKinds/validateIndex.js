@@ -25,7 +25,7 @@ async function validateIndex(apiObject, etcd) {
     }
     // Check that the columns are real
     // eslint-disable-next-line
-    apiObject.spec.keyColumns.forEach((kc) => {
+    apiObject.spec.keyAttributes.forEach((kc) => {
         const attributeFound = attributes.some((attr) => attr.spec.name === kc.name);
         if (!attributeFound) {
             throw new Error(`No Attribute named '${kc.name}' for ${apiObject.kind} '${apiObject.metadata.name}' to index.`);

@@ -135,7 +135,7 @@ objects:
       name: important
       structName: person
       databaseName: floofy
-      keyColumns:
+      keyAttributes:
       - name: firstName
         ascending: True
       - name: lastName

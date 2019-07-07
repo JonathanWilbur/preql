@@ -25,7 +25,7 @@ getIndexedAttributes(namespace: APIObjectDatabase) {
     result.attributes[path] = false;
   });
   indexes.forEach((index: APIObject<IndexSpec>): void => {
-    index.spec.keyColumns.forEach(kc => {
+    index.spec.keyAttributes.forEach(kc => {
       const path: string = `${index.spec.databaseName.toLowerCase()}.`
       + `${index.spec.structName.toLowerCase()}.`
       + `${kc.name.toLowerCase()}`;

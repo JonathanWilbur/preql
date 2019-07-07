@@ -4,11 +4,11 @@ export default interface Spec {
     entityName?: string;
     databaseName: string;
     clustered: boolean;
-    keyColumns: {
+    keyAttributes: {
         name: string;
         ascending: boolean;
     }[];
-    includedColumns?: {
+    includedAttributes?: {
         name: string;
         ascending: boolean;
     }[];

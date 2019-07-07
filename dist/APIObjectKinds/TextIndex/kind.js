@@ -29,7 +29,7 @@ const kind = {
         }
         // Check that the columns are real and of string-ish type
         // eslint-disable-next-line
-        apiObject.spec.keyColumns.forEach((kc) => {
+        apiObject.spec.keyAttributes.forEach((kc) => {
             const attribute = attributes
                 .find((attr) => attr.spec.name === kc.name);
             if (!attribute) {

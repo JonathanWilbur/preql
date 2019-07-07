@@ -72,7 +72,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Check for uniqueness across case as well!
 - [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
 - [x] `get-indexed-columns` Serverless function
-- [ ] Rename `keyColumns` and `includedColumns`
+- [x] Rename `keyColumns` and `includedColumns` to `keyAttributes` and `includedAttributes`
 
 ## After 1.0.0
 

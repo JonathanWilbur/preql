@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
+const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -14,19 +14,19 @@ const schema = {
     properties: {
         name: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         structName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         entityName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         databaseName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         default: {
             type: [
@@ -40,7 +40,7 @@ const schema = {
         },
         type: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         length: {
             type: 'integer',
@@ -56,11 +56,11 @@ const schema = {
         },
         characterSet: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         collation: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         objectIdentifier: {
             type: 'string',

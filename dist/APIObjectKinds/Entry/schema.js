@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
+const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     $async: true,
@@ -13,11 +13,11 @@ const schema = {
     properties: {
         databaseName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         structName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         distinguishedName: {
             type: 'string',
@@ -27,7 +27,7 @@ const schema = {
         values: {
             type: 'object',
             propertyNames: {
-                pattern: identifierRegex_1.default,
+                pattern: identifierRegexString_1.default,
             },
             additionalProperties: {
                 type: [

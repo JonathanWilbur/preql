@@ -17,7 +17,6 @@ export { default as CharacterSetSpec } from './APIObjectKinds/CharacterSet/spec'
 export { default as CollationSpec } from './APIObjectKinds/Collation/spec';
 
 // Commands
-export { default as getKinds } from './Commands/getKinds';
 export { default as getEntries } from './Commands/getEntries';
 export { default as getServerURI } from './Commands/getServerURI';
 export { default as getTree } from './Commands/getTree';

@@ -1,7 +1,8 @@
+import ajvOptions from './ajvOptions';
+
 import Ajv = require('ajv');
-const ajv: Ajv.Ajv = new Ajv({
-  useDefaults: true,
-});
+
+const ajv: Ajv.Ajv = new Ajv(ajvOptions);
 ajv.addKeyword('unicodePattern', {
   // eslint-disable-next-line
   validate: (schema: any, data: any): boolean => (

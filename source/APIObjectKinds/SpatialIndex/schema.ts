@@ -1,4 +1,4 @@
-import identifierRegexString from '../../identifierRegex';
+import identifierRegexString from '../../identifierRegexString';
 
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',

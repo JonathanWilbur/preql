@@ -1,4 +1,4 @@
-import identifierRegexString from '../../identifierRegex';
+import identifierRegexString from '../../identifierRegexString';
 import iso3166CountryCodes from '../../iso3166CountryCodes';
 import iso639LanguageCodes from '../../iso639LanguageCodes';
 

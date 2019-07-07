@@ -1,4 +1,4 @@
-import identifierRegexString from '../identifierRegex';
+import identifierRegexString from '../identifierRegexString';
 import APIObjectMetadataSchema from './APIObjectMetadata';
 
 const APIObjectSchema = {

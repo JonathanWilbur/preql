@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
+const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const foreignKeyChangeAction = {
     type: 'string',
     enum: [
@@ -22,19 +22,19 @@ const schema = {
     properties: {
         databaseName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         parentStructName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         childStructName: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         name: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         nullable: {
             type: 'boolean',

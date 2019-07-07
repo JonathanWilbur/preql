@@ -1,4 +1,4 @@
-import identifierRegexString from '../../identifierRegex';
+import identifierRegexString from '../../identifierRegexString';
 
 const foreignKeyChangeAction = {
   type: 'string',

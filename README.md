@@ -93,7 +93,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Fix issue with Preamble and Postamble
 - [x] Database.maximumSizeInBytes
 - [x] Entry.distinguishedName
-- [ ] Command: getSupportedTimezones
+- [x] Condense `get*` commands into `getEnums()`.
 
 ## After 1.0.0
 

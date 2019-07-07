@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const identifierRegex_1 = __importDefault(require("../../identifierRegex"));
+const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const iso3166CountryCodes_1 = __importDefault(require("../../iso3166CountryCodes"));
 const iso639LanguageCodes_1 = __importDefault(require("../../iso639LanguageCodes"));
 /**
@@ -20,7 +20,7 @@ const schema = {
     properties: {
         name: {
             type: 'string',
-            pattern: identifierRegex_1.default,
+            pattern: identifierRegexString_1.default,
         },
         targetEquivalents: {
             type: 'object',

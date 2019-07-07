@@ -15,6 +15,11 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
+    distinguishedName: {
+      type: 'string',
+      // TODO: Obviously, more validation is needed than this.
+      unicodePattern: '^[^#].*=.+',
+    },
     values: {
       type: 'object',
       propertyNames: {

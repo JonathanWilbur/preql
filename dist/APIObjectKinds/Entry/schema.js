@@ -19,6 +19,10 @@ const schema = {
             type: 'string',
             pattern: identifierRegex_1.default,
         },
+        distinguishedName: {
+            type: 'string',
+            unicodePattern: '^[^#].*=.+',
+        },
         values: {
             type: 'object',
             propertyNames: {

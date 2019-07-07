@@ -165,6 +165,7 @@ objects:
     spec:
       databaseName: floofy
       structName: person
+      distinguishedName: 'lastName=Wilbur,dc=wilbur,dc=space'
       values:
         firstName: Jonathan
         lastName: Wilbur

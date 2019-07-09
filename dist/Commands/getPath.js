@@ -1,21 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 async function getPath(obj) {
-    let path;
     if (!obj || !obj.spec || typeof obj.spec !== 'object')
         return undefined;
-    if ('databaseName' in obj.spec && typeof obj.spec.databaseName === 'string') {
-        path = obj.spec.databaseName;
-    }
-    else {
+    if (!('name' in obj.spec) || typeof obj.spec.name !== 'string')
         return undefined;
-    }
+    if (!('databaseName' in obj.spec) || typeof obj.spec.databaseName !== 'string')
+        return undefined;
+    let path = obj.spec.databaseName.toLowerCase();
     if ('structName' in obj.spec && typeof obj.spec.structName === 'string') {
-        path += `.${obj.spec.structName}`;
+        path += `.${obj.spec.structName.toLowerCase()}`;
     }
-    if ('name' in obj.spec && typeof obj.spec.name === 'string') {
-        path += `.${obj.spec.name}`;
-    }
+    path += `.${obj.spec.name.toLowerCase()}`;
     return path;
 }
 exports.default = getPath;

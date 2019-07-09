@@ -1,14 +1,14 @@
 {
   "author": "Jonathan M. Wilbur <jonathan@wilbur.space>",
   "dependencies": {
-    "ajv": "^6.10.0",
+    "ajv": "^6.10.1",
     "js-yaml": "^3.13.1",
     "semver": "^6.2.0"
   },
   "description": "The core PreQL library.",
   "devDependencies": {
     "@types/ajv": "^1.0.0",
-    "@types/aws-lambda": "^8.10.27",
+    "@types/aws-lambda": "^8.10.28",
     "@types/js-yaml": "^3.12.1",
     "@types/semver": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
@@ -17,7 +17,7 @@
     "eslint-config-airbnb-typescript": "^4.0.0",
     "eslint-plugin-import": "^2.18.0",
     "serverless": "^1.46.1",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "directories": {
     "test": "test"
@@ -37,5 +37,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "types": "./dist/index.d.ts",
-  "version": "1.0.0-delta-rc1"
+  "version": "1.0.0-epsilon"
 }

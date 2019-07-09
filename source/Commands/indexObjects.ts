@@ -1,6 +1,7 @@
 import APIObject from '../Interfaces/APIObject';
 import APIObjectDatabase from '../Interfaces/APIObjectDatabase';
 import PreqlError from '../PreqlError';
+import getPath from './getPath';
 // NOTE: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 
 export default
@@ -13,6 +14,7 @@ async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObj
         namespace: apiObject.metadata.namespace || 'default',
         kindIndex: {},
         kindNameIndex: {},
+        pathIndex: {},
       };
     }
     const namespace: APIObjectDatabase = namespaces[namespaceName];
@@ -31,6 +33,21 @@ async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObj
         `Duplicated name: two objects in namespace '${namespaceName}' of kind `
         + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`,
       );
+    }
+
+    const path: string | undefined = await getPath(apiObject);
+    if (path) {
+      if (path in namespace.pathIndex) {
+        const first: APIObject = namespace.pathIndex[path];
+        throw new PreqlError(
+          'c1e2a6ae-119e-47f8-842f-a247f34f75d8',
+          `Conflicting path between ${apiObject.kind} '${apiObject.metadata.name}' `
+          + `and ${first.kind} '${first.metadata.name}'. Both have a path of `
+          + `'${path}'.`,
+        );
+      } else {
+        namespace.pathIndex[path] = apiObject;
+      }
     }
 
     return Promise.resolve();

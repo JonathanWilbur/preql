@@ -9,6 +9,21 @@ checks shall be performed against the `.spec.name`s of the objects in question,
 and not the `.metadata.name`. The `.metadata.name` shall be used everywhere
 else.
 
+Also, `.spec.name` must be unique when combined with names of parent objects,
+such as a `Database` or `Struct` to form a "path." A "path" is a dot-delimited
+identifier for an object in a database. Most SQL databases use a path starting
+with the database name, then the table name, then the column name, for
+instance. See `./source/Commands/getPath.ts`. `Attribute` `c` in `Struct` `b`
+in `Database` `a` would have a path of `a.b.c`. Again, this must be unique
+across all objects and character casing. This is done for portability. (It
+is a small price to pay for knowing that path collisions will _never_ be a
+problem in any target language.)
+
+In all cases where uniqueness is a requirement, character casing will be
+ignored, meaning that two identifiers that differ only in casing will not
+be permitted. For insance, an object with a `.metadata.name` of `chimmy`
+will collide with another object with a `.metadata.name` of `Chimmy`.
+
 In summary, `.spec.name`:
 
 - Is used for:

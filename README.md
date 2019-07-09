@@ -65,9 +65,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 
 ## Prior to 1.0.0
 
-- [ ] New `APIObjectDatabase` Indexes?
-  - [ ] specNameIndex
-  - [ ] pathIndex (`fully.qualified.path`) (This must be unique.)
+- [x] pathIndex (`fully.qualified.path`) (This must be unique.)
 - [x] Check for uniqueness across case as well!
 - [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
 - [x] `get-indexed-columns` Serverless function

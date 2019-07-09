@@ -23,7 +23,7 @@ async function validateIndex(apiObject, etcd) {
         throw new PreqlError_1.default('fbee0ffc-6969-4548-bd8d-72a5c189e0e6', `No Attributes found for ${apiObject.kind} '${apiObject.metadata.name}' `
             + 'to index.');
     }
-    // Check that the columns are real
+    // Check that the attributes are real
     // eslint-disable-next-line
     apiObject.spec.keyAttributes.forEach((kc) => {
         const attributeFound = attributes.some((attr) => attr.spec.name === kc.name);

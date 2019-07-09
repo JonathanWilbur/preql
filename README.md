@@ -67,9 +67,8 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 
 - [ ] New `APIObjectDatabase` Indexes?
   - [ ] specNameIndex
-  - [ ] kindAndPathIndex (`kind:fully.qualified.path`) (This must be unique.)
-- [ ] Should `DataType` use `.spec.name` instead of `.metadata.name`?
-- [ ] Check for uniqueness across case as well!
+  - [ ] pathIndex (`fully.qualified.path`) (This must be unique.)
+- [x] Check for uniqueness across case as well!
 - [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
 - [x] `get-indexed-columns` Serverless function
 - [x] Rename `keyColumns` and `includedColumns` to `keyAttributes` and `includedAttributes`

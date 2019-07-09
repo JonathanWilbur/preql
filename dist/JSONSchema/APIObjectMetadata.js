@@ -11,7 +11,6 @@ const APIObjectMetadataSchema = {
         annotations: {
             type: 'object',
             propertyNames: {
-                // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
                 // https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
                 unicodePattern: '^(?:(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?/))?[a-z0-9A-Z](?:[a-z0-9A-Z-_\\.]*[a-z0-9A-Z])?$',
                 minLength: 1,
@@ -25,7 +24,6 @@ const APIObjectMetadataSchema = {
         labels: {
             type: 'object',
             propertyNames: {
-                // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
                 // https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
                 unicodePattern: '^(?:(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?/))?[a-z0-9A-Z](?:[a-z0-9A-Z-_\\.]*[a-z0-9A-Z])?$',
                 minLength: 1,
@@ -38,7 +36,6 @@ const APIObjectMetadataSchema = {
         },
         name: {
             type: 'string',
-            // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
             // https://kubernetes.io/docs/concepts/overview/working-with-objects/names/
             unicodePattern: '^(\\p{L}|\\p{N}|\\.|-){1,253}$',
             minLength: 1,
@@ -47,7 +44,6 @@ const APIObjectMetadataSchema = {
         namespace: {
             type: 'string',
             default: 'default',
-            // Commented out because of https://github.com/epoberezkin/ajv/issues/1026
             // https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
             unicodePattern: '^(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-)*(\\p{L}|\\p{N}))?$',
             minLength: 1,

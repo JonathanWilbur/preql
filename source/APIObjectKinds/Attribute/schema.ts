@@ -66,6 +66,27 @@ const schema = {
       type: 'array',
       items: {
         type: 'string',
+        pattern: identifierRegexString,
+      },
+    },
+    matchingRules: {
+      type: 'array',
+      items: {
+        type: 'string',
+        pattern: objectIdentifierRegexString,
+      },
+    },
+    orderingRules: {
+      type: 'array',
+      items: {
+        type: 'string',
+        pattern: objectIdentifierRegexString,
+      },
+    },
+    substringRules: {
+      type: 'array',
+      items: {
+        type: 'string',
         pattern: objectIdentifierRegexString,
       },
     },

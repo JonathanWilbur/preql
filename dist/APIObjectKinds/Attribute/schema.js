@@ -70,6 +70,27 @@ const schema = {
             type: 'array',
             items: {
                 type: 'string',
+                pattern: identifierRegexString_1.default,
+            },
+        },
+        matchingRules: {
+            type: 'array',
+            items: {
+                type: 'string',
+                pattern: objectIdentifierRegexString_1.default,
+            },
+        },
+        orderingRules: {
+            type: 'array',
+            items: {
+                type: 'string',
+                pattern: objectIdentifierRegexString_1.default,
+            },
+        },
+        substringRules: {
+            type: 'array',
+            items: {
+                type: 'string',
                 pattern: objectIdentifierRegexString_1.default,
             },
         },

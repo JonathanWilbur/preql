@@ -12,5 +12,8 @@ interface Attribute {
   characterSet?: string;
   collation?: string;
   objectIdentifier?: string;
+  matchingRules?: string[];
+  orderingRules?: string[];
+  substringRules?: string[];
   otherNames?: string[];
 };

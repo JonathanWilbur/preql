@@ -59,6 +59,27 @@ declare const schema: {
                 pattern: string;
             };
         };
+        matchingRules: {
+            type: string;
+            items: {
+                type: string;
+                pattern: string;
+            };
+        };
+        orderingRules: {
+            type: string;
+            items: {
+                type: string;
+                pattern: string;
+            };
+        };
+        substringRules: {
+            type: string;
+            items: {
+                type: string;
+                pattern: string;
+            };
+        };
     };
     required: string[];
 };

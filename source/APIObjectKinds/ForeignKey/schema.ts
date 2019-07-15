@@ -1,4 +1,5 @@
 import identifierRegexString from '../../identifierRegexString';
+import objectIdentifierRegexString from '../../objectIdentifierRegexString';
 
 const foreignKeyChangeAction = {
   type: 'string',
@@ -39,6 +40,17 @@ const schema = {
     },
     onDeleteAction: foreignKeyChangeAction,
     onUpdateAction: foreignKeyChangeAction,
+    objectIdentifier: {
+      type: 'string',
+      pattern: objectIdentifierRegexString,
+    },
+    otherNames: {
+      type: 'array',
+      items: {
+        type: 'string',
+        pattern: identifierRegexString,
+      },
+    },
   },
   required: [
     'databaseName',

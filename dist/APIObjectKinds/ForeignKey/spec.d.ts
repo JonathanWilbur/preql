@@ -6,4 +6,6 @@ export default interface Spec {
     nullable: string;
     onDeleteAction: string;
     onUpdateAction: string;
+    objectIdentifier?: string;
+    otherNames?: string[];
 }

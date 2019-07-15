@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
+const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
 const foreignKeyChangeAction = {
     type: 'string',
     enum: [
@@ -42,6 +43,17 @@ const schema = {
         },
         onDeleteAction: foreignKeyChangeAction,
         onUpdateAction: foreignKeyChangeAction,
+        objectIdentifier: {
+            type: 'string',
+            pattern: objectIdentifierRegexString_1.default,
+        },
+        otherNames: {
+            type: 'array',
+            items: {
+                type: 'string',
+                pattern: identifierRegexString_1.default,
+            },
+        },
     },
     required: [
         'databaseName',

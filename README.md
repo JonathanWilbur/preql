@@ -70,6 +70,10 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
 - [x] `get-indexed-columns` Serverless function
 - [x] Rename `keyColumns` and `includedColumns` to `keyAttributes` and `includedAttributes`
+- [ ] Add `minLength` and `maxLength` for strings?
+- [ ] Check for non-collision among `Attribute` and `ForeignKey`
+- [ ] Check for non-collision among index types.
+- [ ] Add `Enum` type?
 
 ## After 1.0.0
 

@@ -3,7 +3,7 @@ export default interface Spec {
     parentStructName: string;
     childStructName: string;
     name: string;
-    nullable: string;
+    nullable: boolean;
     onDeleteAction: string;
     onUpdateAction: string;
     objectIdentifier?: string;

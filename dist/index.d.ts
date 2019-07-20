@@ -26,8 +26,6 @@ export { default as APIObjectDatabase } from './Interfaces/APIObjectDatabase';
 export { default as APIObjectMetadata } from './Interfaces/APIObjectMetadata';
 export { default as Logger } from './Interfaces/Logger';
 export { default as NullLogger } from './NullLogger';
-export { default as SuggestedTargetIndexHandler } from './SuggestedTargetIndexHandler';
-export { default as SuggestedTargetObjectHandler } from './SuggestedTargetObjectHandler';
 export { default as printf } from './APIObjectKinds/DataType/printf';
 export { default as transpileDataType } from './APIObjectKinds/DataType/transpile';
 export { default as PREQL_VERSION } from './version';

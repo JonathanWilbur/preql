@@ -38,19 +38,6 @@ import the PreQL core library. The command-line interface will import both. The
 command-line interface will call exported functionality from the target-specific
 libraries to translate PreQL objects to the targeted language.
 
-These target libraries _should_:
-
-- Use `./source/SuggestedTargetObjectHandler.ts` for transpiling individual objects.
-- Use `./source/SuggestedTargetIndexHandler.ts` for transpiling the entire database.
-  - This should make calls to all of the object-transpiling functions.
-- All of the object-transpiling functions should be exposed as Serverless functions.
-- Use the `./source/Interfaces/Logger.ts` interface for logging. (`console` already satisfies it.)
-  - `./source/NullLogger.ts` may be used as a default for `Logger` parameters.
-- Never modify `Attribute` or `Struct` names unless absolutely necessary.
-  - This means no converting `CamelCase` into `snake_case` and vice versa, for instance.
-
-The above will be _required_ for inclusion in the official CLI. (Except using `NullLogger`.)
-
 The command-line interface will always pass a console-logging object that
 implements the `Logger` interface--and this might just be a plain old `console`.
 
@@ -71,9 +58,9 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] `get-indexed-columns` Serverless function
 - [x] Rename `keyColumns` and `includedColumns` to `keyAttributes` and `includedAttributes`
 - [ ] Add `minLength` and `maxLength` for strings?
-- [ ] Check for non-collision among `Attribute` and `ForeignKey`
+- [x] Check for non-collision among `Attribute` and `ForeignKey`
 - [ ] Check for non-collision among index types.
-- [ ] Add `Enum` type?
+- [x] Add `Enum` type?
 
 ## After 1.0.0
 

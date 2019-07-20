@@ -15,7 +15,8 @@ import Logger from './Interfaces/Logger';
  * @param {APIObjectDatabase} obj The object database to be transpiled.
  * @param {Logger} logger Something that can log.
  */
-type SuggestedTargetIndexHandler<T = string | object> = (etcd: APIObjectDatabase, logger?: Logger) => Promise<T>;
+type SuggestedTargetIndexHandler<T extends (string | object) = string> =
+    (etcd: APIObjectDatabase, logger?: Logger) => Promise<T>;
 
 // eslint-disable-next-line no-undef
 export default SuggestedTargetIndexHandler;

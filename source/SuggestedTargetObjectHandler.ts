@@ -17,7 +17,7 @@ import Logger from './Interfaces/Logger';
  * @param {Logger} logger Something that can log.
  * @param {APIObjectDatabase} etcd An optional object database, typically for looking up other objects.
  */
-type SuggestedTargetObjectHandler<T = string | object> = (
+type SuggestedTargetObjectHandler<T extends (string | object) = string> = (
   obj: APIObject,
   logger?: Logger,
   etcd?: APIObjectDatabase,

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const printf_1 = __importDefault(require("./printf"));
-const transpile = (target, dataType, attribute) => {
+function transpileDataType(target, dataType, attribute) {
     if (!(target in dataType.spec.targets)) {
         throw new Error(`Data type '${dataType.metadata.name}' cannot be transpiled for target '${target}'.`);
     }
@@ -33,5 +33,6 @@ const transpile = (target, dataType, attribute) => {
     // This should also be checked in semantic validation.
     throw new Error(`Data type '${dataType.metadata.name}' has neither a 'return' property `
         + "nor a 'returnBasedOnLength' property. It must have one to transpile.");
-};
-exports.default = transpile;
+}
+exports.default = transpileDataType;
+;

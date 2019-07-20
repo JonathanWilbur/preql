@@ -1,15 +1,17 @@
 import APIObject from '../../Interfaces/APIObject';
 import AttributeSpec from '../Attribute/spec';
+import EnumSpec from '../Enum/spec';
 
 export default
-function printf(template: string, attribute: APIObject<AttributeSpec>): string {
+function printf(template: string, attribute: APIObject<AttributeSpec | EnumSpec>): string {
   const lengthBits: number = (attribute.spec.length || 0); // %l
   const lengthBytes: number = Math.ceil((attribute.spec.length || 0) / 8); // %L
   const maximumBytes: number = (2 ** lengthBits); // %B
   const maximumBits: number = (maximumBytes * 8); // %b
   // const name: string = attribute.spec.name; // %a or %n
-  const struct: string = attribute.spec.structName; // %s
-  const entity: string = attribute.spec.entityName || ''; // %e
+  const struct: string = 'structName' in attribute.spec ? attribute.spec.structName : ''; // %s
+  const entity: string = ('entityName' in attribute.spec && attribute.spec.entityName)
+    ? attribute.spec.entityName : ''; // %e
   const database: string = attribute.spec.databaseName; // %D
   return template
     .replace(/%l/g, lengthBits.toString())

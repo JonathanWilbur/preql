@@ -1,9 +1,11 @@
 import APIObject from '../../Interfaces/APIObject';
 import Spec from './spec';
 import AttributeSpec from '../Attribute/spec';
+import EnumSpec from '../Enum/spec';
 import printf from './printf';
 
-const transpile = (target: string, dataType: APIObject<Spec>, attribute: APIObject<AttributeSpec>): string => {
+export default function
+transpileDataType(target: string, dataType: APIObject<Spec>, attribute: APIObject<AttributeSpec | EnumSpec>): string {
   if (!(target in dataType.spec.targets)) {
     throw new Error(`Data type '${dataType.metadata.name}' cannot be transpiled for target '${target}'.`);
   }
@@ -34,5 +36,3 @@ const transpile = (target: string, dataType: APIObject<Spec>, attribute: APIObje
     + "nor a 'returnBasedOnLength' property. It must have one to transpile.",
   );
 };
-
-export default transpile;

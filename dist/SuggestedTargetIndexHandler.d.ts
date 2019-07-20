@@ -14,5 +14,5 @@ import Logger from './Interfaces/Logger';
  * @param {APIObjectDatabase} obj The object database to be transpiled.
  * @param {Logger} logger Something that can log.
  */
-declare type SuggestedTargetIndexHandler = (etcd: APIObjectDatabase, logger?: Logger) => Promise<string | object>;
+declare type SuggestedTargetIndexHandler<T = string | object> = (etcd: APIObjectDatabase, logger?: Logger) => Promise<T>;
 export default SuggestedTargetIndexHandler;

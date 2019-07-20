@@ -16,5 +16,5 @@ import Logger from './Interfaces/Logger';
  * @param {Logger} logger Something that can log.
  * @param {APIObjectDatabase} etcd An optional object database, typically for looking up other objects.
  */
-declare type SuggestedTargetObjectHandler = (obj: APIObject, logger?: Logger, etcd?: APIObjectDatabase) => Promise<string | object>;
+declare type SuggestedTargetObjectHandler<T = string | object> = (obj: APIObject, logger?: Logger, etcd?: APIObjectDatabase) => Promise<T>;
 export default SuggestedTargetObjectHandler;

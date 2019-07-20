@@ -45,6 +45,7 @@ interface Spec {
   lengthUnits?: string;
   minimum?: number;
   maximum?: number;
+  enum?: string;
   regexes?: {
     [ regexType: string ]: {
       [ groupName: string ]: {

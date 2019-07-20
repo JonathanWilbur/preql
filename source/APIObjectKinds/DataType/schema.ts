@@ -1,4 +1,5 @@
 import objectIdentifierRegexString from '../../objectIdentifierRegexString';
+import identifierRegexString from '../../identifierRegexString';
 
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
@@ -17,6 +18,10 @@ const schema = {
         'array',
         // 'object',
       ],
+    },
+    enum: {
+      type: 'string',
+      pattern: identifierRegexString,
     },
     syntaxObjectIdentifiers: {
       type: 'array',

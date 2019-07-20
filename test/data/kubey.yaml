@@ -144,7 +144,7 @@ objects:
     metadata:
       name: owner
     spec:
-      name: ownerLastName
+      name: owner
       databaseName: floofy
       parentStructName: person
       childStructName: pet
@@ -168,3 +168,18 @@ objects:
       name: yeet
     spec:
       uncommentedText: 'Dang it bobby'
+  - apiVersion: preql/1.0.0
+    kind: Enum
+    metadata:
+      name: pixelColor
+    spec:
+      name: pixelColor
+      databaseName: floofy
+      type: varchar
+      length: 1
+      values:
+        - value: 'R'
+        - value: 'G'
+        - value: 'B'
+        # - value: 'G'
+        #   index: 15

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
+const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     $async: true,
@@ -20,6 +21,10 @@ const schema = {
                 'string',
                 'array',
             ],
+        },
+        enum: {
+            type: 'string',
+            pattern: identifierRegexString_1.default,
         },
         syntaxObjectIdentifiers: {
             type: 'array',

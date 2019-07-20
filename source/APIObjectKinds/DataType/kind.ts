@@ -1,15 +1,51 @@
 import APIObject from '../../Interfaces/APIObject';
 import APIObjectKind from '../../Interfaces/APIObjectKind';
+import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
 import PreqlError from '../../PreqlError';
 import ajv from '../../ajv';
+import matchingResource from '../matchingResource';
 
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
-  validateSemantics: async (apiObject: APIObject<Spec>): Promise<void> => {
+  validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
+    if (apiObject.spec.enum) {
+      if (!matchingResource(apiObject.spec.enum, 'enum', etcd)) {
+        throw new PreqlError(
+          'd334114a-aa1c-4584-848c-3dca05169c16',
+          `No Enums found that are named '${apiObject.spec.enum}' for DataType `
+          + `'${apiObject.metadata.name}' to use.`,
+        );
+      }
+
+      if (apiObject.spec.jsonEquivalent === 'string') {
+        throw new PreqlError(
+          '1528258b-27b1-4e5d-bfff-2486e09fd1b3',
+          `DataType '${apiObject.metadata.name}' may not have an 'enum' field `
+          + 'because it is not fundamentally string-like.',
+        );
+      }
+
+      if (apiObject.spec.regexes) {
+        throw new PreqlError(
+          '34e7586b-a5ec-4883-884a-ad19080b7345',
+          `DataType '${apiObject.metadata.name}' may not have an 'enum' and `
+          + "'regexes' field at the same time.",
+        );
+      }
+
+      if (apiObject.spec.setters) {
+        throw new PreqlError(
+          '1d75f6ca-7c97-476e-8b23-bf30099c01bd',
+          `DataType '${apiObject.metadata.name}' may not have an 'enum' and `
+          + "'setters' field at the same time.",
+        );
+      }
+    }
+
     if (apiObject.spec.regexes && apiObject.spec.jsonEquivalent.toLowerCase() !== 'string') {
       throw new PreqlError(
         '2abf0f1e-601e-4051-9b66-b6280564093f',

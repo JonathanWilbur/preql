@@ -12,6 +12,10 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
+    pluralName: {
+      type: 'string',
+      pattern: identifierRegexString,
+    },
     structName: {
       type: 'string',
       pattern: identifierRegexString,

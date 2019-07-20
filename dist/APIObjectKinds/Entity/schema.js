@@ -15,6 +15,10 @@ const schema = {
             type: 'string',
             pattern: identifierRegexString_1.default,
         },
+        pluralName: {
+            type: 'string',
+            pattern: identifierRegexString_1.default,
+        },
         databaseName: {
             type: 'string',
             pattern: identifierRegexString_1.default,

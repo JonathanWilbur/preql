@@ -1,6 +1,7 @@
 export default
 interface Attribute {
   name: string;
+  pluralName?: string;
   structName: string;
   entityName?: string;
   databaseName: string;

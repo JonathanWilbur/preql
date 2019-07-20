@@ -9,6 +9,10 @@ declare const schema: {
             type: string;
             pattern: string;
         };
+        pluralName: {
+            type: string;
+            pattern: string;
+        };
         entityName: {
             type: string;
             pattern: string;

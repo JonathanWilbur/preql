@@ -140,22 +140,15 @@ objects:
         ascending: True
       - name: lastName
   - apiVersion: preql/1.0.0
-    kind: ForeignKeyConstraint
+    kind: ForeignKey
     metadata:
       name: owner
     spec:
-      name: fk_something
+      name: ownerLastName
       databaseName: floofy
-      child:
-        struct: pet
-        key:
-        - attributeName: ownerFirstName
-        - attributeName: ownerLastName
-      parent:
-        struct: person
-        key:
-        - attributeName: firstName
-        - attributeName: lastName
+      parentStructName: person
+      childStructName: pet
+      nullable: False
   - apiVersion: preql/1.0.0
     kind: Entry
     metadata:

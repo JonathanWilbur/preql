@@ -11,6 +11,9 @@ async function getPath(obj) {
     if ('structName' in obj.spec && typeof obj.spec.structName === 'string') {
         path += `.${obj.spec.structName.toLowerCase()}`;
     }
+    else if ('childStructName' in obj.spec && typeof obj.spec.childStructName === 'string') {
+        path += `.${obj.spec.childStructName.toLowerCase()}`;
+    }
     path += `.${obj.spec.name.toLowerCase()}`;
     return path;
 }

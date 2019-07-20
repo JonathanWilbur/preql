@@ -1,4 +1,5 @@
 import APIObject from './Interfaces/APIObject';
+import APIObjectDatabase from './Interfaces/APIObjectDatabase';
 import Logger from './Interfaces/Logger';
 /**
  * This is the official recommended function signature for transpiling an
@@ -9,6 +10,11 @@ import Logger from './Interfaces/Logger';
  * a relational database, and return an `object` when transpiling a
  * JSON-like schema (because objects can be trivially converted to JSON via
  * `JSON.stringify()`.)
+ *
+ * @async
+ * @param {APIObject} obj The object to be transpiled.
+ * @param {Logger} logger Something that can log.
+ * @param {APIObjectDatabase} etcd An optional object database, typically for looking up other objects.
  */
-declare type SuggestedTargetObjectHandler = (obj: APIObject, logger: Logger) => Promise<string | object>;
+declare type SuggestedTargetObjectHandler = (obj: APIObject, logger?: Logger, etcd?: APIObjectDatabase) => Promise<string | object>;
 export default SuggestedTargetObjectHandler;

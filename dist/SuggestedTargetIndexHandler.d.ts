@@ -9,6 +9,10 @@ import Logger from './Interfaces/Logger';
  * a relational database, and return an `object` when transpiling a
  * JSON-like schema (because objects can be trivially converted to JSON via
  * `JSON.stringify()`.)
+ *
+ * @async
+ * @param {APIObjectDatabase} obj The object database to be transpiled.
+ * @param {Logger} logger Something that can log.
  */
-declare type SuggestedTargetIndexHandler = (etcd: APIObjectDatabase, logger: Logger) => Promise<string | object>;
+declare type SuggestedTargetIndexHandler = (etcd: APIObjectDatabase, logger?: Logger) => Promise<string | object>;
 export default SuggestedTargetIndexHandler;

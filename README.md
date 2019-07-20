@@ -85,6 +85,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Bazel builds?
 - [ ] Use the `files` attribute in `package.json`
 - [ ] `package.json` tests
+- [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
 
 ## Possible Future Features
 

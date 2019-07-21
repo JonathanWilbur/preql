@@ -14,7 +14,6 @@ import EntryKind from './Entry/kind';
 import CharacterSetKind from './CharacterSet/kind';
 import CollationKind from './Collation/kind';
 import ForeignKeyKind from './ForeignKey/kind';
-import EnumKind from './Enum/kind';
 import APIObjectKind from '../Interfaces/APIObjectKind';
 
 const kinds: Record<string, APIObjectKind> = {
@@ -34,7 +33,6 @@ const kinds: Record<string, APIObjectKind> = {
   entry: EntryKind,
   characterset: CharacterSetKind,
   collation: CollationKind,
-  enum: EnumKind,
 };
 
 export default kinds;

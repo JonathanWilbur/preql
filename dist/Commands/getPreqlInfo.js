@@ -20,7 +20,7 @@ const identifierRegexString_1 = __importDefault(require("../identifierRegexStrin
 const version_1 = __importStar(require("../version"));
 const jsonTypes_1 = __importDefault(require("../APIObjectKinds/DataType/jsonTypes"));
 const Casing_1 = __importDefault(require("../APIObjectKinds/DataType/Casing"));
-const schema_1 = __importDefault(require("../APIObjectKinds/DataType/schema"));
+// import dataTypeSchema from '../APIObjectKinds/DataType/schema';
 const ajvOptions_1 = __importDefault(require("../ajvOptions"));
 function getPreqlInfo() {
     return {
@@ -37,7 +37,7 @@ function getPreqlInfo() {
         identifierRegexString: identifierRegexString_1.default,
         jsonTypes: Object.keys(jsonTypes_1.default),
         casings: Object.keys(Casing_1.default),
-        supportedSetters: schema_1.default.properties.setters.items.anyOf.map(s => s.properties.type.enum[0]),
+        // supportedSetters: dataTypeSchema.properties.setters.items.anyOf.map(s => s.properties.type.enum[0]),
         ajvOptions: ajvOptions_1.default,
     };
 }

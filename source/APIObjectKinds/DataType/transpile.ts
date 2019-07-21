@@ -1,11 +1,10 @@
 import APIObject from '../../Interfaces/APIObject';
 import Spec from './spec';
 import AttributeSpec from '../Attribute/spec';
-import EnumSpec from '../Enum/spec';
 import printf from './printf';
 
 export default function
-transpileDataType(target: string, dataType: APIObject<Spec>, attribute: APIObject<AttributeSpec | EnumSpec>): string {
+transpileDataType(target: string, dataType: APIObject<Spec>, attribute: APIObject<AttributeSpec>): string {
   if (!(target in dataType.spec.targets)) {
     throw new Error(`Data type '${dataType.metadata.name}' cannot be transpiled for target '${target}'.`);
   }

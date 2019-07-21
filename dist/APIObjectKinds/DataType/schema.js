@@ -5,50 +5,54 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
-const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
-    $async: true,
-    title: 'PreQL Data Type Specification Schema',
+const targetsMapSchema = {
     type: 'object',
-    additionalProperties: false,
-    properties: {
-        jsonEquivalent: {
-            type: 'string',
-            enum: [
-                'boolean',
-                'integer',
-                'number',
-                'string',
-                'array',
-            ],
-        },
-        enum: {
-            type: 'string',
-            pattern: identifierRegexString_1.default,
-        },
-        syntaxObjectIdentifiers: {
-            type: 'array',
-            description: 'These should be arranged in order of descending preference. An array '
-                + 'of object identifiers is used instead of a single object identifier '
-                + 'because it cannot be guaranteed that every LDAP directory will '
-                + 'support the same syntaxes. Allowing multiple "backup" object '
-                + 'identifiers makes it less likely that a suitable syntax will not be '
-                + 'found.',
-            items: {
+    additionalProperties: {
+        type: 'object',
+        properties: {
+            return: {
                 type: 'string',
-                pattern: objectIdentifierRegexString_1.default,
+            },
+            returnBasedOnLength: {
+                type: 'object',
+                propertyNames: {
+                    pattern: '^[1-9]\\d+$',
+                },
+                additionalProperties: {
+                    type: 'string',
+                },
             },
         },
-        lengthUnits: {
-            type: 'string',
-            description: 'A purely informational field.',
+    },
+};
+const booleanSchema = {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
+    title: 'PreQL String Data Type Specification Schema',
+    type: 'object',
+    additionalProperties: true,
+    properties: {
+        jsonEquivalent: {
+            const: 'boolean',
         },
-        minimum: {
-            type: 'number',
+        targets: targetsMapSchema,
+    },
+    required: [
+        'jsonEquivalent',
+        'targets',
+    ],
+};
+const stringSchema = {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
+    title: 'PreQL String Data Type Specification Schema',
+    type: 'object',
+    additionalProperties: true,
+    properties: {
+        jsonEquivalent: {
+            const: 'string',
         },
-        maximum: {
-            type: 'number',
-        },
+        targets: targetsMapSchema,
         regexes: {
             type: 'object',
             description: 'A map of regex kinds.',
@@ -219,30 +223,122 @@ const schema = {
                 ],
             },
         },
-        targets: {
-            type: 'object',
-            additionalProperties: {
-                type: 'object',
-                properties: {
-                    return: {
-                        type: 'string',
-                    },
-                    returnBasedOnLength: {
-                        type: 'object',
-                        propertyNames: {
-                            pattern: '^[1-9]\\d+$',
-                        },
-                        additionalProperties: {
-                            type: 'string',
-                        },
-                    },
+    },
+    required: [
+        'jsonEquivalent',
+        'targets',
+    ],
+};
+const numberSchema = {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
+    title: 'PreQL Number Data Type Specification Schema',
+    type: 'object',
+    additionalProperties: true,
+    properties: {
+        jsonEquivalent: {
+            oneOf: [
+                {
+                    const: 'number',
                 },
+                {
+                    const: 'integer',
+                },
+            ],
+        },
+        minimum: {
+            type: 'number',
+        },
+        maximum: {
+            type: 'number',
+        },
+        targets: targetsMapSchema,
+    },
+    required: [
+        'jsonEquivalent',
+        'targets',
+    ],
+};
+const enumSchema = {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
+    title: 'PreQL Enum Data Type Specification Schema',
+    type: 'object',
+    additionalProperties: true,
+    properties: {
+        jsonEquivalent: {
+            const: 'string',
+        },
+        name: {
+            type: 'string',
+            pattern: identifierRegexString_1.default,
+        },
+        values: {
+            type: 'array',
+            items: {
+                type: 'string',
+                minLength: 1,
+                maxLength: 32,
             },
         },
     },
     required: [
         'jsonEquivalent',
-        'targets',
+        'name',
+        'values',
+    ],
+};
+const schema = {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    $async: true,
+    title: 'PreQL Data Type Specification Schema',
+    allOf: [
+        {
+            type: 'object',
+            // additionalProperties: true,
+            properties: {
+                jsonEquivalent: {
+                    type: 'string',
+                    enum: [
+                        'boolean',
+                        'integer',
+                        'number',
+                        'string',
+                        'array',
+                    ],
+                },
+                syntaxObjectIdentifiers: {
+                    type: 'array',
+                    description: 'These should be arranged in order of descending preference. An array '
+                        + 'of object identifiers is used instead of a single object identifier '
+                        + 'because it cannot be guaranteed that every LDAP directory will '
+                        + 'support the same syntaxes. Allowing multiple "backup" object '
+                        + 'identifiers makes it less likely that a suitable syntax will not be '
+                        + 'found.',
+                    items: {
+                        type: 'string',
+                        pattern: objectIdentifierRegexString_1.default,
+                    },
+                },
+                lengthUnits: {
+                    type: 'string',
+                    description: 'A purely informational field.',
+                },
+            },
+        },
+        {
+            /**
+             * I don't think you can use oneOf here, because booleanSchema will match
+             * almost anything. I also think the ordering might matter. We want the
+             * stricter schema to be evaluated first.
+             */
+            anyOf: [
+                numberSchema,
+                enumSchema,
+                stringSchema,
+                booleanSchema,
+            ],
+        },
     ],
 };
 exports.default = schema;

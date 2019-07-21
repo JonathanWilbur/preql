@@ -1,9 +1,8 @@
 import APIObject from '../../Interfaces/APIObject';
 import AttributeSpec from '../Attribute/spec';
-import EnumSpec from '../Enum/spec';
 
 export default
-function printf(template: string, attribute: APIObject<AttributeSpec | EnumSpec>): string {
+function printf(template: string, attribute: APIObject<AttributeSpec>): string {
   const lengthBits: number = (attribute.spec.length || 0); // %l
   const lengthBytes: number = Math.ceil((attribute.spec.length || 0) / 8); // %L
   const maximumBytes: number = (2 ** lengthBits); // %B

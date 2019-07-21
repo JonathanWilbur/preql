@@ -37,6 +37,17 @@ objects:
           #   8: 'VARCHAR(8)'
           #   32: 'VARCHAR(32)'
   - apiVersion: preql/1.0.0
+    kind: DataType
+    metadata:
+      name: pixelColor
+    spec:
+      jsonEquivalent: string
+      name: pixelColor
+      values:
+        - 'R'
+        - 'G'
+        - 'B'
+  - apiVersion: preql/1.0.0
     kind: Database
     metadata:
       name: floofy
@@ -168,18 +179,3 @@ objects:
       name: yeet
     spec:
       uncommentedText: 'Dang it bobby'
-  - apiVersion: preql/1.0.0
-    kind: Enum
-    metadata:
-      name: pixelColor
-    spec:
-      name: pixelColor
-      databaseName: floofy
-      type: varchar
-      length: 1
-      values:
-        - value: 'R'
-        - value: 'G'
-        - value: 'B'
-        # - value: 'G'
-        #   index: 15

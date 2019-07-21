@@ -14,7 +14,6 @@ export { default as DataTypeSpec } from './APIObjectKinds/DataType/spec';
 export { default as EntrySpec } from './APIObjectKinds/Entry/spec';
 export { default as CharacterSetSpec } from './APIObjectKinds/CharacterSet/spec';
 export { default as CollationSpec } from './APIObjectKinds/Collation/spec';
-export { default as EnumSpec } from './APIObjectKinds/Enum/spec';
 export { default as getEntries } from './Commands/getEntries';
 export { default as getServerURI } from './Commands/getServerURI';
 export { default as getTree } from './Commands/getTree';

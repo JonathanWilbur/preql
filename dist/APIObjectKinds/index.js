@@ -19,7 +19,6 @@ const kind_13 = __importDefault(require("./Entry/kind"));
 const kind_14 = __importDefault(require("./CharacterSet/kind"));
 const kind_15 = __importDefault(require("./Collation/kind"));
 const kind_16 = __importDefault(require("./ForeignKey/kind"));
-const kind_17 = __importDefault(require("./Enum/kind"));
 const kinds = {
     database: kind_1.default,
     entity: kind_2.default,
@@ -37,6 +36,5 @@ const kinds = {
     entry: kind_13.default,
     characterset: kind_14.default,
     collation: kind_15.default,
-    enum: kind_17.default,
 };
 exports.default = kinds;

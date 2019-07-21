@@ -12,7 +12,6 @@ export default function getPreqlInfo(): {
     identifierRegexString: string;
     jsonTypes: string[];
     casings: string[];
-    supportedSetters: string[];
     ajvOptions: {
         useDefaults: boolean;
     };

@@ -31,13 +31,12 @@ declare type Pad = {
 declare type Now = {
     type: 'now';
 };
-export default interface Spec {
-    jsonEquivalent: JSONType;
-    syntaxObjectIdentifiers?: string[];
-    lengthUnits?: string;
+interface NumberSpec {
     minimum?: number;
     maximum?: number;
-    enum?: string;
+    targets: TargetMap;
+}
+interface StringSpec {
     regexes?: {
         [regexType: string]: {
             [groupName: string]: {
@@ -47,18 +46,34 @@ export default interface Spec {
         };
     };
     setters?: (Trim & Substring & Replace & Case & Pad & Now)[];
-    targets: {
-        [targetName: string]: {
-            return?: string;
-            returnBasedOnLength?: {
-                [length: number]: string;
-            };
-            objectIdentifier?: string;
-            ldapMatchingRule?: string;
-            ldapOrderingRule?: string;
-            ldapsubstringMatchingRule?: string;
-            sup?: string;
+    targets: TargetMap;
+}
+/**
+ * Enum length will be the length of the largest value.
+ * Type will typically be CHAR or NCHAR.
+ * Length will be limited to 32.
+ * Get rid of the Enum kind and just put it in DataType.
+ */
+interface EnumSpec {
+    name: string;
+    values: string[];
+}
+interface TargetMap {
+    [targetName: string]: {
+        return?: string;
+        returnBasedOnLength?: {
+            [length: number]: string;
         };
+        objectIdentifier?: string;
+        ldapMatchingRule?: string;
+        ldapOrderingRule?: string;
+        ldapsubstringMatchingRule?: string;
+        sup?: string;
     };
+}
+export default interface Spec extends NumberSpec, StringSpec, EnumSpec {
+    jsonEquivalent: JSONType;
+    syntaxObjectIdentifiers?: string[];
+    lengthUnits?: string;
 }
 export {};

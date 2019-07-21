@@ -1,27 +1,17 @@
 import APIObject from '../../Interfaces/APIObject';
 import APIObjectKind from '../../Interfaces/APIObjectKind';
-import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
 import PreqlError from '../../PreqlError';
 import ajv from '../../ajv';
-import matchingResource from '../matchingResource';
 
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
-  validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
-    if (apiObject.spec.enum) {
-      if (!matchingResource(apiObject.spec.enum, 'enum', etcd)) {
-        throw new PreqlError(
-          'd334114a-aa1c-4584-848c-3dca05169c16',
-          `No Enums found that are named '${apiObject.spec.enum}' for DataType `
-          + `'${apiObject.metadata.name}' to use.`,
-        );
-      }
-
-      if (apiObject.spec.jsonEquivalent === 'string') {
+  validateSemantics: async (apiObject: APIObject<Spec>): Promise<void> => {
+    if (apiObject.spec.values) {
+      if (apiObject.spec.jsonEquivalent !== 'string') {
         throw new PreqlError(
           '1528258b-27b1-4e5d-bfff-2486e09fd1b3',
           `DataType '${apiObject.metadata.name}' may not have an 'enum' field `
@@ -82,7 +72,7 @@ const kind: APIObjectKind = {
     }
 
     // Ensure every target has either return or returnBasedOnLength
-    Object.entries(apiObject.spec.targets)
+    Object.entries(apiObject.spec.targets || {})
       .forEach((target): void => {
         if (!(target[1].return) && !(target[1].returnBasedOnLength)) {
           throw new PreqlError(

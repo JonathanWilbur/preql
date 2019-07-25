@@ -15,6 +15,10 @@ const schema = {
       type: 'string',
       pattern: identifierRegexString,
     },
+    id: {
+      type: 'number',
+      minimum: 1,
+    },
     distinguishedName: {
       type: 'string',
       // TODO: Obviously, more validation is needed than this.
@@ -37,6 +41,7 @@ const schema = {
   required: [
     'databaseName',
     'structName',
+    'id',
   ],
 };
 

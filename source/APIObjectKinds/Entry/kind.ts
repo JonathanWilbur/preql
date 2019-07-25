@@ -13,6 +13,8 @@ const structureValidator = ajv.compile(schema);
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
+    // TODO: Check for no duplicated attributes.
+    // TODO: Check that ID is not present in attributes?
     const structAttributes: Record<string, APIObject<AttributeSpec>> = {};
     etcd.kindIndex.attribute
       .filter((attr: APIObject<AttributeSpec>): boolean => (

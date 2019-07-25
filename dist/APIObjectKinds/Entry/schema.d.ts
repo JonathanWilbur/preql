@@ -13,6 +13,10 @@ declare const schema: {
             type: string;
             pattern: string;
         };
+        id: {
+            type: string;
+            minimum: number;
+        };
         distinguishedName: {
             type: string;
             unicodePattern: string;

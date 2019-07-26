@@ -25,6 +25,14 @@ const kind: APIObjectKind = {
         structAttributes[attr.spec.name] = attr;
       });
 
+    if (Object.keys(apiObject.spec.values).length === 0) {
+      throw new PreqlError(
+        '60c92bba-e86a-4654-b767-a108b19a3425',
+        `Entry ${apiObject.metadata.name} must have at least one attribute `
+        + 'in the `.spec.values` object.',
+      );
+    }
+
     Object.keys(apiObject.spec.values).forEach((key: string): void => {
       // Check that an attribute with that name exists.
       const matchingAttribute: APIObject<AttributeSpec> = structAttributes[key];

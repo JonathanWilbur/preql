@@ -1,4 +1,3 @@
-import objectIdentifierRegexString from '../../objectIdentifierRegexString';
 import identifierRegexString from '../../identifierRegexString';
 
 const targetsMapSchema = {
@@ -6,19 +5,13 @@ const targetsMapSchema = {
   additionalProperties: {
     type: 'object',
     properties: {
-      return: {
+      nativeType: {
         type: 'string',
       },
-      returnBasedOnLength: {
-        type: 'object',
-        propertyNames: {
-          pattern: '^[1-9]\\d+$',
-        },
-        additionalProperties: {
-          type: 'string',
-        },
-      },
     },
+    required: [
+      'nativeType',
+    ],
   },
 };
 
@@ -27,7 +20,7 @@ const booleanSchema = {
   $async: true,
   title: 'PreQL String Data Type Specification Schema',
   type: 'object',
-  additionalProperties: true,
+  additionalProperties: false,
   properties: {
     jsonEquivalent: {
       const: 'boolean',
@@ -45,12 +38,20 @@ const stringSchema = {
   $async: true,
   title: 'PreQL String Data Type Specification Schema',
   type: 'object',
-  additionalProperties: true,
+  additionalProperties: false,
   properties: {
     jsonEquivalent: {
       const: 'string',
     },
     targets: targetsMapSchema,
+    minLength: {
+      type: 'number',
+      minimum: 0,
+    },
+    maxLength: {
+      type: 'number',
+      minimum: 1,
+    },
     regexes: {
       type: 'object',
       description: 'A map of regex kinds.',
@@ -240,16 +241,13 @@ const numberSchema = {
   $async: true,
   title: 'PreQL Number Data Type Specification Schema',
   type: 'object',
-  additionalProperties: true,
+  additionalProperties: false,
   properties: {
     jsonEquivalent: {
-      oneOf: [
-        {
-          const: 'number',
-        },
-        {
-          const: 'integer',
-        },
+      type: 'string',
+      enum: [
+        'number',
+        'integer',
       ],
     },
     minimum: {
@@ -271,7 +269,7 @@ const enumSchema = {
   $async: true,
   title: 'PreQL Enum Data Type Specification Schema',
   type: 'object',
-  additionalProperties: true,
+  additionalProperties: false,
   properties: {
     jsonEquivalent: {
       const: 'string',
@@ -300,55 +298,11 @@ const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   $async: true,
   title: 'PreQL Data Type Specification Schema',
-  allOf: [
-    {
-      type: 'object',
-      // additionalProperties: true,
-      properties: {
-        jsonEquivalent: {
-          type: 'string',
-          enum: [
-            'boolean',
-            'integer',
-            'number',
-            'string',
-            'array',
-            // 'object',
-          ],
-        },
-        syntaxObjectIdentifiers: {
-          type: 'array',
-          description:
-          'These should be arranged in order of descending preference. An array '
-          + 'of object identifiers is used instead of a single object identifier '
-          + 'because it cannot be guaranteed that every LDAP directory will '
-          + 'support the same syntaxes. Allowing multiple "backup" object '
-          + 'identifiers makes it less likely that a suitable syntax will not be '
-          + 'found.',
-          items: {
-            type: 'string',
-            pattern: objectIdentifierRegexString,
-          },
-        },
-        lengthUnits: {
-          type: 'string',
-          description: 'A purely informational field.',
-        },
-      },
-    },
-    {
-      /**
-       * I don't think you can use oneOf here, because booleanSchema will match
-       * almost anything. I also think the ordering might matter. We want the
-       * stricter schema to be evaluated first.
-       */
-      anyOf: [
-        numberSchema,
-        enumSchema,
-        stringSchema,
-        booleanSchema,
-      ],
-    },
+  oneOf: [
+    numberSchema,
+    enumSchema,
+    stringSchema,
+    booleanSchema,
   ],
 };
 

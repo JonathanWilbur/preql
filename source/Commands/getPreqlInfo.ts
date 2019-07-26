@@ -6,7 +6,6 @@ import prohibitedIdentifiers from '../prohibitedIdentifiers';
 import objectIdentifierRegexString from '../objectIdentifierRegexString';
 import identifierRegexString from '../identifierRegexString';
 import version, { MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION } from '../version';
-import jsonTypes from '../APIObjectKinds/DataType/jsonTypes';
 import Casing from '../APIObjectKinds/DataType/Casing';
 // import dataTypeSchema from '../APIObjectKinds/DataType/schema';
 import ajvOptions from '../ajvOptions';
@@ -25,7 +24,6 @@ function getPreqlInfo() {
     prohibitedIdentifiers,
     objectIdentifierRegexString,
     identifierRegexString,
-    jsonTypes: Object.keys(jsonTypes) as string[],
     casings: Object.keys(Casing) as string[],
     // supportedSetters: dataTypeSchema.properties.setters.items.anyOf.map(s => s.properties.type.enum[0]),
     ajvOptions,

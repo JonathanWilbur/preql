@@ -6,6 +6,7 @@ export default async function
 getEntries(namespace: APIObjectDatabase): Promise<{ entries: Record<string, Record<string, object[]>> }> {
   const entries: APIObject<EntrySpec>[] = namespace.kindIndex.entry;
   const result: { entries: Record<string, Record<string, object[]>> } = { entries: {} };
+  if (!entries) return result;
   entries.forEach((entry: APIObject<EntrySpec>): void => {
     if (!(entry.spec.databaseName in result.entries)) {
       result.entries[entry.spec.databaseName] = {};

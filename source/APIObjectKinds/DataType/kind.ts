@@ -10,48 +10,6 @@ const structureValidator = ajv.compile(schema);
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject<Spec>): Promise<void> => {
-    if (apiObject.spec.values) {
-      if (apiObject.spec.jsonEquivalent !== 'string') {
-        throw new PreqlError(
-          '1528258b-27b1-4e5d-bfff-2486e09fd1b3',
-          `DataType '${apiObject.metadata.name}' may not have an 'enum' field `
-          + 'because it is not fundamentally string-like.',
-        );
-      }
-
-      if (apiObject.spec.regexes) {
-        throw new PreqlError(
-          '34e7586b-a5ec-4883-884a-ad19080b7345',
-          `DataType '${apiObject.metadata.name}' may not have an 'enum' and `
-          + "'regexes' field at the same time.",
-        );
-      }
-
-      if (apiObject.spec.setters) {
-        throw new PreqlError(
-          '1d75f6ca-7c97-476e-8b23-bf30099c01bd',
-          `DataType '${apiObject.metadata.name}' may not have an 'enum' and `
-          + "'setters' field at the same time.",
-        );
-      }
-    }
-
-    if (apiObject.spec.regexes && apiObject.spec.jsonEquivalent.toLowerCase() !== 'string') {
-      throw new PreqlError(
-        '2abf0f1e-601e-4051-9b66-b6280564093f',
-        `Regexes may not be used in data type '${apiObject.metadata.name}', `
-        + 'because it is not fundamentally string-like.',
-      );
-    }
-
-    if (apiObject.spec.setters && apiObject.spec.jsonEquivalent.toLowerCase() !== 'string') {
-      throw new PreqlError(
-        '68dc3bb0-b3ae-46ff-b003-17e1cac35e1f',
-        `Setters may not be used in data type '${apiObject.metadata.name}', `
-        + 'because it is not fundamentally string-like.',
-      );
-    }
-
     // Validate regexes
     if (apiObject.spec.regexes && apiObject.spec.regexes.pcre) {
       Object.entries(apiObject.spec.regexes.pcre)
@@ -69,19 +27,7 @@ const kind: APIObjectKind = {
             }
           });
         });
-    }
-
-    // Ensure every target has either return or returnBasedOnLength
-    Object.entries(apiObject.spec.targets || {})
-      .forEach((target): void => {
-        if (!(target[1].return) && !(target[1].returnBasedOnLength)) {
-          throw new PreqlError(
-            'faa52d5c-f397-4e2c-9d9b-bb05cf4428a8',
-            `Data type '${apiObject.metadata.name}' must have either `
-            + "a 'return' or 'returnBasedOnLength' field.",
-          );
-        }
-      });
+    };
   },
 };
 

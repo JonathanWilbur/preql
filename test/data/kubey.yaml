@@ -18,7 +18,7 @@ objects:
   - apiVersion: preql/1.0.0
     kind: DataType
     metadata:
-      name: varchar
+      name: varchar64
       labels:
         学-中文.com/wut: 'apple'
         blurpy-blurp.squizzle./bizzle: mynizzle
@@ -31,11 +31,7 @@ objects:
           casing: upper
       targets:
         mariadb:
-          return: 'VARCHAR(%l)'
-          # returnBasedOnLength:
-          #   1: 'BOOLEAN'
-          #   8: 'VARCHAR(8)'
-          #   32: 'VARCHAR(32)'
+          nativeType: 'VARCHAR(64)'
   - apiVersion: preql/1.0.0
     kind: DataType
     metadata:
@@ -53,8 +49,8 @@ objects:
       name: floofy
     spec:
       name: floofy
-      characterSet: utf8
-      collation: latin1csas
+      # characterSet: utf8
+      # collation: latin1csas
   - apiVersion: preql/1.0.0
     kind: Struct
     metadata:
@@ -75,8 +71,8 @@ objects:
     spec:
       name: pet
       databaseName: floofy
-      characterSet: utf8
-      collation: latin1csas
+      # characterSet: utf8
+      # collation: latin1csas
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -87,12 +83,12 @@ objects:
       name: ownerFirstName
       structName: pet
       databaseName: floofy
-      type: varchar
+      type: varchar64
       length: 4
       nullable: False
       default: Bob
-      characterSet: utf8
-      collation: latin1csas
+      # characterSet: utf8
+      # collation: latin1csas
   - apiVersion: preql/1.0.0
     kind: Attribute
     metadata:
@@ -103,7 +99,7 @@ objects:
       name: ownerLastName
       structName: pet
       databaseName: floofy
-      type: varchar
+      type: varchar64
       length: 64
       nullable: False
       default: Bob
@@ -118,7 +114,7 @@ objects:
       name: firstName
       structName: person
       databaseName: floofy
-      type: varchar
+      type: varchar64
       length: 4
       nullable: False
       default: Bob
@@ -132,24 +128,24 @@ objects:
       name: lastName
       structName: person
       databaseName: floofy
-      type: varchar
+      type: varchar64
       length: 64
       nullable: False
       default: McGobb
-  - apiVersion: preql/1.0.0
-    kind: TextIndex
-    metadata:
-      name: important
-      annotations:
-        comment: "Ogres are like onions."
-    spec:
-      name: important
-      structName: person
-      databaseName: floofy
-      keyAttributes:
-      - name: firstName
-        ascending: True
-      - name: lastName
+  # - apiVersion: preql/1.0.0
+  #   kind: TextIndex
+  #   metadata:
+  #     name: important
+  #     annotations:
+  #       comment: "Ogres are like onions."
+  #   spec:
+  #     name: important
+  #     structName: person
+  #     databaseName: floofy
+  #     keyAttributes:
+  #     - name: firstName
+  #       ascending: True
+  #     - name: lastName
   - apiVersion: preql/1.0.0
     kind: ForeignKey
     metadata:
@@ -160,20 +156,20 @@ objects:
       parentStructName: person
       childStructName: pet
       nullable: False
-  - apiVersion: preql/1.0.0
-    kind: Entry
-    metadata:
-      name: myself
-      labels:
-        name: biggay
-    spec:
-      databaseName: floofy
-      structName: person
-      id: 1
-      distinguishedName: 'lastName=Wilbur,dc=wilbur,dc=space'
-      values:
-        firstName: Jonathan
-        lastName: Wilbur
+  # - apiVersion: preql/1.0.0
+  #   kind: Entry
+  #   metadata:
+  #     name: myself
+  #     labels:
+  #       name: biggay
+  #   spec:
+  #     databaseName: floofy
+  #     structName: person
+  #     id: 1
+  #     distinguishedName: 'lastName=Wilbur,dc=wilbur,dc=space'
+  #     values:
+  #       firstName: Jonathan
+  #       lastName: Wilbur
   - apiVersion: preql/1.0.0
     kind: Preamble
     metadata:

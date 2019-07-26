@@ -1,5 +1,4 @@
 import Casing from './Casing';
-import JSONType from './jsonTypes';
 declare type Trim = {
     type: 'trim';
     side: string;
@@ -37,6 +36,8 @@ interface NumberSpec {
     targets: TargetMap;
 }
 interface StringSpec {
+    minLength?: number;
+    maxLength?: number;
     regexes?: {
         [regexType: string]: {
             [groupName: string]: {
@@ -60,20 +61,14 @@ interface EnumSpec {
 }
 interface TargetMap {
     [targetName: string]: {
-        return?: string;
-        returnBasedOnLength?: {
-            [length: number]: string;
-        };
-        objectIdentifier?: string;
+        nativeType: string;
         ldapMatchingRule?: string;
         ldapOrderingRule?: string;
-        ldapsubstringMatchingRule?: string;
+        ldapSubstringMatchingRule?: string;
         sup?: string;
     };
 }
 export default interface Spec extends NumberSpec, StringSpec, EnumSpec {
-    jsonEquivalent: JSONType;
-    syntaxObjectIdentifiers?: string[];
-    lengthUnits?: string;
+    jsonEquivalent: string;
 }
 export {};

@@ -18,7 +18,6 @@ const prohibitedIdentifiers_1 = __importDefault(require("../prohibitedIdentifier
 const objectIdentifierRegexString_1 = __importDefault(require("../objectIdentifierRegexString"));
 const identifierRegexString_1 = __importDefault(require("../identifierRegexString"));
 const version_1 = __importStar(require("../version"));
-const jsonTypes_1 = __importDefault(require("../APIObjectKinds/DataType/jsonTypes"));
 const Casing_1 = __importDefault(require("../APIObjectKinds/DataType/Casing"));
 // import dataTypeSchema from '../APIObjectKinds/DataType/schema';
 const ajvOptions_1 = __importDefault(require("../ajvOptions"));
@@ -35,7 +34,6 @@ function getPreqlInfo() {
         prohibitedIdentifiers: prohibitedIdentifiers_1.default,
         objectIdentifierRegexString: objectIdentifierRegexString_1.default,
         identifierRegexString: identifierRegexString_1.default,
-        jsonTypes: Object.keys(jsonTypes_1.default),
         casings: Object.keys(Casing_1.default),
         // supportedSetters: dataTypeSchema.properties.setters.items.anyOf.map(s => s.properties.type.enum[0]),
         ajvOptions: ajvOptions_1.default,

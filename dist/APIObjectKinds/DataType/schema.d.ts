@@ -2,137 +2,85 @@ declare const schema: {
     $schema: string;
     $async: boolean;
     title: string;
-    allOf: ({
+    oneOf: ({
+        $schema: string;
+        $async: boolean;
+        title: string;
         type: string;
+        additionalProperties: boolean;
+        properties: {
+            jsonEquivalent: {
+                const: string;
+            };
+            targets: {
+                type: string;
+                additionalProperties: {
+                    type: string;
+                    properties: {
+                        nativeType: {
+                            type: string;
+                        };
+                    };
+                    required: string[];
+                };
+            };
+        };
+        required: string[];
+    } | {
+        $schema: string;
+        $async: boolean;
+        title: string;
+        type: string;
+        additionalProperties: boolean;
         properties: {
             jsonEquivalent: {
                 type: string;
                 enum: string[];
             };
-            syntaxObjectIdentifiers: {
+            minimum: {
                 type: string;
-                description: string;
-                items: {
-                    type: string;
-                    pattern: string;
-                };
             };
-            lengthUnits: {
+            maximum: {
                 type: string;
-                description: string;
+            };
+            targets: {
+                type: string;
+                additionalProperties: {
+                    type: string;
+                    properties: {
+                        nativeType: {
+                            type: string;
+                        };
+                    };
+                    required: string[];
+                };
             };
         };
-        /**
-         * I don't think you can use oneOf here, because booleanSchema will match
-         * almost anything. I also think the ordering might matter. We want the
-         * stricter schema to be evaluated first.
-         */
-        anyOf?: undefined;
+        required: string[];
     } | {
-        /**
-         * I don't think you can use oneOf here, because booleanSchema will match
-         * almost anything. I also think the ordering might matter. We want the
-         * stricter schema to be evaluated first.
-         */
-        anyOf: ({
-            $schema: string;
-            $async: boolean;
-            title: string;
-            type: string;
-            additionalProperties: boolean;
-            properties: {
-                jsonEquivalent: {
-                    const: string;
-                };
-                targets: {
+        $schema: string;
+        $async: boolean;
+        title: string;
+        type: string;
+        additionalProperties: boolean;
+        properties: {
+            jsonEquivalent: {
+                const: string;
+            };
+            name: {
+                type: string;
+                pattern: string;
+            };
+            values: {
+                type: string;
+                items: {
                     type: string;
-                    additionalProperties: {
-                        type: string;
-                        properties: {
-                            return: {
-                                type: string;
-                            };
-                            returnBasedOnLength: {
-                                type: string;
-                                propertyNames: {
-                                    pattern: string;
-                                };
-                                additionalProperties: {
-                                    type: string;
-                                };
-                            };
-                        };
-                    };
+                    minLength: number;
+                    maxLength: number;
                 };
             };
-            required: string[];
-        } | {
-            $schema: string;
-            $async: boolean;
-            title: string;
-            type: string;
-            additionalProperties: boolean;
-            properties: {
-                jsonEquivalent: {
-                    oneOf: {
-                        const: string;
-                    }[];
-                };
-                minimum: {
-                    type: string;
-                };
-                maximum: {
-                    type: string;
-                };
-                targets: {
-                    type: string;
-                    additionalProperties: {
-                        type: string;
-                        properties: {
-                            return: {
-                                type: string;
-                            };
-                            returnBasedOnLength: {
-                                type: string;
-                                propertyNames: {
-                                    pattern: string;
-                                };
-                                additionalProperties: {
-                                    type: string;
-                                };
-                            };
-                        };
-                    };
-                };
-            };
-            required: string[];
-        } | {
-            $schema: string;
-            $async: boolean;
-            title: string;
-            type: string;
-            additionalProperties: boolean;
-            properties: {
-                jsonEquivalent: {
-                    const: string;
-                };
-                name: {
-                    type: string;
-                    pattern: string;
-                };
-                values: {
-                    type: string;
-                    items: {
-                        type: string;
-                        minLength: number;
-                        maxLength: number;
-                    };
-                };
-            };
-            required: string[];
-        })[];
-        type?: undefined;
-        properties?: undefined;
+        };
+        required: string[];
     })[];
 };
 export default schema;

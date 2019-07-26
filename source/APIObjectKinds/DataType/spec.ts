@@ -1,5 +1,4 @@
 import Casing from './Casing';
-import JSONType from './jsonTypes';
 
 type Trim = {
   type: 'trim';
@@ -45,6 +44,8 @@ interface NumberSpec {
 };
 
 interface StringSpec {
+  minLength?: number;
+  maxLength?: number;
   regexes?: {
     [ regexType: string ]: {
       [ groupName: string ]: {
@@ -70,21 +71,15 @@ interface EnumSpec {
 
 interface TargetMap {
   [ targetName: string ]: {
-    return?: string;
-    returnBasedOnLength?: {
-      [ length: number ]: string;
-    };
-    objectIdentifier?: string;
+    nativeType: string;
     ldapMatchingRule?: string;
     ldapOrderingRule?: string;
-    ldapsubstringMatchingRule?: string;
+    ldapSubstringMatchingRule?: string;
     sup?: string; // See: http://www.openldap.org/doc/admin22/schema.html
   };
 };
 
 export default
 interface Spec extends NumberSpec, StringSpec, EnumSpec {
-  jsonEquivalent: JSONType;
-  syntaxObjectIdentifiers?: string[];
-  lengthUnits?: string;
+  jsonEquivalent: string;
 };

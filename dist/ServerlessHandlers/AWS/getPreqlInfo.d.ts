@@ -10,7 +10,6 @@ export default function handler(): {
     prohibitedIdentifiers: string[];
     objectIdentifierRegexString: string;
     identifierRegexString: string;
-    jsonTypes: string[];
     casings: string[];
     ajvOptions: {
         useDefaults: boolean;

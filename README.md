@@ -61,6 +61,10 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Check for non-collision among `Attribute` and `ForeignKey`
 - [ ] Check for non-collision among index types.
 - [x] Add `Enum` type?
+- [x] Document why `Set` and `Range` types will not be supported.
+- [ ] Make `matchingResource()` check within the database!
+- [ ] Apply `prohibitedIdentifiers` to `Database`, `Struct`, `Entity`, etc.
+- [ ] Make sure that there are _some_ attributes in Entry.spec.values
 
 ## After 1.0.0
 

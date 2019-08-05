@@ -1,19 +1,26 @@
 import { Handler, Context, Callback } from 'aws-lambda';
 import validateObject from '../../Commands/validateObject';
-import APIObject from '../../Interfaces/APIObject';
 import normalizeError from '../../normalizeError';
 
-const handler: Handler<APIObject> = async (
-  event: APIObject,
-  context: Context,
-  callback: Callback<object>,
-) => {
-  if (!(typeof event === 'object')) callback(new Error('Event was not of an object type.'));
+const handler: Handler = async (event, context: Context, callback: Callback) => {
+  if (!(typeof event === 'object')) {
+    callback(new Error('Event was not of an object type.'));
+    return;
+  }
+  const body = (() => {
+    if (event.body) return JSON.parse(event.body); // AWS HTTP Request
+    if (event.apiVersion && event.kind) return event; // Lambda Call
+    return undefined;
+  })();
+  if (!body) {
+    callback(new Error('Event was not a recognizable type.'));
+    return;
+  }
   try {
     callback(null, {
       valid: true,
-      specValidated: await validateObject(event),
-      validatedObject: event,
+      specValidated: await validateObject(body),
+      validatedObject: body,
     });
   } catch (e) {
     callback(normalizeError(e));

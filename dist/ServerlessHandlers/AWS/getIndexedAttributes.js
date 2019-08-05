@@ -13,6 +13,10 @@ const handler = async (event, context, callback) => {
         callback(new Error('Event was not of an object type.'));
     if (!event.objects)
         callback(new Error('Event was supposed to have an `objects` field.'));
+    if (event.objects.length === 0) {
+        callback(null, { attributes: {} });
+        return;
+    }
     try {
         await Promise.all(event.objects.map(validateObject_1.default));
         const namespaces = await indexObjects_1.default(event.objects);

@@ -42,6 +42,8 @@ functions:
     handler: dist/ServerlessHandlers/AWS/getEntries.default
     timeout: 15
     memorySize: 256
+    events:
+      - http: POST get-entries
 
   get-preql-info:
     handler: dist/ServerlessHandlers/AWS/getPreqlInfo.default

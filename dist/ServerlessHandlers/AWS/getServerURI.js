@@ -6,8 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const getServerURI_1 = __importDefault(require("../../Commands/getServerURI"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
 const handler = async (event, context, callback) => {
-    if (!(typeof event === 'object'))
+    if (!(typeof event === 'object')) {
         callback(new Error('Event was not of an object type.'));
+        return;
+    }
+    if (typeof event.apiObject !== 'object') {
+        callback(new Error('Event.apiObject was not of an object type.'));
+        return;
+    }
     try {
         callback(null, getServerURI_1.default(event.apiObject));
     }

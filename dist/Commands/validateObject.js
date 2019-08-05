@@ -21,7 +21,13 @@ async function validateStructure(apiObject) {
     if (!kind)
         return Promise.resolve(false);
     await structureValidator(apiObject);
-    await kind.validateStructure(apiObject);
+    try {
+        await kind.validateStructure(apiObject);
+    }
+    catch (e) {
+        throw new PreqlError_1.default('9bf4d422-e409-4f00-99f7-ac8cd4954175', `${apiObject.kind} '${apiObject.metadata.name}' failed structural `
+            + `validation. ${e.message} ${e.errors || ''}`);
+    }
     if (prohibitedIdentifiers_1.default.indexOf(apiObject.metadata.name) !== -1) {
         throw new PreqlError_1.default('ed7558d6-61b8-44e5-ae73-8feaf60404de', `Metadata name '${apiObject.metadata.name}' is prohibited.`);
     }

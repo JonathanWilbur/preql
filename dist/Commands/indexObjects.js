@@ -7,7 +7,14 @@ const PreqlError_1 = __importDefault(require("../PreqlError"));
 const getPath_1 = __importDefault(require("./getPath"));
 // NOTE: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 async function indexObjects(objects) {
-    const namespaces = {};
+    const namespaces = {
+        default: {
+            namespace: 'default',
+            kindIndex: {},
+            kindNameIndex: {},
+            pathIndex: {},
+        },
+    };
     await Promise.all(objects.map(async (apiObject) => {
         const namespaceName = apiObject.metadata.namespace || 'default';
         if (!namespaces[namespaceName]) {

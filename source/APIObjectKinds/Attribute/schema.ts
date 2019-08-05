@@ -40,7 +40,7 @@ const schema = {
     },
     type: {
       type: 'string',
-      pattern: identifierRegexString,
+      pattern: '^(\\p{L}|\\p{N}|\\.|-){1,253}$',
     },
     length: {
       type: 'integer',

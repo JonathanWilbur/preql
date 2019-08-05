@@ -16,7 +16,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-typescript": "^4.0.1",
     "eslint-plugin-import": "^2.18.2",
-    "serverless": "^1.48.4",
+    "serverless": "^1.49.0",
     "typescript": "^3.5.3"
   },
   "directories": {
@@ -40,5 +40,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "types": "./dist/index.d.ts",
-  "version": "1.0.0-s"
+  "version": "1.0.0-t"
 }

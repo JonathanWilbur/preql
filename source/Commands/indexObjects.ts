@@ -6,7 +6,14 @@ import getPath from './getPath';
 
 export default
 async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObjectDatabase>> {
-  const namespaces: Record<string, APIObjectDatabase> = {};
+  const namespaces: Record<string, APIObjectDatabase> = {
+    default: {
+      namespace: 'default',
+      kindIndex: {},
+      kindNameIndex: {},
+      pathIndex: {},
+    },
+  };
   await Promise.all(objects.map(async (apiObject: APIObject): Promise<void> => {
     const namespaceName: string = apiObject.metadata.namespace || 'default';
     if (!namespaces[namespaceName]) {

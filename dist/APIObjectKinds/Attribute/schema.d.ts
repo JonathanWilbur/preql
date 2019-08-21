@@ -34,7 +34,7 @@ declare const schema: {
         };
         type: {
             type: string;
-            pattern: string;
+            unicodePattern: string;
         };
         length: {
             type: string;

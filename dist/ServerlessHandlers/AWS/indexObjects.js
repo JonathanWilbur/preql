@@ -10,24 +10,27 @@ const handler = async (event, context, callback) => {
         callback(new Error('Event was not of an object type.'));
         return;
     }
-    if (!event.objects) {
-        callback(new Error('Event was supposed to have an `objects` field.'));
+    const body = (() => {
+        if (event.body)
+            return JSON.parse(event.body); // AWS HTTP Request
+        if (event.objects && Array.isArray(event.objects))
+            return event; // Lambda Call
+        return undefined;
+    })();
+    if (!body) {
+        callback(new Error('Event was not a recognizable type.'));
         return;
     }
-    if (typeof event.objects !== 'object' || !Array.isArray(event.objects)) {
-        callback(new Error('Event.objects should have been an array.'));
-        return;
-    }
-    if (event.objects.length === 0) {
+    if (body.objects.length === 0) {
         callback(null, {});
         return;
     }
     try {
-        const namespaces = await indexObjects_1.default(event.objects);
+        const namespaces = await indexObjects_1.default(body.objects);
         // See: https://stackoverflow.com/questions/44740423/create-json-string-from-js-map-and-string
         callback(null, {
             namespaces,
-            numberOfObjects: event.objects.length,
+            numberOfObjects: body.objects.length,
         });
     }
     catch (e) {

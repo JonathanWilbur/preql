@@ -43,6 +43,14 @@ declare const schema: {
             maximum: {
                 type: string;
             };
+            overflowBehavior: {
+                type: string;
+                enum: string[];
+            };
+            underflowBehavior: {
+                type: string;
+                enum: string[];
+            };
             targets: {
                 type: string;
                 additionalProperties: {

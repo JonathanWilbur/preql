@@ -1,4 +1,5 @@
 import Casing from './Casing';
+import IntegerOverflowBehavior from './IntegerOverflowBehavior';
 
 type Trim = {
   type: 'trim';
@@ -41,6 +42,8 @@ interface NumberSpec {
   minimum?: number;
   maximum?: number;
   targets: TargetMap;
+  overflowBehavior: IntegerOverflowBehavior;
+  underflowBehavior: IntegerOverflowBehavior;
 };
 
 interface StringSpec {

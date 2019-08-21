@@ -8,13 +8,26 @@ const validateNamespace_1 = __importDefault(require("../../Commands/validateName
 const indexObjects_1 = __importDefault(require("../../Commands/indexObjects"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
 const handler = async (event, context, callback) => {
-    if (!(typeof event === 'object'))
+    if (!(typeof event === 'object')) {
         callback(new Error('Event was not of an object type.'));
-    if (typeof event.objects !== 'object' || !Array.isArray(event.objects)) {
+        return;
+    }
+    const body = (() => {
+        if (event.body)
+            return JSON.parse(event.body); // AWS HTTP Request
+        if (event.objects && Array.isArray(event.objects))
+            return event; // Lambda Call
+        return undefined;
+    })();
+    if (!body) {
+        callback(new Error('Event was not a recognizable type.'));
+        return;
+    }
+    if (typeof body.objects !== 'object' || !Array.isArray(body.objects)) {
         callback(new Error('Event was supposed to have an `objects` array.'));
         return;
     }
-    if (event.objects.length === 0) {
+    if (body.objects.length === 0) {
         callback(null, {
             namespaces: {},
             numberOfObjects: 0,
@@ -23,12 +36,12 @@ const handler = async (event, context, callback) => {
         return;
     }
     try {
-        await Promise.all(event.objects.map(validateObject_1.default));
-        const namespaces = await indexObjects_1.default(event.objects);
+        await Promise.all(body.objects.map(validateObject_1.default));
+        const namespaces = await indexObjects_1.default(body.objects);
         await Promise.all(Object.values(namespaces).map(validateNamespace_1.default));
         callback(null, {
             namespaces,
-            numberOfObjects: event.objects.length,
+            numberOfObjects: body.objects.length,
             valid: true,
         });
     }

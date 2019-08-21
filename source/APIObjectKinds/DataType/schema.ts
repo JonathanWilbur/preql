@@ -256,6 +256,26 @@ const numberSchema = {
     maximum: {
       type: 'number',
     },
+    overflowBehavior: {
+      type: 'string',
+      enum: [
+        'ZERO',
+        'MIN',
+        'MAX',
+        'IGNORE',
+        'ERROR',
+      ],
+    },
+    underflowBehavior: {
+      type: 'string',
+      enum: [
+        'ZERO',
+        'MIN',
+        'MAX',
+        'IGNORE',
+        'ERROR',
+      ],
+    },
     targets: targetsMapSchema,
   },
   required: [

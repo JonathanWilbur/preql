@@ -24,9 +24,10 @@ async function validateStructure(apiObject) {
     try {
         await kind.validateStructure(apiObject);
     }
-    catch (e) {
+    catch (err) {
         throw new PreqlError_1.default('9bf4d422-e409-4f00-99f7-ac8cd4954175', `${apiObject.kind} '${apiObject.metadata.name}' failed structural `
-            + `validation. ${e.message} ${e.errors || ''}`);
+            // eslint-disable-next-line
+            + `validation. ${err.message} ${(err.errors || []).map((e) => e.message).join('; ')}`);
     }
     if (prohibitedIdentifiers_1.default.indexOf(apiObject.metadata.name) !== -1) {
         throw new PreqlError_1.default('ed7558d6-61b8-44e5-ae73-8feaf60404de', `Metadata name '${apiObject.metadata.name}' is prohibited.`);

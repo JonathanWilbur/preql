@@ -40,7 +40,7 @@ const schema = {
     },
     type: {
       type: 'string',
-      pattern: '^(\\p{L}|\\p{N}|\\.|-){1,253}$',
+      unicodePattern: '^(\\p{L}|\\p{N}|\\.|-){1,253}$',
     },
     length: {
       type: 'integer',

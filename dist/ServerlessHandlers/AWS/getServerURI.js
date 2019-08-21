@@ -10,12 +10,19 @@ const handler = async (event, context, callback) => {
         callback(new Error('Event was not of an object type.'));
         return;
     }
-    if (typeof event.apiObject !== 'object') {
-        callback(new Error('Event.apiObject was not of an object type.'));
+    const body = (() => {
+        if (event.body)
+            return JSON.parse(event.body); // AWS HTTP Request
+        if (event.apiObject)
+            return event; // Lambda Call
+        return undefined;
+    })();
+    if (!body) {
+        callback(new Error('Event was not a recognizable type.'));
         return;
     }
     try {
-        callback(null, getServerURI_1.default(event.apiObject));
+        callback(null, getServerURI_1.default(body.apiObject));
     }
     catch (e) {
         callback(normalizeError_1.default(e));

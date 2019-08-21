@@ -1,4 +1,3 @@
 import { Handler } from 'aws-lambda';
-import APIObject from '../../Interfaces/APIObject';
-declare const handler: Handler<APIObject>;
+declare const handler: Handler;
 export default handler;

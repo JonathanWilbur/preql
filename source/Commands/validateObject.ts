@@ -22,11 +22,12 @@ async function validateStructure(apiObject: APIObject): Promise<boolean> {
   await structureValidator(apiObject);
   try {
     await kind.validateStructure(apiObject);
-  } catch (e) {
+  } catch (err) {
     throw new PreqlError(
       '9bf4d422-e409-4f00-99f7-ac8cd4954175',
       `${apiObject.kind} '${apiObject.metadata.name}' failed structural `
-      + `validation. ${e.message} ${e.errors || ''}`,
+      // eslint-disable-next-line
+      + `validation. ${err.message} ${(err.errors || []).map((e: any) => e.message).join('; ')}`,
     );
   }
   if (prohibitedIdentifiers.indexOf(apiObject.metadata.name) !== -1) {

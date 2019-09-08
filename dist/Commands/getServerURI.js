@@ -29,3 +29,4 @@ async function getServerURI(apiObject) {
 }
 exports.default = getServerURI;
 ;
+//# sourceMappingURL=getServerURI.js.map

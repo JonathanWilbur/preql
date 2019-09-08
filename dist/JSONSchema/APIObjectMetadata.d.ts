@@ -46,3 +46,4 @@ declare const APIObjectMetadataSchema: {
     required: string[];
 };
 export default APIObjectMetadataSchema;
+//# sourceMappingURL=APIObjectMetadata.d.ts.map

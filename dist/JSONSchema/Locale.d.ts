@@ -17,3 +17,4 @@ declare const Locale: {
     required: string[];
 };
 export default Locale;
+//# sourceMappingURL=Locale.d.ts.map

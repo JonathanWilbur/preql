@@ -4,3 +4,4 @@
  */
 declare const iso3166CountryCodes: string[];
 export default iso3166CountryCodes;
+//# sourceMappingURL=iso3166CountryCodes.d.ts.map

@@ -29,3 +29,4 @@ const handler = async (event, context, callback) => {
     }
 };
 exports.default = handler;
+//# sourceMappingURL=getServerURI.js.map

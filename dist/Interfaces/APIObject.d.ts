@@ -5,3 +5,4 @@ export default interface APIObject<T = any> {
     readonly metadata: APIObjectMetadata;
     readonly spec: T;
 }
+//# sourceMappingURL=APIObject.d.ts.map

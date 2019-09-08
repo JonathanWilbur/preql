@@ -23,3 +23,4 @@ const handler = async (event, context, callback) => {
     callback(null, { path: await getPath_1.default(body) });
 };
 exports.default = handler;
+//# sourceMappingURL=getPath.js.map

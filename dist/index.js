@@ -20,3 +20,4 @@ var NullLogger_1 = require("./NullLogger");
 exports.NullLogger = NullLogger_1.default;
 var version_1 = require("./version");
 exports.PREQL_VERSION = version_1.default;
+//# sourceMappingURL=index.js.map

@@ -75,3 +75,4 @@ export default interface Spec extends NumberSpec, StringSpec, EnumSpec {
     jsonEquivalent: string;
 }
 export {};
+//# sourceMappingURL=spec.d.ts.map

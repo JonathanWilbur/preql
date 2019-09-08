@@ -56,3 +56,4 @@ async function validateNamespace(namespace) {
 }
 exports.default = validateNamespace;
 ;
+//# sourceMappingURL=validateNamespace.js.map

@@ -7,3 +7,4 @@ export default interface Spec {
         [name: string]: boolean | number | string;
     };
 }
+//# sourceMappingURL=spec.d.ts.map

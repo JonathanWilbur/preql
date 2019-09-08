@@ -4,3 +4,4 @@ export default interface Logger {
     warn(event: string): void;
     error(event: string): void;
 }
+//# sourceMappingURL=Logger.d.ts.map

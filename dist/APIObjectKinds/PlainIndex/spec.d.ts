@@ -13,3 +13,4 @@ export default interface Spec {
         ascending: boolean;
     }[];
 }
+//# sourceMappingURL=spec.d.ts.map

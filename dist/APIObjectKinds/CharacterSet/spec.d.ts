@@ -13,3 +13,4 @@ export default interface CharacterSet {
     defaultCollation?: string;
     maximumCharacterLength?: number;
 }
+//# sourceMappingURL=spec.d.ts.map

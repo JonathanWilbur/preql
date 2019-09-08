@@ -11,3 +11,4 @@ const kind = {
     validateSemantics: () => Promise.resolve(),
 };
 exports.default = kind;
+//# sourceMappingURL=kind.js.map

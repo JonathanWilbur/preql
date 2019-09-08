@@ -6,3 +6,4 @@
  */
 declare const prohibitedIdentifiers: string[];
 export default prohibitedIdentifiers;
+//# sourceMappingURL=prohibitedIdentifiers.d.ts.map

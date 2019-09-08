@@ -5,3 +5,4 @@ export default interface Spec {
     serverName?: string;
     maximumSizeInBytes?: number;
 }
+//# sourceMappingURL=spec.d.ts.map

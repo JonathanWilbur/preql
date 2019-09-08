@@ -17,3 +17,4 @@ export default interface Attribute {
     substringRules?: string[];
     otherNames?: string[];
 }
+//# sourceMappingURL=spec.d.ts.map

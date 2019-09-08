@@ -5,3 +5,4 @@ declare enum Casing {
     SENTENCE = "sentence"
 }
 export default Casing;
+//# sourceMappingURL=Casing.d.ts.map

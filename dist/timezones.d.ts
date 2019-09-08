@@ -3,3 +3,4 @@
  */
 declare const timezones: string[];
 export default timezones;
+//# sourceMappingURL=timezones.d.ts.map

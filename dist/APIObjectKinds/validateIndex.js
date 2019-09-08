@@ -3,18 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const matchingResource_1 = __importDefault(require("./matchingResource"));
 const PreqlError_1 = __importDefault(require("../PreqlError"));
 async function validateIndex(apiObject, etcd) {
-    if (!matchingResource_1.default(apiObject.spec.databaseName, 'database', etcd)) {
+    const databasePath = apiObject.spec.databaseName.toLowerCase();
+    const entityPath = `${apiObject.spec.databaseName}.$${apiObject.spec.entityName}`.toLowerCase();
+    const structPath = [apiObject.spec.databaseName, apiObject.spec.structName].join('.').toLowerCase();
+    if (!etcd.pathIndex[databasePath]) {
         throw new PreqlError_1.default('37caf6cd-29d8-45ef-8697-f73ce1ee23ae', `No Databases found that are named '${apiObject.spec.databaseName}' for ${apiObject.kind} `
             + `'${apiObject.metadata.name}' to attach to.`);
     }
-    if (apiObject.spec.entityName && !matchingResource_1.default(apiObject.spec.entityName, 'entity', etcd)) {
+    if (apiObject.spec.entityName && !etcd.pathIndex[entityPath]) {
         throw new PreqlError_1.default('8f3b2610-3308-4b65-b180-ead4f452c9c1', `No Entities found that are named '${apiObject.spec.entityName}' for ${apiObject.kind} `
             + `'${apiObject.metadata.name}' to be associated with.`);
     }
-    if (!matchingResource_1.default(apiObject.spec.structName, 'struct', etcd)) {
+    if (!etcd.pathIndex[structPath]) {
         throw new PreqlError_1.default('bc7692ff-9eb1-4258-b9ac-d95b1448153f', `No Structs found that are named '${apiObject.spec.structName}' for ${apiObject.kind} `
             + `'${apiObject.metadata.name}' to attach to.`);
     }
@@ -34,3 +36,4 @@ async function validateIndex(apiObject, etcd) {
 }
 exports.default = validateIndex;
 ;
+//# sourceMappingURL=validateIndex.js.map

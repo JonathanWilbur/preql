@@ -156,20 +156,20 @@ objects:
       parentStructName: person
       childStructName: pet
       nullable: False
-  # - apiVersion: preql/1.0.0
-  #   kind: Entry
-  #   metadata:
-  #     name: myself
-  #     labels:
-  #       name: biggay
-  #   spec:
-  #     databaseName: floofy
-  #     structName: person
-  #     id: 1
-  #     distinguishedName: 'lastName=Wilbur,dc=wilbur,dc=space'
-  #     values:
-  #       firstName: Jonathan
-  #       lastName: Wilbur
+  - apiVersion: preql/1.0.0
+    kind: Entry
+    metadata:
+      name: myself
+      labels:
+        name: biggay
+    spec:
+      databaseName: floofy
+      structName: person
+      id: 1
+      distinguishedName: 'lastName=Wilbur,dc=wilbur,dc=space'
+      values:
+        firstName: Jonathan
+        lastName: Wilbur
   - apiVersion: preql/1.0.0
     kind: Preamble
     metadata:

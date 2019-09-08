@@ -7,3 +7,4 @@ export default interface Spec {
     collation?: string;
     objectIdentifier?: string;
 }
+//# sourceMappingURL=spec.d.ts.map

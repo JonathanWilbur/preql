@@ -7,3 +7,4 @@ import APIObject from '../Interfaces/APIObject';
  * @param apiObject The object to be structurally validated.
  */
 export default function validateStructure(apiObject: APIObject): Promise<boolean>;
+//# sourceMappingURL=validateObject.d.ts.map

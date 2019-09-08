@@ -68,3 +68,4 @@ declare const APIObjectSchema: {
     required: string[];
 };
 export default APIObjectSchema;
+//# sourceMappingURL=APIObject.d.ts.map

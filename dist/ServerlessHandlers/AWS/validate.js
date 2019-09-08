@@ -50,3 +50,4 @@ const handler = async (event, context, callback) => {
     }
 };
 exports.default = handler;
+//# sourceMappingURL=validate.js.map

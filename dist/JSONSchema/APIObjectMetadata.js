@@ -55,3 +55,4 @@ const APIObjectMetadataSchema = {
     ],
 };
 exports.default = APIObjectMetadataSchema;
+//# sourceMappingURL=APIObjectMetadata.js.map

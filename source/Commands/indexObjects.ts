@@ -56,8 +56,6 @@ async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObj
         namespace.pathIndex[path] = apiObject;
       }
     }
-
-    return Promise.resolve();
   }));
   return Promise.resolve(namespaces);
 };

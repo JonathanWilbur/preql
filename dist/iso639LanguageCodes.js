@@ -191,3 +191,4 @@ const iso639LanguageCodes = [
     'zu',
 ];
 exports.default = iso639LanguageCodes;
+//# sourceMappingURL=iso639LanguageCodes.js.map

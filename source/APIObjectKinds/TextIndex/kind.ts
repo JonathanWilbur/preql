@@ -3,7 +3,6 @@ import APIObjectKind from '../../Interfaces/APIObjectKind';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
-import matchingResource from '../matchingResource';
 import AttributeSpec from '../Attribute/spec';
 import PreqlError from '../../PreqlError';
 import ajv from '../../ajv';
@@ -14,21 +13,25 @@ const structureValidator = ajv.compile(schema);
 const kind: APIObjectKind = {
   validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
   validateSemantics: async (apiObject: APIObject, etcd: APIObjectDatabase) => {
-    if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
+    const databasePath: string = apiObject.spec.databaseName.toLowerCase();
+    const entityPath: string = `${apiObject.spec.databaseName}.$${apiObject.spec.entityName}`.toLowerCase();
+    const structPath: string = [apiObject.spec.databaseName, apiObject.spec.structName].join('.').toLowerCase();
+
+    if (!etcd.pathIndex[databasePath]) {
       throw new PreqlError(
         '37caf6cd-29d8-45ef-8697-f73ce1ee23ae',
         `No Databases found that are named '${apiObject.spec.databaseName}' for ${apiObject.kind} `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
-    if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
+    if (apiObject.spec.entityName && !etcd.pathIndex[entityPath]) {
       throw new PreqlError(
         '8f3b2610-3308-4b65-b180-ead4f452c9c1',
         `No Entities found that are named '${apiObject.spec.entityName}' for ${apiObject.kind} `
         + `'${apiObject.metadata.name}' to be associated with.`,
       );
     }
-    if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
+    if (!etcd.pathIndex[structPath]) {
       throw new PreqlError(
         'bc7692ff-9eb1-4258-b9ac-d95b1448153f',
         `No Structs found that are named '${apiObject.spec.structName}' for ${apiObject.kind} `
@@ -49,7 +52,11 @@ const kind: APIObjectKind = {
       const attribute: APIObject<AttributeSpec> | undefined = attributes
         .find((attr): boolean => attr.spec.name === kc.name);
       if (!attribute) {
-        throw new Error(`No Attribute named '${kc.name}' for ${apiObject.kind} '${apiObject.metadata.name}' to index.`);
+        throw new PreqlError(
+          '9a72cd18-9b32-4f4e-806f-dd9ba85e02c8',
+          `No Attribute named '${kc.name}' for ${apiObject.kind} `
+          + `'${apiObject.metadata.name}' to index.`,
+        );
       }
       const kindAndName: string = `datatype:${attribute.spec.type.toLowerCase()}`;
       const dataType: APIObject<DataTypeSpec> | undefined = etcd.kindNameIndex[kindAndName];

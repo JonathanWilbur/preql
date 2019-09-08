@@ -3,3 +3,4 @@ export declare const MINOR_VERSION = 0;
 export declare const PATCH_VERSION = 0;
 export declare const PREQL_VERSION: string;
 export default PREQL_VERSION;
+//# sourceMappingURL=version.d.ts.map

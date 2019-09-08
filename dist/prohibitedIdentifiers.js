@@ -10,3 +10,4 @@ const prohibitedIdentifiers = [
     'id',
 ];
 exports.default = prohibitedIdentifiers;
+//# sourceMappingURL=prohibitedIdentifiers.js.map

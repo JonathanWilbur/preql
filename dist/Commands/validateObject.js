@@ -36,3 +36,4 @@ async function validateStructure(apiObject) {
 }
 exports.default = validateStructure;
 ;
+//# sourceMappingURL=validateObject.js.map

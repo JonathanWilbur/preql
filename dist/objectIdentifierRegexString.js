@@ -8,3 +8,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const objectIdentifierRegexString = '^[0-2]\\.(0|(?:[1-9]\\d?))(\\.(0|(?:[1-9]\\d*)))+$';
 exports.default = objectIdentifierRegexString;
+//# sourceMappingURL=objectIdentifierRegexString.js.map

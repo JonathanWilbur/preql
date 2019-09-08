@@ -19,3 +19,4 @@ declare type Tree = {
 };
 export default function getTree(namespaces: Record<string, APIObjectDatabase>): Promise<Tree>;
 export {};
+//# sourceMappingURL=getTree.d.ts.map

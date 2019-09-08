@@ -4,3 +4,4 @@ export default class PreqlError extends Error {
     relevantObjects: object[];
     constructor(uuid: string, message: string);
 }
+//# sourceMappingURL=PreqlError.d.ts.map

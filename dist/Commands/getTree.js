@@ -38,3 +38,4 @@ async function getTree(namespaces) {
 }
 exports.default = getTree;
 ;
+//# sourceMappingURL=getTree.js.map

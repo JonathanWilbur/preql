@@ -6,3 +6,4 @@ exports.default = {
     warn: () => { },
     error: () => { },
 };
+//# sourceMappingURL=NullLogger.js.map

@@ -9,3 +9,4 @@ export default interface APIObjectMetadata {
     readonly annotations: Record<string, string>;
     readonly uid?: string;
 }
+//# sourceMappingURL=APIObjectMetadata.d.ts.map

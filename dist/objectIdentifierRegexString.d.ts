@@ -6,3 +6,4 @@
  */
 declare const objectIdentifierRegexString: string;
 export default objectIdentifierRegexString;
+//# sourceMappingURL=objectIdentifierRegexString.d.ts.map

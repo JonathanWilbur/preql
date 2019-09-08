@@ -27,3 +27,4 @@ export { default as APIObjectMetadata } from './Interfaces/APIObjectMetadata';
 export { default as Logger } from './Interfaces/Logger';
 export { default as NullLogger } from './NullLogger';
 export { default as PREQL_VERSION } from './version';
+//# sourceMappingURL=index.d.ts.map

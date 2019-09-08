@@ -15,3 +15,4 @@ export default function getPreqlInfo(): {
         useDefaults: boolean;
     };
 };
+//# sourceMappingURL=getPreqlInfo.d.ts.map

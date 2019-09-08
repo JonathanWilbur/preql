@@ -44,3 +44,4 @@ const handler = async (event, context, callback) => {
     }
 };
 exports.default = handler;
+//# sourceMappingURL=getIndexedAttributes.js.map

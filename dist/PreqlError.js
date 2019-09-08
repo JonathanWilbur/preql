@@ -10,3 +10,4 @@ class PreqlError extends Error {
 }
 exports.default = PreqlError;
 ;
+//# sourceMappingURL=PreqlError.js.map

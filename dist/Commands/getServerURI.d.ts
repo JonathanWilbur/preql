@@ -9,3 +9,4 @@ import Spec from '../APIObjectKinds/Server/spec';
 export default function getServerURI(apiObject: APIObject<Spec>): Promise<{
     uri: string;
 }>;
+//# sourceMappingURL=getServerURI.d.ts.map

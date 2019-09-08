@@ -27,3 +27,4 @@ async function getIndexedAttributes(namespace) {
 }
 exports.default = getIndexedAttributes;
 ;
+//# sourceMappingURL=getIndexedAttributes.js.map

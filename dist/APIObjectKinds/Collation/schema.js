@@ -65,3 +65,4 @@ const schema = {
     ],
 };
 exports.default = schema;
+//# sourceMappingURL=schema.js.map

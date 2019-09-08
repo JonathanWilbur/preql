@@ -30,3 +30,4 @@ const kind = {
     },
 };
 exports.default = kind;
+//# sourceMappingURL=kind.js.map

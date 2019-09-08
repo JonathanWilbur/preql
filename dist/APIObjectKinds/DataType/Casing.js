@@ -8,3 +8,4 @@ var Casing;
     Casing["SENTENCE"] = "sentence";
 })(Casing || (Casing = {}));
 exports.default = Casing;
+//# sourceMappingURL=Casing.js.map

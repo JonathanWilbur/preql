@@ -34,3 +34,4 @@ const APIObjectSchema = {
     ],
 };
 exports.default = APIObjectSchema;
+//# sourceMappingURL=APIObject.js.map

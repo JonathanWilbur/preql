@@ -92,3 +92,4 @@ declare const schema: {
     })[];
 };
 export default schema;
+//# sourceMappingURL=schema.d.ts.map

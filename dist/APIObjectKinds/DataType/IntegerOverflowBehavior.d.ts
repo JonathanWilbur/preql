@@ -6,3 +6,4 @@ declare enum IntegerOverflowBehavior {
     ERROR = "ERROR"
 }
 export default IntegerOverflowBehavior;
+//# sourceMappingURL=IntegerOverflowBehavior.d.ts.map

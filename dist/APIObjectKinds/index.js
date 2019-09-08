@@ -38,3 +38,4 @@ const kinds = {
     collation: kind_15.default,
 };
 exports.default = kinds;
+//# sourceMappingURL=index.js.map

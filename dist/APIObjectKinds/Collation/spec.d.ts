@@ -18,3 +18,4 @@ export default interface Collation {
     binary?: boolean;
     characterSet?: string;
 }
+//# sourceMappingURL=spec.d.ts.map

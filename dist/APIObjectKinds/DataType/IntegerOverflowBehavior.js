@@ -10,3 +10,4 @@ var IntegerOverflowBehavior;
 })(IntegerOverflowBehavior || (IntegerOverflowBehavior = {}));
 ;
 exports.default = IntegerOverflowBehavior;
+//# sourceMappingURL=IntegerOverflowBehavior.js.map

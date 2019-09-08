@@ -62,15 +62,18 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] ~~Check for non-collision among index types.~~ (Already taken care of by `path` constraints.)
 - [x] Add `Enum` type?
 - [x] Document why `Set` and `Range` types will not be supported.
-- [ ] Make `matchingResource()` check within the database!
+- [x] ~~Make `matchingResource()` check within the database!~~
 - [ ] Apply `prohibitedIdentifiers` to `Database`, `Struct`, `Entity`, etc.
 - [x] Make sure that there are _some_ attributes in Entry.spec.values
+- [ ] Change occurrences of `apiObject` to `obj` or something more succinct or descriptive.
+- [ ] Do something about potentially conflicting `Entity` and `Struct` paths.
+- [ ] Do something about potentially conflicting `CharacterSet`, `Collation`, and `Database` paths?
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
 - [ ] JSONSchema titles and descriptions
-- [ ] Automated testing
+- [ ] Automated testing with Jest
 - [ ] Webpack / Compressed builds
 - [ ] Makefile
 - [ ] Bazel builds?

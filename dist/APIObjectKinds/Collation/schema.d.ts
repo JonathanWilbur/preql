@@ -54,3 +54,4 @@ declare const schema: {
     required: string[];
 };
 export default schema;
+//# sourceMappingURL=schema.d.ts.map

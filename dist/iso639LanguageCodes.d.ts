@@ -4,3 +4,4 @@
  */
 declare const iso639LanguageCodes: string[];
 export default iso639LanguageCodes;
+//# sourceMappingURL=iso639LanguageCodes.d.ts.map

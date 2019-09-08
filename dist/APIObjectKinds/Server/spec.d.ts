@@ -30,3 +30,4 @@ export default interface Spec {
         [name: string]: number | string;
     };
 }
+//# sourceMappingURL=spec.d.ts.map

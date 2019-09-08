@@ -9,3 +9,4 @@ function handler() {
 }
 exports.default = handler;
 ;
+//# sourceMappingURL=getPreqlInfo.js.map

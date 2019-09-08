@@ -16,3 +16,4 @@ export default function matchLabels(labels: {
     };
     apiObject: APIObject;
 }>;
+//# sourceMappingURL=matchLabels.d.ts.map

@@ -4,3 +4,4 @@ export default interface Spec {
     databaseName: string;
     rootStruct: string;
 }
+//# sourceMappingURL=spec.d.ts.map

@@ -52,9 +52,9 @@ async function indexObjects(objects) {
                 namespace.pathIndex[path] = apiObject;
             }
         }
-        return Promise.resolve();
     }));
     return Promise.resolve(namespaces);
 }
 exports.default = indexObjects;
 ;
+//# sourceMappingURL=indexObjects.js.map

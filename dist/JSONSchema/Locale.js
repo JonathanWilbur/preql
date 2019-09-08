@@ -27,3 +27,4 @@ const Locale = {
     ],
 };
 exports.default = Locale;
+//# sourceMappingURL=Locale.js.map

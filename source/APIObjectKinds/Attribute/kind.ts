@@ -3,7 +3,6 @@ import APIObjectKind from '../../Interfaces/APIObjectKind';
 import APIObjectDatabase from '../../Interfaces/APIObjectDatabase';
 import schema from './schema';
 import Spec from './spec';
-import matchingResource from '../matchingResource';
 import PreqlError from '../../PreqlError';
 import ajv from '../../ajv';
 import DataTypeSpec from '../DataType/spec';
@@ -21,35 +20,41 @@ const kind: APIObjectKind = {
       );
     }
 
-    if (!matchingResource(apiObject.spec.databaseName, 'database', etcd)) {
+    const databasePath: string = apiObject.spec.databaseName.toLowerCase();
+    const entityPath: string = `${apiObject.spec.databaseName}.$${apiObject.spec.entityName}`.toLowerCase();
+    const structPath: string = [apiObject.spec.databaseName, apiObject.spec.structName].join('.').toLowerCase();
+    const characterSetPath: string = (apiObject.spec.characterSet || '').toLowerCase();
+    const collationPath: string = (apiObject.spec.collation || '').toLowerCase();
+
+    if (!(etcd.pathIndex[databasePath])) {
       throw new PreqlError(
         '58f2e994-a54a-48e2-8d53-d7015f934beb',
         `No Databases found that are named '${apiObject.spec.databaseName}' for Attribute `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
-    if (apiObject.spec.entityName && !matchingResource(apiObject.spec.entityName, 'entity', etcd)) {
+    if (apiObject.spec.entityName && !etcd.pathIndex[entityPath]) {
       throw new PreqlError(
         'd5b8e0a0-5e69-44bc-8c93-d238c4b3f133',
         `No Entities found that are named '${apiObject.spec.entityName}' for Attribute `
         + `'${apiObject.metadata.name}' to be associated with.`,
       );
     }
-    if (!matchingResource(apiObject.spec.structName, 'struct', etcd)) {
+    if (!etcd.pathIndex[structPath]) {
       throw new PreqlError(
         '1d985193-ce84-4051-a0cc-af9984094d4f',
         `No Structs found that are named '${apiObject.spec.structName}' for Attribute `
         + `'${apiObject.metadata.name}' to attach to.`,
       );
     }
-    if (apiObject.spec.characterSet && !matchingResource(apiObject.spec.characterSet, 'characterset', etcd)) {
+    if (apiObject.spec.characterSet && !etcd.kindIndex[characterSetPath]) {
       throw new PreqlError(
         '9f1e04b9-60bf-4832-ba09-72537231fe1f',
         `No CharacterSets found that are named '${apiObject.spec.characterSet}' for Attribute `
         + `'${apiObject.metadata.name}' to use.`,
       );
     }
-    if (apiObject.spec.collation && !matchingResource(apiObject.spec.collation, 'collation', etcd)) {
+    if (apiObject.spec.collation && !etcd.kindIndex[collationPath]) {
       throw new PreqlError(
         '53298ed2-c4cf-41c7-b8fb-bf386388f1b8',
         `No Collations found that are named '${apiObject.spec.collation}' for Attribute `
@@ -57,8 +62,8 @@ const kind: APIObjectKind = {
       );
     }
 
-    const datatype: APIObject<DataTypeSpec> | undefined = (etcd.kindIndex.datatype || [])
-      .find((obj: APIObject): boolean => obj.metadata.name === apiObject.spec.type);
+    const datatype: APIObject<DataTypeSpec> | undefined = etcd
+      .kindNameIndex[`datatype:${apiObject.spec.type.toLowerCase()}`];
     if (!datatype) {
       throw new PreqlError(
         '6d125c9f-957a-4ce0-9e2a-074ee31fa5f1',

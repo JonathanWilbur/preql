@@ -9,3 +9,4 @@ export default interface Spec {
     objectIdentifier?: string;
     otherNames?: string[];
 }
+//# sourceMappingURL=spec.d.ts.map

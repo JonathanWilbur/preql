@@ -6,8 +6,8 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "x509.min.js",
-        library: "x509",
+        filename: "preql.min.js",
+        library: "preql",
         libraryTarget: "var",
     },
     mode: "development",

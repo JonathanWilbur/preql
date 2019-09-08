@@ -72,7 +72,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Set up Azure Pipeline
 - [ ] Set up GitHub Actions
 - [ ] Configure testing with Jest
-- [ ] Configure Webpack builds
+- [x] Configure Webpack builds
 
 ## After 1.0.0
 

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// TODO: Only call toLowerCase() once at the end.
 async function getPath(obj) {
     if (!obj || !obj.spec || typeof obj.spec !== "object")
         return undefined;
@@ -10,12 +9,12 @@ async function getPath(obj) {
         return obj.spec.name;
     if (!("databaseName" in obj.spec) || typeof obj.spec.databaseName !== "string")
         return undefined;
-    let path = obj.spec.databaseName.toLowerCase();
+    let path = obj.spec.databaseName;
     if ("structName" in obj.spec && typeof obj.spec.structName === "string") {
-        path += `.${obj.spec.structName.toLowerCase()}`;
+        path += `.${obj.spec.structName}`;
     }
     else if ("childStructName" in obj.spec && typeof obj.spec.childStructName === "string") {
-        path += `.${obj.spec.childStructName.toLowerCase()}`;
+        path += `.${obj.spec.childStructName}`;
     }
     /**
    * If the kind is an `Entity`, we prepend a $ before its name so it does not
@@ -23,15 +22,15 @@ async function getPath(obj) {
    * database is still enforced.
    */
     if (obj.kind.toLowerCase() === "entity") {
-        path += `.$${obj.spec.name.toLowerCase()}`;
+        path += `.$${obj.spec.name}`;
     }
     else {
         if (path.length > 0) {
             path += ".";
         }
-        path += obj.spec.name.toLowerCase();
+        path += obj.spec.name;
     }
-    return path;
+    return path.toLowerCase();
 }
 exports.default = getPath;
 //# sourceMappingURL=getPath.js.map

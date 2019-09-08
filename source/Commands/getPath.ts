@@ -4,7 +4,15 @@ export default async function
 getPath (obj: APIObject): Promise<string | undefined> {
     if (!obj || !obj.spec || typeof obj.spec !== "object") return undefined;
     if (!("name" in obj.spec) || typeof obj.spec.name !== "string") return undefined;
-    if (obj.kind.toLowerCase() === "database") return obj.spec.name;
+    /**
+     * These cases will not get handled by the catchall at the bottom, because
+     * of the line that returns `undefined` if `databaseName` is undefined.
+     */
+    if (
+        obj.kind.toLowerCase() === "database"
+        || obj.kind.toLowerCase() === "characterset"
+        || obj.kind.toLowerCase() === "collation"
+    ) return obj.spec.name;
     if (!("databaseName" in obj.spec) || typeof obj.spec.databaseName !== "string") return undefined;
     let path: string = obj.spec.databaseName;
     if ("structName" in obj.spec && typeof obj.spec.structName === "string") {

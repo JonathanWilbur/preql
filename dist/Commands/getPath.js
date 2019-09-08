@@ -5,7 +5,13 @@ async function getPath(obj) {
         return undefined;
     if (!("name" in obj.spec) || typeof obj.spec.name !== "string")
         return undefined;
-    if (obj.kind.toLowerCase() === "database")
+    /**
+     * These cases will not get handled by the catchall at the bottom, because
+     * of the line that returns `undefined` if `databaseName` is undefined.
+     */
+    if (obj.kind.toLowerCase() === "database"
+        || obj.kind.toLowerCase() === "characterset"
+        || obj.kind.toLowerCase() === "collation")
         return obj.spec.name;
     if (!("databaseName" in obj.spec) || typeof obj.spec.databaseName !== "string")
         return undefined;

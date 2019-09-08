@@ -14,29 +14,29 @@ const structureValidator = ajv_1.default.compile(APIObject_1.default);
  * A resolution of `false` means that just the header was validated, but it was
  * valid. Rejects if any part of the object is invalid.
  *
- * @param apiObject The object to be structurally validated.
+ * @param obj The object to be structurally validated.
  */
-async function validateStructure(apiObject) {
-    const kind = APIObjectKinds_1.default[apiObject.kind.toLowerCase()];
+async function validateObject(obj) {
+    const kind = APIObjectKinds_1.default[obj.kind.toLowerCase()];
     if (!kind)
         return Promise.resolve(false);
-    await structureValidator(apiObject);
+    await structureValidator(obj);
     try {
-        await kind.validateStructure(apiObject);
+        await kind.validateStructure(obj);
     }
     catch (err) {
-        throw new PreqlError_1.default('9bf4d422-e409-4f00-99f7-ac8cd4954175', `${apiObject.kind} '${apiObject.metadata.name}' failed structural `
+        throw new PreqlError_1.default('9bf4d422-e409-4f00-99f7-ac8cd4954175', `${obj.kind} '${obj.metadata.name}' failed structural `
             // eslint-disable-next-line
             + `validation. ${err.message} ${(err.errors || []).map((e) => e.message).join('; ')}`);
     }
-    if (prohibitedIdentifiers_1.default.indexOf(apiObject.metadata.name) !== -1) {
-        throw new PreqlError_1.default('ed7558d6-61b8-44e5-ae73-8feaf60404de', `Metadata name '${apiObject.metadata.name}' is prohibited.`);
+    if (prohibitedIdentifiers_1.default.indexOf(obj.metadata.name) !== -1) {
+        throw new PreqlError_1.default('ed7558d6-61b8-44e5-ae73-8feaf60404de', `Metadata name '${obj.metadata.name}' is prohibited.`);
     }
-    if (apiObject.spec.name && (prohibitedIdentifiers_1.default.indexOf(apiObject.spec.name) !== -1)) {
-        throw new PreqlError_1.default('1d3adbad-aaaa-4601-b95b-11892bc4bed9', `Spec name '${apiObject.spec.name}' is prohibited.`);
+    if (obj.spec.name && (prohibitedIdentifiers_1.default.indexOf(obj.spec.name) !== -1)) {
+        throw new PreqlError_1.default('1d3adbad-aaaa-4601-b95b-11892bc4bed9', `Spec name '${obj.spec.name}' is prohibited.`);
     }
     return Promise.resolve(true);
 }
-exports.default = validateStructure;
+exports.default = validateObject;
 ;
 //# sourceMappingURL=validateObject.js.map

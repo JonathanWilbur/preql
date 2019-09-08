@@ -11,36 +11,36 @@ import ajv from '../../ajv';
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
-  validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
-  validateSemantics: async (apiObject: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
+  validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
+  validateSemantics: async (obj: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {
     // TODO: Check for no duplicated attributes.
     // TODO: Check that ID is not present in attributes?
     const structAttributes: Record<string, APIObject<AttributeSpec>> = {};
     etcd.kindIndex.attribute
       .filter((attr: APIObject<AttributeSpec>): boolean => (
-        attr.spec.databaseName === apiObject.spec.databaseName
-        && attr.spec.structName === apiObject.spec.structName
+        attr.spec.databaseName === obj.spec.databaseName
+        && attr.spec.structName === obj.spec.structName
       ))
       .forEach((attr: APIObject<AttributeSpec>): void => {
         structAttributes[attr.spec.name] = attr;
       });
 
-    if (Object.keys(apiObject.spec.values).length === 0) {
+    if (Object.keys(obj.spec.values).length === 0) {
       throw new PreqlError(
         '60c92bba-e86a-4654-b767-a108b19a3425',
-        `Entry ${apiObject.metadata.name} must have at least one attribute `
+        `Entry ${obj.metadata.name} must have at least one attribute `
         + 'in the `.spec.values` object.',
       );
     }
 
-    Object.keys(apiObject.spec.values).forEach((key: string): void => {
+    Object.keys(obj.spec.values).forEach((key: string): void => {
       // Check that an attribute with that name exists.
       const matchingAttribute: APIObject<AttributeSpec> = structAttributes[key];
       if (!matchingAttribute) {
         throw new PreqlError(
           'a16cfa1b-e48b-4911-b918-92861a241d7b',
-          `Attribute '${key}' does not exist on Struct '${apiObject.spec.structName}' `
-          + `for Entry '${apiObject.metadata.name}' to populate.`,
+          `Attribute '${key}' does not exist on Struct '${obj.spec.structName}' `
+          + `for Entry '${obj.metadata.name}' to populate.`,
         );
       }
 
@@ -54,19 +54,19 @@ const kind: APIObjectKind = {
           `Unrecognized data type '${matchingAttribute.spec.type}'.`,
         );
       }
-      const valueType: string = typeof apiObject.spec.values[key];
+      const valueType: string = typeof obj.spec.values[key];
       const attributeJSONType: string = datatype.spec.jsonEquivalent.toLowerCase();
       if (attributeJSONType === 'integer') {
         if (valueType !== 'number') {
           throw new Error(
-            `Type used in Attribute '${key}' in Entry '${apiObject.metadata.name}' `
+            `Type used in Attribute '${key}' in Entry '${obj.metadata.name}' `
             + 'is not an integer, which is the legitimate type of that attribute.',
           );
         }
-        if (!(Number.isSafeInteger(apiObject.spec.values[key] as number))) {
+        if (!(Number.isSafeInteger(obj.spec.values[key] as number))) {
           throw new PreqlError(
             '2a22429e-8bd4-4f06-b01d-c114581fc922',
-            `Number used in Attribute '${key}' in Entry '${apiObject.metadata.name}' `
+            `Number used in Attribute '${key}' in Entry '${obj.metadata.name}' `
             + 'is either too big or small to be safely used as an integer.',
           );
         }
@@ -74,7 +74,7 @@ const kind: APIObjectKind = {
         throw new PreqlError(
           'd8da9998-6f93-406b-a900-a52e51ad7431',
           `Type '${valueType}' used in Attribute '${key}' in Entry `
-          + `'${apiObject.metadata.name}' is not compatible with the `
+          + `'${obj.metadata.name}' is not compatible with the `
           + `legitimate type of that Attribute, which is a(n) '${datatype.metadata.name}'.`,
         );
       }
@@ -88,36 +88,36 @@ const kind: APIObjectKind = {
               .every((re): boolean => {
                 const regex: RegExp = new RegExp(re[1].pattern, 'u');
                 if (re[1].positive) { // Make sure it matches.
-                  return regex.test(apiObject.spec.values[key] as string);
+                  return regex.test(obj.spec.values[key] as string);
                 }
                 // Or, make sure it doesn't match.
-                return !regex.test(apiObject.spec.values[key] as string);
+                return !regex.test(obj.spec.values[key] as string);
               });
           });
         if (!match) {
           throw new PreqlError(
             'db04d1b5-88a5-47fe-8b37-2b11d26a149c',
             `None of the regular expressions for data type '${datatype.metadata.name}' `
-            + `matched the value of '${key}' for Entry '${apiObject.metadata.name}'.`,
+            + `matched the value of '${key}' for Entry '${obj.metadata.name}'.`,
           );
         }
       }
 
       // Check minimums and maximums
       if (valueType === 'number') {
-        if (datatype.spec.minimum && apiObject.spec.values[key] < datatype.spec.minimum) {
+        if (datatype.spec.minimum && obj.spec.values[key] < datatype.spec.minimum) {
           throw new PreqlError(
             'b9d92500-6ac6-4a4f-80d6-dc63de8a1643',
-            `Value of '${key}' for Entry '${apiObject.metadata.name}' was `
-            + `${apiObject.spec.values[key]}, but the permissible minimum for `
+            `Value of '${key}' for Entry '${obj.metadata.name}' was `
+            + `${obj.spec.values[key]}, but the permissible minimum for `
             + `the data type '${datatype.metadata.name}' is ${datatype.spec.minimum}.`,
           );
         }
-        if (datatype.spec.maximum && apiObject.spec.values[key] > datatype.spec.maximum) {
+        if (datatype.spec.maximum && obj.spec.values[key] > datatype.spec.maximum) {
           throw new PreqlError(
             '15327242-05eb-4cd0-ab78-47f2525bc5b8',
-            `Value of '${key}' for Entry '${apiObject.metadata.name}' was `
-            + `${apiObject.spec.values[key]}, but the permissible maximum for `
+            `Value of '${key}' for Entry '${obj.metadata.name}' was `
+            + `${obj.spec.values[key]}, but the permissible maximum for `
             + `the data type '${datatype.metadata.name}' is ${datatype.spec.maximum}.`,
           );
         }
@@ -126,11 +126,11 @@ const kind: APIObjectKind = {
 
     Object.values(structAttributes)
       .forEach((attr: APIObject<AttributeSpec>): void => {
-        if (!(attr.spec.nullable) && !(attr.spec.name in apiObject.spec.values)) {
+        if (!(attr.spec.nullable) && !(attr.spec.name in obj.spec.values)) {
           throw new PreqlError(
             '390b1998-90a7-487d-9145-2a2b5e2c123f',
             `Attribute '${attr.spec.name}' in Struct '${attr.spec.databaseName}'.`
-            + `'${attr.spec.structName}' cannot be null for entry '${apiObject.metadata.name}'.`,
+            + `'${attr.spec.structName}' cannot be null for entry '${obj.metadata.name}'.`,
           );
         }
       });

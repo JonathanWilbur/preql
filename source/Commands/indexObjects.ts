@@ -14,11 +14,11 @@ async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObj
       pathIndex: {},
     },
   };
-  await Promise.all(objects.map(async (apiObject: APIObject): Promise<void> => {
-    const namespaceName: string = apiObject.metadata.namespace || 'default';
+  await Promise.all(objects.map(async (obj: APIObject): Promise<void> => {
+    const namespaceName: string = obj.metadata.namespace || 'default';
     if (!namespaces[namespaceName]) {
       namespaces[namespaceName] = {
-        namespace: apiObject.metadata.namespace || 'default',
+        namespace: obj.metadata.namespace || 'default',
         kindIndex: {},
         kindNameIndex: {},
         pathIndex: {},
@@ -26,34 +26,34 @@ async function indexObjects(objects: APIObject[]): Promise<Record<string, APIObj
     }
     const namespace: APIObjectDatabase = namespaces[namespaceName];
 
-    const kindName: string = apiObject.kind.toLowerCase();
+    const kindName: string = obj.kind.toLowerCase();
     const kindIndexReference: APIObject[] | undefined = namespace.kindIndex[kindName];
-    if (!kindIndexReference) namespace.kindIndex[kindName] = [apiObject];
-    else kindIndexReference.push(apiObject);
+    if (!kindIndexReference) namespace.kindIndex[kindName] = [obj];
+    else kindIndexReference.push(obj);
 
-    const kindAndName: string = `${kindName}:${apiObject.metadata.name.toLowerCase()}`;
+    const kindAndName: string = `${kindName}:${obj.metadata.name.toLowerCase()}`;
     const kindNameValue: APIObject | undefined = namespace.kindNameIndex[kindAndName];
-    if (!kindNameValue) namespace.kindNameIndex[kindAndName] = apiObject;
+    if (!kindNameValue) namespace.kindNameIndex[kindAndName] = obj;
     else {
       throw new PreqlError(
         'f4c7907d-d613-48e7-9e80-37411d2b8e23',
         `Duplicated name: two objects in namespace '${namespaceName}' of kind `
-        + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`,
+        + `'${obj.kind}' with same name '${obj.metadata.name}'.`,
       );
     }
 
-    const path: string | undefined = await getPath(apiObject);
+    const path: string | undefined = await getPath(obj);
     if (path) {
       if (path in namespace.pathIndex) {
         const first: APIObject = namespace.pathIndex[path];
         throw new PreqlError(
           'c1e2a6ae-119e-47f8-842f-a247f34f75d8',
-          `Conflicting path between ${apiObject.kind} '${apiObject.metadata.name}' `
+          `Conflicting path between ${obj.kind} '${obj.metadata.name}' `
           + `and ${first.kind} '${first.metadata.name}'. Both have a path of `
           + `'${path}'.`,
         );
       } else {
-        namespace.pathIndex[path] = apiObject;
+        namespace.pathIndex[path] = obj;
       }
     }
   }));

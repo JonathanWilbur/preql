@@ -7,7 +7,7 @@ import ajv from '../../ajv';
 const structureValidator = ajv.compile(schema);
 
 const kind: APIObjectKind = {
-  validateStructure: (apiObject: APIObject<Spec>): Promise<void> => structureValidator(apiObject.spec) as Promise<void>,
+  validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
   validateSemantics: () => Promise.resolve(),
 };
 

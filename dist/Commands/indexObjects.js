@@ -15,41 +15,41 @@ async function indexObjects(objects) {
             pathIndex: {},
         },
     };
-    await Promise.all(objects.map(async (apiObject) => {
-        const namespaceName = apiObject.metadata.namespace || 'default';
+    await Promise.all(objects.map(async (obj) => {
+        const namespaceName = obj.metadata.namespace || 'default';
         if (!namespaces[namespaceName]) {
             namespaces[namespaceName] = {
-                namespace: apiObject.metadata.namespace || 'default',
+                namespace: obj.metadata.namespace || 'default',
                 kindIndex: {},
                 kindNameIndex: {},
                 pathIndex: {},
             };
         }
         const namespace = namespaces[namespaceName];
-        const kindName = apiObject.kind.toLowerCase();
+        const kindName = obj.kind.toLowerCase();
         const kindIndexReference = namespace.kindIndex[kindName];
         if (!kindIndexReference)
-            namespace.kindIndex[kindName] = [apiObject];
+            namespace.kindIndex[kindName] = [obj];
         else
-            kindIndexReference.push(apiObject);
-        const kindAndName = `${kindName}:${apiObject.metadata.name.toLowerCase()}`;
+            kindIndexReference.push(obj);
+        const kindAndName = `${kindName}:${obj.metadata.name.toLowerCase()}`;
         const kindNameValue = namespace.kindNameIndex[kindAndName];
         if (!kindNameValue)
-            namespace.kindNameIndex[kindAndName] = apiObject;
+            namespace.kindNameIndex[kindAndName] = obj;
         else {
             throw new PreqlError_1.default('f4c7907d-d613-48e7-9e80-37411d2b8e23', `Duplicated name: two objects in namespace '${namespaceName}' of kind `
-                + `'${apiObject.kind}' with same name '${apiObject.metadata.name}'.`);
+                + `'${obj.kind}' with same name '${obj.metadata.name}'.`);
         }
-        const path = await getPath_1.default(apiObject);
+        const path = await getPath_1.default(obj);
         if (path) {
             if (path in namespace.pathIndex) {
                 const first = namespace.pathIndex[path];
-                throw new PreqlError_1.default('c1e2a6ae-119e-47f8-842f-a247f34f75d8', `Conflicting path between ${apiObject.kind} '${apiObject.metadata.name}' `
+                throw new PreqlError_1.default('c1e2a6ae-119e-47f8-842f-a247f34f75d8', `Conflicting path between ${obj.kind} '${obj.metadata.name}' `
                     + `and ${first.kind} '${first.metadata.name}'. Both have a path of `
                     + `'${path}'.`);
             }
             else {
-                namespace.pathIndex[path] = apiObject;
+                namespace.pathIndex[path] = obj;
             }
         }
     }));

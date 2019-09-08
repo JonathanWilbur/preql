@@ -8,13 +8,13 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
-    validateStructure: (apiObject) => structureValidator(apiObject.spec),
-    validateSemantics: async (apiObject, etcd) => {
-        if (!(apiObject.spec.characterSet))
+    validateStructure: (obj) => structureValidator(obj.spec),
+    validateSemantics: async (obj, etcd) => {
+        if (!(obj.spec.characterSet))
             return;
-        if (!etcd.pathIndex[apiObject.spec.characterSet.toLowerCase()]) {
-            throw new PreqlError_1.default('f191539e-7758-4a56-81ea-bba873dbfad1', `No CharacterSet found that is named '${apiObject.spec.characterSet}' `
-                + `to be for CharacterSet for Collation '${apiObject.metadata.name}'.`);
+        if (!etcd.pathIndex[obj.spec.characterSet.toLowerCase()]) {
+            throw new PreqlError_1.default('f191539e-7758-4a56-81ea-bba873dbfad1', `No CharacterSet found that is named '${obj.spec.characterSet}' `
+                + `to be for CharacterSet for Collation '${obj.metadata.name}'.`);
         }
     },
 };

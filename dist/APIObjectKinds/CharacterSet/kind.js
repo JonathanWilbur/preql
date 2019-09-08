@@ -8,13 +8,13 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
-    validateStructure: (apiObject) => structureValidator(apiObject.spec),
-    validateSemantics: async (apiObject, etcd) => {
-        if (!(apiObject.spec.defaultCollation))
+    validateStructure: (obj) => structureValidator(obj.spec),
+    validateSemantics: async (obj, etcd) => {
+        if (!(obj.spec.defaultCollation))
             return;
-        if (!etcd.pathIndex[apiObject.spec.defaultCollation.toLowerCase()]) {
-            throw new PreqlError_1.default('359299a4-d4f3-45c2-a4e0-e4d9064d3c76', `No Collations found that are named '${apiObject.spec.defaultCollation}' `
-                + `to be the default collation for CharacterSet '${apiObject.metadata.name}'.`);
+        if (!etcd.pathIndex[obj.spec.defaultCollation.toLowerCase()]) {
+            throw new PreqlError_1.default('359299a4-d4f3-45c2-a4e0-e4d9064d3c76', `No Collations found that are named '${obj.spec.defaultCollation}' `
+                + `to be the default collation for CharacterSet '${obj.metadata.name}'.`);
         }
     },
 };

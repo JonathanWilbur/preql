@@ -8,11 +8,11 @@ const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
-    validateStructure: (apiObject) => structureValidator(apiObject.spec),
-    validateSemantics: async (apiObject) => {
+    validateStructure: (obj) => structureValidator(obj.spec),
+    validateSemantics: async (obj) => {
         // Validate regexes
-        if (apiObject.spec.regexes && apiObject.spec.regexes.pcre) {
-            Object.entries(apiObject.spec.regexes.pcre)
+        if (obj.spec.regexes && obj.spec.regexes.pcre) {
+            Object.entries(obj.spec.regexes.pcre)
                 .forEach((group) => {
                 group[1].forEach((re, index) => {
                     try {
@@ -20,7 +20,7 @@ const kind = {
                         new RegExp(re.pattern);
                     }
                     catch (e) {
-                        throw new PreqlError_1.default('9f65eaff-b915-4889-9d6c-8e3a757b5b4e', `Invalid regular expression for data type '${apiObject.metadata.name}'. `
+                        throw new PreqlError_1.default('9f65eaff-b915-4889-9d6c-8e3a757b5b4e', `Invalid regular expression for data type '${obj.metadata.name}'. `
                             + `Group '${group[0]}', index: ${index}.`);
                     }
                 });

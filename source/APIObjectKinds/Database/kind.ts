@@ -1,10 +1,10 @@
+import ajv from "../../ajv";
 import APIObject from "../../Interfaces/APIObject";
-import APIObjectKind from "../../Interfaces/APIObjectKind";
 import APIObjectDatabase from "../../Interfaces/APIObjectDatabase";
+import APIObjectKind from "../../Interfaces/APIObjectKind";
+import PreqlError from "../../PreqlError";
 import schema from "./schema";
 import Spec from "./spec";
-import ajv from "../../ajv";
-import PreqlError from "../../PreqlError";
 
 const structureValidator = ajv.compile(schema);
 
@@ -16,7 +16,7 @@ const kind: APIObjectKind = {
             throw new PreqlError(
                 "e4d5bf3b-1063-42dd-8ce6-15e6f98fbb5f",
                 `No CharacterSets found that are named '${obj.spec.characterSet}' for Database `
-        + `'${obj.metadata.name}' to use.`,
+                + `'${obj.metadata.name}' to use.`,
             );
         }
 
@@ -25,7 +25,7 @@ const kind: APIObjectKind = {
             throw new PreqlError(
                 "a3cc2f42-099f-43ee-be57-c8d2aa842712",
                 `No Collations found that are named '${obj.spec.collation}' for Database `
-        + `'${obj.metadata.name}' to use.`,
+                + `'${obj.metadata.name}' to use.`,
             );
         }
     },

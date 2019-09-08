@@ -102,7 +102,6 @@ const schema = {
     required: [
         "name",
         "structName",
-        // 'entityName',
         "databaseName",
         "type",
     ],

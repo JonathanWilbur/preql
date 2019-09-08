@@ -1,4 +1,4 @@
-import { Handler, Context, Callback } from "aws-lambda";
+import { Callback, Context, Handler } from "aws-lambda";
 import getServerURI from "../../Commands/getServerURI";
 import normalizeError from "../../normalizeError";
 

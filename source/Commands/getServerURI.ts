@@ -1,7 +1,7 @@
-import APIObject from "../Interfaces/APIObject";
-import Spec from "../APIObjectKinds/Server/spec";
-import schema from "../APIObjectKinds/Server/schema";
 import ajv from "../ajv";
+import schema from "../APIObjectKinds/Server/schema";
+import Spec from "../APIObjectKinds/Server/spec";
+import APIObject from "../Interfaces/APIObject";
 import PreqlError from "../PreqlError";
 
 const structureValidator = ajv.compile(schema);
@@ -20,7 +20,7 @@ async function getServerURI (obj: APIObject<Spec>): Promise<{ uri: string }> {
         throw new PreqlError(
             "87e35ffb-4a27-467b-91df-1f1201638484",
             `${obj.kind} '${obj.metadata.name}' failed structural `
-      + `validation. ${e.message} ${e.errors || ""}`,
+            + `validation. ${e.message} ${e.errors || ""}`,
         );
     }
     let uri: string = `${obj.spec.protocol}://${obj.spec.hostname}`;

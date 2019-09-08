@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const schema_1 = __importDefault(require("./schema"));
-const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
+const PreqlError_1 = __importDefault(require("../../PreqlError"));
+const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
@@ -30,7 +30,6 @@ const kind = {
             throw new PreqlError_1.default("fbee0ffc-6969-4548-bd8d-72a5c189e0e6", `No Attributes found for ${obj.kind} '${obj.metadata.name}' to index.`);
         }
         // Check that the attributes are real and of string-ish type
-        // eslint-disable-next-line
         obj.spec.keyAttributes.forEach((kc) => {
             const attribute = attributes
                 .find((attr) => attr.spec.name === kc.name);

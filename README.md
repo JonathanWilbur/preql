@@ -69,10 +69,11 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Do something about potentially conflicting `Entity` and `Struct` paths.
 - [x] Do something about potentially conflicting `CharacterSet`, `Collation`, and `Database` paths?
 - [x] Use my own ESLint rules
-- [ ] Set up GitHub Actions
+- [x] Set up GitHub Actions
 - [x] Configure testing with Jest
 - [x] Configure Webpack builds
 - [x] Review TODOs
+- [x] Organize all imports
 - [ ] Test with transpilers
   - [ ] MariaDB
   - [ ] OpenLDAP
@@ -83,7 +84,6 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] JSDoc documentation on everything
 - [ ] JSONSchema titles and descriptions
 - [ ] Set up Azure Pipeline
-- [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
 
 ## Possible Future Features
 
@@ -99,3 +99,4 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - This would be _really_ useful for secure password storage.
 - [ ] `CONCAT` setter (Check if string begins or ends with something, and CONCAT if not present.)
 - [ ] Add information about error codes in `getPreqlInfo`.
+- [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.

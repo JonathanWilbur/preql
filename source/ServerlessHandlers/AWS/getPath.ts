@@ -1,4 +1,4 @@
-import { Handler, Context, Callback } from "aws-lambda";
+import { Callback, Context, Handler } from "aws-lambda";
 import getPath from "../../Commands/getPath";
 
 const handler: Handler = async (event, context: Context, callback: Callback): Promise<undefined> => {

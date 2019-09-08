@@ -1,7 +1,7 @@
-import { Handler, Context, Callback } from "aws-lambda";
-import validateObject from "../../Commands/validateObject";
-import validateNamespace from "../../Commands/validateNamespace";
+import { Callback, Context, Handler } from "aws-lambda";
 import indexObjects from "../../Commands/indexObjects";
+import validateNamespace from "../../Commands/validateNamespace";
+import validateObject from "../../Commands/validateObject";
 import normalizeError from "../../normalizeError";
 
 const handler: Handler = async (event, context: Context, callback: Callback): Promise<undefined> => {

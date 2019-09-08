@@ -1,11 +1,11 @@
+import ajv from "../../ajv";
 import APIObject from "../../Interfaces/APIObject";
-import APIObjectKind from "../../Interfaces/APIObjectKind";
 import APIObjectDatabase from "../../Interfaces/APIObjectDatabase";
+import APIObjectKind from "../../Interfaces/APIObjectKind";
+import PreqlError from "../../PreqlError";
+import DataTypeSpec from "../DataType/spec";
 import schema from "./schema";
 import Spec from "./spec";
-import PreqlError from "../../PreqlError";
-import ajv from "../../ajv";
-import DataTypeSpec from "../DataType/spec";
 
 const structureValidator = ajv.compile(schema);
 
@@ -39,14 +39,14 @@ const kind: APIObjectKind = {
                 + `'${obj.metadata.name}' to attach to.`,
             );
         }
-        if (obj.spec.characterSet && !etcd.kindIndex[characterSetPath]) {
+        if (obj.spec.characterSet && !etcd.pathIndex[characterSetPath]) {
             throw new PreqlError(
                 "9f1e04b9-60bf-4832-ba09-72537231fe1f",
                 `No CharacterSets found that are named '${obj.spec.characterSet}' for Attribute `
                 + `'${obj.metadata.name}' to use.`,
             );
         }
-        if (obj.spec.collation && !etcd.kindIndex[collationPath]) {
+        if (obj.spec.collation && !etcd.pathIndex[collationPath]) {
             throw new PreqlError(
                 "53298ed2-c4cf-41c7-b8fb-bf386388f1b8",
                 `No Collations found that are named '${obj.spec.collation}' for Attribute `

@@ -11,7 +11,6 @@ function normalizeError(err) {
         && "errors" in err
         && typeof err.errors === "object"
         && Array.isArray(err.errors)) {
-        // eslint-disable-next-line
         err.message += `: ${err.errors.map((e) => {
             if ("message" in e)
                 return e.message;

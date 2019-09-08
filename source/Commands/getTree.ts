@@ -1,8 +1,8 @@
-import APIObject from "../Interfaces/APIObject";
-import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
+import AttributeSpec from "../APIObjectKinds/Attribute/spec";
 import DatabaseSpec from "../APIObjectKinds/Database/spec";
 import StructSpec from "../APIObjectKinds/Struct/spec";
-import AttributeSpec from "../APIObjectKinds/Attribute/spec";
+import APIObject from "../Interfaces/APIObject";
+import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 
 interface Tree {
     namespaces: Record<string, {
@@ -40,7 +40,7 @@ async function getTree (namespaces: Record<string, APIObjectDatabase>): Promise<
                     result.namespaces[ns[0]].databases[db.spec.name].structs[struct.spec.name] = currentStruct;
                     attributes
                         .filter((attr: APIObject<AttributeSpec>): boolean => attr.spec.databaseName === db.spec.name
-              && attr.spec.structName === struct.spec.name)
+                            && attr.spec.structName === struct.spec.name)
                         .forEach((attr: APIObject<AttributeSpec>): void => {
                             currentStruct.attributes[attr.spec.name] = {
                                 spec: attr.spec,

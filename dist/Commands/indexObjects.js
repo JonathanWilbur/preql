@@ -53,7 +53,7 @@ async function indexObjects(objects) {
             }
         }
     }));
-    return Promise.resolve(namespaces);
+    return namespaces;
 }
 exports.default = indexObjects;
 //# sourceMappingURL=indexObjects.js.map

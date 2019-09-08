@@ -1,10 +1,10 @@
+import ajv from "../ajv";
+import kinds from "../APIObjectKinds";
 import APIObject from "../Interfaces/APIObject";
 import APIObjectKind from "../Interfaces/APIObjectKind";
 import APIObjectSchema from "../JSONSchema/APIObject";
-import kinds from "../APIObjectKinds";
-import ajv from "../ajv";
-import prohibitedIdentifiers from "../prohibitedIdentifiers";
 import PreqlError from "../PreqlError";
+import prohibitedIdentifiers from "../prohibitedIdentifiers";
 
 const structureValidator = ajv.compile(APIObjectSchema);
 
@@ -26,8 +26,7 @@ async function validateObject (obj: APIObject): Promise<boolean> {
         throw new PreqlError(
             "9bf4d422-e409-4f00-99f7-ac8cd4954175",
             `${obj.kind} '${obj.metadata.name}' failed structural `
-      // eslint-disable-next-line
-      + `validation. ${err.message} ${(err.errors || []).map((e: any) => e.message).join('; ')}`,
+            + `validation. ${err.message} ${(err.errors || []).map((e: any): string => e.message).join("; ")}`,
         );
     }
     if (prohibitedIdentifiers.indexOf(obj.metadata.name) !== -1) {
@@ -42,5 +41,5 @@ async function validateObject (obj: APIObject): Promise<boolean> {
             `Spec name '${obj.spec.name}' is prohibited.`,
         );
     }
-    return Promise.resolve(true);
+    return true;
 }

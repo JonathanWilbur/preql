@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const schema_1 = __importDefault(require("./schema"));
-const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
+const PreqlError_1 = __importDefault(require("../../PreqlError"));
+const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
@@ -27,11 +27,11 @@ const kind = {
             throw new PreqlError_1.default("1d985193-ce84-4051-a0cc-af9984094d4f", `No Structs found that are named '${obj.spec.structName}' for Attribute `
                 + `'${obj.metadata.name}' to attach to.`);
         }
-        if (obj.spec.characterSet && !etcd.kindIndex[characterSetPath]) {
+        if (obj.spec.characterSet && !etcd.pathIndex[characterSetPath]) {
             throw new PreqlError_1.default("9f1e04b9-60bf-4832-ba09-72537231fe1f", `No CharacterSets found that are named '${obj.spec.characterSet}' for Attribute `
                 + `'${obj.metadata.name}' to use.`);
         }
-        if (obj.spec.collation && !etcd.kindIndex[collationPath]) {
+        if (obj.spec.collation && !etcd.pathIndex[collationPath]) {
             throw new PreqlError_1.default("53298ed2-c4cf-41c7-b8fb-bf386388f1b8", `No Collations found that are named '${obj.spec.collation}' for Attribute `
                 + `'${obj.metadata.name}' to use.`);
         }

@@ -208,6 +208,7 @@ rules:
     - error
   no-confusing-arrow:
     - error
+    - allowParens: true
   no-duplicate-imports:
     - error
   # This rule does not check for readonly parameters in Typescript, where

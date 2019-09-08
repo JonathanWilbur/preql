@@ -1,6 +1,6 @@
+import EntrySpec from "../APIObjectKinds/Entry/spec";
 import APIObject from "../Interfaces/APIObject";
 import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
-import EntrySpec from "../APIObjectKinds/Entry/spec";
 
 export default async function
 getEntries (namespace: APIObjectDatabase): Promise<{ entries: Record<string, Record<string, object[]>> }> {

@@ -1,8 +1,10 @@
-import APIObject from "../Interfaces/APIObject";
-import APIObjectKind from "../Interfaces/APIObjectKind";
-import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 import kinds from "../APIObjectKinds";
-import { EntrySpec, AttributeSpec, StructSpec } from "..";
+import AttributeSpec from "../APIObjectKinds/Attribute/spec";
+import EntrySpec from "../APIObjectKinds/Entry/spec";
+import StructSpec from "../APIObjectKinds/Struct/spec";
+import APIObject from "../Interfaces/APIObject";
+import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
+import APIObjectKind from "../Interfaces/APIObjectKind";
 import PreqlError from "../PreqlError";
 
 export default
@@ -19,8 +21,8 @@ async function validateNamespace (namespace: APIObjectDatabase): Promise<void[][
                 throw new PreqlError(
                     "ee62701b-8d35-48f9-8d78-be0d8f3c80f3",
                     `Duplicate Entry.distinguishedName '${entry.spec.distinguishedName}'. `
-          + `The first Entry to have it was '${firstEntry.metadata.name}'. `
-          + `The second Entry to have it was '${entry.metadata.name}'.`,
+                    + `The first Entry to have it was '${firstEntry.metadata.name}'. `
+                    + `The second Entry to have it was '${entry.metadata.name}'.`,
                 );
             } else {
                 encounteredDistinguishedNames.set(entry.spec.distinguishedName.toLowerCase(), entry);

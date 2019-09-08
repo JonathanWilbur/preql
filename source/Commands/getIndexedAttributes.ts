@@ -1,10 +1,10 @@
-import APIObject from "../Interfaces/APIObject";
-import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 import AttributeSpec from "../APIObjectKinds/Attribute/spec";
 import PlainIndexSpec from "../APIObjectKinds/PlainIndex/spec";
-import TextIndexSpec from "../APIObjectKinds/TextIndex/spec";
 import SpatialIndexSpec from "../APIObjectKinds/SpatialIndex/spec";
+import TextIndexSpec from "../APIObjectKinds/TextIndex/spec";
 import UniqueIndexSpec from "../APIObjectKinds/UniqueIndex/spec";
+import APIObject from "../Interfaces/APIObject";
+import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 
 type IndexSpec = PlainIndexSpec | TextIndexSpec | SpatialIndexSpec | UniqueIndexSpec;
 
@@ -20,8 +20,8 @@ getIndexedAttributes (namespace: APIObjectDatabase): Promise<{ attributes: Recor
     };
     attributes.forEach((attr: APIObject<AttributeSpec>): void => {
         const path: string = `${attr.spec.databaseName.toLowerCase()}.`
-      + `${attr.spec.structName.toLowerCase()}.`
-      + `${attr.spec.name.toLowerCase()}`;
+            + `${attr.spec.structName.toLowerCase()}.`
+            + `${attr.spec.name.toLowerCase()}`;
         result.attributes[path] = false;
     });
     indexes.forEach((index: APIObject<IndexSpec>): void => {

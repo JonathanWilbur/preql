@@ -17,12 +17,12 @@ const kind: APIObjectKind = {
                     group[1].forEach((re, index): void => {
                         try {
                             // eslint-disable-next-line
-              new RegExp(re.pattern);
+                            new RegExp(re.pattern);
                         } catch (e) {
                             throw new PreqlError(
                                 "9f65eaff-b915-4889-9d6c-8e3a757b5b4e",
                                 `Invalid regular expression for data type '${obj.metadata.name}'. `
-                + `Group '${group[0]}', index: ${index}.`,
+                                + `Group '${group[0]}', index: ${index}.`,
                             );
                         }
                     });

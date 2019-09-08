@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const schema_1 = __importDefault(require("./schema"));
-const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
+const PreqlError_1 = __importDefault(require("../../PreqlError"));
+const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),

@@ -1,7 +1,7 @@
-import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
+import AttributeSpec from "../APIObjectKinds/Attribute/spec";
 import DatabaseSpec from "../APIObjectKinds/Database/spec";
 import StructSpec from "../APIObjectKinds/Struct/spec";
-import AttributeSpec from "../APIObjectKinds/Attribute/spec";
+import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 interface Tree {
     namespaces: Record<string, {
         databases: Record<string, {

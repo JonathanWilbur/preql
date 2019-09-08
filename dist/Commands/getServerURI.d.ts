@@ -1,5 +1,5 @@
-import APIObject from "../Interfaces/APIObject";
 import Spec from "../APIObjectKinds/Server/spec";
+import APIObject from "../Interfaces/APIObject";
 /**
  * Generates a URI, given a Server API Object. The URI will be a connection URI
  * for that database server.

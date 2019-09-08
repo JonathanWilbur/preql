@@ -1,4 +1,4 @@
-import { Handler, Context, Callback } from "aws-lambda";
+import { Callback, Context, Handler } from "aws-lambda";
 import validateObject from "../../Commands/validateObject";
 import normalizeError from "../../normalizeError";
 

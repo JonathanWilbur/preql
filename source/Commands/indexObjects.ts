@@ -38,7 +38,7 @@ async function indexObjects (objects: APIObject[]): Promise<Record<string, APIOb
             throw new PreqlError(
                 "f4c7907d-d613-48e7-9e80-37411d2b8e23",
                 `Duplicated name: two objects in namespace '${namespaceName}' of kind `
-        + `'${obj.kind}' with same name '${obj.metadata.name}'.`,
+                + `'${obj.kind}' with same name '${obj.metadata.name}'.`,
             );
         }
 
@@ -49,13 +49,13 @@ async function indexObjects (objects: APIObject[]): Promise<Record<string, APIOb
                 throw new PreqlError(
                     "c1e2a6ae-119e-47f8-842f-a247f34f75d8",
                     `Conflicting path between ${obj.kind} '${obj.metadata.name}' `
-          + `and ${first.kind} '${first.metadata.name}'. Both have a path of `
-          + `'${path}'.`,
+                    + `and ${first.kind} '${first.metadata.name}'. Both have a path of `
+                    + `'${path}'.`,
                 );
             } else {
                 namespace.pathIndex[path] = obj;
             }
         }
     }));
-    return Promise.resolve(namespaces);
+    return namespaces;
 }

@@ -69,15 +69,20 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Do something about potentially conflicting `Entity` and `Struct` paths.
 - [x] Do something about potentially conflicting `CharacterSet`, `Collation`, and `Database` paths?
 - [x] Use my own ESLint rules
-- [ ] Set up Azure Pipeline
 - [ ] Set up GitHub Actions
-- [ ] Configure testing with Jest
+- [x] Configure testing with Jest
 - [x] Configure Webpack builds
+- [ ] Review TODOs
+- [ ] Test with transpilers
+  - [ ] MariaDB
+  - [ ] OpenLDAP
+  - [ ] BSON Schema
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
 - [ ] JSONSchema titles and descriptions
+- [ ] Set up Azure Pipeline
 - [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
 
 ## Possible Future Features

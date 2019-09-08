@@ -16,6 +16,9 @@
   },
   "description": "The core PreQL library.",
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
     "@types/ajv": "^1.0.0",
     "@types/aws-lambda": "^8.10.31",
     "@types/js-yaml": "^3.12.1",

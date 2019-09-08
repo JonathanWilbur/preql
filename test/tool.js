@@ -5,5 +5,6 @@ const yaml = fs.readFileSync("./test/data/1.yaml", { encoding: "utf8" });
 
 pql.transpile("mysql", yaml)
     .then((result) => {
+        // eslint-disable-next-line
         console.log(result);
     });

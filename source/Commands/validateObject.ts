@@ -36,5 +36,11 @@ async function validateStructure(apiObject: APIObject): Promise<boolean> {
       `Metadata name '${apiObject.metadata.name}' is prohibited.`,
     );
   }
+  if (apiObject.spec.name && (prohibitedIdentifiers.indexOf(apiObject.spec.name) !== -1)) {
+    throw new PreqlError(
+      '1d3adbad-aaaa-4601-b95b-11892bc4bed9',
+      `Spec name '${apiObject.spec.name}' is prohibited.`,
+    );
+  }
   return Promise.resolve(true);
 };

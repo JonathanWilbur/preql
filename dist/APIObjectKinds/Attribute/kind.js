@@ -6,14 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schema_1 = __importDefault(require("./schema"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
-const prohibitedIdentifiers_1 = __importDefault(require("../../prohibitedIdentifiers"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (apiObject) => structureValidator(apiObject.spec),
     validateSemantics: async (apiObject, etcd) => {
-        if (prohibitedIdentifiers_1.default.indexOf(apiObject.spec.name) !== -1) {
-            throw new PreqlError_1.default('74935c2f-ff54-42dc-923d-c66f1c9adcb2', `Attribute name '${apiObject.spec.name}' is prohibited.`);
-        }
         const databasePath = apiObject.spec.databaseName.toLowerCase();
         const entityPath = `${apiObject.spec.databaseName}.$${apiObject.spec.entityName}`.toLowerCase();
         const structPath = [apiObject.spec.databaseName, apiObject.spec.structName].join('.').toLowerCase();

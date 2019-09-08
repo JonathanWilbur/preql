@@ -1,1 +1,1 @@
-{"version":3,"file":"kind.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/Attribute/kind.ts"],"names":[],"mappings":"AACA,OAAO,aAAa,MAAM,gCAAgC,CAAC;AAW3D,QAAA,MAAM,IAAI,EAAE,aAyEX,CAAC;AAEF,eAAe,IAAI,CAAC"}
+{"version":3,"file":"kind.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/Attribute/kind.ts"],"names":[],"mappings":"AACA,OAAO,aAAa,MAAM,gCAAgC,CAAC;AAU3D,QAAA,MAAM,IAAI,EAAE,aAkEX,CAAC;AAEF,eAAe,IAAI,CAAC"}

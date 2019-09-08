@@ -63,7 +63,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Add `Enum` type?
 - [x] Document why `Set` and `Range` types will not be supported.
 - [x] ~~Make `matchingResource()` check within the database!~~
-- [ ] Apply `prohibitedIdentifiers` to `Database`, `Struct`, `Entity`, etc.
+- [x] Apply `prohibitedIdentifiers` to `Database`, `Struct`, `Entity`, etc.
 - [x] Make sure that there are _some_ attributes in Entry.spec.values
 - [ ] Change occurrences of `apiObject` to `obj` or something more succinct or descriptive.
 - [ ] Do something about potentially conflicting `Entity` and `Struct` paths.

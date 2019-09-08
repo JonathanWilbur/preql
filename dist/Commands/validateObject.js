@@ -32,6 +32,9 @@ async function validateStructure(apiObject) {
     if (prohibitedIdentifiers_1.default.indexOf(apiObject.metadata.name) !== -1) {
         throw new PreqlError_1.default('ed7558d6-61b8-44e5-ae73-8feaf60404de', `Metadata name '${apiObject.metadata.name}' is prohibited.`);
     }
+    if (apiObject.spec.name && (prohibitedIdentifiers_1.default.indexOf(apiObject.spec.name) !== -1)) {
+        throw new PreqlError_1.default('1d3adbad-aaaa-4601-b95b-11892bc4bed9', `Spec name '${apiObject.spec.name}' is prohibited.`);
+    }
     return Promise.resolve(true);
 }
 exports.default = validateStructure;

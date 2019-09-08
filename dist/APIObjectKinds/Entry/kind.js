@@ -10,8 +10,6 @@ const structureValidator = ajv_1.default.compile(schema_1.default);
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {
-        // TODO: Check for no duplicated attributes.
-        // TODO: Check that ID is not present in attributes?
         const structAttributes = {};
         etcd.kindIndex.attribute
             .filter((attr) => (attr.spec.databaseName === obj.spec.databaseName

@@ -72,7 +72,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Set up GitHub Actions
 - [x] Configure testing with Jest
 - [x] Configure Webpack builds
-- [ ] Review TODOs
+- [x] Review TODOs
 - [ ] Test with transpilers
   - [ ] MariaDB
   - [ ] OpenLDAP

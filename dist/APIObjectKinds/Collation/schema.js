@@ -12,56 +12,56 @@ const iso639LanguageCodes_1 = __importDefault(require("../../iso639LanguageCodes
  * real equivalents in the targeted DBMS language.
  */
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Collation Specification Schema',
-    type: 'object',
+    title: "PreQL Collation Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         name: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         targetEquivalents: {
-            type: 'object',
-            description: 'Maps targets to their collation, such as tsql => Latin1_General_100_CS_AS.',
+            type: "object",
+            description: "Maps targets to their collation, such as tsql => Latin1_General_100_CS_AS.",
             additionalProperties: {
-                type: 'string',
+                type: "string",
             },
         },
         country: {
-            type: 'string',
+            type: "string",
             enum: iso3166CountryCodes_1.default,
         },
         language: {
-            type: 'string',
+            type: "string",
             enum: iso639LanguageCodes_1.default,
         },
         caseSensitive: {
-            type: 'boolean',
+            type: "boolean",
         },
         accentSensitive: {
-            type: 'boolean',
+            type: "boolean",
         },
         kanaSensitive: {
-            type: 'boolean',
+            type: "boolean",
         },
         widthSensitive: {
-            type: 'boolean',
+            type: "boolean",
         },
         variationSelectorSensitive: {
-            type: 'boolean',
+            type: "boolean",
         },
         binary: {
-            type: 'boolean',
+            type: "boolean",
         },
         characterSet: {
-            type: 'string',
+            type: "string",
         },
     },
     required: [
-        'name',
-        'targetEquivalents',
+        "name",
+        "targetEquivalents",
     ],
 };
 exports.default = schema;

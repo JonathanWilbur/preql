@@ -1,1 +1,1 @@
-{"version":3,"file":"getPreqlInfo.d.ts","sourceRoot":"","sources":["../../../source/ServerlessHandlers/AWS/getPreqlInfo.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,OAAO,UACL,OAAO;;;;;;;;;;;;;;;;EAEf"}
+{"version":3,"file":"getPreqlInfo.d.ts","sourceRoot":"","sources":["../../../source/ServerlessHandlers/AWS/getPreqlInfo.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,OAAO,UACL,OAAO,IAAK,MAAM,CAE1B"}

@@ -18,15 +18,14 @@ async function getServerURI(obj) {
         await structureValidator(obj);
     }
     catch (e) {
-        throw new PreqlError_1.default('87e35ffb-4a27-467b-91df-1f1201638484', `${obj.kind} '${obj.metadata.name}' failed structural `
-            + `validation. ${e.message} ${e.errors || ''}`);
+        throw new PreqlError_1.default("87e35ffb-4a27-467b-91df-1f1201638484", `${obj.kind} '${obj.metadata.name}' failed structural `
+            + `validation. ${e.message} ${e.errors || ""}`);
     }
     let uri = `${obj.spec.protocol}://${obj.spec.hostname}`;
-    uri += obj.spec.port ? `:${obj.spec.port}` : '';
+    uri += obj.spec.port ? `:${obj.spec.port}` : "";
     return {
         uri,
     };
 }
 exports.default = getServerURI;
-;
 //# sourceMappingURL=getServerURI.js.map

@@ -6,48 +6,48 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Attribute Schema',
-    type: 'object',
+    title: "PreQL Attribute Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         name: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         pluralName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         structName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         entityName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         databaseName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         default: {
             type: [
-                'number',
-                'string',
+                "number",
+                "string",
             ],
         },
         nullable: {
-            type: 'boolean',
+            type: "boolean",
             default: true,
         },
         type: {
-            type: 'string',
-            unicodePattern: '^(\\p{L}|\\p{N}|\\.|-){1,253}$',
+            type: "string",
+            unicodePattern: "^(\\p{L}|\\p{N}|\\.|-){1,253}$",
         },
         length: {
-            type: 'integer',
+            type: "integer",
             minimum: 1,
         },
         // Mostly used for LDAP: Whether an entity can have multiple of these attributes.
@@ -55,56 +55,56 @@ const schema = {
         // If multiValued with an RDBMS target, it should be broken into its own separate table,
         // and implement a FKC linking it to the parent table.
         multiValued: {
-            type: 'boolean',
+            type: "boolean",
             default: false,
         },
         characterSet: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         collation: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         objectIdentifier: {
-            type: 'string',
+            type: "string",
             pattern: objectIdentifierRegexString_1.default,
         },
         otherNames: {
-            type: 'array',
+            type: "array",
             items: {
-                type: 'string',
+                type: "string",
                 pattern: identifierRegexString_1.default,
             },
         },
         matchingRules: {
-            type: 'array',
+            type: "array",
             items: {
-                type: 'string',
+                type: "string",
                 pattern: objectIdentifierRegexString_1.default,
             },
         },
         orderingRules: {
-            type: 'array',
+            type: "array",
             items: {
-                type: 'string',
+                type: "string",
                 pattern: objectIdentifierRegexString_1.default,
             },
         },
         substringRules: {
-            type: 'array',
+            type: "array",
             items: {
-                type: 'string',
+                type: "string",
                 pattern: objectIdentifierRegexString_1.default,
             },
         },
     },
     required: [
-        'name',
-        'structName',
+        "name",
+        "structName",
         // 'entityName',
-        'databaseName',
-        'type',
+        "databaseName",
+        "type",
     ],
 };
 exports.default = schema;

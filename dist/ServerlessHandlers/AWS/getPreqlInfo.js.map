@@ -1,1 +1,1 @@
-{"version":3,"file":"getPreqlInfo.js","sourceRoot":"","sources":["../../../source/ServerlessHandlers/AWS/getPreqlInfo.ts"],"names":[],"mappings":";;;;;AAAA,+EAAuD;AAEvD,SACS,OAAO;IACd,OAAO,sBAAY,EAAE,CAAC;AACxB,CAAC;AAHD,0BAGC;AAAA,CAAC"}
+{"version":3,"file":"getPreqlInfo.js","sourceRoot":"","sources":["../../../source/ServerlessHandlers/AWS/getPreqlInfo.ts"],"names":[],"mappings":";;;;;AAAA,+EAAuD;AAEvD,SACS,OAAO;IACZ,OAAO,sBAAY,EAAE,CAAC;AAC1B,CAAC;AAHD,0BAGC"}

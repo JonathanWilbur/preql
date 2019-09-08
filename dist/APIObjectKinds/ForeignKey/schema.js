@@ -6,60 +6,60 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
 const foreignKeyChangeAction = {
-    type: 'string',
+    type: "string",
     enum: [
-        'no action',
-        'cascade',
-        'set null',
+        "no action",
+        "cascade",
+        "set null",
     ],
-    default: 'no action',
+    default: "no action",
 };
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Foreign Key Specification Schema',
-    type: 'object',
+    title: "PreQL Foreign Key Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         databaseName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         parentStructName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         childStructName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         name: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         nullable: {
-            type: 'boolean',
+            type: "boolean",
             default: true,
         },
         onDeleteAction: foreignKeyChangeAction,
         onUpdateAction: foreignKeyChangeAction,
         objectIdentifier: {
-            type: 'string',
+            type: "string",
             pattern: objectIdentifierRegexString_1.default,
         },
         otherNames: {
-            type: 'array',
+            type: "array",
             items: {
-                type: 'string',
+                type: "string",
                 pattern: identifierRegexString_1.default,
             },
         },
     },
     required: [
-        'databaseName',
-        'parentStructName',
-        'childStructName',
-        'name',
+        "databaseName",
+        "parentStructName",
+        "childStructName",
+        "name",
     ],
 };
 exports.default = schema;

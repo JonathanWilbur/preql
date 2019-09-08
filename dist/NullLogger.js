@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+const nullLogger = {
     debug: () => { },
     info: () => { },
     warn: () => { },
     error: () => { },
 };
+exports.default = nullLogger;
 //# sourceMappingURL=NullLogger.js.map

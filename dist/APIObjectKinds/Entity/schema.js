@@ -5,33 +5,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Entity Specification Schema',
-    type: 'object',
+    title: "PreQL Entity Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         name: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         pluralName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         databaseName: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         rootStruct: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
     },
     required: [
-        'name',
-        'databaseName',
-        'rootStruct',
+        "name",
+        "databaseName",
+        "rootStruct",
     ],
 };
 exports.default = schema;

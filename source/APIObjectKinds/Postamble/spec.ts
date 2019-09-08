@@ -1,4 +1,4 @@
 export default
 interface Spec {
-  uncommentedText: string;
-};
+    uncommentedText: string;
+}

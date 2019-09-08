@@ -46,3 +46,10 @@ Generally, `.spec.name` will be required when it is not an issue for two types
 to conflict in name. For example, two `Attribute`s may have the same name as
 long as they belong to separate `Struct`s, so `Attribute` uses a `.spec.name`
 field.
+
+## Conflicts
+
+PreQL prohibits name collisions between `CharacterSet`, `Collation`, and
+`Database`. This was done mostly out of my convenience as a developer, but it
+has the benefit of simplicity. For that matter, it just seems unwise for
+a database to have the same identifier as a character set or collation.

@@ -13,7 +13,7 @@ const kind = {
         if (!(obj.spec.characterSet))
             return;
         if (!etcd.pathIndex[obj.spec.characterSet.toLowerCase()]) {
-            throw new PreqlError_1.default('f191539e-7758-4a56-81ea-bba873dbfad1', `No CharacterSet found that is named '${obj.spec.characterSet}' `
+            throw new PreqlError_1.default("f191539e-7758-4a56-81ea-bba873dbfad1", `No CharacterSet found that is named '${obj.spec.characterSet}' `
                 + `to be for CharacterSet for Collation '${obj.metadata.name}'.`);
         }
     },

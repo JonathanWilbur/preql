@@ -6,24 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const iso3166CountryCodes_1 = __importDefault(require("../iso3166CountryCodes"));
 const iso639LanguageCodes_1 = __importDefault(require("../iso639LanguageCodes"));
 const Locale = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Locale Schema',
-    type: 'object',
+    title: "PreQL Locale Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         country: {
-            type: 'string',
+            type: "string",
             enum: iso3166CountryCodes_1.default,
         },
         language: {
-            type: 'string',
+            type: "string",
             enum: iso639LanguageCodes_1.default,
         },
     },
     required: [
-        'country',
-        'language',
+        "country",
+        "language",
     ],
 };
 exports.default = Locale;

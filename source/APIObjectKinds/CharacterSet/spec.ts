@@ -5,12 +5,12 @@
  */
 export default
 interface CharacterSet {
-  name: string;
-  targetEquivalents: {
-    [target: string]: string;
-  };
-  country?: string;
-  language?: string;
-  defaultCollation?: string;
-  maximumCharacterLength?: number;
-};
+    name: string;
+    targetEquivalents: {
+        [target: string]: string;
+    };
+    country?: string;
+    language?: string;
+    defaultCollation?: string;
+    maximumCharacterLength?: number;
+}

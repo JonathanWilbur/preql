@@ -1,4 +1,4 @@
-import APIObject from '../Interfaces/APIObject';
+import APIObject from "../Interfaces/APIObject";
 /**
  * Resolves a boolean indicating whether the `spec` field has been validated.
  * A resolution of `false` means that just the header was validated, but it was

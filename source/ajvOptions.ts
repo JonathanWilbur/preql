@@ -1,3 +1,3 @@
 export default {
-  useDefaults: true,
+    useDefaults: true,
 };

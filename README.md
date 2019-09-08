@@ -65,20 +65,19 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] ~~Make `matchingResource()` check within the database!~~
 - [x] Apply `prohibitedIdentifiers` to `Database`, `Struct`, `Entity`, etc.
 - [x] Make sure that there are _some_ attributes in Entry.spec.values
-- [ ] Change occurrences of `apiObject` to `obj` or something more succinct or descriptive.
-- [ ] Do something about potentially conflicting `Entity` and `Struct` paths.
-- [ ] Do something about potentially conflicting `CharacterSet`, `Collation`, and `Database` paths?
+- [x] Change occurrences of `apiObject` to `obj` or something more succinct or descriptive.
+- [x] Do something about potentially conflicting `Entity` and `Struct` paths.
+- [x] Do something about potentially conflicting `CharacterSet`, `Collation`, and `Database` paths?
+- [x] Use my own ESLint rules
+- [ ] Set up Azure Pipeline
+- [ ] Set up GitHub Actions
+- [ ] Configure testing with Jest
+- [ ] Configure Webpack builds
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
 - [ ] JSONSchema titles and descriptions
-- [ ] Automated testing with Jest
-- [ ] Webpack / Compressed builds
-- [ ] Makefile
-- [ ] Bazel builds?
-- [ ] Use the `files` attribute in `package.json`
-- [ ] `package.json` tests
 - [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
 
 ## Possible Future Features

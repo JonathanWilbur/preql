@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const getPath_1 = __importDefault(require("../../Commands/getPath"));
 const handler = async (event, context, callback) => {
-    if (!(typeof event === 'object')) {
-        callback(new Error('Event was not of an object type.'));
+    if (!(typeof event === "object")) {
+        callback(new Error("Event was not of an object type."));
         return;
     }
     const body = (() => {
@@ -17,7 +17,7 @@ const handler = async (event, context, callback) => {
         return undefined;
     })();
     if (!body) {
-        callback(new Error('Event was not a recognizable type.'));
+        callback(new Error("Event was not a recognizable type."));
         return;
     }
     callback(null, { path: await getPath_1.default(body) });

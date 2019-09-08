@@ -5,7 +5,7 @@
  * prohibited by the JSON schema that validates metadata names and identifiers.
  */
 const prohibitedIdentifiers: string[] = [
-  'id', // Reserved for use by RDBMSs.
+    "id", // Reserved for use by RDBMSs.
 ];
 
 export default prohibitedIdentifiers;

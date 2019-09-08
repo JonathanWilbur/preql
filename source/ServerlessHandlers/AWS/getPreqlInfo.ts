@@ -1,6 +1,6 @@
-import getPreqlInfo from '../../Commands/getPreqlInfo';
+import getPreqlInfo from "../../Commands/getPreqlInfo";
 
 export default
-function handler() {
-  return getPreqlInfo();
-};
+function handler (): object {
+    return getPreqlInfo();
+}

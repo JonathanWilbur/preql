@@ -6,49 +6,50 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Locale_1 = __importDefault(require("../../JSONSchema/Locale"));
 const timezones_1 = __importDefault(require("../../timezones"));
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Server Specification Schema',
-    description: 'This is not really used for anything.',
-    type: 'object',
+    title: "PreQL Server Specification Schema",
+    description: "This is not really used for anything.",
+    type: "object",
     additionalProperties: false,
     properties: {
         name: {
-            type: 'string',
+            type: "string",
         },
         protocol: {
             // RFC 3987: scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
-            type: 'string',
-            pattern: '^[A-Za-z][A-Za-z0-9\\+\\-\\.]*$',
+            type: "string",
+            pattern: "^[A-Za-z][A-Za-z0-9\\+\\-\\.]*$",
         },
         hostname: {
-            type: 'string',
-            unicodePattern: '^(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?)$',
+            type: "string",
+            // eslint-disable-next-line max-len
+            unicodePattern: "^(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.)*(?:(\\p{L}|\\p{N})(?:(\\p{L}|\\p{N}|-){0,61}(\\p{L}|\\p{N}))?\\.?)$",
             maxLength: 253,
         },
         port: {
-            type: 'number',
+            type: "number",
             minimum: 0,
             maximum: 65535,
         },
         tlsSupported: {
-            type: 'boolean',
+            type: "boolean",
         },
         starttlsSupported: {
-            type: 'boolean',
+            type: "boolean",
         },
         characterSet: {
-            type: 'string',
+            type: "string",
         },
         collation: {
-            type: 'string',
+            type: "string",
         },
         timezone: {
-            type: 'string',
+            type: "string",
             enum: timezones_1.default,
         },
         locale: {
-            type: 'object',
+            type: "object",
             properties: {
                 dateAndTimeFormat: Locale_1.default,
                 language: Locale_1.default,
@@ -58,16 +59,16 @@ const schema = {
             required: [],
         },
         options: {
-            type: 'object',
+            type: "object",
             additionalProperties: {
-                type: 'string',
+                type: "string",
             },
         },
     },
     required: [
-        'name',
-        'hostname',
-        'protocol',
+        "name",
+        "hostname",
+        "protocol",
     ],
 };
 exports.default = schema;

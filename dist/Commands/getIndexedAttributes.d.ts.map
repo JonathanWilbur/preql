@@ -1,1 +1,1 @@
-{"version":3,"file":"getIndexedAttributes.d.ts","sourceRoot":"","sources":["../../source/Commands/getIndexedAttributes.ts"],"names":[],"mappings":"AACA,OAAO,iBAAiB,MAAM,iCAAiC,CAAC;AAShE,wBACA,oBAAoB,CAAC,SAAS,EAAE,iBAAiB;;GAwBhD"}
+{"version":3,"file":"getIndexedAttributes.d.ts","sourceRoot":"","sources":["../../source/Commands/getIndexedAttributes.ts"],"names":[],"mappings":"AACA,OAAO,iBAAiB,MAAM,iCAAiC,CAAC;AAShE,wBACA,oBAAoB,CAAE,SAAS,EAAE,iBAAiB,GAAG,OAAO,CAAC;IAAE,UAAU,EAAE,MAAM,CAAC,MAAM,EAAE,OAAO,CAAC,CAAA;CAAE,CAAC,CAwBpG"}

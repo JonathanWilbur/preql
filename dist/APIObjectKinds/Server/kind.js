@@ -12,12 +12,12 @@ const kind = {
     validateSemantics: async (obj, etcd) => {
         // Validate CharacterSet
         if (obj.spec.characterSet && !etcd.pathIndex[obj.spec.characterSet.toLowerCase()]) {
-            throw new PreqlError_1.default('5f9536b1-4802-4324-aedc-6ad4a59d405d', `No CharacterSets found that are named '${obj.spec.characterSet}' for Server `
+            throw new PreqlError_1.default("5f9536b1-4802-4324-aedc-6ad4a59d405d", `No CharacterSets found that are named '${obj.spec.characterSet}' for Server `
                 + `'${obj.metadata.name}' to use.`);
         }
         // Validate Collation
         if (obj.spec.collation && !etcd.pathIndex[obj.spec.collation.toLowerCase()]) {
-            throw new PreqlError_1.default('7b8ab323-1e2b-4bf6-81c1-619b3a523b58', `No Collations found that are named '${obj.spec.collation}' for Server `
+            throw new PreqlError_1.default("7b8ab323-1e2b-4bf6-81c1-619b3a523b58", `No Collations found that are named '${obj.spec.collation}' for Server `
                 + `'${obj.metadata.name}' to use.`);
         }
     },

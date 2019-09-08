@@ -40,5 +40,4 @@ function getPreqlInfo() {
     };
 }
 exports.default = getPreqlInfo;
-;
 //# sourceMappingURL=getPreqlInfo.js.map

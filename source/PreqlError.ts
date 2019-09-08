@@ -1,8 +1,8 @@
 export default
 class PreqlError extends Error {
-  public relevantObjects: object[] = [];
+    public relevantObjects: object[] = [];
 
-  constructor(readonly uuid: string, readonly message: string) {
-    super(message);
-  }
-};
+    public constructor (readonly uuid: string, readonly message: string) {
+        super(message);
+    }
+}

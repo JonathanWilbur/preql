@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * which limit the first arc to being 0, 1, or 2, and the second arc being no
  * higher than 39 if the first arc is 0 or 1 or 175 if the first arc is 2.
  */
-const objectIdentifierRegexString = '^[0-2]\\.(0|(?:[1-9]\\d?))(\\.(0|(?:[1-9]\\d*)))+$';
+const objectIdentifierRegexString = "^[0-2]\\.(0|(?:[1-9]\\d?))(\\.(0|(?:[1-9]\\d*)))+$";
 exports.default = objectIdentifierRegexString;
 //# sourceMappingURL=objectIdentifierRegexString.js.map

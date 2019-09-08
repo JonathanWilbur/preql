@@ -1,36 +1,36 @@
-import Casing from './Casing';
-import IntegerOverflowBehavior from './IntegerOverflowBehavior';
-declare type Trim = {
-    type: 'trim';
+import Casing from "./Casing";
+import IntegerOverflowBehavior from "./IntegerOverflowBehavior";
+interface Trim {
+    type: "trim";
     side: string;
-};
-declare type Substring = {
-    type: 'substring';
+}
+interface Substring {
+    type: "substring";
     fromIndex: number;
     toIndex?: number;
-};
-declare type Replace = {
-    type: 'replace';
+}
+interface Replace {
+    type: "replace";
     from: string;
     to: string;
-};
-declare type Case = {
-    type: 'case';
+}
+interface Case {
+    type: "case";
     casing: Casing;
-};
-declare type Pad = {
-    type: 'pad';
+}
+interface Pad {
+    type: "pad";
     side: string;
     padLength: number;
     padString: string;
-};
+}
 /**
  * The targets will be responsible for intelligently updating the attribute
  * with the correct data type.
 */
-declare type Now = {
-    type: 'now';
-};
+interface Now {
+    type: "now";
+}
 interface NumberSpec {
     minimum?: number;
     maximum?: number;

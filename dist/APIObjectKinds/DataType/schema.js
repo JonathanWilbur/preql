@@ -5,220 +5,221 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const targetsMapSchema = {
-    type: 'object',
+    type: "object",
     additionalProperties: {
-        type: 'object',
+        type: "object",
         properties: {
             nativeType: {
-                type: 'string',
+                type: "string",
             },
         },
         required: [
-            'nativeType',
+            "nativeType",
         ],
     },
 };
 const booleanSchema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL String Data Type Specification Schema',
-    type: 'object',
+    title: "PreQL String Data Type Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         jsonEquivalent: {
-            const: 'boolean',
+            const: "boolean",
         },
         targets: targetsMapSchema,
     },
     required: [
-        'jsonEquivalent',
-        'targets',
+        "jsonEquivalent",
+        "targets",
     ],
 };
 const stringSchema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL String Data Type Specification Schema',
-    type: 'object',
+    title: "PreQL String Data Type Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         jsonEquivalent: {
-            const: 'string',
+            const: "string",
         },
         targets: targetsMapSchema,
         minLength: {
-            type: 'number',
+            type: "number",
             minimum: 0,
         },
         maxLength: {
-            type: 'number',
+            type: "number",
             minimum: 1,
         },
         regexes: {
-            type: 'object',
-            description: 'A map of regex kinds.',
+            type: "object",
+            description: "A map of regex kinds.",
             propertyNames: {
-                pattern: '^[A-Za-z0-9]+$',
+                pattern: "^[A-Za-z0-9]+$",
                 minLength: 1,
                 maxLength: 32,
             },
             additionalProperties: {
-                type: 'object',
-                description: 'A map of match groups. If all regexes under one match group match the value, the value matches.',
+                type: "object",
+                description: "A map of match groups. If all regexes under one match "
+                    + "group match the value, the value matches.",
                 additionalProperties: {
-                    type: 'array',
+                    type: "array",
                     items: {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             pattern: {
-                                type: 'string',
+                                type: "string",
                             },
                             positive: {
-                                type: 'boolean',
+                                type: "boolean",
                                 default: true,
                             },
                         },
                         required: [
-                            'pattern',
+                            "pattern",
                         ],
                     },
                 },
             },
         },
         setters: {
-            type: 'array',
+            type: "array",
             items: {
                 anyOf: [
                     // trim
                     {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             type: {
-                                type: 'string',
-                                enum: ['trim'],
+                                type: "string",
+                                enum: ["trim"],
                             },
                             side: {
-                                type: 'string',
+                                type: "string",
                                 enum: [
-                                    'left',
-                                    'right',
-                                    'both',
+                                    "left",
+                                    "right",
+                                    "both",
                                 ],
-                                default: 'both',
+                                default: "both",
                             },
                         },
                         required: [
-                            'type',
+                            "type",
                         ],
                     },
                     // substring
                     {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             type: {
-                                type: 'string',
-                                enum: ['substring'],
+                                type: "string",
+                                enum: ["substring"],
                             },
                             fromIndex: {
-                                type: 'number',
+                                type: "number",
                                 minimum: 0,
                             },
                             toIndex: {
-                                type: 'number',
+                                type: "number",
                                 minimum: 1,
                             },
                         },
                         required: [
-                            'type',
-                            'fromIndex',
+                            "type",
+                            "fromIndex",
                         ],
                     },
                     // replace
                     {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             type: {
-                                type: 'string',
-                                enum: ['replace'],
+                                type: "string",
+                                enum: ["replace"],
                             },
                             from: {
-                                type: 'string',
+                                type: "string",
                             },
                             to: {
-                                type: 'string',
+                                type: "string",
                             },
                         },
                         required: [
-                            'type',
-                            'from',
-                            'to',
+                            "type",
+                            "from",
+                            "to",
                         ],
                     },
                     // case
                     {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             type: {
-                                type: 'string',
-                                enum: ['case'],
+                                type: "string",
+                                enum: ["case"],
                             },
                             casing: {
-                                type: 'string',
+                                type: "string",
                                 enum: [
-                                    'upper',
-                                    'lower',
-                                    'title',
-                                    'sentence',
+                                    "upper",
+                                    "lower",
+                                    "title",
+                                    "sentence",
                                 ],
                             },
                         },
                         required: [
-                            'type',
-                            'casing',
+                            "type",
+                            "casing",
                         ],
                     },
                     // pad
                     {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             type: {
-                                type: 'string',
-                                enum: ['pad'],
+                                type: "string",
+                                enum: ["pad"],
                             },
                             side: {
-                                type: 'string',
+                                type: "string",
                                 enum: [
-                                    'left',
-                                    'right',
+                                    "left",
+                                    "right",
                                 ],
                             },
                             padLength: {
-                                type: 'number',
+                                type: "number",
                                 minimum: 1,
                             },
                             padString: {
-                                type: 'string',
+                                type: "string",
                                 minLength: 1,
                             },
                         },
                         required: [
-                            'type',
-                            'side',
-                            'padLength',
-                            'padString',
+                            "type",
+                            "side",
+                            "padLength",
+                            "padString",
                         ],
                     },
                     // now
                     {
-                        type: 'object',
+                        type: "object",
                         properties: {
                             type: {
-                                type: 'string',
-                                enum: ['now'],
+                                type: "string",
+                                enum: ["now"],
                             },
                         },
                         required: [
-                            'type',
+                            "type",
                         ],
                     },
                 ],
@@ -226,90 +227,90 @@ const stringSchema = {
         },
     },
     required: [
-        'jsonEquivalent',
-        'targets',
+        "jsonEquivalent",
+        "targets",
     ],
 };
 const numberSchema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Number Data Type Specification Schema',
-    type: 'object',
+    title: "PreQL Number Data Type Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         jsonEquivalent: {
-            type: 'string',
+            type: "string",
             enum: [
-                'number',
-                'integer',
+                "number",
+                "integer",
             ],
         },
         minimum: {
-            type: 'number',
+            type: "number",
         },
         maximum: {
-            type: 'number',
+            type: "number",
         },
         overflowBehavior: {
-            type: 'string',
+            type: "string",
             enum: [
-                'ZERO',
-                'MIN',
-                'MAX',
-                'IGNORE',
-                'ERROR',
+                "ZERO",
+                "MIN",
+                "MAX",
+                "IGNORE",
+                "ERROR",
             ],
         },
         underflowBehavior: {
-            type: 'string',
+            type: "string",
             enum: [
-                'ZERO',
-                'MIN',
-                'MAX',
-                'IGNORE',
-                'ERROR',
+                "ZERO",
+                "MIN",
+                "MAX",
+                "IGNORE",
+                "ERROR",
             ],
         },
         targets: targetsMapSchema,
     },
     required: [
-        'jsonEquivalent',
-        'targets',
+        "jsonEquivalent",
+        "targets",
     ],
 };
 const enumSchema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Enum Data Type Specification Schema',
-    type: 'object',
+    title: "PreQL Enum Data Type Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         jsonEquivalent: {
-            const: 'string',
+            const: "string",
         },
         name: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         values: {
-            type: 'array',
+            type: "array",
             items: {
-                type: 'string',
+                type: "string",
                 minLength: 1,
                 maxLength: 32,
             },
         },
     },
     required: [
-        'jsonEquivalent',
-        'name',
-        'values',
+        "jsonEquivalent",
+        "name",
+        "values",
     ],
 };
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL Data Type Specification Schema',
+    title: "PreQL Data Type Specification Schema",
     oneOf: [
         numberSchema,
         enumSchema,

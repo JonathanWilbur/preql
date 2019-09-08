@@ -9,14 +9,14 @@ async function validateNamespace(namespace) {
     // Ensure unique distinguished names
     const encounteredDistinguishedNames = new Map([]);
     (namespace.kindIndex.entry || [])
-        .filter((entry) => (typeof entry.spec.distinguishedName === 'string'))
+        .filter((entry) => (typeof entry.spec.distinguishedName === "string"))
         .forEach((entry) => {
         if (!entry.spec.distinguishedName)
             return;
         if (encounteredDistinguishedNames.has(entry.spec.distinguishedName.toLowerCase())) {
             const firstEntry = encounteredDistinguishedNames
                 .get(entry.spec.distinguishedName.toLowerCase());
-            throw new PreqlError_1.default('ee62701b-8d35-48f9-8d78-be0d8f3c80f3', `Duplicate Entry.distinguishedName '${entry.spec.distinguishedName}'. `
+            throw new PreqlError_1.default("ee62701b-8d35-48f9-8d78-be0d8f3c80f3", `Duplicate Entry.distinguishedName '${entry.spec.distinguishedName}'. `
                 + `The first Entry to have it was '${firstEntry.metadata.name}'. `
                 + `The second Entry to have it was '${entry.metadata.name}'.`);
         }
@@ -28,14 +28,14 @@ async function validateNamespace(namespace) {
     const encounteredObjectIdentifiers = new Map([]);
     (namespace.kindIndex.attribute || [])
         .concat(namespace.kindIndex.struct || [])
-        .filter((obj) => (typeof obj.spec.objectIdentifier === 'string'))
+        .filter((o) => (typeof o.spec.objectIdentifier === "string"))
         .forEach((obj) => {
         if (!obj.spec.objectIdentifier)
             return;
         if (encounteredObjectIdentifiers.has(obj.spec.objectIdentifier)) {
             const first = encounteredObjectIdentifiers
                 .get(obj.spec.objectIdentifier);
-            throw new PreqlError_1.default('ee62701b-8d35-48f9-8d78-be0d8f3c80f3', `Duplicate Object Identifier '${obj.spec.objectIdentifier}'. `
+            throw new PreqlError_1.default("ee62701b-8d35-48f9-8d78-be0d8f3c80f3", `Duplicate Object Identifier '${obj.spec.objectIdentifier}'. `
                 + `The first Attribute or Struct to have it was '${first.metadata.name}'. `
                 + `The second Attribute or Struct to have it was '${obj.metadata.name}'.`);
         }
@@ -55,5 +55,4 @@ async function validateNamespace(namespace) {
     }))));
 }
 exports.default = validateNamespace;
-;
 //# sourceMappingURL=validateNamespace.js.map

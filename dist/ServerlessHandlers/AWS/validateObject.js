@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const validateObject_1 = __importDefault(require("../../Commands/validateObject"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
 const handler = async (event, context, callback) => {
-    if (!(typeof event === 'object')) {
-        callback(new Error('Event was not of an object type.'));
+    if (!(typeof event === "object")) {
+        callback(new Error("Event was not of an object type."));
         return;
     }
     const body = (() => {
@@ -18,7 +18,7 @@ const handler = async (event, context, callback) => {
         return undefined;
     })();
     if (!body) {
-        callback(new Error('Event was not a recognizable type.'));
+        callback(new Error("Event was not a recognizable type."));
         return;
     }
     try {

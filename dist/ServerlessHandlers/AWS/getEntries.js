@@ -7,11 +7,10 @@ const validateObject_1 = __importDefault(require("../../Commands/validateObject"
 const validateNamespace_1 = __importDefault(require("../../Commands/validateNamespace"));
 const indexObjects_1 = __importDefault(require("../../Commands/indexObjects"));
 const getEntries_1 = __importDefault(require("../../Commands/getEntries"));
-// import APIObject from '../../Interfaces/APIObject';
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
 const handler = async (event, context, callback) => {
-    if (!(typeof event === 'object')) {
-        callback(new Error('Event was not of an object type.'));
+    if (!(typeof event === "object")) {
+        callback(new Error("Event was not of an object type."));
         return;
     }
     const body = (() => {
@@ -22,7 +21,7 @@ const handler = async (event, context, callback) => {
         return undefined;
     })();
     if (!body) {
-        callback(new Error('Event was not a recognizable type.'));
+        callback(new Error("Event was not a recognizable type."));
         return;
     }
     if (body.objects.length === 0) {
@@ -33,7 +32,7 @@ const handler = async (event, context, callback) => {
         await Promise.all(body.objects.map(validateObject_1.default));
         const namespaces = await indexObjects_1.default(body.objects);
         await Promise.all(Object.values(namespaces).map(validateNamespace_1.default));
-        const entries = await getEntries_1.default(namespaces[body.namespace || 'default']);
+        const entries = await getEntries_1.default(namespaces[body.namespace || "default"]);
         callback(null, entries);
     }
     catch (e) {

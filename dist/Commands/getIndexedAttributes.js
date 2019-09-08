@@ -16,15 +16,14 @@ async function getIndexedAttributes(namespace) {
         result.attributes[path] = false;
     });
     indexes.forEach((index) => {
-        index.spec.keyAttributes.forEach(kc => {
+        index.spec.keyAttributes.forEach((ka) => {
             const path = `${index.spec.databaseName.toLowerCase()}.`
                 + `${index.spec.structName.toLowerCase()}.`
-                + `${kc.name.toLowerCase()}`;
+                + `${ka.name.toLowerCase()}`;
             result.attributes[path] = true;
         });
     });
     return result;
 }
 exports.default = getIndexedAttributes;
-;
 //# sourceMappingURL=getIndexedAttributes.js.map

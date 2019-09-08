@@ -17,5 +17,4 @@ async function getEntries(namespace) {
     return result;
 }
 exports.default = getEntries;
-;
 //# sourceMappingURL=getEntries.js.map

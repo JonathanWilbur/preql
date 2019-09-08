@@ -37,5 +37,4 @@ async function getTree(namespaces) {
     return result;
 }
 exports.default = getTree;
-;
 //# sourceMappingURL=getTree.js.map

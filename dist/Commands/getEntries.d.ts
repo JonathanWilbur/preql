@@ -1,4 +1,4 @@
-import APIObjectDatabase from '../Interfaces/APIObjectDatabase';
+import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 export default function getEntries(namespace: APIObjectDatabase): Promise<{
     entries: Record<string, Record<string, object[]>>;
 }>;

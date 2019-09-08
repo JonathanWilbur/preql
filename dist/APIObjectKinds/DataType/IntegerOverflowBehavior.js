@@ -8,6 +8,5 @@ var IntegerOverflowBehavior;
     IntegerOverflowBehavior["IGNORE"] = "IGNORE";
     IntegerOverflowBehavior["ERROR"] = "ERROR";
 })(IntegerOverflowBehavior || (IntegerOverflowBehavior = {}));
-;
 exports.default = IntegerOverflowBehavior;
 //# sourceMappingURL=IntegerOverflowBehavior.js.map

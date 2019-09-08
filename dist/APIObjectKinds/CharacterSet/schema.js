@@ -12,43 +12,43 @@ const iso639LanguageCodes_1 = __importDefault(require("../../iso639LanguageCodes
  * real equivalents in the targeted DBMS language.
  */
 const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,
-    title: 'PreQL CharacterSet Specification Schema',
-    type: 'object',
+    title: "PreQL CharacterSet Specification Schema",
+    type: "object",
     additionalProperties: false,
     properties: {
         name: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         targetEquivalents: {
-            type: 'object',
-            description: 'Maps targets to their character set, such as mysql => utf8mb4.',
+            type: "object",
+            description: "Maps targets to their character set, such as mysql => utf8mb4.",
             additionalProperties: {
-                type: 'string',
+                type: "string",
             },
         },
         country: {
-            type: 'string',
+            type: "string",
             enum: iso3166CountryCodes_1.default,
         },
         language: {
-            type: 'string',
+            type: "string",
             enum: iso639LanguageCodes_1.default,
         },
         defaultCollation: {
-            type: 'string',
+            type: "string",
             pattern: identifierRegexString_1.default,
         },
         maximumCharacterLength: {
-            type: 'number',
+            type: "number",
             minimum: 1,
         },
     },
     required: [
-        'name',
-        'targetEquivalents',
+        "name",
+        "targetEquivalents",
     ],
 };
 exports.default = schema;

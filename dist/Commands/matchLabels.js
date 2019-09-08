@@ -30,5 +30,4 @@ async function matchLabels(labels, obj) {
     return result;
 }
 exports.default = matchLabels;
-;
 //# sourceMappingURL=matchLabels.js.map

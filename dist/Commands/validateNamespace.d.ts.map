@@ -1,1 +1,1 @@
-{"version":3,"file":"validateNamespace.d.ts","sourceRoot":"","sources":["../../source/Commands/validateNamespace.ts"],"names":[],"mappings":"AAEA,OAAO,iBAAiB,MAAM,iCAAiC,CAAC;AAKhE,wBACe,iBAAiB,CAAC,SAAS,EAAE,iBAAiB,qBAoD5D"}
+{"version":3,"file":"validateNamespace.d.ts","sourceRoot":"","sources":["../../source/Commands/validateNamespace.ts"],"names":[],"mappings":"AAEA,OAAO,iBAAiB,MAAM,iCAAiC,CAAC;AAKhE,wBACe,iBAAiB,CAAE,SAAS,EAAE,iBAAiB,GAAG,OAAO,CAAC,IAAI,EAAE,EAAE,CAAC,CAoDjF"}

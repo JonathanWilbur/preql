@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * prohibited by the JSON schema that validates metadata names and identifiers.
  */
 const prohibitedIdentifiers = [
-    'id',
+    "id",
 ];
 exports.default = prohibitedIdentifiers;
 //# sourceMappingURL=prohibitedIdentifiers.js.map

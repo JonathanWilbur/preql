@@ -1,4 +1,4 @@
-import APIObject from '../Interfaces/APIObject';
+import APIObject from "../Interfaces/APIObject";
 /**
  * Evaluates whether an APIObject matches a label selector.
  *

@@ -20,13 +20,12 @@ const kind = {
                         new RegExp(re.pattern);
                     }
                     catch (e) {
-                        throw new PreqlError_1.default('9f65eaff-b915-4889-9d6c-8e3a757b5b4e', `Invalid regular expression for data type '${obj.metadata.name}'. `
+                        throw new PreqlError_1.default("9f65eaff-b915-4889-9d6c-8e3a757b5b4e", `Invalid regular expression for data type '${obj.metadata.name}'. `
                             + `Group '${group[0]}', index: ${index}.`);
                     }
                 });
             });
         }
-        ;
     },
 };
 exports.default = kind;

@@ -1,1 +1,1 @@
-{"version":3,"file":"prohibitedIdentifiers.js","sourceRoot":"","sources":["../source/prohibitedIdentifiers.ts"],"names":[],"mappings":";;AAAA;;;;;GAKG;AACH,MAAM,qBAAqB,GAAa;IACtC,IAAI;CACL,CAAC;AAEF,kBAAe,qBAAqB,CAAC"}
+{"version":3,"file":"prohibitedIdentifiers.js","sourceRoot":"","sources":["../source/prohibitedIdentifiers.ts"],"names":[],"mappings":";;AAAA;;;;;GAKG;AACH,MAAM,qBAAqB,GAAa;IACpC,IAAI;CACP,CAAC;AAEF,kBAAe,qBAAqB,CAAC"}

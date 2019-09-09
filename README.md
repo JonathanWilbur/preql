@@ -79,10 +79,12 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - [x] OpenLDAP
   - [x] BSON Schema
 - [x] Append ID numbers to the paths of `Entry` types.
-- [ ] Remove validation logic from `getServerURI()`.
+- [x] Remove validation logic from `getServerURI()`.
 - [ ] Test `getPath()` with objects with `entityName` set.
 - [ ] Test more collisions in `indexObjects()`.
+  - [ ] Especially `Entry`.
 - [ ] Test `validateNamespace()` a lot more.
+- [ ] Test Serverless functions.
 
 ## After 1.0.0
 

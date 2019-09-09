@@ -1,0 +1,9 @@
+apiObject:
+  apiVersion: preql/1.0.0
+  kind: Server
+  metadata:
+    name: hostyboi
+  spec:
+    name: hostyboi
+    hostname: hosty.boi
+    protocol: mariadb

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 async function getPath(obj) {
     if (!obj || !obj.spec || typeof obj.spec !== "object")
         return undefined;
-    if (!("name" in obj.spec) || typeof obj.spec.name !== "string")
+    if (("name" in obj.spec) && typeof obj.spec.name !== "string")
         return undefined;
     /**
      * These cases will not get handled by the catchall at the bottom, because
@@ -30,11 +30,14 @@ async function getPath(obj) {
     if (obj.kind.toLowerCase() === "entity") {
         path += `.$${obj.spec.name}`;
     }
-    else {
+    else if (obj.spec.name) {
         if (path.length > 0) {
             path += ".";
         }
         path += obj.spec.name;
+    }
+    else if (obj.spec.id) { // Only `Entry` has this.
+        path += `.${obj.spec.id}`;
     }
     return path.toLowerCase();
 }

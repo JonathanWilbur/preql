@@ -78,14 +78,18 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - [x] MariaDB
   - [x] OpenLDAP
   - [x] BSON Schema
-- [ ] Append ID numbers to the paths of `Entry` types.
+- [x] Append ID numbers to the paths of `Entry` types.
 - [ ] Remove validation logic from `getServerURI()`.
+- [ ] Test `getPath()` with objects with `entityName` set.
+- [ ] Test more collisions in `indexObjects()`.
+- [ ] Test `validateNamespace()` a lot more.
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
 - [ ] `README.md` documentation
-- [ ]
+- [ ] Additional Markdown documentation
+- [ ] Examples.
 - [ ] JSONSchema titles and descriptions
 - [ ] Set up Azure Pipeline
 

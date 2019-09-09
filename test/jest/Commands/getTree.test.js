@@ -69,7 +69,7 @@ describe("getTree", () => {
                 },
             },
         ];
-        await Promise.all(objects.map(validateObject)); // TODO: Delete.
+        await Promise.all(objects.map(validateObject));
         const namespaces = await indexObjects(objects);
         await Promise.all(Object.values(namespaces).map(validateNamespace));
         const tree = await getTree(namespaces);

@@ -1,6 +1,5 @@
 const getPath = require("../../../dist/Commands/getPath.js").default;
 
-// TODO: Test objects with entity set.
 describe("getPath", () => {
     const attribute = {
         apiVersion: "preql/1.0.0",
@@ -237,7 +236,6 @@ describe("getPath", () => {
         expect(await getPath(datatype)).not.toBeDefined();
     });
 
-    // TODO: Append ID to path.
     const entry = {
         apiVersion: "preql/1.0.0",
         kind: "Entry",
@@ -254,7 +252,7 @@ describe("getPath", () => {
         },
     };
     test("encoding of an Entry", async () => {
-        expect(await getPath(entry)).not.toBeDefined();
+        expect(await getPath(entry)).toEqual("database.struct.1");
     });
 
     const characterset = {

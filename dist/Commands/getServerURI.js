@@ -15,11 +15,11 @@ const structureValidator = ajv_1.default.compile(schema_1.default);
  */
 async function getServerURI(obj) {
     try {
-        await structureValidator(obj);
+        await structureValidator(obj.spec);
     }
     catch (e) {
         throw new PreqlError_1.default("87e35ffb-4a27-467b-91df-1f1201638484", `${obj.kind} '${obj.metadata.name}' failed structural `
-            + `validation. ${e.message} ${e.errors || ""}`);
+            + `validation. ${e.message} ${(e.errors || []).map((x) => x.message).join("; ")}`);
     }
     let uri = `${obj.spec.protocol}://${obj.spec.hostname}`;
     uri += obj.spec.port ? `:${obj.spec.port}` : "";

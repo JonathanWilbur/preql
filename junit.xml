@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" time="1.098">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2019-09-08T19:57:32" time="1.035" tests="1">
-    <testcase classname=" two plus two is four" name=" two plus two is four" time="0.004">
-    </testcase>
-  </testsuite>
-</testsuites>

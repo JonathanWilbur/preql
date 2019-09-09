@@ -74,14 +74,18 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Configure Webpack builds
 - [x] Review TODOs
 - [x] Organize all imports
-- [ ] Test with transpilers
-  - [ ] MariaDB
-  - [ ] OpenLDAP
-  - [ ] BSON Schema
+- [x] Test with transpilers
+  - [x] MariaDB
+  - [x] OpenLDAP
+  - [x] BSON Schema
+- [ ] Append ID numbers to the paths of `Entry` types.
+- [ ] Remove validation logic from `getServerURI()`.
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
+- [ ] `README.md` documentation
+- [ ]
 - [ ] JSONSchema titles and descriptions
 - [ ] Set up Azure Pipeline
 

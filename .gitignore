@@ -1,5 +1,6 @@
 test/jail/
 rubbish/
+junit.xml
 
 # Sourced from https://github.com/github/gitignore
 

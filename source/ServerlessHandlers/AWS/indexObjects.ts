@@ -2,6 +2,9 @@ import { Callback, Context, Handler } from "aws-lambda";
 import indexObjects from "../../Commands/indexObjects";
 import normalizeError from "../../normalizeError";
 
+/**
+ * @see /source/Commands/indexObjects.
+ */
 const handler: Handler = async (event, context: Context, callback: Callback): Promise<undefined> => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

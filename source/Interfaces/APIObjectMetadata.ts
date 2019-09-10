@@ -1,3 +1,6 @@
+/**
+ * The interface for the `metadata` section of all API objects used by PreQL.
+ */
 export default
 interface APIObjectMetadata {
     readonly name: string;

@@ -9,6 +9,9 @@ const getServerURI_1 = __importDefault(require("../../Commands/getServerURI"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * @see /source/Commands/getServerURI.
+ */
 const handler = async (event, context, callback) => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

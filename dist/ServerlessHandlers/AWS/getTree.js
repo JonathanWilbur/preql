@@ -8,6 +8,9 @@ const indexObjects_1 = __importDefault(require("../../Commands/indexObjects"));
 const validateNamespace_1 = __importDefault(require("../../Commands/validateNamespace"));
 const validateObject_1 = __importDefault(require("../../Commands/validateObject"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
+/**
+ * @see /source/Commands/getTree.
+ */
 const handler = async (event, context, callback) => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

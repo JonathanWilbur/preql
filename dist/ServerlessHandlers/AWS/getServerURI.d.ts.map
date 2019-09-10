@@ -1,1 +1,1 @@
-{"version":3,"file":"getServerURI.d.ts","sourceRoot":"","sources":["../../../source/ServerlessHandlers/AWS/getServerURI.ts"],"names":[],"mappings":"AAAA,OAAO,EAAqB,OAAO,EAAE,MAAM,YAAY,CAAC;AASxD,QAAA,MAAM,OAAO,EAAE,OA4Bd,CAAC;AAEF,eAAe,OAAO,CAAC"}
+{"version":3,"file":"getServerURI.d.ts","sourceRoot":"","sources":["../../../source/ServerlessHandlers/AWS/getServerURI.ts"],"names":[],"mappings":"AAAA,OAAO,EAAqB,OAAO,EAAE,MAAM,YAAY,CAAC;AASxD;;GAEG;AACH,QAAA,MAAM,OAAO,EAAE,OA4Bd,CAAC;AAEF,eAAe,OAAO,CAAC"}

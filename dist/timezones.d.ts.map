@@ -1,1 +1,1 @@
-{"version":3,"file":"timezones.d.ts","sourceRoot":"","sources":["../source/timezones.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,QAAA,MAAM,SAAS,EAAE,MAAM,EA0atB,CAAC;AAEF,eAAe,SAAS,CAAC"}
+{"version":3,"file":"timezones.d.ts","sourceRoot":"","sources":["../source/timezones.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,QAAA,MAAM,SAAS,EAAE,MAAM,EA0atB,CAAC;AAEF,eAAe,SAAS,CAAC"}

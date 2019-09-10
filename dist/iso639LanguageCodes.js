@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * ISO 639-1 Two-Letter Language Codes. This is primarily used for locales
  * in PreQL.
+ *
+ * @see [ISO 639-1:2002](https://www.iso.org/standard/22109.html).
  */
 const iso639LanguageCodes = [
     "aa",

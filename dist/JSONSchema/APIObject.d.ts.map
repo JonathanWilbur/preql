@@ -1,1 +1,1 @@
-{"version":3,"file":"APIObject.d.ts","sourceRoot":"","sources":["../../source/JSONSchema/APIObject.ts"],"names":[],"mappings":"AAGA,QAAA,MAAM,eAAe;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CA2BpB,CAAC;AAEF,eAAe,eAAe,CAAC"}
+{"version":3,"file":"APIObject.d.ts","sourceRoot":"","sources":["../../source/JSONSchema/APIObject.ts"],"names":[],"mappings":"AAGA;;GAEG;AACH,QAAA,MAAM,eAAe;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CA2BpB,CAAC;AAEF,eAAe,eAAe,CAAC"}

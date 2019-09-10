@@ -4,6 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getPreqlInfo_1 = __importDefault(require("../../Commands/getPreqlInfo"));
+/**
+ * @see /source/Commands/getPreqlInfo.
+ */
 function handler() {
     return getPreqlInfo_1.default();
 }

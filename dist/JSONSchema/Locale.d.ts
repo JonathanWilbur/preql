@@ -1,3 +1,6 @@
+/**
+ * The JSON schema for a locale.
+ */
 declare const Locale: {
     $schema: string;
     $async: boolean;

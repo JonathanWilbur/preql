@@ -1,1 +1,1 @@
-{"version":3,"file":"identifierRegexString.js","sourceRoot":"","sources":["../source/identifierRegexString.ts"],"names":[],"mappings":";;AAAA,MAAM,qBAAqB,GAAW,8CAA8C,CAAC;AACrF,kBAAe,qBAAqB,CAAC"}
+{"version":3,"file":"identifierRegexString.js","sourceRoot":"","sources":["../source/identifierRegexString.ts"],"names":[],"mappings":";;AAAA;;;;GAIG;AACH,MAAM,qBAAqB,GAAW,8CAA8C,CAAC;AACrF,kBAAe,qBAAqB,CAAC"}

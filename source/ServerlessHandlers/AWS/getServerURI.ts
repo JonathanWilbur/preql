@@ -7,6 +7,9 @@ import PreqlError from "../../PreqlError";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * @see /source/Commands/getServerURI.
+ */
 const handler: Handler = async (event, context: Context, callback: Callback): Promise<undefined> => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

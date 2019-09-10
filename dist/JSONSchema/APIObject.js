@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../identifierRegexString"));
 const APIObjectMetadata_1 = __importDefault(require("./APIObjectMetadata"));
+/**
+ * The root JSON schema for all APIObjects.
+ */
 const APIObjectSchema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

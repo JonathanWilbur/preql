@@ -7,6 +7,14 @@ import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 import APIObjectKind from "../Interfaces/APIObjectKind";
 import PreqlError from "../PreqlError";
 
+/**
+ * Semantically validates a namespace, which means checking that all references
+ * are valid, among other things. For instance, this function checks that all
+ * `Attribute`s attach to a valid `Struct`.
+ *
+ * @param namespace {APIObjectDatabase} The namespace to be validated.
+ * @returns {Promise} A promise resolving nothing. Ignore the resolved value.
+ */
 export default
 async function validateNamespace (namespace: APIObjectDatabase): Promise<void[][]> {
     // Ensure unique distinguished names

@@ -1,6 +1,9 @@
 import iso3166CountryCodes from "../iso3166CountryCodes";
 import iso639LanguageCodes from "../iso639LanguageCodes";
 
+/**
+ * The JSON schema for a locale.
+ */
 const Locale = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

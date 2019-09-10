@@ -85,10 +85,24 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - [ ] Especially `Entry`.
 - [ ] Test `validateNamespace()` a lot more.
 - [ ] Test Serverless functions.
+- [ ] How to handle support or non-support for Unicode Characters
+- [x] ~~Add an explanatory field for enum values?~~
+- [ ] Use a field in the target field to ignore regexes or setters?
+- [ ] Sparse Attribute / Index
+- [ ] Another benefit: unit-testing your schema with labels.exampleValue
+- [ ] Entry: "layer" to help with hierarchical insertions.
+- [ ] Website that generates documentation from the schema
+- [ ] Use lowercase more in standard types
+- [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
+- [ ] Remove Serverless normalization from `normalizeError`.
 
 ## After 1.0.0
 
 - [ ] JSDoc documentation on everything
+  - [ ] Use types on `@param` and `@returns` directives.
+  - [ ] Use `@returns`
+  - [ ] Use `@see` where appropriate.
+  - [ ] Figure out what to do about `@returns` when a `Promise` is returned.
 - [ ] `README.md` documentation
 - [ ] Additional Markdown documentation
 - [ ] Examples.

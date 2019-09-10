@@ -1,6 +1,9 @@
 import identifierRegexString from "../identifierRegexString";
 import APIObjectMetadataSchema from "./APIObjectMetadata";
 
+/**
+ * The root JSON schema for all APIObjects.
+ */
 const APIObjectSchema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

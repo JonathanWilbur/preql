@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * ISO 3166-1 Two-Letter Country Codes. This is primarily used for locales in
  * PreQL.
+ *
+ * @see [ISO 3166-1:2013](https://www.iso.org/standard/63545.html).
  */
 const iso3166CountryCodes = [
     "AF",

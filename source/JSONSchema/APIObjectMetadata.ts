@@ -1,4 +1,8 @@
-// Based on this: https://github.com/garethr/kubernetes-json-schema/blob/master/v1.9.9/objectmeta.json
+/**
+ * The JSON schema for the metadata section of all APIObjects. Based on the
+ * Kubernetes API object metadata.
+ * @see https://github.com/garethr/kubernetes-json-schema/blob/master/v1.9.9/objectmeta.json
+ */
 const APIObjectMetadataSchema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

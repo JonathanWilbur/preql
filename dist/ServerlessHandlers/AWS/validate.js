@@ -7,6 +7,11 @@ const indexObjects_1 = __importDefault(require("../../Commands/indexObjects"));
 const validateNamespace_1 = __importDefault(require("../../Commands/validateNamespace"));
 const validateObject_1 = __importDefault(require("../../Commands/validateObject"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
+/**
+ * This function validates all objects structually and semantically.
+ *
+ * @see /source/Commands/validateNamespace.
+ */
 const handler = async (event, context, callback) => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

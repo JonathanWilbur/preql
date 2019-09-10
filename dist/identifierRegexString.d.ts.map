@@ -1,1 +1,1 @@
-{"version":3,"file":"identifierRegexString.d.ts","sourceRoot":"","sources":["../source/identifierRegexString.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,qBAAqB,EAAE,MAAuD,CAAC;AACrF,eAAe,qBAAqB,CAAC"}
+{"version":3,"file":"identifierRegexString.d.ts","sourceRoot":"","sources":["../source/identifierRegexString.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,QAAA,MAAM,qBAAqB,EAAE,MAAuD,CAAC;AACrF,eAAe,qBAAqB,CAAC"}

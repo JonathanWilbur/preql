@@ -1,5 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Returns an object whose `attributes` property is an object whose keys are
+ * `Attribute` paths, and whose values are booleans indicating whether or not
+ * attribute is indexed.
+ * @param namespace {APIObjectDatabase} The namespace in which to find attributes.
+ */
 async function getIndexedAttributes(namespace) {
     const attributes = (namespace.kindIndex.attribute || []);
     const indexes = (namespace.kindIndex.plainindex || [])

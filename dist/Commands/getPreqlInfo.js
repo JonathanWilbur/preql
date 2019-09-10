@@ -21,6 +21,13 @@ const version_1 = __importStar(require("../version"));
 const Casing_1 = __importDefault(require("../APIObjectKinds/DataType/Casing"));
 // import dataTypeSchema from '../APIObjectKinds/DataType/schema';
 const ajvOptions_1 = __importDefault(require("../ajvOptions"));
+/**
+ * A function for returning enum values and configuration information all at
+ * once. This was mainly created for diagnostic / telemetry purposes, but it
+ * could conceivably be used for other things.
+ *
+ * @returns {object} An object containing configuration information.
+ */
 function getPreqlInfo() {
     return {
         version: version_1.default,

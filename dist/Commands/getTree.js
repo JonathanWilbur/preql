@@ -1,5 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Returns a hierarchical representation of all namespaces--a "tree"--whose
+ * penultimate nodes are namespaces and whose leaf nodes are `Attribute`s.
+ *
+ * @param namespaces {Record<string, APIObjectDatabase>} The namespaces from whence to build the tree.
+ * @returns {Tree} A hierarchical representation of each namespace.
+ */
 async function getTree(namespaces) {
     const result = { namespaces: {} };
     Object.entries(namespaces).forEach((ns) => {

@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const matchLabels_1 = __importDefault(require("../../Commands/matchLabels"));
 const normalizeError_1 = __importDefault(require("../../normalizeError"));
+/**
+ * @see /source/Commands/matchLabels.
+ */
 const handler = async (event, context, callback) => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

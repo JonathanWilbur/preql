@@ -1,3 +1,6 @@
+/**
+ * The root JSON schema for all APIObjects.
+ */
 declare const APIObjectSchema: {
     $schema: string;
     $async: boolean;

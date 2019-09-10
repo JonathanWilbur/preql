@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const iso3166CountryCodes_1 = __importDefault(require("../iso3166CountryCodes"));
 const iso639LanguageCodes_1 = __importDefault(require("../iso639LanguageCodes"));
+/**
+ * The JSON schema for a locale.
+ */
 const Locale = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

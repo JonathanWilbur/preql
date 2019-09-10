@@ -5,6 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const APIObjectKinds_1 = __importDefault(require("../APIObjectKinds"));
 const PreqlError_1 = __importDefault(require("../PreqlError"));
+/**
+ * Semantically validates a namespace, which means checking that all references
+ * are valid, among other things. For instance, this function checks that all
+ * `Attribute`s attach to a valid `Struct`.
+ *
+ * @param namespace {APIObjectDatabase} The namespace to be validated.
+ * @returns {Promise} A promise resolving nothing. Ignore the resolved value.
+ */
 async function validateNamespace(namespace) {
     // Ensure unique distinguished names
     const encounteredDistinguishedNames = new Map([]);

@@ -1,5 +1,8 @@
 import APIObjectMetadata from "./APIObjectMetadata";
 
+/**
+ * The interface for all API objects used by PreQL.
+ */
 export default
 interface APIObject<T = any> {
     readonly apiVersion: string;

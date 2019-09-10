@@ -4,6 +4,11 @@ import validateNamespace from "../../Commands/validateNamespace";
 import validateObject from "../../Commands/validateObject";
 import normalizeError from "../../normalizeError";
 
+/**
+ * This function validates all objects structually and semantically.
+ *
+ * @see /source/Commands/validateNamespace.
+ */
 const handler: Handler = async (event, context: Context, callback: Callback): Promise<undefined> => {
     if (!(typeof event === "object")) {
         callback(new Error("Event was not of an object type."));

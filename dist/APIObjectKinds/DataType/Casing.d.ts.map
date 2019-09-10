@@ -1,1 +1,1 @@
-{"version":3,"file":"Casing.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/DataType/Casing.ts"],"names":[],"mappings":"AAAA,aAAK,MAAM;IACP,KAAK,UAAU;IACf,KAAK,UAAU;IACf,KAAK,UAAU;IACf,QAAQ,aAAa;CACxB;AAED,eAAe,MAAM,CAAC"}
+{"version":3,"file":"Casing.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/DataType/Casing.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,aAAK,MAAM;IACP,KAAK,UAAU;IACf,KAAK,UAAU;IACf,KAAK,UAAU;IACf,QAAQ,aAAa;CACxB;AAED,eAAe,MAAM,CAAC"}

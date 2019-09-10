@@ -1,3 +1,7 @@
+/**
+ * Behaviors that numeric data types can exude when they exceed their
+ * maximum or minimum possible values.
+ */
 enum IntegerOverflowBehavior {
     ZERO = "ZERO", // Set to zero.
     MIN = "MIN", // Set to the minimum.

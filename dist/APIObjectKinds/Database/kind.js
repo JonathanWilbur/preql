@@ -7,6 +7,14 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * Represents a virtually isolated, but not necessarily physically isolated,
+ * store of data that exists within a DBMS. Such stores of data are may have
+ * constraints between objects, such as `Attribute`s or `Struct`s within them,
+ * but are generally independent of other such objects in other databases.
+ *
+ * In relational databases, these are sometimes called "schema."
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {

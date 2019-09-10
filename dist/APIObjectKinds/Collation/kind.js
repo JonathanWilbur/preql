@@ -7,6 +7,14 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * Represents a way or set of rules for arranging character strings, numbers,
+ * currencies, dates, times, and other data sequentially.
+ *
+ * This kind exists because different DBMSs have different names for the same
+ * collations. This kind maps an arbitrarily-named collation to its
+ * real equivalents in the targeted DBMS language.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {

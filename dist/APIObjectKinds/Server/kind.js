@@ -7,6 +7,9 @@ const schema_1 = __importDefault(require("./schema"));
 const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * A physical or virtual computer that hosts a DBMS.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {

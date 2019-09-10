@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `Entry`.
+ *
+ * @see /source/APIObjectKinds/Entry/kind.
+ */
 export default interface Spec {
     databaseName: string;
     structName: string;

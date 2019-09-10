@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `UniqueIndex`.
+ *
+ * @see /source/APIObjectKinds/UniqueIndex/kind.
+ */
 export default
 interface Spec {
     name: string;

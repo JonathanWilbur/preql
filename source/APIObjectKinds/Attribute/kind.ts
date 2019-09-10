@@ -9,6 +9,11 @@ import Spec from "./spec";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * Represents an atomic piece of data that is associated with an object. In a
+ * relational database, this is a column; in a document-oriented database, this
+ * might be called a "field."
+ */
 const kind: APIObjectKind = {
     validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
     validateSemantics: async (obj: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {

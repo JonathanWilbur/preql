@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `Database`.
+ *
+ * @see /source/APIObjectKinds/Database/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

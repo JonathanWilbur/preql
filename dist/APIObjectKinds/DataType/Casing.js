@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Types of character casing.
+ */
 var Casing;
 (function (Casing) {
     Casing["UPPER"] = "upper";

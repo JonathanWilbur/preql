@@ -5,6 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const identifierRegexString_1 = __importDefault(require("../../identifierRegexString"));
 const objectIdentifierRegexString_1 = __importDefault(require("../../objectIdentifierRegexString"));
+/**
+ * The JSON schema for the `spec` section of a PreQL `Struct`.
+ *
+ * @see /source/APIObjectKinds/Struct/kind.
+ */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

@@ -84,6 +84,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Test more collisions in `indexObjects()`.
   - [ ] Especially `Entry`.
 - [ ] Test `validateNamespace()` a lot more.
+- [ ] Test `matchLabels()` a lot more.
 - [ ] Test Serverless functions.
 - [ ] How to handle support or non-support for Unicode Characters
 - [x] ~~Add an explanatory field for enum values?~~
@@ -108,6 +109,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Examples.
 - [ ] JSONSchema titles and descriptions
 - [ ] Set up Azure Pipeline
+- [ ] Document Adjacency lists.
 
 ## Possible Future Features
 

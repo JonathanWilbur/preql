@@ -14,6 +14,11 @@ const foreignKeyChangeAction = {
     ],
     default: "no action",
 };
+/**
+ * The JSON schema for the `spec` section of a PreQL `ForeignKey`.
+ *
+ * @see /source/APIObjectKinds/ForeignKey/kind.
+ */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

@@ -10,6 +10,11 @@ import Spec from "./spec";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * Represents a pre-sorting of data on the basis of selected textual
+ * `Attribute`s in a DBMS on the basis of the words or phrases they contain
+ * to speed up queries.
+ */
 const kind: APIObjectKind = {
     validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
     validateSemantics: async (obj: APIObject, etcd: APIObjectDatabase): Promise<void> => {

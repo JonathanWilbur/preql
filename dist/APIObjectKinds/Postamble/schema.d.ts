@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `Postamble`.
+ *
+ * @see /source/APIObjectKinds/Postamble/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

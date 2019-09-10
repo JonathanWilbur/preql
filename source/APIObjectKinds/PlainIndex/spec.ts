@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `PlainIndex`.
+ *
+ * @see /source/APIObjectKinds/PlainIndex/kind.
+ */
 export default
 interface Spec {
     name: string;

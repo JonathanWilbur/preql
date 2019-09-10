@@ -7,6 +7,12 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * A simple object whose properties exactly match the `Attribute`s of a
+ * `Struct`. It is said to be an "instance" of a "class." In a relational
+ * database, this would be a row. In a document-oriented database, this
+ * is a specific document--not a type of document or category of documents.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {

@@ -7,6 +7,13 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * A collection of a finite number of `Attribute`s that describes a category
+ * of `Entry`. In a relational database, this is a table. In a
+ * document-oriented database, this may be a "document" or "subdocument."
+ * In JSON, this is referred to as an "object." It does not describe an
+ * instance of something, but a category of an instance.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {

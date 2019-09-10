@@ -1,6 +1,11 @@
 import Locale from "../../JSONSchema/Locale";
 import timezones from "../../timezones";
 
+/**
+ * The JSON schema for the `spec` section of a PreQL `Server`.
+ *
+ * @see /source/APIObjectKinds/Server/kind.
+ */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

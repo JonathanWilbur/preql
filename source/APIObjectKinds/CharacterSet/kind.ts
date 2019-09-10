@@ -8,6 +8,13 @@ import Spec from "./spec";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * Represents a specific way of encoding characters into bytes.
+ *
+ * This kind exists because different DBMSs have different names for the same
+ * character sets. This kind maps an arbitrarily-named character set to its
+ * real equivalents in the targeted DBMS language.
+ */
 const kind: APIObjectKind = {
     validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
     validateSemantics: async (obj: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {

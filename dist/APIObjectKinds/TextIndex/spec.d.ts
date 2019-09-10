@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `TextIndex`.
+ *
+ * @see /source/APIObjectKinds/TextIndex/kind.
+ */
 export default interface Spec {
     name: string;
     structName: string;

@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `SpatialIndex`.
+ *
+ * @see /source/APIObjectKinds/SpatialIndex/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

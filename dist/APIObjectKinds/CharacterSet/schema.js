@@ -7,9 +7,9 @@ const identifierRegexString_1 = __importDefault(require("../../identifierRegexSt
 const iso3166CountryCodes_1 = __importDefault(require("../../iso3166CountryCodes"));
 const iso639LanguageCodes_1 = __importDefault(require("../../iso639LanguageCodes"));
 /**
- * This kind exists because different DBMSs have different names for the same
- * character sets. This kind maps an arbitrarily-named character set to its
- * real equivalents in the targeted DBMS language.
+ * The JSON schema for the `spec` section of a PreQL `CharacterSet`.
+ *
+ * @see /source/APIObjectKinds/CharacterSet/kind.
  */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",

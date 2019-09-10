@@ -7,6 +7,11 @@ const schema_1 = __importDefault(require("./schema"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const ajv_1 = __importDefault(require("../../ajv"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * Represents a way of encoding a type of data in digital storage. More
+ * precisely, it is a rule for a computer on how to store and interpret
+ * bytes of data.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj) => {

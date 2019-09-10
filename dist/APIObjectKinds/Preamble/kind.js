@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ajv_1 = __importDefault(require("../../ajv"));
 const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * Arbitrary, commented-out text at the start of a generated script.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: () => Promise.resolve(),

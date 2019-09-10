@@ -1,3 +1,6 @@
+/**
+ * Types of character casing.
+ */
 declare enum Casing {
     UPPER = "upper",
     LOWER = "lower",

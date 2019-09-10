@@ -1,3 +1,8 @@
+/**
+ * The spec` section of a PreQL `Server`.
+ *
+ * @see /source/APIObjectKinds/Server/kind.
+ */
 export default interface Spec {
     name: string;
     protocol: string;

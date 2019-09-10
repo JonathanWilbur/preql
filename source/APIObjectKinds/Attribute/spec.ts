@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `Attribute`.
+ *
+ * @see /source/APIObjectKinds/Attribute/kind.
+ */
 export default
 interface Attribute {
     name: string;

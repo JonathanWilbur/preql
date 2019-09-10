@@ -1,5 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * The JSON schema for the `spec` section of a PreQL `Preamble`.
+ *
+ * @see /source/APIObjectKinds/Preamble/kind.
+ */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

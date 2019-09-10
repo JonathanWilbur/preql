@@ -1,7 +1,7 @@
 /**
- * This kind exists because different DBMSs have different names for the same
- * character sets. This kind maps an arbitrarily-named character set to its
- * real equivalents in the targeted DBMS language.
+ * The `spec` section of a PreQL `CharacterSet`.
+ *
+ * @see /source/APIObjectKinds/CharacterSet/kind.
  */
 export default
 interface CharacterSet {

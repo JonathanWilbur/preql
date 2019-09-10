@@ -1,1 +1,1 @@
-{"version":3,"file":"schema.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/Database/schema.ts"],"names":[],"mappings":"AAEA,QAAA,MAAM,MAAM;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAgCX,CAAC;AAEF,eAAe,MAAM,CAAC"}
+{"version":3,"file":"schema.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/Database/schema.ts"],"names":[],"mappings":"AAEA;;;;GAIG;AACH,QAAA,MAAM,MAAM;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAgCX,CAAC;AAEF,eAAe,MAAM,CAAC"}

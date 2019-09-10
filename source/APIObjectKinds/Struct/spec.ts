@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `Struct`.
+ *
+ * @see /source/APIObjectKinds/Struct/kind.
+ */
 export default
 interface Spec {
     name: string;

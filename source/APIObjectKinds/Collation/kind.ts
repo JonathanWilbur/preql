@@ -8,6 +8,14 @@ import Spec from "./spec";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * Represents a way or set of rules for arranging character strings, numbers,
+ * currencies, dates, times, and other data sequentially.
+ *
+ * This kind exists because different DBMSs have different names for the same
+ * collations. This kind maps an arbitrarily-named collation to its
+ * real equivalents in the targeted DBMS language.
+ */
 const kind: APIObjectKind = {
     validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
     validateSemantics: async (obj: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {

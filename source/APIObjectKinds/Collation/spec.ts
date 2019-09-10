@@ -1,7 +1,7 @@
 /**
- * This kind exists because different DBMSs have different names for the same
- * collations. This kind maps an arbitrarily-named collation to its
- * real equivalents in the targeted DBMS language.
+ * The `spec` section of a PreQL `Collation`.
+ *
+ * @see /source/APIObjectKinds/Collation/kind.
  */
 export default
 interface Collation {

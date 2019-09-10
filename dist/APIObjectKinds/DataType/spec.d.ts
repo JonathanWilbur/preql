@@ -71,6 +71,11 @@ interface TargetMap {
         sup?: string;
     };
 }
+/**
+ * The `spec` section of a PreQL `DataType`.
+ *
+ * @see /source/APIObjectKinds/DataType/kind.
+ */
 export default interface Spec extends NumberSpec, StringSpec, EnumSpec {
     jsonEquivalent: string;
 }

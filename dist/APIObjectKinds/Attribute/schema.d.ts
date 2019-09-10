@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `Attribute`.
+ *
+ * @see /source/APIObjectKinds/Attribute/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

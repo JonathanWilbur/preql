@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `ForeignKey`.
+ *
+ * @see /source/APIObjectKinds/ForeignKey/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

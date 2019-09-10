@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `UniqueIndex`.
+ *
+ * @see /source/APIObjectKinds/UniqueIndex/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

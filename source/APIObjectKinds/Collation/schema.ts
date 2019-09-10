@@ -3,9 +3,9 @@ import iso3166CountryCodes from "../../iso3166CountryCodes";
 import iso639LanguageCodes from "../../iso639LanguageCodes";
 
 /**
- * This kind exists because different DBMSs have different names for the same
- * character sets. This kind maps an arbitrarily-named character set to its
- * real equivalents in the targeted DBMS language.
+ * The JSON schema for the `spec` section of a PreQL `Collation`.
+ *
+ * @see /source/APIObjectKinds/Collation/kind.
  */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",

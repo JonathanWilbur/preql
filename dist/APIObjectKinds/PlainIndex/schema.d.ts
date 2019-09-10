@@ -1,3 +1,8 @@
+/**
+ * The JSON schema for the `spec` section of a PreQL `PlainIndex`.
+ *
+ * @see /source/APIObjectKinds/PlainIndex/kind.
+ */
 declare const schema: {
     $schema: string;
     $async: boolean;

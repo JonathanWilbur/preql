@@ -8,6 +8,9 @@ import PreqlError from "../../PreqlError";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * A physical or virtual computer that hosts a DBMS.
+ */
 const kind: APIObjectKind = {
     validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
     validateSemantics: async (obj: APIObject<Spec>, etcd: APIObjectDatabase): Promise<void> => {

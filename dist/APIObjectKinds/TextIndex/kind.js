@@ -7,6 +7,11 @@ const ajv_1 = __importDefault(require("../../ajv"));
 const PreqlError_1 = __importDefault(require("../../PreqlError"));
 const schema_1 = __importDefault(require("./schema"));
 const structureValidator = ajv_1.default.compile(schema_1.default);
+/**
+ * Represents a pre-sorting of data on the basis of selected textual
+ * `Attribute`s in a DBMS on the basis of the words or phrases they contain
+ * to speed up queries.
+ */
 const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {

@@ -7,6 +7,11 @@ import ajv from "../../ajv";
 
 const structureValidator = ajv.compile(schema);
 
+/**
+ * Represents a way of encoding a type of data in digital storage. More
+ * precisely, it is a rule for a computer on how to store and interpret
+ * bytes of data.
+ */
 const kind: APIObjectKind = {
     validateStructure: (obj: APIObject<Spec>): Promise<void> => structureValidator(obj.spec) as Promise<void>,
     validateSemantics: async (obj: APIObject<Spec>): Promise<void> => {

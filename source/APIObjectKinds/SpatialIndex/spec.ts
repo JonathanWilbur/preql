@@ -1,3 +1,8 @@
+/**
+ * The `spec` section of a PreQL `SpatialIndex`.
+ *
+ * @see /source/APIObjectKinds/SpatialIndex/kind.
+ */
 export default
 interface Spec {
     name: string;

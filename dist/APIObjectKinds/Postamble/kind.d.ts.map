@@ -1,1 +1,1 @@
-{"version":3,"file":"kind.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/Postamble/kind.ts"],"names":[],"mappings":"AAEA,OAAO,aAAa,MAAM,gCAAgC,CAAC;AAM3D,QAAA,MAAM,IAAI,EAAE,aAGX,CAAC;AAEF,eAAe,IAAI,CAAC"}
+{"version":3,"file":"kind.d.ts","sourceRoot":"","sources":["../../../source/APIObjectKinds/Postamble/kind.ts"],"names":[],"mappings":"AAEA,OAAO,aAAa,MAAM,gCAAgC,CAAC;AAM3D;;GAEG;AACH,QAAA,MAAM,IAAI,EAAE,aAGX,CAAC;AAEF,eAAe,IAAI,CAAC"}

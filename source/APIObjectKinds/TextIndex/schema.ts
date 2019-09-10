@@ -1,5 +1,10 @@
 import identifierRegexString from "../../identifierRegexString";
 
+/**
+ * The JSON schema for the `spec` section of a PreQL `TextIndex`.
+ *
+ * @see /source/APIObjectKinds/TextIndex/kind.
+ */
 const schema = {
     $schema: "http://json-schema.org/draft-07/schema#",
     $async: true,

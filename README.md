@@ -81,8 +81,8 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Append ID numbers to the paths of `Entry` types.
 - [x] Remove validation logic from `getServerURI()`.
 - [x] Test `getPath()` with objects with `entityName` set.
-- [ ] Test more collisions in `indexObjects()`.
-  - [ ] Especially `Entry`.
+- [x] Test more collisions in `indexObjects()`.
+  - [x] Especially `Entry`.
 - [ ] Test `validateNamespace()` a lot more.
 - [ ] Test `matchLabels()` a lot more.
 - [ ] Test Serverless functions.

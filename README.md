@@ -80,7 +80,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - [x] BSON Schema
 - [x] Append ID numbers to the paths of `Entry` types.
 - [x] Remove validation logic from `getServerURI()`.
-- [ ] Test `getPath()` with objects with `entityName` set.
+- [x] Test `getPath()` with objects with `entityName` set.
 - [ ] Test more collisions in `indexObjects()`.
   - [ ] Especially `Entry`.
 - [ ] Test `validateNamespace()` a lot more.

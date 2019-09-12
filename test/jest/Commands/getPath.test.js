@@ -59,7 +59,7 @@ describe("getPath", () => {
             name: "name",
         },
     };
-    test("encoding of an Attribute", async () => {
+    test("encoding of a Struct", async () => {
         expect(await getPath(struct)).toEqual("database.name");
     });
 
@@ -287,5 +287,174 @@ describe("getPath", () => {
     };
     test("encoding of a Collation", async () => {
         expect(await getPath(collation)).toEqual("latin1csas");
+    });
+
+    const attributeWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "Attribute",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            structName: "struct",
+            name: "name",
+            type: "sint8",
+        },
+    };
+    test("encoding of an Attribute with an entity", async () => {
+        expect(await getPath(attributeWithEntity)).toEqual("database.struct.name");
+    });
+
+    const structWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "Struct",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            name: "name",
+        },
+    };
+    test("encoding of a Struct with an entity", async () => {
+        expect(await getPath(structWithEntity)).toEqual("database.name");
+    });
+
+    const plainindexWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "PlainIndex",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            structName: "struct",
+            name: "name",
+            clustered: true,
+            keyAttributes: [
+                {
+                    name: "ka1",
+                    ascending: true,
+                },
+            ],
+        },
+    };
+    test("encoding of a PlainIndex with an entity", async () => {
+        expect(await getPath(plainindexWithEntity)).toEqual("database.struct.name");
+    });
+
+    const uniqueindexWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "UniqueIndex",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            structName: "struct",
+            name: "name",
+            clustered: true,
+            keyAttributes: [
+                {
+                    name: "ka1",
+                    ascending: true,
+                },
+            ],
+        },
+    };
+    test("encoding of a UniqueIndex with an entity", async () => {
+        expect(await getPath(uniqueindexWithEntity)).toEqual("database.struct.name");
+    });
+
+    const textindexWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "TextIndex",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            structName: "struct",
+            name: "name",
+            clustered: true,
+            keyAttributes: [
+                {
+                    name: "ka1",
+                    ascending: true,
+                },
+            ],
+        },
+    };
+    test("encoding of a TextIndex with an entity", async () => {
+        expect(await getPath(textindexWithEntity)).toEqual("database.struct.name");
+    });
+
+    const spatialindexWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "SpatialIndex",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            structName: "struct",
+            name: "name",
+            clustered: true,
+            keyAttributes: [
+                {
+                    name: "ka1",
+                    ascending: true,
+                },
+            ],
+        },
+    };
+    test("encoding of a SpatialIndex with an entity", async () => {
+        expect(await getPath(spatialindexWithEntity)).toEqual("database.struct.name");
+    });
+
+    const foreignkeyWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "ForeignKey",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            parentStructName: "parent",
+            childStructName: "child",
+            name: "name",
+            type: "sint8",
+        },
+    };
+    test("encoding of a ForeignKey with an entity", async () => {
+        expect(await getPath(foreignkeyWithEntity)).toEqual("database.child.name");
+    });
+
+    const entryWithEntity = {
+        apiVersion: "preql/1.0.0",
+        kind: "Entry",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            databaseName: "database",
+            entityName: "entity",
+            structName: "struct",
+            id: 1,
+            values: {
+                value: 42,
+            },
+        },
+    };
+    test("encoding of an Entry with an entity", async () => {
+        expect(await getPath(entryWithEntity)).toEqual("database.struct.1");
     });
 });

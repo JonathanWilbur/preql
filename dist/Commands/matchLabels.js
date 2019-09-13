@@ -33,6 +33,7 @@ async function matchLabels(labels, obj) {
             result.allLabelsCaseInsensitiveMatch = false;
             result.allLabelsCaseSensitiveMatch = false;
             result.allLabelsFound = false;
+            return;
         }
         if (entry[1] !== obj.metadata.labels[entry[0]]) {
             result.allLabelsCaseSensitiveMatch = false;

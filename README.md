@@ -84,7 +84,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Test more collisions in `indexObjects()`.
   - [x] Especially `Entry`.
 - [x] Test indexes in `validateNamespace()`.
-- [ ] Test `matchLabels()` a lot more.
+- [x] Test `matchLabels()` a lot more.
 - [ ] Test Serverless functions.
 - [ ] How to handle support or non-support for Unicode Characters
 - [x] ~~Add an explanatory field for enum values?~~
@@ -104,6 +104,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Add `distinguishedNameIndex` to `APIObjectDatabase`
 - [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
 - [ ] Test that index attributes from different databases or structs cannot be found.
+- [ ] Test that namespaces are sorted correctly.
 
 ## After 1.0.0
 

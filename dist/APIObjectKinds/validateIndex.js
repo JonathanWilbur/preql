@@ -29,19 +29,24 @@ async function validateIndex(obj, etcd) {
         throw new PreqlError_1.default("bc7692ff-9eb1-4258-b9ac-d95b1448153f", `No Structs found that are named '${obj.spec.structName}' for ${obj.kind} `
             + `'${obj.metadata.name}' to attach to.`);
     }
-    const attributes = etcd.kindIndex.attribute;
-    if (!attributes) {
-        throw new PreqlError_1.default("fbee0ffc-6969-4548-bd8d-72a5c189e0e6", `No Attributes found for ${obj.kind} '${obj.metadata.name}' `
-            + "to index.");
-    }
-    // Check that the attributes are real
-    // eslint-disable-next-line
-    obj.spec.keyAttributes.forEach((kc) => {
-        const attributeFound = attributes.some((attr) => attr.spec.name === kc.name);
-        if (!attributeFound) {
-            throw new Error(`No Attribute named '${kc.name}' for ${obj.kind} '${obj.metadata.name}' to index.`);
+    obj.spec.keyAttributes
+        .map((attr) => (`${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()))
+        .forEach((path) => {
+        if (!(path in etcd.pathIndex)) {
+            throw new PreqlError_1.default("d80009c9-894d-4c0f-8871-1335e826cf16", `Attribute with path '${path}' not found for ${obj.kind} `
+                + `'${obj.metadata.name}' to index.`);
         }
     });
+    if (obj.spec.includedAttributes) {
+        obj.spec.includedAttributes
+            .map((attr) => (`${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()))
+            .forEach((path) => {
+            if (!(path in etcd.pathIndex)) {
+                throw new PreqlError_1.default("8bcaffd3-b64c-44dc-96c6-4a6fc3dacfce", `Attribute with path '${path}' not found for ${obj.kind} `
+                    + `'${obj.metadata.name}' to include.`);
+            }
+        });
+    }
 }
 exports.default = validateIndex;
 //# sourceMappingURL=validateIndex.js.map

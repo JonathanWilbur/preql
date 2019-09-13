@@ -1,7 +1,6 @@
 import APIObject from "../Interfaces/APIObject";
 import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 import PreqlError from "../PreqlError";
-import AttributeSpec from "./Attribute/spec";
 
 /**
  * Since all of the index object kinds are so similar, this semantic validation
@@ -40,20 +39,35 @@ async function validateIndex (obj: APIObject, etcd: APIObjectDatabase): Promise<
         );
     }
 
-    const attributes: APIObject<AttributeSpec>[] | undefined = etcd.kindIndex.attribute;
-    if (!attributes) {
-        throw new PreqlError(
-            "fbee0ffc-6969-4548-bd8d-72a5c189e0e6",
-            `No Attributes found for ${obj.kind} '${obj.metadata.name}' `
-            + "to index.",
-        );
+    obj.spec.keyAttributes
+        .map((attr: { name: string, ascending: boolean }): string => (
+            `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
+        ))
+        .forEach((path: string): void => {
+            if (!(path in etcd.pathIndex)) {
+                throw new PreqlError(
+                    "d80009c9-894d-4c0f-8871-1335e826cf16",
+                    `Attribute with path '${path}' not found for ${obj.kind} `
+                    + `'${obj.metadata.name}' to index.`,
+                );
+            }
+        })
+        ;
+
+    if (obj.spec.includedAttributes) {
+        obj.spec.includedAttributes
+        .map((attr: { name: string, ascending: boolean }): string => (
+            `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
+        ))
+        .forEach((path: string): void => {
+            if (!(path in etcd.pathIndex)) {
+                throw new PreqlError(
+                    "8bcaffd3-b64c-44dc-96c6-4a6fc3dacfce",
+                    `Attribute with path '${path}' not found for ${obj.kind} `
+                    + `'${obj.metadata.name}' to include.`,
+                );
+            }
+        })
+        ;
     }
-    // Check that the attributes are real
-    // eslint-disable-next-line
-    obj.spec.keyAttributes.forEach((kc: any): void => {
-        const attributeFound: boolean = attributes.some((attr): boolean => attr.spec.name === kc.name);
-        if (!attributeFound) {
-            throw new Error(`No Attribute named '${kc.name}' for ${obj.kind} '${obj.metadata.name}' to index.`);
-        }
-    });
 }

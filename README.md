@@ -83,7 +83,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Test `getPath()` with objects with `entityName` set.
 - [x] Test more collisions in `indexObjects()`.
   - [x] Especially `Entry`.
-- [ ] Test indexes in `validateNamespace()`.
+- [x] Test indexes in `validateNamespace()`.
 - [ ] Test `matchLabels()` a lot more.
 - [ ] Test Serverless functions.
 - [ ] How to handle support or non-support for Unicode Characters
@@ -103,6 +103,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Add `objectIdentifierIndex` to `APIObjectDatabase`
 - [ ] Add `distinguishedNameIndex` to `APIObjectDatabase`
 - [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
+- [ ] Test that index attributes from different databases or structs cannot be found.
 
 ## After 1.0.0
 

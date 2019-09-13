@@ -30,30 +30,48 @@ const kind = {
             throw new PreqlError_1.default("bc7692ff-9eb1-4258-b9ac-d95b1448153f", `No Structs found that are named '${obj.spec.structName}' for ${obj.kind} `
                 + `'${obj.metadata.name}' to attach to.`);
         }
-        const attributes = etcd.kindIndex.attribute;
-        if (!attributes) {
-            throw new PreqlError_1.default("fbee0ffc-6969-4548-bd8d-72a5c189e0e6", `No Attributes found for ${obj.kind} '${obj.metadata.name}' to index.`);
-        }
-        // Check that the attributes are real and of string-ish type
-        obj.spec.keyAttributes.forEach((kc) => {
-            const attribute = attributes
-                .find((attr) => attr.spec.name === kc.name);
-            if (!attribute) {
-                throw new PreqlError_1.default("9a72cd18-9b32-4f4e-806f-dd9ba85e02c8", `No Attribute named '${kc.name}' for ${obj.kind} `
+        obj.spec.keyAttributes
+            .map((attr) => (`${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()))
+            .forEach((path) => {
+            const attr = etcd.pathIndex[path];
+            if (!attr) {
+                throw new PreqlError_1.default("d80009c9-894d-4c0f-8871-1335e826cf16", `Attribute with path '${path}' not found for ${obj.kind} `
                     + `'${obj.metadata.name}' to index.`);
             }
-            const kindAndName = `datatype:${attribute.spec.type.toLowerCase()}`;
+            const kindAndName = `datatype:${attr.spec.type.toLowerCase()}`;
             const dataType = etcd.kindNameIndex[kindAndName];
             if (!dataType) {
-                throw new PreqlError_1.default("06fc9208-5772-47d6-8747-dffa6ac58d42", `No such DataType '${attribute.spec.type}'.`);
+                throw new PreqlError_1.default("06fc9208-5772-47d6-8747-dffa6ac58d42", `No such DataType '${attr.spec.type}'.`);
             }
             if (dataType.spec.jsonEquivalent !== "string") {
                 throw new PreqlError_1.default("8ab69478-d407-4a60-95ce-d3dd248cc5ce", `TextIndex '${obj.metadata.name}' cannot use Attribute `
-                    + `'${attribute.metadata.name}' because it DataType `
+                    + `'${attr.metadata.name}' because it DataType `
                     + `'${dataType.metadata.name}' is not fundamentally string-like, `
                     + "as determined by the DataType's `jsonEquivalent` property.");
             }
         });
+        if (obj.spec.includedAttributes) {
+            obj.spec.includedAttributes
+                .map((attr) => (`${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()))
+                .forEach((path) => {
+                const attr = etcd.pathIndex[path];
+                if (!attr) {
+                    throw new PreqlError_1.default("e1b74181-e619-459f-850b-28731f243610", `Attribute with path '${path}' not found for ${obj.kind} `
+                        + `'${obj.metadata.name}' to include.`);
+                }
+                const kindAndName = `datatype:${attr.spec.type.toLowerCase()}`;
+                const dataType = etcd.kindNameIndex[kindAndName];
+                if (!dataType) {
+                    throw new PreqlError_1.default("d8f0c648-fbb0-4d3e-8df2-e017f7d2a1ee", `No such DataType '${attr.spec.type}'.`);
+                }
+                if (dataType.spec.jsonEquivalent !== "string") {
+                    throw new PreqlError_1.default("a40a63ba-547e-4caa-98cb-2f6b2bfff20d", `TextIndex '${obj.metadata.name}' cannot use Attribute `
+                        + `'${attr.metadata.name}' because it DataType `
+                        + `'${dataType.metadata.name}' is not fundamentally string-like, `
+                        + "as determined by the DataType's `jsonEquivalent` property.");
+                }
+            });
+        }
     },
 };
 exports.default = kind;

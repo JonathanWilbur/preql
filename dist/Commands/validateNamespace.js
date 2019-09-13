@@ -16,7 +16,7 @@ const PreqlError_1 = __importDefault(require("../PreqlError"));
 async function validateNamespace(namespace) {
     // Ensure unique distinguished names
     const encounteredDistinguishedNames = new Map([]);
-    (namespace.kindIndex.entry || [])
+    ((namespace.kindIndex || []).entry || [])
         .filter((entry) => (typeof entry.spec.distinguishedName === "string"))
         .forEach((entry) => {
         if (!entry.spec.distinguishedName)
@@ -34,7 +34,7 @@ async function validateNamespace(namespace) {
     });
     // Ensure unique object identifiers
     const encounteredObjectIdentifiers = new Map([]);
-    (namespace.kindIndex.attribute || [])
+    ((namespace.kindIndex || []).attribute || [])
         .concat(namespace.kindIndex.struct || [])
         .filter((o) => (typeof o.spec.objectIdentifier === "string"))
         .forEach((obj) => {

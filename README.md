@@ -83,7 +83,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Test `getPath()` with objects with `entityName` set.
 - [x] Test more collisions in `indexObjects()`.
   - [x] Especially `Entry`.
-- [ ] Test `validateNamespace()` a lot more.
+- [ ] Test indexes in `validateNamespace()`.
 - [ ] Test `matchLabels()` a lot more.
 - [ ] Test Serverless functions.
 - [ ] How to handle support or non-support for Unicode Characters
@@ -96,6 +96,13 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Use lowercase more in standard types
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
 - [ ] Remove Serverless normalization from `normalizeError`.
+- [ ] Test casing.
+- [ ] Test `jsonEquivalent` field.
+- [ ] Test unknown types.
+- [ ] Test more path collisions.
+- [ ] Add `objectIdentifierIndex` to `APIObjectDatabase`
+- [ ] Add `distinguishedNameIndex` to `APIObjectDatabase`
+- [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
 
 ## After 1.0.0
 

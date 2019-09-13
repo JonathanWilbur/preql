@@ -19,7 +19,7 @@ export default
 async function validateNamespace (namespace: APIObjectDatabase): Promise<void[][]> {
     // Ensure unique distinguished names
     const encounteredDistinguishedNames: Map<string, APIObject<EntrySpec>> = new Map([]);
-    (namespace.kindIndex.entry || [])
+    ((namespace.kindIndex || []).entry || [])
         .filter((entry: APIObject<EntrySpec>): boolean => (typeof entry.spec.distinguishedName === "string"))
         .forEach((entry: APIObject<EntrySpec>): void => {
             if (!entry.spec.distinguishedName) return;
@@ -39,7 +39,7 @@ async function validateNamespace (namespace: APIObjectDatabase): Promise<void[][
 
     // Ensure unique object identifiers
     const encounteredObjectIdentifiers: Map<string, APIObject<AttributeSpec | StructSpec>> = new Map([]);
-    (namespace.kindIndex.attribute || [])
+    ((namespace.kindIndex || []).attribute || [])
         .concat(namespace.kindIndex.struct || [])
         .filter((o: APIObject<AttributeSpec | StructSpec>): boolean => (typeof o.spec.objectIdentifier === "string"))
         .forEach((obj: APIObject<AttributeSpec | StructSpec>): void => {

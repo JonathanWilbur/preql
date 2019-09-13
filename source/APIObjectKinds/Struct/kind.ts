@@ -4,6 +4,7 @@ import APIObjectDatabase from "../../Interfaces/APIObjectDatabase";
 import APIObjectKind from "../../Interfaces/APIObjectKind";
 import PreqlError from "../../PreqlError";
 import AttributeSpec from "../Attribute/spec";
+import ForeignKeySpec from "../ForeignKey/spec";
 import schema from "./schema";
 import Spec from "./spec";
 
@@ -43,11 +44,17 @@ const kind: APIObjectKind = {
                 attr.spec.databaseName === obj.spec.databaseName
                 && attr.spec.structName === obj.spec.name
             ));
-        if (!attributeFound) {
+        const foreignKeyFound: boolean = (etcd.kindIndex.foreignkey || [])
+            .some((attr: APIObject<ForeignKeySpec>): boolean => (
+                attr.spec.databaseName === obj.spec.databaseName
+                && attr.spec.childStructName === obj.spec.name
+            ));
+        if (!attributeFound && !foreignKeyFound) {
             throw new PreqlError(
                 "2affcfab-2f7b-46be-84cf-4797dc8be7a6",
-                `No Attributes found for Struct '${obj.metadata.name}'. Every`
-                + " Struct must have at least one Attribute.",
+                "No Attributes or ForeignKeys found for Struct"
+                + `'${obj.metadata.name}'. Every Struct must have at least `
+                + "one Attribute or ForeignKey.",
             );
         }
         if (obj.spec.characterSet && !etcd.pathIndex[characterSetPath]) {

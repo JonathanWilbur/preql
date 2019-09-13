@@ -32,9 +32,13 @@ const kind = {
         const attributeFound = (etcd.kindIndex.attribute || [])
             .some((attr) => (attr.spec.databaseName === obj.spec.databaseName
             && attr.spec.structName === obj.spec.name));
-        if (!attributeFound) {
-            throw new PreqlError_1.default("2affcfab-2f7b-46be-84cf-4797dc8be7a6", `No Attributes found for Struct '${obj.metadata.name}'. Every`
-                + " Struct must have at least one Attribute.");
+        const foreignKeyFound = (etcd.kindIndex.foreignkey || [])
+            .some((attr) => (attr.spec.databaseName === obj.spec.databaseName
+            && attr.spec.childStructName === obj.spec.name));
+        if (!attributeFound && !foreignKeyFound) {
+            throw new PreqlError_1.default("2affcfab-2f7b-46be-84cf-4797dc8be7a6", "No Attributes or ForeignKeys found for Struct"
+                + `'${obj.metadata.name}'. Every Struct must have at least `
+                + "one Attribute or ForeignKey.");
         }
         if (obj.spec.characterSet && !etcd.pathIndex[characterSetPath]) {
             throw new PreqlError_1.default("0d5be372-5fb4-401e-869b-06f5108d9f2b", `No CharacterSets found that are named '${obj.spec.characterSet}' for Struct `

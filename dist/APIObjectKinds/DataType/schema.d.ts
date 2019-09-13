@@ -15,30 +15,6 @@ declare const schema: {
         additionalProperties: boolean;
         properties: {
             jsonEquivalent: {
-                const: string;
-            };
-            targets: {
-                type: string;
-                additionalProperties: {
-                    type: string;
-                    properties: {
-                        nativeType: {
-                            type: string;
-                        };
-                    };
-                    required: string[];
-                };
-            };
-        };
-        required: string[];
-    } | {
-        $schema: string;
-        $async: boolean;
-        title: string;
-        type: string;
-        additionalProperties: boolean;
-        properties: {
-            jsonEquivalent: {
                 type: string;
                 enum: string[];
             };
@@ -90,6 +66,30 @@ declare const schema: {
                     type: string;
                     minLength: number;
                     maxLength: number;
+                };
+            };
+        };
+        required: string[];
+    } | {
+        $schema: string;
+        $async: boolean;
+        title: string;
+        type: string;
+        additionalProperties: boolean;
+        properties: {
+            jsonEquivalent: {
+                const: string;
+            };
+            targets: {
+                type: string;
+                additionalProperties: {
+                    type: string;
+                    properties: {
+                        nativeType: {
+                            type: string;
+                        };
+                    };
+                    required: string[];
                 };
             };
         };

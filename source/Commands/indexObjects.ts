@@ -31,10 +31,10 @@ async function indexObjects (objects: APIObject[]): Promise<Record<string, APIOb
         },
     };
     await Promise.all(objects.map(async (obj: APIObject): Promise<void> => {
-        const namespaceName: string = obj.metadata.namespace || "default";
+        const namespaceName: string = obj.metadata.namespace ? obj.metadata.namespace.toLowerCase() : "default";
         if (!namespaces[namespaceName]) {
             namespaces[namespaceName] = {
-                namespace: obj.metadata.namespace || "default",
+                namespace: obj.metadata.namespace ? obj.metadata.namespace.toLowerCase() : "default",
                 kindIndex: {},
                 kindNameIndex: {},
                 pathIndex: {},
@@ -76,25 +76,25 @@ async function indexObjects (objects: APIObject[]): Promise<Record<string, APIOb
         }
 
         if (obj.spec.objectIentifier) {
-            if (obj.spec.objectIentifier in namespace.objectIdentifierIndex) {
+            if (obj.spec.objectIentifier.toLowerCase() in namespace.objectIdentifierIndex) {
                 throw new PreqlError(
                     "2322cab3-ba58-4eb9-8838-bda90acb5181",
                     `Duplicate object identifier ${obj.spec.objectIentifier} `
                     + `in ${obj.kind} '${obj.metadata.name}'.`,
                 );
             }
-            namespace.objectIdentifierIndex[obj.spec.objectIentifier] = obj;
+            namespace.objectIdentifierIndex[obj.spec.objectIentifier.toLowerCase()] = obj;
         }
 
         if (obj.spec.distinguishedName) {
-            if (obj.spec.distinguishedName in namespace.distinguishedNameIndex) {
+            if (obj.spec.distinguishedName.toLowerCase() in namespace.distinguishedNameIndex) {
                 throw new PreqlError(
                     "2322cab3-ba58-4eb9-8838-bda90acb5181",
                     `Duplicate distinguished name ${obj.spec.distinguishedName} `
                     + `in ${obj.kind} '${obj.metadata.name}'.`,
                 );
             }
-            namespace.distinguishedNameIndex[obj.spec.distinguishedName] = obj;
+            namespace.distinguishedNameIndex[obj.spec.distinguishedName.toLowerCase()] = obj;
         }
     }));
     return namespaces;

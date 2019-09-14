@@ -114,7 +114,6 @@ describe("validateNamespace", () => {
                 entityName: "entity",
                 name: "secondName",
                 type: "varchar64",
-                nullable: true, // TODO: This was required for some reason. Research.
                 characterSet: "utf8",
                 collation: "latin1csas",
             },

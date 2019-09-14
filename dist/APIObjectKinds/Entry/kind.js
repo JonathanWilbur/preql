@@ -17,17 +17,25 @@ const kind = {
     validateStructure: (obj) => structureValidator(obj.spec),
     validateSemantics: async (obj, etcd) => {
         const structAttributes = {};
-        etcd.kindIndex.attribute
-            .filter((attr) => (attr.spec.databaseName === obj.spec.databaseName
-            && attr.spec.structName === obj.spec.structName))
+        (etcd.kindIndex.attribute || [])
+            .filter((attr) => (attr.spec.databaseName.toLowerCase() === obj.spec.databaseName.toLowerCase()
+            && attr.spec.structName.toLowerCase() === obj.spec.structName.toLowerCase()))
             .forEach((attr) => {
-            structAttributes[attr.spec.name] = attr;
+            structAttributes[attr.spec.name.toLowerCase()] = attr;
+        });
+        (etcd.kindIndex.foreignkey || [])
+            .filter((attr) => (attr.spec.databaseName.toLowerCase() === obj.spec.databaseName.toLowerCase()
+            && attr.spec.childStructName.toLowerCase() === obj.spec.structName.toLowerCase()))
+            .forEach((attr) => {
+            structAttributes[attr.spec.name.toLowerCase()] = attr;
         });
         if (Object.keys(obj.spec.values).length === 0) {
             throw new PreqlError_1.default("60c92bba-e86a-4654-b767-a108b19a3425", `Entry ${obj.metadata.name} must have at least one attribute `
                 + "in the `.spec.values` object.");
         }
-        Object.keys(obj.spec.values).forEach((key) => {
+        Object.keys(obj.spec.values)
+            .map((key) => key.toLowerCase())
+            .forEach((key) => {
             // Check that an attribute with that name exists.
             const matchingAttribute = structAttributes[key];
             if (!matchingAttribute) {
@@ -35,11 +43,14 @@ const kind = {
                     + `for Entry '${obj.metadata.name}' to populate.`);
             }
             // Check that the attribute's data type is compatible with the Entry's attribute's type.
-            const kindNameKey = `datatype:${matchingAttribute.spec.type}`;
+            const kindNameKey = "type" in matchingAttribute.spec
+                ? `datatype:${matchingAttribute.spec.type.toLowerCase()}`
+                : "";
             const datatype = etcd.kindNameIndex[kindNameKey];
             if (!datatype) {
                 // This error should never occur.
-                throw new PreqlError_1.default("8f5ddbcc-2740-4617-985a-fa2ce339bef8", `Unrecognized data type '${matchingAttribute.spec.type}'.`);
+                throw new PreqlError_1.default("8f5ddbcc-2740-4617-985a-fa2ce339bef8", "Unrecognized data type "
+                    + `'${"type" in matchingAttribute.spec ? matchingAttribute.spec.type : ""}'.`);
             }
             const valueType = typeof obj.spec.values[key];
             const attributeJSONType = datatype.spec.jsonEquivalent.toLowerCase();
@@ -93,11 +104,19 @@ const kind = {
                 }
             }
         });
+        const usedAttributes = Object.keys(obj.spec.values).map((k) => k.toLowerCase());
         Object.values(structAttributes)
             .forEach((attr) => {
-            if (!(attr.spec.nullable) && !(attr.spec.name in obj.spec.values)) {
+            // The JSON Schema default directive does not work here.
+            // I suspect it is because of this: https://www.npmjs.com/package/ajv#assigning-defaults.
+            if (typeof attr.spec.nullable === "boolean"
+                && attr.spec.nullable === false
+                && !(attr.spec.name.toLowerCase() in usedAttributes)) {
+                const structName = "structName" in attr.spec
+                    ? attr.spec.structName
+                    : attr.spec.childStructName;
                 throw new PreqlError_1.default("390b1998-90a7-487d-9145-2a2b5e2c123f", `Attribute '${attr.spec.name}' in Struct '${attr.spec.databaseName}'.`
-                    + `'${attr.spec.structName}' cannot be null for entry '${obj.metadata.name}'.`);
+                    + `'${structName}' cannot be null for entry '${obj.metadata.name}'.`);
             }
         });
     },

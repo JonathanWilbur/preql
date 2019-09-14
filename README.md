@@ -57,9 +57,10 @@ instructive.
 - [x] Document Adjacency lists.
 - [x] Are object metadata names case sensitive?
 - [x] Look for `REVIEW`, `FIXME`, and `NOTE`.
-- [ ] Test that Entries do not throw when `nullable` or `default` attributes are not supplied.
+- [x] Test that Entries do not throw when `nullable` or `default` attributes are not supplied.
 - [x] Specify that all object identifiers should be dot-delimited and numeric.
 - [x] Document what should happen with incompatibilities.
+- [x] Fix `Entry` by allowing supplying a `ForeignKey`.
 
 ## Possible Future Features
 

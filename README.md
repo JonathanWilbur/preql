@@ -94,12 +94,9 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Add `objectIdentifierIndex` to `APIObjectDatabase`
 - [x] Add `distinguishedNameIndex` to `APIObjectDatabase`
 - [x] Add more restricted identifiers.
-- [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
+- [x] ~~Ensure that the generated name of a multi-valued `Attribute` table will not conflict.~~ (This must be handled in the transpilers.)
 - [x] Remove Serverless normalization from `normalizeError`.
-- [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
-- [ ] Test casing.
-- [ ] Test `jsonEquivalent` field.
-- [ ] Test unknown types.
+- [x] Test unknown types.
 - [ ] Test that namespaces are sorted correctly.
 - [ ] Write a command for testing data types.
 
@@ -116,6 +113,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] JSONSchema titles and descriptions
 - [ ] Set up Azure Pipeline
 - [ ] Document Adjacency lists.
+- [ ] Document target requirements.
 
 ## Possible Future Features
 
@@ -133,3 +131,4 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Add information about error codes in `getPreqlInfo`.
 - [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
 - [ ] Handle support or non-support for Unicode Characters
+- [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.

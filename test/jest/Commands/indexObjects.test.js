@@ -122,4 +122,20 @@ describe("indexObjects", () => {
         ];
         expect(indexObjects(objects)).rejects.toThrow();
     });
+
+    test("Unknown objects do not cause errors", async () => {
+        const objects = [
+            {
+                apiVersion: "preql/1.0.0",
+                kind: "IntentionallyUnknownDataType",
+                metadata: {
+                    name: "unknown",
+                },
+                spec: {
+                    lol: "wut",
+                },
+            },
+        ];
+        expect(indexObjects(objects)).resolves.not.toThrow();
+    });
 });

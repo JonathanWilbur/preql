@@ -13,7 +13,7 @@ const APIObjectSchema = {
     properties: {
         apiVersion: {
             type: "string",
-            pattern: "^preql/(0|(?:[1-9]\\d*))\\.(0|(?:[1-9]\\d*))\\.(0|(?:[1-9]\\d*))$",
+            pattern: "^preql/1\\.(0|(?:[1-9]\\d*))\\.(0|(?:[1-9]\\d*))$",
         },
         kind: {
             type: "string",

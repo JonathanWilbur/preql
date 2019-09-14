@@ -1,4 +1,5 @@
 const validateObject = require("../../../dist/Commands/validateObject.js").default;
+const MAJOR_VERSION = require("../../../dist/version").MAJOR_VERSION;
 
 describe("validateObject", () => {
     const attribute = {
@@ -286,5 +287,22 @@ describe("validateObject", () => {
     };
     test("validation of a Collation", async () => {
         expect(await validateObject(collation)).toStrictEqual(true);
+    });
+
+    const unknownVersion = {
+        apiVersion: `preql/${MAJOR_VERSION + 1}.0.1`,
+        kind: "Collation",
+        metadata: {
+            name: "testeroo",
+        },
+        spec: {
+            name: "latin1csas",
+            targetEquivalents: {
+                mariadb: "latin_1_cs_as",
+            },
+        },
+    };
+    test("validation of an unknown version", () => {
+        expect(validateObject(unknownVersion)).rejects.toThrow();
     });
 });

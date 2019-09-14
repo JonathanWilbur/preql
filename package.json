@@ -1,65 +1,69 @@
 {
-  "bugs": {
-    "email": "jonathan@wilbur.space"
-  },
-  "contributors": [
-    {
-      "email": "jonathan@wilbur.space",
-      "name": "Jonathan M. Wilbur",
-      "url": "https://github.com/JonathanWilbur"
-    }
-  ],
-  "dependencies": {
-    "ajv": "^6.10.2",
-    "js-yaml": "^3.13.1",
-    "semver": "^6.3.0"
-  },
-  "description": "The core PreQL library.",
-  "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-typescript": "^7.6.0",
-    "@types/ajv": "^1.0.0",
-    "@types/aws-lambda": "^8.10.31",
-    "@types/js-yaml": "^3.12.1",
-    "@types/semver": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "eslint": "^5.16.0",
-    "jest": "^24.9.0",
-    "jest-junit": "^7.0.0",
-    "serverless": "^1.52.0",
-    "ts-loader": "^6.1.0",
-    "typescript": "^3.6.3",
-    "webpack": "^4.40.0",
-    "webpack-cli": "^3.3.8"
-  },
-  "directories": {
-    "doc": "documentation",
-    "test": "test"
-  },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "sql",
-    "ddl",
-    "schema",
-    "database",
-    "dbms",
-    "modeling"
-  ],
-  "license": "MIT",
-  "main": "./dist/index.js",
-  "name": "preql-core",
-  "scripts": {
-    "build": "npx tsc && npx webpack",
-    "clean": "rm -rf dist; mkdir -p dist",
-    "deploy-functions": "npx sls deploy",
-    "lint": "npx eslint --config .eslintrc.yml './source/**/*.ts' || true",
-    "remove-functions": "npx sls remove",
-    "test": "npx jest --ci --reporters=default --reporters=jest-junit"
-  },
-  "types": "./dist/index.d.ts",
-  "version": "1.0.0-w"
+    "bugs": {
+        "email": "jonathan@wilbur.space"
+    },
+    "contributors": [
+        {
+            "email": "jonathan@wilbur.space",
+            "name": "Jonathan M. Wilbur",
+            "url": "https://github.com/JonathanWilbur"
+        }
+    ],
+    "dependencies": {
+        "ajv": "^6.10.2",
+        "js-yaml": "^3.13.1",
+        "semver": "^6.3.0"
+    },
+    "description": "The core PreQL library.",
+    "devDependencies": {
+        "@babel/core": "^7.6.0",
+        "@babel/preset-env": "^7.6.0",
+        "@babel/preset-typescript": "^7.6.0",
+        "@types/ajv": "^1.0.0",
+        "@types/aws-lambda": "^8.10.31",
+        "@types/js-yaml": "^3.12.1",
+        "@types/semver": "^6.0.2",
+        "@typescript-eslint/eslint-plugin": "^1.13.0",
+        "@typescript-eslint/parser": "^1.13.0",
+        "eslint": "^5.16.0",
+        "jest": "^24.9.0",
+        "jest-junit": "^7.0.0",
+        "serverless": "^1.52.0",
+        "ts-loader": "^6.1.0",
+        "typescript": "^3.6.3",
+        "webpack": "^4.40.2",
+        "webpack-cli": "^3.3.8"
+    },
+    "directories": {
+        "doc": "documentation",
+        "test": "test"
+    },
+    "files": [
+        "dist/**/*"
+    ],
+    "keywords": [
+        "sql",
+        "ddl",
+        "schema",
+        "database",
+        "dbms",
+        "modeling"
+    ],
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "name": "preql-core",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/JonathanWilbur/preql"
+    },
+    "scripts": {
+        "build": "npx tsc && npx webpack",
+        "clean": "rm -rf dist; mkdir -p dist",
+        "deploy-functions": "npx sls deploy",
+        "lint": "npx eslint --config .eslintrc.yml './source/**/*.ts' || true",
+        "remove-functions": "npx sls remove",
+        "test": "npx jest --ci --reporters=default --reporters=jest-junit"
+    },
+    "types": "./dist/index.d.ts",
+    "version": "1.0.0-z"
 }

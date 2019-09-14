@@ -50,57 +50,7 @@ until I really release version 1.0.0. I will release version 1.0.0 when I have
 created transpilation libraries for MariaDB, OpenLDAP, and MongoDB; doing so
 will constitute a thorough testing of the library on a wide variety of DBMSs.
 
-## Prior to 1.0.0
-
-- [x] pathIndex (`fully.qualified.path`) (This must be unique.)
-- [x] Check for uniqueness across case as well!
-- [x] Ensure that text indexes are only applied to types where `jsonEquivalent` is `string`
-- [x] `get-indexed-columns` Serverless function
-- [x] Rename `keyColumns` and `includedColumns` to `keyAttributes` and `includedAttributes`
-- [x] ~~Add `minLength` and `maxLength` for strings?~~ (Got rid of `length` altogether.)
-- [x] Check for non-collision among `Attribute` and `ForeignKey`
-- [x] ~~Check for non-collision among index types.~~ (Already taken care of by `path` constraints.)
-- [x] Add `Enum` type?
-- [x] Document why `Set` and `Range` types will not be supported.
-- [x] ~~Make `matchingResource()` check within the database!~~
-- [x] Apply `prohibitedIdentifiers` to `Database`, `Struct`, `Entity`, etc.
-- [x] Make sure that there are _some_ attributes in Entry.spec.values
-- [x] Change occurrences of `apiObject` to `obj` or something more succinct or descriptive.
-- [x] Do something about potentially conflicting `Entity` and `Struct` paths.
-- [x] Do something about potentially conflicting `CharacterSet`, `Collation`, and `Database` paths?
-- [x] Use my own ESLint rules
-- [x] Set up GitHub Actions
-- [x] Configure testing with Jest
-- [x] Configure Webpack builds
-- [x] Review TODOs
-- [x] Organize all imports
-- [x] Test with transpilers
-  - [x] MariaDB
-  - [x] OpenLDAP
-  - [x] BSON Schema
-- [x] Append ID numbers to the paths of `Entry` types.
-- [x] Remove validation logic from `getServerURI()`.
-- [x] Test `getPath()` with objects with `entityName` set.
-- [x] Test more collisions in `indexObjects()`.
-  - [x] Especially `Entry`.
-- [x] Test indexes in `validateNamespace()`.
-- [x] Test `matchLabels()` a lot more.
-- [x] ~~Test Serverless functions.~~
-- [x] ~~Add an explanatory field for enum values?~~
-- [x] ~~Use a field in the target field to ignore regexes or setters~~
-- [x] Sparse Attribute / Index
-- [x] Entry: "layer" to help with hierarchical insertions.
-- [x] Test that index attributes from different databases or structs cannot be found.
-- [x] Add `objectIdentifierIndex` to `APIObjectDatabase`
-- [x] Add `distinguishedNameIndex` to `APIObjectDatabase`
-- [x] Add more restricted identifiers.
-- [x] ~~Ensure that the generated name of a multi-valued `Attribute` table will not conflict.~~ (This must be handled in the transpilers.)
-- [x] Remove Serverless normalization from `normalizeError`.
-- [x] Test unknown types.
-- [ ] Test that namespaces are sorted correctly.
-- [ ] Write a command for testing data types.
-
-## After 1.0.0
+## 1.0.0 Preview
 
 - [ ] JSDoc documentation on everything
   - [ ] Use types on `@param` and `@returns` directives.
@@ -117,18 +67,16 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 
 ## Possible Future Features
 
-- [ ] `apiVersion` checking.
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)
-- [ ] Can there only be one FKC between two tables? (I think there can be more, but this might need follow-up.)
 - [ ] `ReplicationSet` kind
 - [ ] `VirtualAttribute` kind
 - [ ] `Shard` kind
 - [ ] `Sequence` kind
 - [ ] `Event` kind
-- [ ] `HASH` setter, or something else for hashing
-  - This would be _really_ useful for secure password storage.
+- [ ] `HASH` setter, or something else for hashing. (This would be _really_ useful for secure password storage.)
 - [ ] `CONCAT` setter (Check if string begins or ends with something, and CONCAT if not present.)
-- [ ] Add information about error codes in `getPreqlInfo`.
+- [x] ~~Add information about error codes in `getPreqlInfo`.~~ I don't know how to do this.
 - [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
 - [ ] Handle support or non-support for Unicode Characters
 - [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
+- [ ] Write a command for testing data types.

@@ -9,5 +9,7 @@ export default interface APIObjectDatabase {
     readonly kindIndex: Record<string, APIObject[]>;
     readonly kindNameIndex: Record<string, APIObject>;
     readonly pathIndex: Record<string, APIObject>;
+    readonly objectIdentifierIndex: Record<string, APIObject>;
+    readonly distinguishedNameIndex: Record<string, APIObject>;
 }
 //# sourceMappingURL=APIObjectDatabase.d.ts.map

@@ -27,6 +27,8 @@ async function indexObjects(objects) {
             kindIndex: {},
             kindNameIndex: {},
             pathIndex: {},
+            objectIdentifierIndex: {},
+            distinguishedNameIndex: {},
         },
     };
     await Promise.all(objects.map(async (obj) => {
@@ -37,6 +39,8 @@ async function indexObjects(objects) {
                 kindIndex: {},
                 kindNameIndex: {},
                 pathIndex: {},
+                objectIdentifierIndex: {},
+                distinguishedNameIndex: {},
             };
         }
         const namespace = namespaces[namespaceName];
@@ -65,6 +69,20 @@ async function indexObjects(objects) {
             else {
                 namespace.pathIndex[path] = obj;
             }
+        }
+        if (obj.spec.objectIentifier) {
+            if (obj.spec.objectIentifier in namespace.objectIdentifierIndex) {
+                throw new PreqlError_1.default("2322cab3-ba58-4eb9-8838-bda90acb5181", `Duplicate object identifier ${obj.spec.objectIentifier} `
+                    + `in ${obj.kind} '${obj.metadata.name}'.`);
+            }
+            namespace.objectIdentifierIndex[obj.spec.objectIentifier] = obj;
+        }
+        if (obj.spec.distinguishedName) {
+            if (obj.spec.distinguishedName in namespace.distinguishedNameIndex) {
+                throw new PreqlError_1.default("2322cab3-ba58-4eb9-8838-bda90acb5181", `Duplicate distinguished name ${obj.spec.distinguishedName} `
+                    + `in ${obj.kind} '${obj.metadata.name}'.`);
+            }
+            namespace.distinguishedNameIndex[obj.spec.distinguishedName] = obj;
         }
     }));
     return namespaces;

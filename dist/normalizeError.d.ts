@@ -9,7 +9,9 @@
  *    descriptive `errors` array of error-like objects. This function appends
  *    the error messages from this array of errors to the end of the `message`
  *    field.
- * @param err The error to be normalized.
+ *
+ * @param err {Error} The error to be normalized.
+ * @returns {Error} The modified error.
  */
 export default function normalizeError(err: any): Error;
 //# sourceMappingURL=normalizeError.d.ts.map

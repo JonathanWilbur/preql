@@ -9,16 +9,12 @@
  *    descriptive `errors` array of error-like objects. This function appends
  *    the error messages from this array of errors to the end of the `message`
  *    field.
- * @param err The error to be normalized.
+ *
+ * @param err {Error} The error to be normalized.
+ * @returns {Error} The modified error.
  */
 export default
 function normalizeError (err: any): Error {
-    // See: https://github.com/serverless/serverless/issues/6267
-    if (!("stack" in err)) {
-        // eslint-disable-next-line no-param-reassign
-        err.stack = "";
-    }
-
     /*
         This is to make Ajv.ValidationError print errors in errorMessage when
         using Serverless Framework.

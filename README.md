@@ -95,7 +95,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Add `distinguishedNameIndex` to `APIObjectDatabase`
 - [x] Add more restricted identifiers.
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
-- [ ] Remove Serverless normalization from `normalizeError`.
+- [x] Remove Serverless normalization from `normalizeError`.
 - [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
 - [ ] Test casing.
 - [ ] Test `jsonEquivalent` field.

@@ -1,7 +1,7 @@
 const indexObjects = require("../../../dist/Commands/indexObjects.js").default;
 
 describe("indexObjects", () => {
-    test("metadata names are not permitted for matching types", async () => {
+    test("duplicated metadata names are not permitted for matching types", async () => {
         const objects = [
             {
                 apiVersion: "preql/1.0.0",
@@ -33,7 +33,39 @@ describe("indexObjects", () => {
         expect(indexObjects(objects)).rejects.toThrow();
     });
 
-    test("metadata names are permitted for non-matching types", async () => {
+    test("duplicated metadata names that differ in casing are not permitted for matching types", async () => {
+        const objects = [
+            {
+                apiVersion: "preql/1.0.0",
+                kind: "Attribute",
+                metadata: {
+                    name: "testeroo",
+                },
+                spec: {
+                    databaseName: "database",
+                    structName: "struct",
+                    name: "name",
+                    type: "sint8",
+                },
+            },
+            {
+                apiVersion: "preql/1.0.0",
+                kind: "Attribute",
+                metadata: {
+                    name: "Testeroo",
+                },
+                spec: {
+                    databaseName: "database",
+                    structName: "struct",
+                    name: "name",
+                    type: "sint8",
+                },
+            },
+        ];
+        expect(indexObjects(objects)).rejects.toThrow();
+    });
+
+    test("duplicated metadata names are permitted for non-matching types", async () => {
         const objects = [
             {
                 apiVersion: "preql/1.0.0",

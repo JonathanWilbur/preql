@@ -81,8 +81,32 @@ export default interface Attribute {
      * `Attribute`, which is primarily used by X.500 / LDAP directories.
      */
     objectIdentifier?: string;
+    /**
+     * The numeric-only dot-delimited object identifiers used in X.500
+     * directories for identifying how this data type should match against
+     * searched values, sorted in order of decreasing preference.
+     *
+     * Multiple may be provided so that the transpiler may fall back on
+     * several alternatives.
+     */
     matchingRules?: string[];
+    /**
+     * The numeric-only dot-delimited object identifiers used in X.500
+     * directories for identifying how results sorted on this data type
+     * ought to be ordered, sorted in order of decreasing preference.
+     *
+     * Multiple may be provided so that the transpiler may fall back on
+     * several alternatives.
+     */
     orderingRules?: string[];
+    /**
+     * The numeric-only dot-delimited object identifiers used in X.500
+     * directories for identifying how this data type should match against
+     * searched substring, sorted in order of decreasing preference.
+     *
+     * Multiple may be provided so that the transpiler may fall back on
+     * several alternatives.
+     */
     substringRules?: string[];
     /**
      * Other names that may be used to identify this `Attribute`, which are

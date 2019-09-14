@@ -2,7 +2,6 @@ import APIObject from "../Interfaces/APIObject";
 import APIObjectDatabase from "../Interfaces/APIObjectDatabase";
 import PreqlError from "../PreqlError";
 import getPath from "./getPath";
-// NOTE: You can just iterate over all keys in the kindIndex afterwards to display unrecognized kinds.
 
 /**
  * Creates indexed databases by namespace from a simple list of PreQL API

@@ -53,3 +53,10 @@ PreQL prohibits name collisions between `CharacterSet`, `Collation`, and
 `Database`. This was done mostly out of my convenience as a developer, but it
 has the benefit of simplicity. For that matter, it just seems unwise for
 a database to have the same identifier as a character set or collation.
+
+## Object Identifiers
+
+Object Identifiers shall always be numeric dot-delimited format. In other
+words, characters other than number or periods shall never appear in an
+object identifier used by PreQL. All object identifiers shall be absolute,
+not relative.

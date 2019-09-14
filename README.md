@@ -54,14 +54,12 @@ instructive.
   - [x] Figure out what to do about `@returns` when a `Promise` is returned.
 - [x] `README.md` documentation
 - [x] Examples.
-- [ ] JSONSchema titles and descriptions
 - [x] Document Adjacency lists.
-- [ ] Document target requirements.
-- [ ] Are object metadata names case sensitive?
-- [ ] Look for `REVIEW`, `FIXME`, and `NOTE`.
+- [x] Are object metadata names case sensitive?
+- [x] Look for `REVIEW`, `FIXME`, and `NOTE`.
 - [ ] Test that Entries do not throw when `nullable` or `default` attributes are not supplied.
-- [ ] Specify that all object identifiers should be dot-delimited and numeric.
-- [ ] Document what should happen with incompatibilities.
+- [x] Specify that all object identifiers should be dot-delimited and numeric.
+- [x] Document what should happen with incompatibilities.
 
 ## Possible Future Features
 
@@ -78,3 +76,5 @@ instructive.
 - [ ] Handle support or non-support for Unicode Characters
 - [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
 - [ ] Write a command for testing data types.
+- [ ] JSONSchema titles and descriptions
+- [ ] Document target requirements.

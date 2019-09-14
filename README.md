@@ -65,6 +65,10 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Document Adjacency lists.
 - [ ] Document target requirements.
 - [ ] Are object metadata names case sensitive?
+- [ ] Look for `REVIEW`, `FIXME`, and `NOTE`.
+- [ ] Test that Entries do not throw when `nullable` or `default` attributes are not supplied.
+- [ ] Specify that all object identifiers should be dot-delimited and numeric.
+- [ ] Document what should happen with incompatibilities.
 
 ## Possible Future Features
 

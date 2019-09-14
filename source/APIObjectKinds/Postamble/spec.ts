@@ -5,5 +5,10 @@
  */
 export default
 interface Spec {
+
+    /**
+     * The text to be commented out.
+     */
     uncommentedText: string;
+
 }

@@ -6,16 +6,24 @@
 
 ## What is PreQL?
 
-A Pre-SQL language that can transpile to any SQL dialect. It takes a declarative
-Kubernetes-like YAML schema and generates the necessary commands or statements
-in the correct order to generate schema and other database objects in the
-database dialect of your choice.
+A Pre-SQL language for schema that can transpile to any SQL dialect. It uses a
+declarative Kubernetes-like YAML schema and generates the necessary commands or
+statements in the correct order to generate schema and other database objects
+in the database dialect of your choice. It also enables you to label your
+schema and interact with it programmatically, which is harder to do with
+traditional DBMS-specific schema.
 
 ## Build
 
-Build by running `tsc` in the root directory.
+1. Clone the repository.
+2. Install the necessary components by running `npm install` in the root directory.
+3. Build by running `npm run build` in the root directory.
 
 ## Usage
+
+This library is not useful alone. It is meant to be included in other programs
+that transpile PreQL into DBMS-specific DDL. Generally speaking, such a program
+will want to do the following:
 
 1.  Call `validateObject` for each object. This just validates the object against schema.
 2.  Call `indexObjects` on the array of validated objects. This produces a
@@ -25,30 +33,17 @@ Build by running `tsc` in the root directory.
     constraints are satisfied across objects, and ensuring that `Attribute`s
     belong to a `Struct` that actually exists.
 
-## Develoment Status
+There are several functions provided by this library in `source/Commands` that
+are also exposed as Serverless functions that provide Core PreQL functionality.
 
-There will be three parts of PreQL:
+Most of the documentation of this library is in the form of JSDoc comments and
+the TypeScript types.
 
-1. The core PreQL library (this)
-2. The target-specific libraries (Such as MySQL, PostgreSQL, Transact-SQL, etc.)
-3. The command-line interface.
-
-All of these will be published as NPM packages. Each target-specific library will
-import the PreQL core library. The command-line interface will import both. The
-command-line interface will call exported functionality from the target-specific
-libraries to translate PreQL objects to the targeted language.
-
-The command-line interface will always pass a console-logging object that
-implements the `Logger` interface--and this might just be a plain old `console`.
-
-### Versioning
-
-Unfortunately, I moved this library into version 1.0.0-beta way too soon. I
-have made so many changes that I have had to increment it to version
-"1.0.0-charlie", and I expect the versions to continue to not make much sense
-until I really release version 1.0.0. I will release version 1.0.0 when I have
-created transpilation libraries for MariaDB, OpenLDAP, and MongoDB; doing so
-will constitute a thorough testing of the library on a wide variety of DBMSs.
+For documentation of the individual API Object kinds, drill into
+`source/APIObjectKinds`, where you will find JSON schema, TypeScript interfaces,
+and JSDoc comments. It may be quicker to view the test data at
+`test/data/kubey.yaml`. The many Jest tests in `test/jest` may also be
+instructive.
 
 ## 1.0.0 Preview
 
@@ -57,12 +52,10 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - [x] Use `@returns`
   - [x] Use `@see` where appropriate.
   - [x] Figure out what to do about `@returns` when a `Promise` is returned.
-- [ ] `README.md` documentation
-- [ ] Additional Markdown documentation
-- [ ] Examples.
+- [x] `README.md` documentation
+- [x] Examples.
 - [ ] JSONSchema titles and descriptions
-- [ ] Set up Azure Pipeline
-- [ ] Document Adjacency lists.
+- [x] Document Adjacency lists.
 - [ ] Document target requirements.
 - [ ] Are object metadata names case sensitive?
 - [ ] Look for `REVIEW`, `FIXME`, and `NOTE`.

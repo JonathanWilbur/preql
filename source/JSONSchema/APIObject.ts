@@ -12,15 +12,28 @@ const APIObjectSchema = {
     additionalProperties: false,
     properties: {
         apiVersion: {
+            title: "API Object Version",
+            description:
+                "A version identifier for API objects identifying the version "
+                + "of the PreQL API that should be used to process that "
+                + "object.",
             type: "string",
             pattern: "^preql/1\\.(0|(?:[1-9]\\d*))\\.(0|(?:[1-9]\\d*))$",
         },
         kind: {
+            title: "Kind",
+            description:
+                "An identifier of the type of the object, which can be "
+                + "thought of as the 'class' of the object.",
             type: "string",
             pattern: identifierRegexString,
         },
         metadata: APIObjectMetadataSchema,
         spec: {
+            title: "Spec",
+            description:
+                "The actual object's specification, the contents of which "
+                + "will vary based on the `kind` of the object.",
             type: "object",
             additionalProperties: {},
         },

@@ -64,6 +64,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] Set up Azure Pipeline
 - [ ] Document Adjacency lists.
 - [ ] Document target requirements.
+- [ ] Are object metadata names case sensitive?
 
 ## Possible Future Features
 

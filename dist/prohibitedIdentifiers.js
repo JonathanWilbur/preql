@@ -8,6 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const prohibitedIdentifiers = [
     "id",
+    "preql",
 ];
 exports.default = prohibitedIdentifiers;
 //# sourceMappingURL=prohibitedIdentifiers.js.map

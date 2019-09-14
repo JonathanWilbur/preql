@@ -93,7 +93,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Test that index attributes from different databases or structs cannot be found.
 - [x] Add `objectIdentifierIndex` to `APIObjectDatabase`
 - [x] Add `distinguishedNameIndex` to `APIObjectDatabase`
-- [ ] Add more restricted identifiers, such as `preql_logs`.
+- [x] Add more restricted identifiers.
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
 - [ ] Remove Serverless normalization from `normalizeError`.
 - [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.

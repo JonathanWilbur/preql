@@ -6,6 +6,7 @@
  */
 const prohibitedIdentifiers: string[] = [
     "id", // Reserved for use by RDBMSs.
+    "preql", // Reserved for a logs database, and possibly other things.
 ];
 
 export default prohibitedIdentifiers;

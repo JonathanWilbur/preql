@@ -41,11 +41,11 @@ declare const schema: {
             type: string;
             unicodePattern: string;
         };
-        length: {
-            type: string;
-            minimum: number;
-        };
         multiValued: {
+            type: string;
+            default: boolean;
+        };
+        sparse: {
             type: string;
             default: boolean;
         };

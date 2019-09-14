@@ -9,6 +9,7 @@ export default interface Spec {
     entityName?: string;
     databaseName: string;
     clustered: boolean;
+    sparse: boolean;
     keyAttributes: {
         name: string;
         ascending: boolean;

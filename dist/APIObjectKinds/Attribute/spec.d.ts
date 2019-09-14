@@ -12,8 +12,8 @@ export default interface Attribute {
     default?: number | string;
     nullable: boolean;
     type: string;
-    length?: number;
     multiValued: boolean;
+    sparse: boolean;
     characterSet?: string;
     collation?: string;
     objectIdentifier?: string;

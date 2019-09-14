@@ -85,8 +85,7 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
   - [x] Especially `Entry`.
 - [x] Test indexes in `validateNamespace()`.
 - [x] Test `matchLabels()` a lot more.
-- [ ] Test Serverless functions.
-- [ ] How to handle support or non-support for Unicode Characters
+- [x] ~~Test Serverless functions.~~
 - [x] ~~Add an explanatory field for enum values?~~
 - [ ] Use a field in the target field to ignore regexes or setters?
 - [ ] Sparse Attribute / Index
@@ -135,3 +134,4 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [ ] `CONCAT` setter (Check if string begins or ends with something, and CONCAT if not present.)
 - [ ] Add information about error codes in `getPreqlInfo`.
 - [ ] Add `Promise` resolution and rejection value documentation when [this issue](https://github.com/jsdoc/jsdoc/issues/1467) is closed.
+- [ ] Handle support or non-support for Unicode Characters

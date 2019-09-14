@@ -30,6 +30,10 @@ declare const schema: {
             type: string;
             default: boolean;
         };
+        sparse: {
+            type: string;
+            default: boolean;
+        };
         keyAttributes: {
             type: string;
             items: {

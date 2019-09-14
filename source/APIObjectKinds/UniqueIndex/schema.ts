@@ -29,13 +29,17 @@ const schema = {
             pattern: identifierRegexString,
         },
         // eslint-disable-next-line
-    // See: https://docs.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-2017
+        // See: https://docs.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-2017
         clustered: {
             type: "boolean",
             default: false,
         },
+        sparse: {
+            type: "boolean",
+            default: false,
+        },
         // eslint-disable-next-line
-    // See: https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-indexes-with-included-columns?view=sql-server-2017
+        // See: https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-indexes-with-included-columns?view=sql-server-2017
         keyAttributes: {
             type: "array",
             items: {

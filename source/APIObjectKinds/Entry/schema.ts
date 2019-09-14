@@ -24,6 +24,11 @@ const schema = {
             type: "number",
             minimum: 1,
         },
+        layer: {
+            type: "number",
+            minimum: 0,
+            default: 0,
+        },
         distinguishedName: {
             type: "string",
             // TODO: Obviously, more validation is needed than this.

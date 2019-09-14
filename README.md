@@ -89,21 +89,18 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] ~~Add an explanatory field for enum values?~~
 - [x] ~~Use a field in the target field to ignore regexes or setters~~
 - [x] Sparse Attribute / Index
-- [ ] Another benefit: unit-testing your schema with labels.exampleValue
-- [ ] Entry: "layer" to help with hierarchical insertions.
-- [ ] Website that generates documentation from the schema
-- [ ] Use lowercase more in standard types
+- [x] Entry: "layer" to help with hierarchical insertions.
+- [x] Test that index attributes from different databases or structs cannot be found.
+- [ ] Add `objectIdentifierIndex` to `APIObjectDatabase`
+- [ ] Add `distinguishedNameIndex` to `APIObjectDatabase`
 - [ ] Ensure that the generated name of a multi-valued `Attribute` table will not conflict.
 - [ ] Remove Serverless normalization from `normalizeError`.
+- [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
 - [ ] Test casing.
 - [ ] Test `jsonEquivalent` field.
 - [ ] Test unknown types.
-- [ ] Test more path collisions.
-- [ ] Add `objectIdentifierIndex` to `APIObjectDatabase`
-- [ ] Add `distinguishedNameIndex` to `APIObjectDatabase`
-- [ ] Errors indicating when you are passing in the wrong datatype for non-Typescript use.
-- [ ] Test that index attributes from different databases or structs cannot be found.
 - [ ] Test that namespaces are sorted correctly.
+- [ ] Write a command for testing data types.
 
 ## After 1.0.0
 

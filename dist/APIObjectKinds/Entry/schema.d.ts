@@ -22,6 +22,11 @@ declare const schema: {
             type: string;
             minimum: number;
         };
+        layer: {
+            type: string;
+            minimum: number;
+            default: number;
+        };
         distinguishedName: {
             type: string;
             unicodePattern: string;

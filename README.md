@@ -45,23 +45,6 @@ and JSDoc comments. It may be quicker to view the test data at
 `test/data/kubey.yaml`. The many Jest tests in `test/jest` may also be
 instructive.
 
-## 1.0.0 Preview
-
-- [x] JSDoc documentation on everything
-  - [x] Use types on `@param` and `@returns` directives.
-  - [x] Use `@returns`
-  - [x] Use `@see` where appropriate.
-  - [x] Figure out what to do about `@returns` when a `Promise` is returned.
-- [x] `README.md` documentation
-- [x] Examples.
-- [x] Document Adjacency lists.
-- [x] Are object metadata names case sensitive?
-- [x] Look for `REVIEW`, `FIXME`, and `NOTE`.
-- [x] Test that Entries do not throw when `nullable` or `default` attributes are not supplied.
-- [x] Specify that all object identifiers should be dot-delimited and numeric.
-- [x] Document what should happen with incompatibilities.
-- [x] Fix `Entry` by allowing supplying a `ForeignKey`.
-
 ## Possible Future Features
 
 - [ ] PreQL Log (In-database log of errors, warnings, etc.)

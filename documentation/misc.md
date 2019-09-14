@@ -56,41 +56,14 @@ no-op.
 
 ## Linking objects
 
-Use labels to link objects, but if a `matchSelector` exists, use that instead.
+Though it is customary in Kubernetes to use label selectors to link objects,
+PreQL does not do that, because modifying one object could have unexpected
+consequences for objects elsewhere.
 
-```yaml
-apiVersion: 1.0.0
-kind: Attribute
-metadata:
-  name: furColor
-  labels:
-    struct: bunnies
-spec:
-  ...
-```
-
-or
-
-```yaml
-apiVersion: 1.0.0
-kind: Attribute
-metadata:
-  name: furColor
-spec:
-  structSelector:
-    matchSelector:
-      key: struct
-      operator: in
-      values:
-        - bunnies
-```
-
-The former can be implemented first, then the latter can be introduced as a
-feature later on.
-
-Then again, it might not be wise to use selectors, because a change to one
-column could propagate to unexpected changes elsewhere. On the other hand,
-you could just say that the developer needs to be cautious.
+That's why `Attribute` has a `databaseName` and `structName` for explicitly
+selecting the database and struct for each. If a match selector were used,
+modifying one such attribute could modify multiple occurrences throughout
+the DBMS.
 
 ## Plural vs. Singular
 
@@ -143,114 +116,7 @@ JoinTypes:
 - outer
 - cross / cartesian
 
-## Data Types as an API Object Kind
-
-An example demonstrating regexes:
-
-```yaml
-apiVersion: preql/1.0.0
-kind: DataType
-metadata:
-  name: IPAddress
-spec:
-  regexes:
-    pcre:
-      ipv4: # Both of the below must match.
-        - pattern: '\d+\.\d+\.\d+\.\d+'
-          positive: True # If this matches, we have a match.
-        - pattern: '.*[a-zA-Z].*'
-          positive: False # If this matches, we do not have a match.
-      ipv6: # Or, this must match.
-        - pattern: '[0-9a-fA-F:]+'
-    tsql:
-      ipv4:
-        - pattern: '%hello%'
-  nativeTypeMap:
-    mysql: 'VARCHAR(32)'
-    tsql: 'VARCHAR(32)'
-```
-
-An example demonstrating length-switched returns and return templating.
-Should I break `return` into `return` and `returnTemplate`?
-
-```yaml
-apiVersion: preql/1.0.0
-kind: DataType
-metadata:
-  name: JPEGPhoto
-spec:
-  nativeTypeMap:
-    # mysql: 'VARBINARY(%L)'
-    tsql:
-      warnIfLengthIsGreaterThan: 12345
-      failIfLengthIsGreaterThan: 12346
-      return: 'VARBINARY(%L)'
-    ldap:
-      return: '1.2.3.4{%L}'
-    mariadb:
-      lengthSwitchedReturn:
-        1: 'BOOLEAN'
-        4: 'TINYBLOB'
-        8: 'TINYBLOB'
-        16: 'BLOB'
-        24: 'MEDIUMBLOB'
-        32: 'LONGBLOB' # Defaults to this, since its the largest number.
-        # Displays a warning if the length is greater than 32.
-```
-
-An example demonstrating check constraints:
-
-```yaml
-apiVersion: preql/1.0.0
-kind: DataType
-metadata:
-  name: Month
-spec:
-  nativeTypeMap:
-    mysql: 'TINYINT UNSIGNED'
-    tsql: 'TINYINT'
-  check:
-    mysql:
-      - '%n > 0'
-      - '%n < 13'
-```
-
-An example demonstrating triggers:
-
-```yaml
-apiVersion: preql/1.0.0
-kind: DataType
-metadata:
-  name: MACAddress
-spec:
-  nativeTypeMap:
-    mysql: 'CHAR(20)'
-    tsql: 'CHAR(20)'
-  triggers:
-    mysql:
-      - 'UPPER(%n)' # We want the alphabetic hex chars to be stored in uppercase.
-```
-
-Needed features:
-
-- Length bits %l
-- Length bytes %L
-- Bits of data that the length could indicate %b
-- Bytes of data that the length could indicate  %B
-- Decimal minimum %d
-- Decimal maximum %D
-- Attribute name %a
-- Struct name %s
-- Entity name %e
-- Database name %d
-- `integral` (Might be useful for permitting not-exactly-matching types in FKCs later on)
-- `real`
-- `string`
-- `binary`
-- Warning when lengths are too big.
-- Triggers
-
-Potential feature: sentitivity
+## Possible Future Data Governance Features
 
 ```yaml
 apiVersion: preql/1.0.0

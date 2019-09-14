@@ -161,7 +161,7 @@ objects:
     metadata:
       name: myself
       labels:
-        name: biggay
+        name: boi
     spec:
       databaseName: floofy
       structName: person

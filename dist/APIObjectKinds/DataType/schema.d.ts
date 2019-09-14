@@ -40,6 +40,18 @@ declare const schema: {
                         nativeType: {
                             type: string;
                         };
+                        ldapMatchingRule: {
+                            type: string;
+                        };
+                        ldapOrderingRule: {
+                            type: string;
+                        };
+                        ldapSubstringMatchingRule: {
+                            type: string;
+                        };
+                        sup: {
+                            type: string;
+                        };
                     };
                     required: string[];
                 };
@@ -86,6 +98,18 @@ declare const schema: {
                     type: string;
                     properties: {
                         nativeType: {
+                            type: string;
+                        };
+                        ldapMatchingRule: {
+                            type: string;
+                        };
+                        ldapOrderingRule: {
+                            type: string;
+                        };
+                        ldapSubstringMatchingRule: {
+                            type: string;
+                        };
+                        sup: {
                             type: string;
                         };
                     };

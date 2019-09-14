@@ -12,6 +12,27 @@ const targetsMapSchema = {
             nativeType: {
                 type: "string",
             },
+            // ignoreRegexes: {
+            //     type: "boolean",
+            //     default: false,
+            // },
+            // ignoreSetters: {
+            //     type: "boolean",
+            //     default: false,
+            // },
+            ldapMatchingRule: {
+                type: "string",
+            },
+            ldapOrderingRule: {
+                type: "string",
+            },
+            ldapSubstringMatchingRule: {
+                type: "string",
+            },
+            // See: http://www.openldap.org/doc/admin22/schema.html
+            sup: {
+                type: "string",
+            },
         },
         required: [
             "nativeType",

@@ -87,8 +87,8 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 - [x] Test `matchLabels()` a lot more.
 - [x] ~~Test Serverless functions.~~
 - [x] ~~Add an explanatory field for enum values?~~
-- [ ] Use a field in the target field to ignore regexes or setters?
-- [ ] Sparse Attribute / Index
+- [x] ~~Use a field in the target field to ignore regexes or setters~~
+- [x] Sparse Attribute / Index
 - [ ] Another benefit: unit-testing your schema with labels.exampleValue
 - [ ] Entry: "layer" to help with hierarchical insertions.
 - [ ] Website that generates documentation from the schema

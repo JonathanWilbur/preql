@@ -75,6 +75,8 @@ interface EnumSpec {
 interface TargetMap {
     [ targetName: string ]: {
         nativeType: string;
+        // ignoreRegexes: boolean;
+        // ignoreSetters: boolean;
         ldapMatchingRule?: string;
         ldapOrderingRule?: string;
         ldapSubstringMatchingRule?: string;

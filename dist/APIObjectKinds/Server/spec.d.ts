@@ -35,6 +35,8 @@ export default interface Spec {
     characterSet?: string;
     /**
      * The collation of the server.
+     *
+     * @see /source/APIObjectKinds/Collation/kind
      */
     collation?: string;
     /**

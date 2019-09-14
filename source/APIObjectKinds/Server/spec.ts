@@ -44,6 +44,8 @@ interface Spec {
 
     /**
      * The collation of the server.
+     *
+     * @see /source/APIObjectKinds/Collation/kind
      */
     collation?: string;
 

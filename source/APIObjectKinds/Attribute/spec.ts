@@ -19,18 +19,24 @@ interface Attribute {
     /**
      * The DBMS-friendly name of the `Struct` to which this `Attribute`
      * is attached.
+     *
+     * @see /source/APIObjectKinds/Struct/kind
      */
     structName: string;
 
     /**
      * The DBMS-friendly name of the `Entity` to which this `Attribute`
      * is attached.
+     *
+     * @see /source/APIObjectKinds/Entity/kind
      */
     entityName?: string;
 
     /**
      * The DBMS-friendly name of the `Database` to which this `Attribute`
      * is attached.
+     *
+     * @see /source/APIObjectKinds/Database/kind
      */
     databaseName: string;
 
@@ -70,6 +76,8 @@ interface Attribute {
      * The DBMS-friendly name of the character set that should be used to
      * encode this `Attribute`. This should only be present when the
      * `Attribute` is of a string-like type.
+     *
+     * @see /source/APIObjectKinds/CharacterSet/kind
      */
     characterSet?: string;
 
@@ -77,6 +85,8 @@ interface Attribute {
      * The DBMS-friendly name of the collation that should be used to
      * sort this `Attribute`. This should only be present when the
      * `Attribute` is of a string-like type.
+     *
+     * @see /source/APIObjectKinds/Collation/kind
      */
     collation?: string;
 

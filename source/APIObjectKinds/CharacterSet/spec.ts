@@ -22,18 +22,24 @@ interface CharacterSet {
     /**
      * The ISO 3166 Two-Letter Alphabetic Country Code of the country that is
      * associated with this character set.
+     *
+     * @see https://www.iso.org/iso-3166-country-codes.html.
      */
     country?: string;
 
     /**
      * The ISO 639 Two-Letter Alphabetic Language Code of the language that is
      * associated with this character set.
+     *
+     * @see https://www.iso.org/iso-639-language-codes.html.
      */
     language?: string;
 
     /**
      * The default `Collation` to use with this `CharacterSet` if one is not
      * specified.
+     *
+     * @see /source/APIObjectKinds/Collation/kind
      */
     defaultCollation?: string;
 

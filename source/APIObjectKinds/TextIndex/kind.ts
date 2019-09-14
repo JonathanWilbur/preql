@@ -45,7 +45,7 @@ const kind: APIObjectKind = {
         }
 
         obj.spec.keyAttributes
-            .map((attr: { name: string, ascending: boolean }): string => (
+            .map((attr: { name: string; ascending: boolean }): string => (
                 `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
             ))
             .forEach((path: string): void => {
@@ -74,12 +74,11 @@ const kind: APIObjectKind = {
                         + "as determined by the DataType's `jsonEquivalent` property.",
                     );
                 }
-            })
-            ;
+            });
 
         if (obj.spec.includedAttributes) {
             obj.spec.includedAttributes
-                .map((attr: { name: string, ascending: boolean }): string => (
+                .map((attr: { name: string; ascending: boolean }): string => (
                     `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
                 ))
                 .forEach((path: string): void => {
@@ -108,8 +107,7 @@ const kind: APIObjectKind = {
                             + "as determined by the DataType's `jsonEquivalent` property.",
                         );
                     }
-                })
-                ;
+                });
         }
     },
 };

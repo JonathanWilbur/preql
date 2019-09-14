@@ -9,7 +9,7 @@ import APIObject from "../Interfaces/APIObject";
  * entirely.
  *
  * @param obj {APIObject} The object whose path is to be obtained.
- * @returns The path of the object, or `undefined` if not path is applicable.
+ * @returns {Promise} A promise resolving to the path of the object, or `undefined` if not path is applicable.
  */
 export default async function
 getPath (obj: APIObject): Promise<string | undefined> {

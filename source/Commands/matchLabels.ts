@@ -18,7 +18,7 @@ import APIObject from "../Interfaces/APIObject";
  *
  * @param labels {object} The labels to match.
  * @param obj {APIObject} The object to be evaluated for a match.
- * @returns {object} An object whose attributes detail the nature or extent of the matching.
+ * @returns {Promise} A promised object whose attributes detail the nature or extent of the matching.
  */
 export default
 async function matchLabels (labels: { [name: string]: string }, obj: APIObject): Promise<{

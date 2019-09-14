@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * entirely.
  *
  * @param obj {APIObject} The object whose path is to be obtained.
- * @returns The path of the object, or `undefined` if not path is applicable.
+ * @returns {Promise} A promise resolving to the path of the object, or `undefined` if not path is applicable.
  */
 async function getPath(obj) {
     if (!obj || !obj.spec || typeof obj.spec !== "object")

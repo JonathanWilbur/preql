@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Returns the `Entry` objects from a `namespace` as a JSON array.
- * @param namespace The namespace from whence to retrieve entries.
- * @returns An object whose `entries` field is an array of the `Entry` objects from the `namespace`.
+ *
+ * @param namespace {APIObjectDatabase} The namespace from whence to retrieve entries.
+ * @returns {Promise} A promised object whose `entries` field is an array of the `Entry` objects from the `namespace`.
  */
 async function getEntries(namespace) {
     const entries = namespace.kindIndex.entry;

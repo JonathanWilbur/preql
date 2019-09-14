@@ -6,14 +6,20 @@
 export default interface Spec {
     /**
      * The DBMS-friendly name of the `Database` in which this belongs.
+     *
+     * @see /source/APIObjectKinds/Database/kind
      */
     databaseName: string;
     /**
      * The DBMS-friendly name of the `Struct` to which this should "point."
+     *
+     * @see /source/APIObjectKinds/Struct/kind
      */
     parentStructName: string;
     /**
      * The DBMS-friendly name of the `Struct` in which this should exist.
+     *
+     * @see /source/APIObjectKinds/Struct/kind
      */
     childStructName: string;
     /**
@@ -33,7 +39,8 @@ export default interface Spec {
      */
     onUpdateAction: string;
     /**
-     * The ITU X.660 Object Identifier of this `ForeignKey`.
+     * The [ITU X.660](https://www.itu.int/rec/T-REC-X.660/en) Object
+     * Identifier of this `ForeignKey`.
      */
     objectIdentifier?: string;
     /**

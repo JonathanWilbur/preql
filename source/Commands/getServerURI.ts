@@ -6,7 +6,7 @@ import APIObject from "../Interfaces/APIObject";
  * for that database server.
  *
  * @param obj {APIObject} The object from whence to create the URI.
- * @returns {object} An object whose `uri` field is a string containing the URI of the server.
+ * @returns {Promise} A promised object whose `uri` field is a string containing the URI of the server.
  */
 export default
 async function getServerURI (obj: APIObject<Spec>): Promise<{ uri: string }> {

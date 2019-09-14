@@ -18,11 +18,15 @@ export default interface Collation {
     /**
      * The ISO 3166 Two-Letter Alphabetic Country Code of the country that is
      * associated with this collation.
+     *
+     * @see https://www.iso.org/iso-3166-country-codes.html
      */
     country?: string;
     /**
      * The ISO 639 Two-Letter Alphabetic Language Code of the language that is
      * associated with this collation.
+     *
+     * @see https://www.iso.org/iso-639-language-codes.html.
      */
     language?: string;
     /**
@@ -52,6 +56,8 @@ export default interface Collation {
     /**
      * The DBMS-friendly name of the CharacterSet that is primarily associated
      * with this collation.
+     *
+     * @see /source/APIObjectKinds/CharacterSet/kind
      */
     characterSet?: string;
 }

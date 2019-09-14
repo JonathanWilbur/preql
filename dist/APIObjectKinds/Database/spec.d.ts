@@ -11,11 +11,15 @@ export default interface Spec {
     /**
      * The DBMS-friendly name of the default `CharacterSet` to use for objects
      * in this `Database`.
+     *
+     * @see /source/APIObjectKinds/CharacterSet/kind
      */
     characterSet?: string;
     /**
      * The DBMS-friendly name of the default `Collation` to use for objects
      * in this `Database`.
+     *
+     * @see /source/APIObjectKinds/Collation/kind
      */
     collation?: string;
     /**

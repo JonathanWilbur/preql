@@ -18,7 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *
  * @param labels {object} The labels to match.
  * @param obj {APIObject} The object to be evaluated for a match.
- * @returns {object} An object whose attributes detail the nature or extent of the matching.
+ * @returns {Promise} A promised object whose attributes detail the nature or extent of the matching.
  */
 async function matchLabels(labels, obj) {
     const result = {

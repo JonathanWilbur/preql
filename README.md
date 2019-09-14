@@ -52,11 +52,11 @@ will constitute a thorough testing of the library on a wide variety of DBMSs.
 
 ## 1.0.0 Preview
 
-- [ ] JSDoc documentation on everything
-  - [ ] Use types on `@param` and `@returns` directives.
-  - [ ] Use `@returns`
-  - [ ] Use `@see` where appropriate.
-  - [ ] Figure out what to do about `@returns` when a `Promise` is returned.
+- [x] JSDoc documentation on everything
+  - [x] Use types on `@param` and `@returns` directives.
+  - [x] Use `@returns`
+  - [x] Use `@see` where appropriate.
+  - [x] Figure out what to do about `@returns` when a `Promise` is returned.
 - [ ] `README.md` documentation
 - [ ] Additional Markdown documentation
 - [ ] Examples.

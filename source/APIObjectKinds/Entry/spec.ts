@@ -8,12 +8,16 @@ interface Spec {
 
     /**
      * The DBMS-friendly name of the `Database` where this `Entry` should be.
+     *
+     * @see /source/APIObjectKinds/Database/kind
      */
     databaseName: string;
 
     /**
      * The DBMS-friendly name of the `Struct` into which this `Entry` shall be
      * inserted.
+     *
+     * @see /source/APIObjectKinds/Struct/kind
      */
     structName: string;
 

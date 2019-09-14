@@ -40,7 +40,7 @@ async function validateIndex (obj: APIObject, etcd: APIObjectDatabase): Promise<
     }
 
     obj.spec.keyAttributes
-        .map((attr: { name: string, ascending: boolean }): string => (
+        .map((attr: { name: string; ascending: boolean }): string => (
             `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
         ))
         .forEach((path: string): void => {
@@ -51,23 +51,21 @@ async function validateIndex (obj: APIObject, etcd: APIObjectDatabase): Promise<
                     + `'${obj.metadata.name}' to index.`,
                 );
             }
-        })
-        ;
+        });
 
     if (obj.spec.includedAttributes) {
         obj.spec.includedAttributes
-        .map((attr: { name: string, ascending: boolean }): string => (
-            `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
-        ))
-        .forEach((path: string): void => {
-            if (!(path in etcd.pathIndex)) {
-                throw new PreqlError(
-                    "8bcaffd3-b64c-44dc-96c6-4a6fc3dacfce",
-                    `Attribute with path '${path}' not found for ${obj.kind} `
-                    + `'${obj.metadata.name}' to include.`,
-                );
-            }
-        })
-        ;
+            .map((attr: { name: string; ascending: boolean }): string => (
+                `${obj.spec.databaseName}.${obj.spec.structName}.${attr.name}`.toLowerCase()
+            ))
+            .forEach((path: string): void => {
+                if (!(path in etcd.pathIndex)) {
+                    throw new PreqlError(
+                        "8bcaffd3-b64c-44dc-96c6-4a6fc3dacfce",
+                        `Attribute with path '${path}' not found for ${obj.kind} `
+                        + `'${obj.metadata.name}' to include.`,
+                    );
+                }
+            });
     }
 }

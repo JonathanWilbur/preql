@@ -22,7 +22,7 @@ interface Tree {
  * penultimate nodes are namespaces and whose leaf nodes are `Attribute`s.
  *
  * @param namespaces {Record<string, APIObjectDatabase>} The namespaces from whence to build the tree.
- * @returns {Tree} A hierarchical representation of each namespace.
+ * @returns {Promise} A promised hierarchical representation of each namespace.
  */
 export default
 async function getTree (namespaces: Record<string, APIObjectDatabase>): Promise<Tree> {

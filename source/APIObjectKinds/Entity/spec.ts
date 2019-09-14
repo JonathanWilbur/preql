@@ -19,6 +19,8 @@ interface Spec {
     /**
      * The DBMS-friendly name of the `Database` with which this `Entity` should
      * be associated.
+     *
+     * @see /source/APIObjectKinds/Database/kind
      */
     databaseName: string;
 

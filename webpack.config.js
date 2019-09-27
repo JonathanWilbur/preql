@@ -10,7 +10,7 @@ module.exports = {
         library: "preql",
         libraryTarget: "var",
     },
-    mode: "development",
+    mode: "production",
     module: {
         rules: [
             {

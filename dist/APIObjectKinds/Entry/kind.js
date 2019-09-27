@@ -33,9 +33,14 @@ const kind = {
             throw new PreqlError_1.default("60c92bba-e86a-4654-b767-a108b19a3425", `Entry ${obj.metadata.name} must have at least one attribute `
                 + "in the `.spec.values` object.");
         }
-        Object.keys(obj.spec.values)
-            .map((key) => key.toLowerCase())
-            .forEach((key) => {
+        Object.entries(obj.spec.values)
+            .map((kv) => {
+            kv[0] = kv[0].toLowerCase();
+            return kv;
+        })
+            .forEach((kv) => {
+            const key = kv[0];
+            const value = kv[1];
             // Check that an attribute with that name exists.
             const matchingAttribute = structAttributes[key];
             if (!matchingAttribute) {
@@ -52,14 +57,14 @@ const kind = {
                 throw new PreqlError_1.default("8f5ddbcc-2740-4617-985a-fa2ce339bef8", "Unrecognized data type "
                     + `'${"type" in matchingAttribute.spec ? matchingAttribute.spec.type : ""}'.`);
             }
-            const valueType = typeof obj.spec.values[key];
+            const valueType = typeof value;
             const attributeJSONType = datatype.spec.jsonEquivalent.toLowerCase();
             if (attributeJSONType === "integer") {
                 if (valueType !== "number") {
                     throw new Error(`Type used in Attribute '${key}' in Entry '${obj.metadata.name}' `
                         + "is not an integer, which is the legitimate type of that attribute.");
                 }
-                if (!(Number.isSafeInteger(obj.spec.values[key]))) {
+                if (!(Number.isSafeInteger(value))) {
                     throw new PreqlError_1.default("2a22429e-8bd4-4f06-b01d-c114581fc922", `Number used in Attribute '${key}' in Entry '${obj.metadata.name}' `
                         + "is either too big or small to be safely used as an integer.");
                 }
@@ -79,10 +84,10 @@ const kind = {
                         .every((re) => {
                         const regex = new RegExp(re[1].pattern, "u");
                         if (re[1].positive) { // Make sure it matches.
-                            return regex.test(obj.spec.values[key]);
+                            return regex.test(value);
                         }
                         // Or, make sure it doesn't match.
-                        return !regex.test(obj.spec.values[key]);
+                        return !regex.test(value);
                     });
                 });
                 if (!match) {
@@ -92,14 +97,14 @@ const kind = {
             }
             // Check minimums and maximums
             if (valueType === "number") {
-                if (datatype.spec.minimum && obj.spec.values[key] < datatype.spec.minimum) {
+                if (datatype.spec.minimum && value < datatype.spec.minimum) {
                     throw new PreqlError_1.default("b9d92500-6ac6-4a4f-80d6-dc63de8a1643", `Value of '${key}' for Entry '${obj.metadata.name}' was `
-                        + `${obj.spec.values[key]}, but the permissible minimum for `
+                        + `${value}, but the permissible minimum for `
                         + `the data type '${datatype.metadata.name}' is ${datatype.spec.minimum}.`);
                 }
-                if (datatype.spec.maximum && obj.spec.values[key] > datatype.spec.maximum) {
+                if (datatype.spec.maximum && value > datatype.spec.maximum) {
                     throw new PreqlError_1.default("15327242-05eb-4cd0-ab78-47f2525bc5b8", `Value of '${key}' for Entry '${obj.metadata.name}' was `
-                        + `${obj.spec.values[key]}, but the permissible maximum for `
+                        + `${value}, but the permissible maximum for `
                         + `the data type '${datatype.metadata.name}' is ${datatype.spec.maximum}.`);
                 }
             }

@@ -47,9 +47,14 @@ const kind: APIObjectKind = {
             );
         }
 
-        Object.keys(obj.spec.values)
-            .map((key: string): string => key.toLowerCase())
-            .forEach((key: string): void => {
+        Object.entries(obj.spec.values)
+            .map((kv: [string, any]): [string, any] => {
+                kv[0] = kv[0].toLowerCase();
+                return kv;
+            })
+            .forEach((kv: [string, any]): void => {
+                const key: string = kv[0];
+                const value: any = kv[1];
                 // Check that an attribute with that name exists.
                 const matchingAttribute: APIObject<AttributeSpec | ForeignKeySpec> = structAttributes[key];
                 if (!matchingAttribute) {
@@ -73,7 +78,7 @@ const kind: APIObjectKind = {
                         + `'${"type" in matchingAttribute.spec ? matchingAttribute.spec.type : ""}'.`,
                     );
                 }
-                const valueType: string = typeof obj.spec.values[key];
+                const valueType: string = typeof value;
                 const attributeJSONType: string = datatype.spec.jsonEquivalent.toLowerCase();
                 if (attributeJSONType === "integer") {
                     if (valueType !== "number") {
@@ -82,7 +87,7 @@ const kind: APIObjectKind = {
                             + "is not an integer, which is the legitimate type of that attribute.",
                         );
                     }
-                    if (!(Number.isSafeInteger(obj.spec.values[key] as number))) {
+                    if (!(Number.isSafeInteger(value as number))) {
                         throw new PreqlError(
                             "2a22429e-8bd4-4f06-b01d-c114581fc922",
                             `Number used in Attribute '${key}' in Entry '${obj.metadata.name}' `
@@ -107,10 +112,10 @@ const kind: APIObjectKind = {
                                 .every((re): boolean => {
                                     const regex: RegExp = new RegExp(re[1].pattern, "u");
                                     if (re[1].positive) { // Make sure it matches.
-                                        return regex.test(obj.spec.values[key] as string);
+                                        return regex.test(value as string);
                                     }
                                     // Or, make sure it doesn't match.
-                                    return !regex.test(obj.spec.values[key] as string);
+                                    return !regex.test(value as string);
                                 });
                         });
                     if (!match) {
@@ -124,19 +129,19 @@ const kind: APIObjectKind = {
 
                 // Check minimums and maximums
                 if (valueType === "number") {
-                    if (datatype.spec.minimum && obj.spec.values[key] < datatype.spec.minimum) {
+                    if (datatype.spec.minimum && value < datatype.spec.minimum) {
                         throw new PreqlError(
                             "b9d92500-6ac6-4a4f-80d6-dc63de8a1643",
                             `Value of '${key}' for Entry '${obj.metadata.name}' was `
-                            + `${obj.spec.values[key]}, but the permissible minimum for `
+                            + `${value}, but the permissible minimum for `
                             + `the data type '${datatype.metadata.name}' is ${datatype.spec.minimum}.`,
                         );
                     }
-                    if (datatype.spec.maximum && obj.spec.values[key] > datatype.spec.maximum) {
+                    if (datatype.spec.maximum && value > datatype.spec.maximum) {
                         throw new PreqlError(
                             "15327242-05eb-4cd0-ab78-47f2525bc5b8",
                             `Value of '${key}' for Entry '${obj.metadata.name}' was `
-                            + `${obj.spec.values[key]}, but the permissible maximum for `
+                            + `${value}, but the permissible maximum for `
                             + `the data type '${datatype.metadata.name}' is ${datatype.spec.maximum}.`,
                         );
                     }

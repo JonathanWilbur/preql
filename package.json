@@ -16,11 +16,11 @@
     },
     "description": "The core PreQL library.",
     "devDependencies": {
-        "@babel/core": "^7.6.0",
-        "@babel/preset-env": "^7.6.0",
+        "@babel/core": "^7.6.2",
+        "@babel/preset-env": "^7.6.2",
         "@babel/preset-typescript": "^7.6.0",
         "@types/ajv": "^1.0.0",
-        "@types/aws-lambda": "^8.10.31",
+        "@types/aws-lambda": "^8.10.33",
         "@types/js-yaml": "^3.12.1",
         "@types/semver": "^6.0.2",
         "@typescript-eslint/eslint-plugin": "^1.13.0",
@@ -28,11 +28,11 @@
         "eslint": "^5.16.0",
         "jest": "^24.9.0",
         "jest-junit": "^7.0.0",
-        "serverless": "^1.52.0",
-        "ts-loader": "^6.1.0",
+        "serverless": "^1.53.0",
+        "ts-loader": "^6.1.2",
         "typescript": "^3.6.3",
-        "webpack": "^4.40.2",
-        "webpack-cli": "^3.3.8"
+        "webpack": "^4.41.0",
+        "webpack-cli": "^3.3.9"
     },
     "directories": {
         "doc": "documentation",
@@ -65,5 +65,5 @@
         "test": "npx jest --ci --reporters=default --reporters=jest-junit"
     },
     "types": "./dist/index.d.ts",
-    "version": "1.0.0"
+    "version": "1.0.1"
 }

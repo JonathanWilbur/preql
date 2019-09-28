@@ -62,3 +62,6 @@ instructive.
 - [ ] Write a command for testing data types.
 - [ ] JSONSchema titles and descriptions
 - [ ] Document target requirements.
+- [ ] Breaking changes
+  - [ ] Git rid of `Preamble` and `Postamble`?
+  - [ ] Use `urn:uuid:<uuid>` error codes instead of just UUIDs.

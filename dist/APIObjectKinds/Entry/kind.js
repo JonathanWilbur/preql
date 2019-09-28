@@ -109,14 +109,14 @@ const kind = {
                 }
             }
         });
-        const usedAttributes = Object.keys(obj.spec.values).map((k) => k.toLowerCase());
+        const usedAttributes = new Set(Object.keys(obj.spec.values).map((k) => k.toLowerCase()));
         Object.values(structAttributes)
             .forEach((attr) => {
             // The JSON Schema default directive does not work here.
             // I suspect it is because of this: https://www.npmjs.com/package/ajv#assigning-defaults.
             if (typeof attr.spec.nullable === "boolean"
                 && attr.spec.nullable === false
-                && !(attr.spec.name.toLowerCase() in usedAttributes)) {
+                && !(usedAttributes.has(attr.spec.name.toLowerCase()))) {
                 const structName = "structName" in attr.spec
                     ? attr.spec.structName
                     : attr.spec.childStructName;

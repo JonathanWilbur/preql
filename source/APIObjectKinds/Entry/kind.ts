@@ -148,7 +148,9 @@ const kind: APIObjectKind = {
                 }
             });
 
-        const usedAttributes = Object.keys(obj.spec.values).map((k: string): string => k.toLowerCase());
+        const usedAttributes: Set<string> = new Set<string>(
+            Object.keys(obj.spec.values).map((k: string): string => k.toLowerCase())
+        );
         Object.values(structAttributes)
             .forEach((attr: APIObject<AttributeSpec | ForeignKeySpec>): void => {
                 // The JSON Schema default directive does not work here.
@@ -156,7 +158,7 @@ const kind: APIObjectKind = {
                 if (
                     typeof attr.spec.nullable === "boolean"
                     && attr.spec.nullable === false
-                    && !(attr.spec.name.toLowerCase() in usedAttributes)
+                    && !(usedAttributes.has(attr.spec.name.toLowerCase()))
                 ) {
                     const structName = "structName" in attr.spec
                         ? attr.spec.structName

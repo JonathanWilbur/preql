@@ -18,9 +18,9 @@ const structureValidator = ajv.compile(APIObjectSchema);
  */
 export default
 async function validateObject (obj: APIObject): Promise<boolean> {
+    await structureValidator(obj);
     const kind: APIObjectKind | undefined = kinds[obj.kind.toLowerCase()];
     if (!kind) return Promise.resolve(false);
-    await structureValidator(obj);
     try {
         await kind.validateStructure(obj);
     } catch (err) {

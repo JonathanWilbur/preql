@@ -18,10 +18,10 @@ const structureValidator = ajv_1.default.compile(APIObject_1.default);
  * @returns {Promise} A promise resolving a boolean indicating whether the `spec` field was validated.
  */
 async function validateObject(obj) {
+    await structureValidator(obj);
     const kind = APIObjectKinds_1.default[obj.kind.toLowerCase()];
     if (!kind)
         return Promise.resolve(false);
-    await structureValidator(obj);
     try {
         await kind.validateStructure(obj);
     }

@@ -18,7 +18,13 @@ const structureValidator = ajv_1.default.compile(APIObject_1.default);
  * @returns {Promise} A promise resolving a boolean indicating whether the `spec` field was validated.
  */
 async function validateObject(obj) {
-    await structureValidator(obj);
+    try {
+        await structureValidator(obj);
+    }
+    catch (err) {
+        throw new PreqlError_1.default("26f92982-d600-4ef4-83c5-f9271c895303", `An object failed structural `
+            + `validation. ${err.message} ${(err.errors || []).map((e) => e.message).join("; ")}`);
+    }
     const kind = APIObjectKinds_1.default[obj.kind.toLowerCase()];
     if (!kind)
         return Promise.resolve(false);

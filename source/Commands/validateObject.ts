@@ -18,7 +18,15 @@ const structureValidator = ajv.compile(APIObjectSchema);
  */
 export default
 async function validateObject (obj: APIObject): Promise<boolean> {
+    try {
     await structureValidator(obj);
+    } catch (err) {
+        throw new PreqlError(
+            "26f92982-d600-4ef4-83c5-f9271c895303",
+            `An object failed structural `
+            + `validation. ${err.message} ${(err.errors || []).map((e: any): string => e.message).join("; ")}`,
+        );
+    }
     const kind: APIObjectKind | undefined = kinds[obj.kind.toLowerCase()];
     if (!kind) return Promise.resolve(false);
     try {
